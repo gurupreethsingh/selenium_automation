@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  <meta charset='utf-8'>
+  <title>TestNG reports</title>
+
+    <link type="text/css" href="testng-reports1.css" rel="stylesheet" id="ultra" />
+    <link type="text/css" href="testng-reports.css" rel="stylesheet" id="retro" disabled="false"/>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="testng-reports.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['table']});
+      google.setOnLoadCallback(drawTable);
+      var suiteTableInitFunctions = new Array();
+      var suiteTableData = new Array();
+    </script>
+    <!--
+      <script type="text/javascript" src="jquery-ui/js/jquery-ui-1.8.16.custom.min.js"></script>
+     -->
+  </head>
+
+  <body>    <div class="top-banner-root">
+      <span class="top-banner-title-font">Test results</span>
+      <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
+      <br/>
+      <span class="top-banner-font-1">1 suite, 2 failed tests</span>
+    </div> <!-- top-banner-root -->
+    <div class="navigator-root">
+      <div class="navigator-suite-header">
+        <span>All suites</span>
+        <a href="#" title="Collapse/expand all the suites" class="collapse-all-link">
+          <img src="collapseall.gif" class="collapse-all-icon">
+          </img> <!-- collapse-all-icon -->
+        </a> <!-- collapse-all-link -->
+      </div> <!-- navigator-suite-header -->
+      <div class="suite">
+        <div class="rounded-window">
+          <div class="suite-header light-rounded-window-top">
+            <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" class="navigator-link">
+              <span class="suite-name border-failed">Ecommerce Parallel Testing Suite</span>
+            </a> <!-- navigator-link -->
+          </div> <!-- suite-header light-rounded-window-top -->
+          <div class="navigator-suite-content">
+            <div class="suite-section-title">
+              <span>Info</span>
+            </div> <!-- suite-section-title -->
+            <div class="suite-section-content">
+              <ul>
+                <li>
+                  <a href="#" panel-name="test-xml-Ecommerce_Parallel_Testing_Suite" class="navigator-link ">
+                    <span>E:\mern_stack_applications\project_management_tool_jira\ecommese_parallel_testing_shilpa\parallel_testing.xml</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="testlist-Ecommerce_Parallel_Testing_Suite" class="navigator-link ">
+                    <span class="test-stats">3 tests</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="group-Ecommerce_Parallel_Testing_Suite" class="navigator-link ">
+                    <span>0 groups</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="times-Ecommerce_Parallel_Testing_Suite" class="navigator-link ">
+                    <span>Times</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="reporter-Ecommerce_Parallel_Testing_Suite" class="navigator-link ">
+                    <span>Reporter output</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="ignored-methods-Ecommerce_Parallel_Testing_Suite" class="navigator-link ">
+                    <span>Ignored methods</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="chronological-Ecommerce_Parallel_Testing_Suite" class="navigator-link ">
+                    <span>Chronological view</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+              </ul>
+            </div> <!-- suite-section-content -->
+            <div class="result-section">
+              <div class="suite-section-title">
+                <span>Results</span>
+              </div> <!-- suite-section-title -->
+              <div class="suite-section-content">
+                <ul>
+                  <li>
+                    <span class="method-stats">18 methods, 2 failed,   16 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" class="hide-methods failed suite-Ecommerce_Parallel_Testing_Suite"> (hide)</a> <!-- hide-methods failed suite-Ecommerce_Parallel_Testing_Suite -->
+                      <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" class="show-methods failed suite-Ecommerce_Parallel_Testing_Suite"> (show)</a> <!-- show-methods failed suite-Ecommerce_Parallel_Testing_Suite -->
+                    </span>
+                    <div class="method-list-content failed suite-Ecommerce_Parallel_Testing_Suite">
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="clickOneEachProductOneByOne">clickOneEachProductOneByOne</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="clickOneEachProductOneByOne">clickOneEachProductOneByOne</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content failed suite-Ecommerce_Parallel_Testing_Suite -->
+                  </li>
+                  <li>
+                    <span class="method-list-title passed">Passed methods</span>
+                    <span class="show-or-hide-methods passed">
+                      <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" class="hide-methods passed suite-Ecommerce_Parallel_Testing_Suite"> (hide)</a> <!-- hide-methods passed suite-Ecommerce_Parallel_Testing_Suite -->
+                      <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" class="show-methods passed suite-Ecommerce_Parallel_Testing_Suite"> (show)</a> <!-- show-methods passed suite-Ecommerce_Parallel_Testing_Suite -->
+                    </span>
+                    <div class="method-list-content passed suite-Ecommerce_Parallel_Testing_Suite">
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="clickOnSignInLink">clickOnSignInLink</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="clickOnSignInLink">clickOnSignInLink</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="clickOnSignInLink">clickOnSignInLink</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="clickOnWishListIcon">clickOnWishListIcon</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="clickOnWishListIcon">clickOnWishListIcon</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="clickOnWishListIcon">clickOnWishListIcon</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="clickOneEachProductOneByOne">clickOneEachProductOneByOne</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="enterTextIntoSearchField">enterTextIntoSearchField</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="enterTextIntoSearchField">enterTextIntoSearchField</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="enterTextIntoSearchField">enterTextIntoSearchField</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="findAllButtonsInHomepage">findAllButtonsInHomepage</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="findAllButtonsInHomepage">findAllButtonsInHomepage</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="findAllButtonsInHomepage">findAllButtonsInHomepage</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="openHomepageUsingUrl">openHomepageUsingUrl</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="openHomepageUsingUrl">openHomepageUsingUrl</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Parallel_Testing_Suite" title="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios" class="method navigator-link" hash-for-method="openHomepageUsingUrl">openHomepageUsingUrl</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content passed suite-Ecommerce_Parallel_Testing_Suite -->
+                  </li>
+                </ul>
+              </div> <!-- suite-section-content -->
+            </div> <!-- result-section -->
+          </div> <!-- navigator-suite-content -->
+        </div> <!-- rounded-window -->
+      </div> <!-- suite -->
+    </div> <!-- navigator-root -->
+    <div class="wrapper">
+      <div class="main-panel-root">
+        <div panel-name="suite-Ecommerce_Parallel_Testing_Suite" class="panel Ecommerce_Parallel_Testing_Suite">
+          <div class="suite-Ecommerce_Parallel_Testing_Suite-class-failed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="failed.png"/>
+              <span class="class-name">scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="clickOneEachProductOneByOne">
+                  </a> <!-- clickOneEachProductOneByOne -->
+                  <span class="method-name">clickOneEachProductOneByOne</span>
+                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;h1.text-4xl&quot;}
+  (Session info: MicrosoftEdge=142.0.3595.76)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Build info: version: &apos;4.38.0&apos;, revision: &apos;6b412e825c*&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.9&apos;
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [a28a622f5423009bc1b4396149287b87, findElement {value=h1.text-4xl, using=css selector}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 142.0.3595.76, fedcm:accounts: true, goog:processID: 19188, ms:edgeOptions: {debuggerAddress: localhost:62571}, msedge: {msedgedriverVersion: 142.0.3595.76 (5d9d1400442e..., userDataDir: C:\Users\user\AppData\Local...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62571/devtoo..., se:cdpVersion: 142.0.3595.76, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: a28a622f5423009bc1b4396149287b87
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:380)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:374)
+	at scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios.clickOneEachProductOneByOne(HomepageRegressionScenarios.java:78)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:739)
+	at org.testng.TestRunner.run(TestRunner.java:614)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="clickOneEachProductOneByOne">
+                  </a> <!-- clickOneEachProductOneByOne -->
+                  <span class="method-name">clickOneEachProductOneByOne</span>
+                  <div class="stack-trace">org.openqa.selenium.interactions.MoveTargetOutOfBoundsException: Move target (385, 1182) is out of bounds of viewport dimensions (1920, 955)
+Build info: version: &apos;4.38.0&apos;, revision: &apos;6b412e825c*&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.9&apos;
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [ea95c1ac-3e57-4ad1-bb92-527e9761fca5, actions {actions=[org.openqa.selenium.interactions.Sequence@11d31553]}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 145.0, moz:accessibilityChecks: false, moz:buildID: 20251106194447, moz:geckodriverVersion: 0.36.0, moz:headless: false, moz:platformVersion: 10.0, moz:processID: 12932, moz:profile: C:\Users\user\AppData\Local..., moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10....}
+Session ID: ea95c1ac-3e57-4ad1-bb92-527e9761fca5
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557)
+	at org.openqa.selenium.remote.RemoteWebDriver.perform(RemoteWebDriver.java:647)
+	at org.openqa.selenium.interactions.Actions$BuiltAction.perform(Actions.java:616)
+	at scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios.clickOneEachProductOneByOne(HomepageRegressionScenarios.java:47)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:739)
+	at org.testng.TestRunner.run(TestRunner.java:614)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Ecommerce_Parallel_Testing_Suite-class-failed -->
+          <div class="suite-Ecommerce_Parallel_Testing_Suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="clickOnSignInLink">
+                  </a> <!-- clickOnSignInLink -->
+                  <span class="method-name">clickOnSignInLink</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="clickOnSignInLink">
+                  </a> <!-- clickOnSignInLink -->
+                  <span class="method-name">clickOnSignInLink</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="clickOnSignInLink">
+                  </a> <!-- clickOnSignInLink -->
+                  <span class="method-name">clickOnSignInLink</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="clickOnWishListIcon">
+                  </a> <!-- clickOnWishListIcon -->
+                  <span class="method-name">clickOnWishListIcon</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="clickOnWishListIcon">
+                  </a> <!-- clickOnWishListIcon -->
+                  <span class="method-name">clickOnWishListIcon</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="clickOnWishListIcon">
+                  </a> <!-- clickOnWishListIcon -->
+                  <span class="method-name">clickOnWishListIcon</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="clickOneEachProductOneByOne">
+                  </a> <!-- clickOneEachProductOneByOne -->
+                  <span class="method-name">clickOneEachProductOneByOne</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="enterTextIntoSearchField">
+                  </a> <!-- enterTextIntoSearchField -->
+                  <span class="method-name">enterTextIntoSearchField</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="enterTextIntoSearchField">
+                  </a> <!-- enterTextIntoSearchField -->
+                  <span class="method-name">enterTextIntoSearchField</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="enterTextIntoSearchField">
+                  </a> <!-- enterTextIntoSearchField -->
+                  <span class="method-name">enterTextIntoSearchField</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="findAllButtonsInHomepage">
+                  </a> <!-- findAllButtonsInHomepage -->
+                  <span class="method-name">findAllButtonsInHomepage</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="findAllButtonsInHomepage">
+                  </a> <!-- findAllButtonsInHomepage -->
+                  <span class="method-name">findAllButtonsInHomepage</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="findAllButtonsInHomepage">
+                  </a> <!-- findAllButtonsInHomepage -->
+                  <span class="method-name">findAllButtonsInHomepage</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="openHomepageUsingUrl">
+                  </a> <!-- openHomepageUsingUrl -->
+                  <span class="method-name">openHomepageUsingUrl</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="openHomepageUsingUrl">
+                  </a> <!-- openHomepageUsingUrl -->
+                  <span class="method-name">openHomepageUsingUrl</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="openHomepageUsingUrl">
+                  </a> <!-- openHomepageUsingUrl -->
+                  <span class="method-name">openHomepageUsingUrl</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Ecommerce_Parallel_Testing_Suite-class-passed -->
+        </div> <!-- panel Ecommerce_Parallel_Testing_Suite -->
+        <div panel-name="test-xml-Ecommerce_Parallel_Testing_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">E:\mern_stack_applications\project_management_tool_jira\ecommese_parallel_testing_shilpa\parallel_testing.xml</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
+&lt;suite thread-count=&quot;3&quot; parallel=&quot;tests&quot; name=&quot;Ecommerce Parallel Testing Suite&quot; guice-stage=&quot;DEVELOPMENT&quot; verbose=&quot;2&quot;&gt;
+  &lt;test thread-count=&quot;3&quot; parallel=&quot;tests&quot; name=&quot;Firefox_Tests&quot; verbose=&quot;2&quot;&gt;
+    &lt;parameter name=&quot;browser&quot; value=&quot;firefox&quot;/&gt;
+    &lt;classes&gt;
+      &lt;class name=&quot;scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios&quot;/&gt;
+    &lt;/classes&gt;
+  &lt;/test&gt; &lt;!-- Firefox_Tests --&gt;
+  &lt;test thread-count=&quot;3&quot; parallel=&quot;tests&quot; name=&quot;Chrome_Tests&quot; verbose=&quot;2&quot;&gt;
+    &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
+    &lt;classes&gt;
+      &lt;class name=&quot;scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios&quot;/&gt;
+    &lt;/classes&gt;
+  &lt;/test&gt; &lt;!-- Chrome_Tests --&gt;
+  &lt;test thread-count=&quot;3&quot; parallel=&quot;tests&quot; name=&quot;Edge_Tests&quot; verbose=&quot;2&quot;&gt;
+    &lt;parameter name=&quot;browser&quot; value=&quot;edge&quot;/&gt;
+    &lt;classes&gt;
+      &lt;class name=&quot;scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios&quot;/&gt;
+    &lt;/classes&gt;
+  &lt;/test&gt; &lt;!-- Edge_Tests --&gt;
+&lt;/suite&gt; &lt;!-- Ecommerce Parallel Testing Suite --&gt;
+            </pre>
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="testlist-Ecommerce_Parallel_Testing_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Tests for Ecommerce Parallel Testing Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <ul>
+              <li>
+                <span class="test-name">Firefox_Tests (1 class)</span>
+              </li>
+              <li>
+                <span class="test-name">Chrome_Tests (1 class)</span>
+              </li>
+              <li>
+                <span class="test-name">Edge_Tests (1 class)</span>
+              </li>
+            </ul>
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="group-Ecommerce_Parallel_Testing_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Groups for Ecommerce Parallel Testing Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="times-Ecommerce_Parallel_Testing_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Times for Ecommerce Parallel Testing Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <div class="times-div">
+              <script type="text/javascript">
+suiteTableInitFunctions.push('tableData_Ecommerce_Parallel_Testing_Suite');
+function tableData_Ecommerce_Parallel_Testing_Suite() {
+var data = new google.visualization.DataTable();
+data.addColumn('number', 'Number');
+data.addColumn('string', 'Method');
+data.addColumn('string', 'Class');
+data.addColumn('number', 'Time (ms)');
+data.addRows(18);
+data.setCell(0, 0, 0)
+data.setCell(0, 1, 'clickOneEachProductOneByOne')
+data.setCell(0, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(0, 3, 29868);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'clickOneEachProductOneByOne')
+data.setCell(1, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(1, 3, 9013);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'clickOnSignInLink')
+data.setCell(2, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(2, 3, 3814);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'openHomepageUsingUrl')
+data.setCell(3, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(3, 3, 1288);
+data.setCell(4, 0, 4)
+data.setCell(4, 1, 'openHomepageUsingUrl')
+data.setCell(4, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(4, 3, 1264);
+data.setCell(5, 0, 5)
+data.setCell(5, 1, 'enterTextIntoSearchField')
+data.setCell(5, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(5, 3, 1190);
+data.setCell(6, 0, 6)
+data.setCell(6, 1, 'enterTextIntoSearchField')
+data.setCell(6, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(6, 3, 1034);
+data.setCell(7, 0, 7)
+data.setCell(7, 1, 'clickOnWishListIcon')
+data.setCell(7, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(7, 3, 874);
+data.setCell(8, 0, 8)
+data.setCell(8, 1, 'enterTextIntoSearchField')
+data.setCell(8, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(8, 3, 834);
+data.setCell(9, 0, 9)
+data.setCell(9, 1, 'clickOnSignInLink')
+data.setCell(9, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(9, 3, 730);
+data.setCell(10, 0, 10)
+data.setCell(10, 1, 'clickOnWishListIcon')
+data.setCell(10, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(10, 3, 685);
+data.setCell(11, 0, 11)
+data.setCell(11, 1, 'findAllButtonsInHomepage')
+data.setCell(11, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(11, 3, 464);
+data.setCell(12, 0, 12)
+data.setCell(12, 1, 'clickOnSignInLink')
+data.setCell(12, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(12, 3, 330);
+data.setCell(13, 0, 13)
+data.setCell(13, 1, 'findAllButtonsInHomepage')
+data.setCell(13, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(13, 3, 284);
+data.setCell(14, 0, 14)
+data.setCell(14, 1, 'findAllButtonsInHomepage')
+data.setCell(14, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(14, 3, 262);
+data.setCell(15, 0, 15)
+data.setCell(15, 1, 'clickOnWishListIcon')
+data.setCell(15, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(15, 3, 228);
+data.setCell(16, 0, 16)
+data.setCell(16, 1, 'openHomepageUsingUrl')
+data.setCell(16, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(16, 3, 93);
+data.setCell(17, 0, 17)
+data.setCell(17, 1, 'clickOneEachProductOneByOne')
+data.setCell(17, 2, 'scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios')
+data.setCell(17, 3, 93);
+window.suiteTableData['Ecommerce_Parallel_Testing_Suite']= { tableData: data, tableDiv: 'times-div-Ecommerce_Parallel_Testing_Suite'}
+return data;
+}
+              </script>
+              <span class="suite-total-time">Total running time: 5 minutes</span>
+              <div id="times-div-Ecommerce_Parallel_Testing_Suite">
+              </div> <!-- times-div-Ecommerce_Parallel_Testing_Suite -->
+            </div> <!-- times-div -->
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="reporter-Ecommerce_Parallel_Testing_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Reporter output for Ecommerce Parallel Testing Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="ignored-methods-Ecommerce_Parallel_Testing_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">0 ignored methods</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="chronological-Ecommerce_Parallel_Testing_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Methods in chronological order</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <div class="chronological-class">
+              <div class="chronological-class-name">scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(firefox)</span>
+                <span class="method-start">0 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(chrome)</span>
+                <span class="method-start">0 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(edge)</span>
+                <span class="method-start">0 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">4833 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">openHomepageUsingUrl</span>
+                <span class="method-start">4839 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">4864 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">openHomepageUsingUrl</span>
+                <span class="method-start">4866 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">6145 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">6145 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(chrome)</span>
+                <span class="method-start">6686 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(edge)</span>
+                <span class="method-start">6806 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">10764 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">findAllButtonsInHomepage</span>
+                <span class="method-start">10766 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">11051 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">findAllButtonsInHomepage</span>
+                <span class="method-start">11052 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">11053 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">11317 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(chrome)</span>
+                <span class="method-start">11678 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(edge)</span>
+                <span class="method-start">11741 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">16293 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">clickOnWishListIcon</span>
+                <span class="method-start">16294 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">16460 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">clickOnWishListIcon</span>
+                <span class="method-start">16468 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">17019 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">17345 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(edge)</span>
+                <span class="method-start">17972 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(chrome)</span>
+                <span class="method-start">17984 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">22426 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">clickOneEachProductOneByOne</span>
+                <span class="method-start">22428 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">22941 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">clickOneEachProductOneByOne</span>
+                <span class="method-start">22943 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">31445 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(chrome)</span>
+                <span class="method-start">31660 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">35007 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">clickOnSignInLink</span>
+                <span class="method-start">35009 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">35342 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(chrome)</span>
+                <span class="method-start">35897 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">39686 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">enterTextIntoSearchField</span>
+                <span class="method-start">39688 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">40880 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">52817 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(edge)</span>
+                <span class="method-start">53181 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">54336 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">clickOnSignInLink</span>
+                <span class="method-start">54338 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">58154 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(edge)</span>
+                <span class="method-start">58426 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">63124 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">enterTextIntoSearchField</span>
+                <span class="method-start">63126 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">64166 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">260171 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">openHomepageUsingUrl</span>
+                <span class="method-start">260173 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">260269 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(firefox)</span>
+                <span class="method-start">264765 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">275037 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">findAllButtonsInHomepage</span>
+                <span class="method-start">275038 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">275504 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(firefox)</span>
+                <span class="method-start">277273 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">287864 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">clickOnWishListIcon</span>
+                <span class="method-start">287865 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">288095 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(firefox)</span>
+                <span class="method-start">289859 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">300888 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">clickOneEachProductOneByOne</span>
+                <span class="method-start">300890 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">300986 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(firefox)</span>
+                <span class="method-start">302820 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">313496 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">clickOnSignInLink</span>
+                <span class="method-start">313498 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">314236 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">openApplication(firefox)</span>
+                <span class="method-start">315874 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpForHomepageTests</span>
+                <span class="method-start">327116 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">enterTextIntoSearchField</span>
+                <span class="method-start">327117 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">closeApplication</span>
+                <span class="method-start">327953 ms</span>
+              </div> <!-- configuration-method after -->
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+      </div> <!-- main-panel-root -->
+    </div> <!-- wrapper -->
+  </body>
+<script type="text/javascript" src="testng-reports2.js"></script>
+</html>

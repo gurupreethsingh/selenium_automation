@@ -1,0 +1,6 @@
+package routes;
+
+public class AuthToken
+{
+	public static String SUPER_ADMIN_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTJlOTQ2YmE0M2QyZmJjNTgzMzBmOCIsIm5hbWUiOiJFY29kZXJzIiwicm9sZSI6InN1cGVyYWRtaW4iLCJpYXQiOjE3NjI4NDgwNTUsImV4cCI6MTc2Mjg3MzI1NX0.c4DsiOjPQUhpi2x4vYTAB_uRUasiPXgvkeVUREor_ww";
+}

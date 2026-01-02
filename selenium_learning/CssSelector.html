@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Selectors Test Page</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="container mt-5">
+    <!-- ID Selector -->
+    <div id="username" class="container mt-4">
+      <h2>Username</h2>
+      <p>Enter your username</p>
+      <h3>click on login button</h3>
+    </div>
+
+    <!-- Class Selector -->
+    <button class="btn login-button btn-primary">Login</button>
+
+    <!-- Tag and Attribute Selector -->
+    <input
+      type="text"
+      class="form-control mt-3"
+      name="email"
+      placeholder="Email"
+    />
+
+    <!-- Tag, Class, and Attribute Selector -->
+    <input
+      type="password"
+      class="form-control form-control-lg mt-3"
+      name="password"
+      placeholder="Password"
+    />
+
+    <!-- Tag and Pseudo-class Selector -->
+    <ul class="container border p-5 mt-3">
+      <li class="list-group-item">Manual</li>
+      <li class="list-group-item">Sql</li>
+      <li class="list-group-item">java</li>
+      <li class="list-group-item">Selenium</li>
+     <li class="list-group-item">Manual</li>
+      <li class="list-group-item">Sql</li>
+      <li class="list-group-item">java</li>
+      <li class="list-group-item">Selenium</li>
+    </ul>
+
+    <!-- Descendant Selector -->
+    <div class="container mt-3">
+      <span class="text-muted">First text inside a container.</span>
+      <span class="text-muted">Second text inside a container.</span>
+    </div>
+
+    <!-- Direct Child Selector -->
+    <div class="header mt-3">
+      <span class="badge badge-primary">Primary Badge</span>
+      <span class="badge badge-secondary">Secondary Badge</span>
+    </div>
+
+    <!-- Attribute Starts With Selector -->
+    <input
+      id="user-name-field"
+      class="form-control mt-3"
+      placeholder="Starts with 'user'"
+    />
+
+    <!-- Attribute Ends With Selector -->
+    <button class="btn btn-secondary mt-3 save-button">Save</button>
+
+    <!-- Attribute Contains Selector -->
+    <button
+      class="btn btn-primary mt-3 submit-button"
+      title="Click to submit form"
+    >
+      Submit
+    </button>
+
+    <!-- Multiple Classes Selector -->
+    <button class="btn btn-primary mt-3 btn primary">Primary Button</button>
+  </body>
+</html>

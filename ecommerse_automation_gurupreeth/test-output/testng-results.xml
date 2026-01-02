@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="36" passed="36" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-12-27T21:30:30 IST" name="Default suite" finished-at="2025-12-27T21:44:23 IST" duration-ms="832708">
+    <groups>
+    </groups>
+    <test started-at="2025-12-27T21:30:30 IST" name="Default test" finished-at="2025-12-27T21:44:23 IST" duration-ms="832708">
+      <class name="scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios">
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:30:30 IST" name="openApplication" finished-at="2025-12-27T21:30:51 IST" duration-ms="20526" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="openShoppageUsingUrl()[pri:1, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:30:51 IST" name="openShoppageUsingUrl" finished-at="2025-12-27T21:30:54 IST" duration-ms="3830" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openShoppageUsingUrl -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:30:54 IST" name="closeApplication" finished-at="2025-12-27T21:30:55 IST" duration-ms="432" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:30:55 IST" name="openApplication" finished-at="2025-12-27T21:30:58 IST" duration-ms="3473" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="clickOnLogoFromShopPage()[pri:2, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:30:58 IST" name="clickOnLogoFromShopPage" finished-at="2025-12-27T21:31:05 IST" duration-ms="6661" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnLogoFromShopPage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:05 IST" name="closeApplication" finished-at="2025-12-27T21:31:05 IST" duration-ms="371" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:05 IST" name="openApplication" finished-at="2025-12-27T21:31:09 IST" duration-ms="3435" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="clickOnShopAllLinkTextFromShopPage()[pri:3, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:09 IST" name="clickOnShopAllLinkTextFromShopPage" finished-at="2025-12-27T21:31:15 IST" duration-ms="6592" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnShopAllLinkTextFromShopPage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:15 IST" name="closeApplication" finished-at="2025-12-27T21:31:16 IST" duration-ms="443" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:16 IST" name="openApplication" finished-at="2025-12-27T21:31:20 IST" duration-ms="3951" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="clickOnWishlistFromShopPage()[pri:4, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:20 IST" name="clickOnWishlistFromShopPage" finished-at="2025-12-27T21:31:25 IST" duration-ms="5162" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnWishlistFromShopPage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:25 IST" name="closeApplication" finished-at="2025-12-27T21:31:26 IST" duration-ms="611" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:26 IST" name="openApplication" finished-at="2025-12-27T21:31:29 IST" duration-ms="3531" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="clickOnCartIconFromShopPage()[pri:5, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:29 IST" name="clickOnCartIconFromShopPage" finished-at="2025-12-27T21:31:34 IST" duration-ms="5269" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnCartIconFromShopPage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:34 IST" name="closeApplication" finished-at="2025-12-27T21:31:35 IST" duration-ms="443" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:35 IST" name="openApplication" finished-at="2025-12-27T21:31:39 IST" duration-ms="3603" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="clickOnAvatarFromShopPage()[pri:6, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:39 IST" name="clickOnAvatarFromShopPage" finished-at="2025-12-27T21:31:44 IST" duration-ms="5372" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnAvatarFromShopPage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:44 IST" name="closeApplication" finished-at="2025-12-27T21:31:44 IST" duration-ms="441" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:44 IST" name="openApplication" finished-at="2025-12-27T21:31:48 IST" duration-ms="3507" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="clickOnSignInFromShopPage()[pri:7, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:48 IST" name="clickOnSignInFromShopPage" finished-at="2025-12-27T21:31:53 IST" duration-ms="5011" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnSignInFromShopPage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:53 IST" name="closeApplication" finished-at="2025-12-27T21:31:53 IST" duration-ms="318" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:53 IST" name="openApplication" finished-at="2025-12-27T21:31:57 IST" duration-ms="3609" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="enterValueIntoSearchFieldFromShopPage()[pri:8, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:57 IST" name="enterValueIntoSearchFieldFromShopPage" finished-at="2025-12-27T21:31:59 IST" duration-ms="1740" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- enterValueIntoSearchFieldFromShopPage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:59 IST" name="closeApplication" finished-at="2025-12-27T21:31:59 IST" duration-ms="368" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:31:59 IST" name="openApplication" finished-at="2025-12-27T21:32:03 IST" duration-ms="3717" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testShoppageShouldReloadClickOnShopAllLinkTextFromShopPage()[pri:9, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:03 IST" name="testShoppageShouldReloadClickOnShopAllLinkTextFromShopPage" finished-at="2025-12-27T21:32:08 IST" duration-ms="5874" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testShoppageShouldReloadClickOnShopAllLinkTextFromShopPage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:08 IST" name="closeApplication" finished-at="2025-12-27T21:32:09 IST" duration-ms="407" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:09 IST" name="openApplication" finished-at="2025-12-27T21:32:13 IST" duration-ms="4001" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testVerifyPresenceOfAllThreeViews()[pri:10, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:13 IST" name="testVerifyPresenceOfAllThreeViews" finished-at="2025-12-27T21:32:16 IST" duration-ms="2806" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVerifyPresenceOfAllThreeViews -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:16 IST" name="closeApplication" finished-at="2025-12-27T21:32:16 IST" duration-ms="323" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:16 IST" name="openApplication" finished-at="2025-12-27T21:32:18 IST" duration-ms="1733" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="clickOnCardViewFromShopPage()[pri:11, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:18 IST" name="clickOnCardViewFromShopPage" finished-at="2025-12-27T21:32:28 IST" duration-ms="9856" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnCardViewFromShopPage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:28 IST" name="closeApplication" finished-at="2025-12-27T21:32:28 IST" duration-ms="314" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:28 IST" name="openApplication" finished-at="2025-12-27T21:32:31 IST" duration-ms="3506" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="clickOnGridViewFromShopPage()[pri:12, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:31 IST" name="clickOnGridViewFromShopPage" finished-at="2025-12-27T21:32:36 IST" duration-ms="4861" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnGridViewFromShopPage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:36 IST" name="closeApplication" finished-at="2025-12-27T21:32:37 IST" duration-ms="317" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:37 IST" name="openApplication" finished-at="2025-12-27T21:32:40 IST" duration-ms="3542" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="clickOnListViewFromShopPage()[pri:13, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:40 IST" name="clickOnListViewFromShopPage" finished-at="2025-12-27T21:32:45 IST" duration-ms="4765" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnListViewFromShopPage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:45 IST" name="closeApplication" finished-at="2025-12-27T21:32:45 IST" duration-ms="312" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:45 IST" name="openApplication" finished-at="2025-12-27T21:32:49 IST" duration-ms="3449" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testPresenceUIPropertiesEnabledStateOfClearFilterButton()[pri:14, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:49 IST" name="testPresenceUIPropertiesEnabledStateOfClearFilterButton" finished-at="2025-12-27T21:32:50 IST" duration-ms="1050" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPresenceUIPropertiesEnabledStateOfClearFilterButton -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:50 IST" name="closeApplication" finished-at="2025-12-27T21:32:50 IST" duration-ms="260" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:50 IST" name="openApplication" finished-at="2025-12-27T21:32:53 IST" duration-ms="3406" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testVerifyingPresenceUI_PropertiesoOfCategoriesHeadingBelowClearFilterButton()[pri:15, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:53 IST" name="testVerifyingPresenceUI_PropertiesoOfCategoriesHeadingBelowClearFilterButton" finished-at="2025-12-27T21:32:56 IST" duration-ms="2471" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVerifyingPresenceUI_PropertiesoOfCategoriesHeadingBelowClearFilterButton -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:56 IST" name="closeApplication" finished-at="2025-12-27T21:32:56 IST" duration-ms="295" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:56 IST" name="openApplication" finished-at="2025-12-27T21:32:58 IST" duration-ms="1612" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testClickOnMainCategoryDropDownAndDisplayItsSubCategories()[pri:16, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:32:58 IST" name="testClickOnMainCategoryDropDownAndDisplayItsSubCategories" finished-at="2025-12-27T21:33:24 IST" duration-ms="26564" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testClickOnMainCategoryDropDownAndDisplayItsSubCategories -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:33:24 IST" name="closeApplication" finished-at="2025-12-27T21:33:25 IST" duration-ms="356" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:33:25 IST" name="openApplication" finished-at="2025-12-27T21:33:28 IST" duration-ms="3662" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testClickMainCategoryFetchRelatedProducts()[pri:17, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:33:28 IST" name="testClickMainCategoryFetchRelatedProducts" finished-at="2025-12-27T21:35:17 IST" duration-ms="108769" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testClickMainCategoryFetchRelatedProducts -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:35:17 IST" name="closeApplication" finished-at="2025-12-27T21:35:18 IST" duration-ms="386" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:35:18 IST" name="openApplication" finished-at="2025-12-27T21:35:21 IST" duration-ms="3461" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testCountNumberOfSubCategoriesOfThatMainCategory()[pri:18, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:35:21 IST" name="testCountNumberOfSubCategoriesOfThatMainCategory" finished-at="2025-12-27T21:35:47 IST" duration-ms="25553" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCountNumberOfSubCategoriesOfThatMainCategory -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:35:47 IST" name="closeApplication" finished-at="2025-12-27T21:35:47 IST" duration-ms="353" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:35:47 IST" name="openApplication" finished-at="2025-12-27T21:35:50 IST" duration-ms="3421" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testClickOnTheSubCategory_FetchTheProductsBelongingToSubCategories()[pri:19, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:35:50 IST" name="testClickOnTheSubCategory_FetchTheProductsBelongingToSubCategories" finished-at="2025-12-27T21:40:54 IST" duration-ms="303252" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testClickOnTheSubCategory_FetchTheProductsBelongingToSubCategories -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:40:54 IST" name="closeApplication" finished-at="2025-12-27T21:40:54 IST" duration-ms="524" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:40:54 IST" name="openApplication" finished-at="2025-12-27T21:40:57 IST" duration-ms="3341" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testVerifyingBRANDSHeadingBelowcategoriesheading()[pri:20, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:40:57 IST" name="testVerifyingBRANDSHeadingBelowcategoriesheading" finished-at="2025-12-27T21:41:00 IST" duration-ms="2804" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVerifyingBRANDSHeadingBelowcategoriesheading -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:00 IST" name="closeApplication" finished-at="2025-12-27T21:41:01 IST" duration-ms="304" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:01 IST" name="openApplication" finished-at="2025-12-27T21:41:02 IST" duration-ms="1688" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testVerifyingAllBrandsSubHeadingBelowToBrandsHeading()[pri:21, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:02 IST" name="testVerifyingAllBrandsSubHeadingBelowToBrandsHeading" finished-at="2025-12-27T21:41:06 IST" duration-ms="3746" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVerifyingAllBrandsSubHeadingBelowToBrandsHeading -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:06 IST" name="closeApplication" finished-at="2025-12-27T21:41:06 IST" duration-ms="359" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:06 IST" name="openApplication" finished-at="2025-12-27T21:41:10 IST" duration-ms="3306" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testClickOnAllBrandsSubHeadingBelowToBrandsHeading()[pri:22, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:10 IST" name="testClickOnAllBrandsSubHeadingBelowToBrandsHeading" finished-at="2025-12-27T21:41:22 IST" duration-ms="11996" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testClickOnAllBrandsSubHeadingBelowToBrandsHeading -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:22 IST" name="closeApplication" finished-at="2025-12-27T21:41:22 IST" duration-ms="355" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:22 IST" name="openApplication" finished-at="2025-12-27T21:41:27 IST" duration-ms="4983" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testClickOnAllBrandsDropDownBelowToBrandsHeading()[pri:23, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:27 IST" name="testClickOnAllBrandsDropDownBelowToBrandsHeading" finished-at="2025-12-27T21:41:39 IST" duration-ms="11851" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testClickOnAllBrandsDropDownBelowToBrandsHeading -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:39 IST" name="closeApplication" finished-at="2025-12-27T21:41:39 IST" duration-ms="402" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:39 IST" name="openApplication" finished-at="2025-12-27T21:41:44 IST" duration-ms="4311" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testClickOnCheckBoxesOfAllBrandsSection()[pri:24, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:44 IST" name="testClickOnCheckBoxesOfAllBrandsSection" finished-at="2025-12-27T21:41:59 IST" duration-ms="15784" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testClickOnCheckBoxesOfAllBrandsSection -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:41:59 IST" name="closeApplication" finished-at="2025-12-27T21:42:00 IST" duration-ms="322" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:00 IST" name="openApplication" finished-at="2025-12-27T21:42:03 IST" duration-ms="3393" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testVerifyingPriceRangeHeadingBelowAllBrandsHeading()[pri:25, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:03 IST" name="testVerifyingPriceRangeHeadingBelowAllBrandsHeading" finished-at="2025-12-27T21:42:04 IST" duration-ms="970" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVerifyingPriceRangeHeadingBelowAllBrandsHeading -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:04 IST" name="closeApplication" finished-at="2025-12-27T21:42:04 IST" duration-ms="339" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:04 IST" name="openApplication" finished-at="2025-12-27T21:42:08 IST" duration-ms="3519" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testAdjustTheLeftHandleOfPriceRangeSlider()[pri:26, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:08 IST" name="testAdjustTheLeftHandleOfPriceRangeSlider" finished-at="2025-12-27T21:42:15 IST" duration-ms="6713" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testAdjustTheLeftHandleOfPriceRangeSlider -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:15 IST" name="closeApplication" finished-at="2025-12-27T21:42:15 IST" duration-ms="378" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:15 IST" name="openApplication" finished-at="2025-12-27T21:42:17 IST" duration-ms="1540" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testAdjustTheRightHandleOfPriceRangeSlider()[pri:27, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:17 IST" name="testAdjustTheRightHandleOfPriceRangeSlider" finished-at="2025-12-27T21:42:26 IST" duration-ms="9914" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testAdjustTheRightHandleOfPriceRangeSlider -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:26 IST" name="closeApplication" finished-at="2025-12-27T21:42:27 IST" duration-ms="288" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:27 IST" name="openApplication" finished-at="2025-12-27T21:42:30 IST" duration-ms="3287" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testAdjustThePriceRangeSlidersFromBothSides()[pri:28, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:30 IST" name="testAdjustThePriceRangeSlidersFromBothSides" finished-at="2025-12-27T21:42:40 IST" duration-ms="9481" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testAdjustThePriceRangeSlidersFromBothSides -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:40 IST" name="closeApplication" finished-at="2025-12-27T21:42:40 IST" duration-ms="316" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:40 IST" name="openApplication" finished-at="2025-12-27T21:42:43 IST" duration-ms="3509" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testAdjustThePriceRangeSlidersFromBothSidesAndClickOnClearFilterButton()[pri:29, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:43 IST" name="testAdjustThePriceRangeSlidersFromBothSidesAndClickOnClearFilterButton" finished-at="2025-12-27T21:42:56 IST" duration-ms="12352" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testAdjustThePriceRangeSlidersFromBothSidesAndClickOnClearFilterButton -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:56 IST" name="closeApplication" finished-at="2025-12-27T21:42:56 IST" duration-ms="385" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:56 IST" name="openApplication" finished-at="2025-12-27T21:42:59 IST" duration-ms="3389" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testVerifyingSortByHeadingBelowAllBrands()[pri:30, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:42:59 IST" name="testVerifyingSortByHeadingBelowAllBrands" finished-at="2025-12-27T21:43:00 IST" duration-ms="995" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVerifyingSortByHeadingBelowAllBrands -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:43:00 IST" name="closeApplication" finished-at="2025-12-27T21:43:01 IST" duration-ms="285" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:43:01 IST" name="openApplication" finished-at="2025-12-27T21:43:04 IST" duration-ms="3439" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testVerifyPresenceEnabledStateOfAllOptionsPresentsBelowToSortByHeading()[pri:31, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:43:04 IST" name="testVerifyPresenceEnabledStateOfAllOptionsPresentsBelowToSortByHeading" finished-at="2025-12-27T21:43:07 IST" duration-ms="2442" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVerifyPresenceEnabledStateOfAllOptionsPresentsBelowToSortByHeading -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:43:07 IST" name="closeApplication" finished-at="2025-12-27T21:43:08 IST" duration-ms="1850" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:43:08 IST" name="openApplication" finished-at="2025-12-27T21:43:12 IST" duration-ms="3653" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testVerifyDefaultButtonIsSelectedByDeafultAndHighlighted()[pri:32, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:43:12 IST" name="testVerifyDefaultButtonIsSelectedByDeafultAndHighlighted" finished-at="2025-12-27T21:43:15 IST" duration-ms="2430" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVerifyDefaultButtonIsSelectedByDeafultAndHighlighted -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:43:15 IST" name="closeApplication" finished-at="2025-12-27T21:43:15 IST" duration-ms="320" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:43:15 IST" name="openApplication" finished-at="2025-12-27T21:43:18 IST" duration-ms="3486" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testClickOnPriceIncreaseButtonBelowSortByHeading()[pri:33, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:43:18 IST" name="testClickOnPriceIncreaseButtonBelowSortByHeading" finished-at="2025-12-27T21:43:37 IST" duration-ms="18628" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testClickOnPriceIncreaseButtonBelowSortByHeading -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:43:37 IST" name="closeApplication" finished-at="2025-12-27T21:43:37 IST" duration-ms="324" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:43:37 IST" name="openApplication" finished-at="2025-12-27T21:43:41 IST" duration-ms="3356" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testClickOnPriceDecreaseButtonBelowSortByHeading()[pri:34, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:43:41 IST" name="testClickOnPriceDecreaseButtonBelowSortByHeading" finished-at="2025-12-27T21:44:00 IST" duration-ms="18997" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testClickOnPriceDecreaseButtonBelowSortByHeading -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:44:00 IST" name="closeApplication" finished-at="2025-12-27T21:44:00 IST" duration-ms="650" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:44:00 IST" name="openApplication" finished-at="2025-12-27T21:44:02 IST" duration-ms="1644" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testClickOnPriceNewestButtonBelowSortByHeading()[pri:35, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:44:02 IST" name="testClickOnPriceNewestButtonBelowSortByHeading" finished-at="2025-12-27T21:44:12 IST" duration-ms="9876" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testClickOnPriceNewestButtonBelowSortByHeading -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:44:12 IST" name="closeApplication" finished-at="2025-12-27T21:44:12 IST" duration-ms="363" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:44:12 IST" name="openApplication" finished-at="2025-12-27T21:44:16 IST" duration-ms="3379" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method signature="testClickOnPriceOldestButtonBelowSortByHeading()[pri:36, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:44:16 IST" name="testClickOnPriceOldestButtonBelowSortByHeading" finished-at="2025-12-27T21:44:22 IST" duration-ms="6797" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testClickOnPriceOldestButtonBelowSortByHeading -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios@6440112d]" started-at="2025-12-27T21:44:22 IST" name="closeApplication" finished-at="2025-12-27T21:44:23 IST" duration-ms="302" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+      </class> <!-- scripts.shoppage_scripts.regression_scenarios.Shop_page_regression_scenarios -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="18" passed="16" failed="2" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-11-14T04:31:51 IST" name="Ecommerce Parallel Testing Suite" finished-at="2025-11-14T04:37:21 IST" duration-ms="329600">
+    <groups>
+    </groups>
+    <test started-at="2025-11-14T04:31:51 IST" name="Chrome_Tests" finished-at="2025-11-14T04:32:32 IST" duration-ms="41256">
+      <class name="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios">
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:31:51 IST" name="openApplication" finished-at="2025-11-14T04:31:56 IST" duration-ms="4863" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:31:56 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:31:56 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="openHomepageUsingUrl()[pri:1, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:31:56 IST" name="openHomepageUsingUrl" finished-at="2025-11-14T04:31:57 IST" duration-ms="1264" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openHomepageUsingUrl -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:31:57 IST" name="closeApplication" finished-at="2025-11-14T04:31:58 IST" duration-ms="536" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:31:58 IST" name="openApplication" finished-at="2025-11-14T04:32:02 IST" duration-ms="4077" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:02 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:32:02 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="findAllButtonsInHomepage()[pri:2, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:02 IST" name="findAllButtonsInHomepage" finished-at="2025-11-14T04:32:02 IST" duration-ms="284" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- findAllButtonsInHomepage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:02 IST" name="closeApplication" finished-at="2025-11-14T04:32:03 IST" duration-ms="622" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:03 IST" name="openApplication" finished-at="2025-11-14T04:32:08 IST" duration-ms="4781" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:08 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:32:08 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="clickOnWishListIcon()[pri:3, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:08 IST" name="clickOnWishListIcon" finished-at="2025-11-14T04:32:08 IST" duration-ms="874" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnWishListIcon -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:08 IST" name="closeApplication" finished-at="2025-11-14T04:32:09 IST" duration-ms="637" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:09 IST" name="openApplication" finished-at="2025-11-14T04:32:13 IST" duration-ms="4441" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:13 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:32:13 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="clickOneEachProductOneByOne()[pri:4, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:13 IST" name="clickOneEachProductOneByOne" finished-at="2025-11-14T04:32:22 IST" duration-ms="9013" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOneEachProductOneByOne -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:22 IST" name="closeApplication" finished-at="2025-11-14T04:32:23 IST" duration-ms="213" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:23 IST" name="openApplication" finished-at="2025-11-14T04:32:26 IST" duration-ms="3345" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:26 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:32:26 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="clickOnSignInLink()[pri:5, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:26 IST" name="clickOnSignInLink" finished-at="2025-11-14T04:32:26 IST" duration-ms="330" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnSignInLink -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:26 IST" name="closeApplication" finished-at="2025-11-14T04:32:27 IST" duration-ms="553" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:27 IST" name="openApplication" finished-at="2025-11-14T04:32:31 IST" duration-ms="3788" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:31 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:32:31 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="enterTextIntoSearchField()[pri:6, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:31 IST" name="enterTextIntoSearchField" finished-at="2025-11-14T04:32:32 IST" duration-ms="1190" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- enterTextIntoSearchField -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@3c9168dc]" started-at="2025-11-14T04:32:32 IST" name="closeApplication" finished-at="2025-11-14T04:32:32 IST" duration-ms="315" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+      </class> <!-- scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios -->
+    </test> <!-- Chrome_Tests -->
+    <test started-at="2025-11-14T04:31:51 IST" name="Edge_Tests" finished-at="2025-11-14T04:32:56 IST" duration-ms="64728">
+      <class name="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios">
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:31:51 IST" name="openApplication" finished-at="2025-11-14T04:31:56 IST" duration-ms="4723" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[edge]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:31:56 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:31:56 IST" duration-ms="4" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="openHomepageUsingUrl()[pri:1, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:31:56 IST" name="openHomepageUsingUrl" finished-at="2025-11-14T04:31:57 IST" duration-ms="1288" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openHomepageUsingUrl -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:31:57 IST" name="closeApplication" finished-at="2025-11-14T04:31:58 IST" duration-ms="658" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:31:58 IST" name="openApplication" finished-at="2025-11-14T04:32:02 IST" duration-ms="4243" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[edge]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:02 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:32:02 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="findAllButtonsInHomepage()[pri:2, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:02 IST" name="findAllButtonsInHomepage" finished-at="2025-11-14T04:32:02 IST" duration-ms="262" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- findAllButtonsInHomepage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:02 IST" name="closeApplication" finished-at="2025-11-14T04:32:03 IST" duration-ms="422" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:03 IST" name="openApplication" finished-at="2025-11-14T04:32:07 IST" duration-ms="4551" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[edge]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:07 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:32:07 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="clickOnWishListIcon()[pri:3, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:07 IST" name="clickOnWishListIcon" finished-at="2025-11-14T04:32:08 IST" duration-ms="685" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnWishListIcon -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:08 IST" name="closeApplication" finished-at="2025-11-14T04:32:09 IST" duration-ms="951" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:09 IST" name="openApplication" finished-at="2025-11-14T04:32:14 IST" duration-ms="4968" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[edge]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:14 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:32:14 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="clickOneEachProductOneByOne()[pri:4, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:14 IST" name="clickOneEachProductOneByOne" finished-at="2025-11-14T04:32:44 IST" duration-ms="29868" status="FAIL">
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[no such element: Unable to locate element: {"method":"css selector","selector":"h1.text-4xl"}
+  (Session info: MicrosoftEdge=142.0.3595.76)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.9'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [a28a622f5423009bc1b4396149287b87, findElement {value=h1.text-4xl, using=css selector}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 142.0.3595.76, fedcm:accounts: true, goog:processID: 19188, ms:edgeOptions: {debuggerAddress: localhost:62571}, msedge: {msedgedriverVersion: 142.0.3595.76 (5d9d1400442e..., userDataDir: C:\Users\user\AppData\Local...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62571/devtoo..., se:cdpVersion: 142.0.3595.76, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: a28a622f5423009bc1b4396149287b87]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"css selector","selector":"h1.text-4xl"}
+  (Session info: MicrosoftEdge=142.0.3595.76)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.9'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [a28a622f5423009bc1b4396149287b87, findElement {value=h1.text-4xl, using=css selector}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 142.0.3595.76, fedcm:accounts: true, goog:processID: 19188, ms:edgeOptions: {debuggerAddress: localhost:62571}, msedge: {msedgedriverVersion: 142.0.3595.76 (5d9d1400442e..., userDataDir: C:\Users\user\AppData\Local...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62571/devtoo..., se:cdpVersion: 142.0.3595.76, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: a28a622f5423009bc1b4396149287b87
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557)
+at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
+at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:380)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:374)
+at scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios.clickOneEachProductOneByOne(HomepageRegressionScenarios.java:78)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:739)
+at org.testng.TestRunner.run(TestRunner.java:614)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+at java.base/java.lang.Thread.run(Thread.java:840)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOneEachProductOneByOne -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:44 IST" name="closeApplication" finished-at="2025-11-14T04:32:44 IST" duration-ms="362" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:44 IST" name="openApplication" finished-at="2025-11-14T04:32:45 IST" duration-ms="1154" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[edge]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:45 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:32:45 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="clickOnSignInLink()[pri:5, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:45 IST" name="clickOnSignInLink" finished-at="2025-11-14T04:32:49 IST" duration-ms="3814" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnSignInLink -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:49 IST" name="closeApplication" finished-at="2025-11-14T04:32:49 IST" duration-ms="270" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:49 IST" name="openApplication" finished-at="2025-11-14T04:32:54 IST" duration-ms="4696" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[edge]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:54 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:32:54 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="enterTextIntoSearchField()[pri:6, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:54 IST" name="enterTextIntoSearchField" finished-at="2025-11-14T04:32:55 IST" duration-ms="1034" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- enterTextIntoSearchField -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@549621f3]" started-at="2025-11-14T04:32:55 IST" name="closeApplication" finished-at="2025-11-14T04:32:56 IST" duration-ms="503" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+      </class> <!-- scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios -->
+    </test> <!-- Edge_Tests -->
+    <test started-at="2025-11-14T04:31:51 IST" name="Firefox_Tests" finished-at="2025-11-14T04:37:21 IST" duration-ms="329600">
+      <class name="scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios">
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:31:51 IST" name="openApplication" finished-at="2025-11-14T04:36:11 IST" duration-ms="260170" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:11 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:36:11 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="openHomepageUsingUrl()[pri:1, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:11 IST" name="openHomepageUsingUrl" finished-at="2025-11-14T04:36:11 IST" duration-ms="93" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openHomepageUsingUrl -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:11 IST" name="closeApplication" finished-at="2025-11-14T04:36:16 IST" duration-ms="4494" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:16 IST" name="openApplication" finished-at="2025-11-14T04:36:26 IST" duration-ms="10272" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:26 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:36:26 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="findAllButtonsInHomepage()[pri:2, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:26 IST" name="findAllButtonsInHomepage" finished-at="2025-11-14T04:36:27 IST" duration-ms="464" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- findAllButtonsInHomepage -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:27 IST" name="closeApplication" finished-at="2025-11-14T04:36:28 IST" duration-ms="1767" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:28 IST" name="openApplication" finished-at="2025-11-14T04:36:39 IST" duration-ms="10590" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:39 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:36:39 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="clickOnWishListIcon()[pri:3, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:39 IST" name="clickOnWishListIcon" finished-at="2025-11-14T04:36:39 IST" duration-ms="228" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnWishListIcon -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:39 IST" name="closeApplication" finished-at="2025-11-14T04:36:41 IST" duration-ms="1762" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:41 IST" name="openApplication" finished-at="2025-11-14T04:36:52 IST" duration-ms="11028" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:52 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:36:52 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="clickOneEachProductOneByOne()[pri:4, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:52 IST" name="clickOneEachProductOneByOne" finished-at="2025-11-14T04:36:52 IST" duration-ms="93" status="FAIL">
+          <exception class="org.openqa.selenium.interactions.MoveTargetOutOfBoundsException">
+            <message>
+              <![CDATA[Move target (385, 1182) is out of bounds of viewport dimensions (1920, 955)
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.9'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [ea95c1ac-3e57-4ad1-bb92-527e9761fca5, actions {actions=[org.openqa.selenium.interactions.Sequence@11d31553]}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 145.0, moz:accessibilityChecks: false, moz:buildID: 20251106194447, moz:geckodriverVersion: 0.36.0, moz:headless: false, moz:platformVersion: 10.0, moz:processID: 12932, moz:profile: C:\Users\user\AppData\Local..., moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10....}
+Session ID: ea95c1ac-3e57-4ad1-bb92-527e9761fca5]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.interactions.MoveTargetOutOfBoundsException: Move target (385, 1182) is out of bounds of viewport dimensions (1920, 955)
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.9'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [ea95c1ac-3e57-4ad1-bb92-527e9761fca5, actions {actions=[org.openqa.selenium.interactions.Sequence@11d31553]}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 145.0, moz:accessibilityChecks: false, moz:buildID: 20251106194447, moz:geckodriverVersion: 0.36.0, moz:headless: false, moz:platformVersion: 10.0, moz:processID: 12932, moz:profile: C:\Users\user\AppData\Local..., moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10....}
+Session ID: ea95c1ac-3e57-4ad1-bb92-527e9761fca5
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557)
+at org.openqa.selenium.remote.RemoteWebDriver.perform(RemoteWebDriver.java:647)
+at org.openqa.selenium.interactions.Actions$BuiltAction.perform(Actions.java:616)
+at scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios.clickOneEachProductOneByOne(HomepageRegressionScenarios.java:47)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:739)
+at org.testng.TestRunner.run(TestRunner.java:614)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+at java.base/java.lang.Thread.run(Thread.java:840)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.interactions.MoveTargetOutOfBoundsException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOneEachProductOneByOne -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:52 IST" name="closeApplication" finished-at="2025-11-14T04:36:54 IST" duration-ms="1832" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:36:54 IST" name="openApplication" finished-at="2025-11-14T04:37:05 IST" duration-ms="10675" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:37:05 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:37:05 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="clickOnSignInLink()[pri:5, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:37:05 IST" name="clickOnSignInLink" finished-at="2025-11-14T04:37:05 IST" duration-ms="730" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickOnSignInLink -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:37:05 IST" name="closeApplication" finished-at="2025-11-14T04:37:07 IST" duration-ms="1636" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+        <test-method is-config="true" signature="openApplication(java.lang.String)[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:37:07 IST" name="openApplication" finished-at="2025-11-14T04:37:18 IST" duration-ms="11241" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openApplication -->
+        <test-method is-config="true" signature="setUpForHomepageTests()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:37:18 IST" name="setUpForHomepageTests" finished-at="2025-11-14T04:37:18 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpForHomepageTests -->
+        <test-method signature="enterTextIntoSearchField()[pri:6, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:37:18 IST" name="enterTextIntoSearchField" finished-at="2025-11-14T04:37:19 IST" duration-ms="834" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- enterTextIntoSearchField -->
+        <test-method is-config="true" signature="closeApplication()[pri:0, instance:scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios@30ea8c23]" started-at="2025-11-14T04:37:19 IST" name="closeApplication" finished-at="2025-11-14T04:37:21 IST" duration-ms="1586" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+      </class> <!-- scripts.homepage_scripts.regression_scenarios.HomepageRegressionScenarios -->
+    </test> <!-- Firefox_Tests -->
+  </suite> <!-- Ecommerce Parallel Testing Suite -->
+</testng-results>

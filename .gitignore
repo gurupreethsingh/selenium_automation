@@ -1,0 +1,137 @@
+########################################
+# 1. EXISTING IGNORES FROM YOUR LIST
+########################################
+
+/.metadata/
+
+# Eclipse / IDE (all modules)
+########################################
+
+.classpath
+.project
+.settings/
+
+########################################
+# Test outputs (all modules)
+########################################
+**/test-output/
+test-output/
+surefire-reports/
+failsafe-reports/
+test-results/
+
+
+########################################
+# 2. GENERAL FILES TO IGNORE
+########################################
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor files
+.idea/
+.vscode/
+*.iml
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+
+########################################
+# 3. MERN STACK (Node.js + React)
+########################################
+
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Coverage & debug
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Cache
+.cache/
+.next/
+.nuxt/
+out/
+.sass-cache/
+.eslintcache
+
+# React testing
+jest-html-reporters-*
+
+# Firebase / AWS / Supabase config files
+firebase-debug.log
+.aws/
+
+
+########################################
+# 4. JAVA SELENIUM AUTOMATION PROJECTS
+########################################
+
+# Java build
+bin/
+out/
+target/
+classes/
+build/
+
+
+# IDE
+*.project
+*.classpath
+*.settings/
+*.prefs
+
+# Logs & temp files
+*.log
+*.tmp
+
+
+########################################
+# 5. MAVEN AUTOMATION PROJECTS
+########################################
+
+# Maven target folder
+target/
+
+# Maven wrapper files (optional)
+.mvn/wrapper/maven-wrapper.jar
+
+########################################
+# 6. TESTNG & TEST REPORT OUTPUT
+########################################
+
+# TestNG default output folder
+**/test-output/
+
+# Maven / Gradle test reports
+**/surefire-reports/
+**/failsafe-reports/
+**/test-results/
+
+# Common generated TestNG artifacts (in case they appear outside folders)
+**/testng-results.xml
+**/testng-failed.xml
+**/emailable-report.html
