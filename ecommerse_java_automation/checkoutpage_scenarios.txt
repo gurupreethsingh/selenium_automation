@@ -1,0 +1,121 @@
+`CheckoutPage.jsx` component.
+
+---
+
+## ✅ 1. **Page Load & UI Validation**
+
+* [ ] Verify that the Checkout page loads with title “Checkout”.
+* [ ] Confirm billing address section is rendered with all 6 address fields.
+* [ ] Verify shipping address section is visible if “Same as Billing” is unchecked.
+* [ ] Check for cart item display: image, name, quantity, and subtotal.
+* [ ] Total amount must be correctly displayed.
+
+---
+
+## ✅ 2. **Billing Address Input**
+
+* [ ] Fill in billing address fields and validate they accept input.
+* [ ] Mark “Set as Default” → checkbox should toggle on click.
+* [ ] Leave required fields empty → try to place order → expect error toast.
+
+---
+
+## ✅ 3. **Shipping Address Handling**
+
+* [ ] Initially, shipping address form is visible.
+* [ ] Check the “Same as Billing” checkbox → shipping form hides.
+* [ ] Uncheck it → shipping form reappears.
+* [ ] Fill in valid shipping address and confirm it's editable.
+
+---
+
+## ✅ 4. **Cart Item Rendering**
+
+* [ ] Verify all cart items display:
+
+  * [ ] Product image (with fallback if missing).
+  * [ ] Product name and quantity.
+  * [ ] Total for that item (price × quantity).
+* [ ] Confirm total cart amount is accurate.
+
+---
+
+## ✅ 5. **Place Order – Logged In User**
+
+* [ ] Login → go to checkout → pre-filled addresses should load if saved.
+* [ ] Place an order → validate API is called and cart is cleared.
+* [ ] User is redirected to `/my-orders`.
+* [ ] Toast displays “Order placed successfully!”.
+
+---
+
+## ✅ 6. **Place Order – Guest User**
+
+* [ ] Do **not login** → fill guest info + billing/shipping addresses.
+* [ ] Place order → should succeed.
+* [ ] User should be redirected to `/thank-you`.
+* [ ] Cart should be cleared after order.
+
+---
+
+## ✅ 7. **Error Handling**
+
+* [ ] Leave required fields empty and click “Place Order” → show validation toast.
+* [ ] Simulate API error (e.g., disconnect backend) → toast should say "Order failed."
+* [ ] API throws error → app should not crash.
+
+---
+
+## ✅ 8. **Back to Shop**
+
+* [ ] Click `Back to Shop` button → user should be redirected to `/shop`.
+
+---
+
+## ✅ 9. **Responsive Layout Checks**
+
+* [ ] In mobile view:
+
+  * [ ] Cart and address sections stack vertically.
+  * [ ] Buttons remain visible and tappable.
+  * [ ] Inputs adjust to screen size.
+
+---
+
+## ✅ 10. **Saved Address Auto-fill (Logged In)**
+
+* [ ] Log in with saved addresses:
+
+  * [ ] Verify billing address fields auto-fill.
+  * [ ] Verify shipping address (first one from list) auto-fills.
+  * [ ] Checkbox for `isDefault` should be checked accordingly.
+
+---
+
+## 🧪 Optional UX/UI Tests
+
+* [ ] Icons render correctly beside address fields.
+* [ ] Inputs have correct placeholders.
+* [ ] Visual feedback (hover effects) on “Place Order” and “Back to Shop” buttons.
+* [ ] Order button should be disabled during order submission (UX polish idea).
+
+---
+
+## 🧪 Suggested Test Selectors (for easier automation)
+
+Consider adding `data-testid` attributes like:
+
+```jsx
+<input name="city" data-testid="billing-city" />
+<button data-testid="place-order-btn">Place Order</button>
+```
+
+This avoids fragile selectors based on class names.
+
+---
+
+## ✅ End-to-End Flow
+
+* Add item to cart → go to checkout → fill billing/shipping → place order → verify redirection and toast → go to orders page or thank you page.
+
+---

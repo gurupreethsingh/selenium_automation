@@ -1,0 +1,33 @@
+Component,Title,XPath,CSS Selector,Explanation
+Shop,Page Wrapper,"//div[contains(@class,'flex')]",div.flex.flex-col.lg\:flex-row,Main wrapper for Shop layout
+Shop,Page Heading Title,"//h1[contains(text(),'Our Products')]",h1.text-3xl,Main heading: Our Products
+Shop,Products Count Text,"//span[contains(text(),'items')]",span.text-sm.text-gray-500,Shows product count e.g. (6 items)
+Shop,Grid View Icon,"//button[.//*[name()='svg'] and contains(@class,'grid')]",button[data-view='grid'],Toggle grid view
+Shop,Card View Icon,"//button[.//*[name()='svg'] and contains(@class,'card')]",button[data-view='card'],Toggle card view
+Shop,List View Icon,"//button[.//*[name()='svg'] and contains(@class,'list')]",button[data-view='list'],Toggle list view
+Product,Card Wrapper,"//div[contains(@class,'product-card') or contains(@class,'rounded-xl')]",div.rounded-xl.shadow-sm,Each product's container
+Product,Wishlist Icon,"//button[contains(@class,'wishlist')]",button.bg-white.shadow,Heart icon to add/remove wishlist
+Product,Product Image,"//img[contains(@src,'/uploads/products/')]",img.object-cover,Product image preview
+Product,Product Name,//h3 | //h2,"h3.text-lg, h2.text-xl",Product name/title
+Product,Product Price,"//span[contains(@class,'text-green')]",span.text-green-600,Selling price
+Product,Product Display Price,"//span[contains(@class,'line-through')]",span.line-through.text-sm,Old crossed price
+Product,Add to Cart Button,"//button[contains(text(),'Add to Cart')]",button.bg-gradient-to-r,Add to cart button
+Product,Out of Stock Badge,"//div[contains(text(),'Out of Stock')]",div.bg-red-500,Out of stock badge if not available
+Product,Limited Time Badge,"//div[contains(text(),'Limited Time Deal')]",div.text-orange-600,Limited time badge if applicable
+FiltersSidebar,Clear Filters Button,"//button[contains(text(),'Clear Filters')]",button.bg-gradient-to-r,Resets all filters
+FiltersSidebar,Sort Option Button,"//button[contains(text(),'Price') or contains(text(),'Popular')]",button.text-xs,Sort options like Price ↑ or ↓
+FiltersSidebar,Categories Header,"//div[contains(text(),'Categories')]",div.text-red-600,Header for Categories
+FiltersSidebar,Category Item,"//span[contains(@class,'cursor-pointer')]",span.cursor-pointer.font-bold,Click to select a category
+FiltersSidebar,Category Expand Icon,"//span[contains(@class,'cursor-pointer')]/following-sibling::*",motion.span.cursor-pointer,Arrow to expand category
+FiltersSidebar,Subcategory Block,"//div[contains(@class,'pl-4')]",div.pl-4.space-y-1,Dropdown block containing subcategories
+FiltersSidebar,Subcategory Name,"//div[contains(@class,'text-sm')]",div.text-sm.uppercase,Each subcategory name
+FiltersSidebar,Brands Header,"//div[contains(text(),'Brands')]",div.text-red-600,Header for Brands
+FiltersSidebar,Brands Dropdown Toggle,"//div[contains(text(),'All Brands')]",div.cursor-pointer.text-sm,Toggle brands dropdown
+FiltersSidebar,Single Brand Option,"//div[contains(@class,'uppercase') and .//input]",div.flex.items-center input,Each brand with checkbox
+FiltersSidebar,Brand Name,"//span[contains(@class,'text-sm')]",span.text-sm,Brand label next to checkbox
+FiltersSidebar,Price Range Label Min,"//span[contains(text(),'₹')][1]",div.text-gray-600 span:first-child,Minimum selected price
+FiltersSidebar,Price Range Label Max,"//span[contains(text(),'₹')][2]",div.text-gray-600 span:last-child,Maximum selected price
+FiltersSidebar,Slider Track,"//div[contains(@class,'Slider.Track')]",Slider.Track,Track for price slider
+FiltersSidebar,Slider Thumb,"//div[contains(@class,'Slider.Thumb')]",Slider.Thumb,Handles for adjusting range
+Pagination,Pagination Wrapper,"//nav[contains(@class,'inline-flex')]",nav.inline-flex,Wrapper of all page buttons
+Pagination,Page Number Button,"//button[contains(@class,'rounded-md')]",button.rounded-md,Page number selector

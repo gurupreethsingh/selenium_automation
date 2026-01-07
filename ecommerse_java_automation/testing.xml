@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="ParallelBrowserTestSuite" parallel="tests" thread-count="3">
+    <test name="ChromeTest">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="homepage_scenarios.O1_OpenLoginPageWhenLoggedOutUsingHomelink_Parallel_testing"/>
+        </classes>
+    </test>
+
+    <test name="FirefoxTest">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="homepage_scenarios.O1_OpenLoginPageWhenLoggedOutUsingHomelink_Parallel_testing"/>
+        </classes>
+    </test>
+
+    <test name="EdgeTest">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="homepage_scenarios.O1_OpenLoginPageWhenLoggedOutUsingHomelink_Parallel_testing"/>
+        </classes>
+    </test>
+</suite>

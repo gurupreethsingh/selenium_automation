@@ -1,0 +1,141 @@
+scenarios for the `SingleProduct.jsx` page.
+
+---
+
+  1. Page Load & Basic UI Checks
+
+   Verify that the Single Product page loads successfully with product details.
+   Validate that the product name, price, brand, and category are rendered.
+   Check if the main image and sub-thumbnails load properly.
+   Confirm placeholder appears if product image is missing.
+   Check if product specifications and additional info sections are visible.
+   Verify that "Explore More from This Category" is shown when there are related products.
+
+---
+
+  2. Thumbnail and Main Image Interactions
+
+   Click on a thumbnail and verify that the main image updates.
+   Hover over the main image and validate that zoom effect activates.
+   Move the cursor away and verify zoom effect deactivates.
+
+---
+
+  3. Description Toggle (Read More / Show Less)
+
+   If description > 100 characters:
+
+     Initially, only the first few lines are visible.
+     Click Read More → full description is shown.
+     Click Show Less → description collapses.
+
+---
+
+  4. Add to Cart
+
+   If the product is in stock:
+
+     Click Add to Cart → confirm product added (backend call or cart context).
+     Toast message should show success.
+   If the product is out of stock:
+
+     Click Add to Cart → toast with "Out of Stock" should appear.
+
+---
+
+  5. Buy Now
+
+   If product is in stock:
+
+     Click Buy Now → user is redirected to `/checkout`.
+     Product is added to the cart with correct quantity.
+   If product is out of stock:
+
+     Click Buy Now → show toast "Out of Stock" and prevent navigation.
+
+---
+
+  6. Quantity Adjustment
+
+   Default quantity is 1.
+   Click `+` button → quantity increments.
+   Click `-` button:
+
+     If quantity > 1 → quantity decrements.
+     If quantity = 1 → quantity should remain 1 (not 0 or negative).
+
+---
+
+  7. Ratings & Review Count
+
+   Verify that orange stars are rendered according to `avg_rating`.
+   Check review count is displayed correctly in brackets.
+
+---
+
+  8. Price Validation
+
+   Ensure selling price is visible with ₹ sign.
+   If display\_price exists → verify it’s shown as struck-through.
+   Verify calculated MRP is 1.5x selling price and is struck-through.
+
+---
+
+  9. Product Information Sections
+
+   Validate that all product specs are rendered (SKU, dimensions, stock, etc.).
+   Check additional fields like outlet, category, manufacturer.
+   Confirm delivery info (estimate, replacement policy, origin) is present.
+
+---
+
+  10. Brand & Delivery Icons
+
+   Validate the presence of all icons: AmazonPay, Delivery Truck, etc.
+   Hover/click on icons and verify tooltip or label visibility.
+
+---
+
+  11. Related Products Carousel
+
+   If related products exist:
+
+     Verify horizontal scroll works via left/right buttons.
+     Clicking a product opens a new Single Product page.
+     Validate basic product info (image, name, price) inside each card.
+
+---
+
+  12. Responsiveness (Mobile Viewport)
+
+   Open on mobile resolution:
+
+     Ensure images, icons, and description scale properly.
+     Carousel, buttons, and layout adjust accordingly.
+     Action buttons (Add to Cart / Buy Now) remain tappable and visible.
+
+---
+
+  13. Negative/Edge Cases
+
+   Open page with invalid product ID → show appropriate fallback or error.
+   Open page when API is unreachable → verify error is logged, page doesn’t crash.
+   Check behavior if `all_product_images` is empty.
+
+---
+
+  Optional: Accessibility Checks
+
+   All images have valid `alt` text.
+   Buttons are focusable and accessible by keyboard.
+   Zoom effect does not interfere with screen readers.
+
+---
+
+  Bonus: End-to-End Scenario
+
+> Simulate complete flow:
+
+ Visit product page → increase quantity → Add to Cart → Visit Cart → Proceed to Checkout → Validate price, quantity.
+
+---

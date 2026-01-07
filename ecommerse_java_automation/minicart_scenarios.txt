@@ -1,0 +1,123 @@
+ `MiniCart.jsx` component**.
+
+---
+
+## ✅ 1. **MiniCart Icon & Badge**
+
+* [ ] Verify the cart icon is visible with class `FaShoppingCart`.
+* [ ] When cart is empty, no red badge should be shown.
+* [ ] When items exist in the cart, a red badge appears:
+
+  * [ ] Badge shows correct count (sum of quantities).
+  * [ ] Badge animates (bounce animation).
+
+---
+
+## ✅ 2. **Open & Close MiniCart Popup**
+
+* [ ] Click cart icon → minicart dropdown should appear.
+* [ ] Click outside the popup → minicart should close.
+* [ ] Add or remove item → popup should auto-close (due to `useEffect` on cartItems).
+* [ ] Popup has a smooth animation (test visible/hidden states).
+
+---
+
+## ✅ 3. **Empty Cart UI**
+
+* [ ] When cart is empty:
+
+  * [ ] Show message: `Your cart is empty!`
+  * [ ] Show cart icon inside the popup (gray, centered).
+  * [ ] No View Cart or Checkout buttons visible.
+
+---
+
+## ✅ 4. **Cart Items Rendering**
+
+* [ ] When cart has items:
+
+  * [ ] Each item has:
+
+    * Image with fallback.
+    * Product name.
+    * Price × quantity.
+    * Remove (trash) button.
+* [ ] Click remove → item is removed from popup.
+* [ ] Scroll area works if more than 4 items (`max-height: 80`).
+
+---
+
+## ✅ 5. **Total Price Calculation**
+
+* [ ] Verify that total at bottom is correct: sum of `selling_price × quantity`.
+* [ ] Confirm format: ₹ sign + `.toFixed(2)` formatting.
+
+---
+
+## ✅ 6. **Navigation Buttons**
+
+* [ ] **View Cart**:
+
+  * [ ] Appears when cart has items.
+  * [ ] Clicking it navigates to `/cart` and closes the popup.
+* [ ] **Checkout**:
+
+  * [ ] Appears when cart has items.
+  * [ ] Clicking it navigates to `/checkout` and closes the popup.
+
+---
+
+## ✅ 7. **Responsive Behavior**
+
+* [ ] On smaller screen sizes:
+
+  * [ ] Popup aligns to right edge.
+  * [ ] Content remains scrollable.
+  * [ ] Buttons are easily tappable.
+
+---
+
+## ✅ 8. **Image Fallback**
+
+* [ ] Simulate broken image URL → verify that placeholder loads in its place.
+
+---
+
+## ✅ 9. **Framer Motion Animation**
+
+* [ ] Verify dropdown popup uses animation on appear and disappear:
+
+  * `initial: { opacity: 0, y: -10 }`
+  * `animate: { opacity: 1, y: 0 }`
+  * `exit: { opacity: 0, y: -10 }`
+
+---
+
+## 🧪 Optional Edge Cases
+
+* [ ] Add a very high quantity item → badge should still display total correctly.
+* [ ] Remove the last item in cart → popup should refresh and show “Cart is empty!” message.
+* [ ] Rapid add/remove → ensure popup doesn't flicker or break animation.
+
+---
+
+## ✅ End-to-End Flow Test
+
+1. Add product from `Shop`.
+2. Open MiniCart → verify badge, item info, and total.
+3. Click `View Cart` → land on `/cart`, verify item persists.
+4. Repeat, then click `Checkout` → land on `/checkout`.
+
+---
+
+## 🧪 Suggested `data-testid` Attributes
+
+To ease test writing and reduce brittle selectors:
+
+```jsx
+<button data-testid="minicart-toggle">...</button>
+<div data-testid="minicart-popup">...</div>
+<span data-testid="minicart-badge">{cartCount}</span>
+```
+
+---

@@ -1,0 +1,34 @@
+Pagename,Title,xpath,css_selector,Explanation
+SingleProduct,Thumbnail Image,"//img[contains(@alt, 'thumb')]",img[alt^='thumb'],Small sub-image on left column
+SingleProduct,Main Product Image,//div[@class='bg-no-repeat'],.bg-no-repeat,Main product image with zoom-on-hover
+SingleProduct,Zoom Info Text,"//p[contains(text(),'roll over')]",p.text-blue-700,Info about zooming the image
+SingleProduct,Feature Icons Block,"//div[contains(@class,'justify-evenly')]",.justify-evenly,"Icons like Delivery, Replacement etc."
+SingleProduct,Feature Icon Label,//p[@class='text-sm text-center mt-1'],p.text-sm.text-center.mt-1,Label under each feature icon
+SingleProduct,Product Name,//h1,h1.text-4xl,Product name heading
+SingleProduct,Product Description,"//p[contains(@class,'text-gray-700')]",p.text-gray-700,Product description with Read more/less
+SingleProduct,Read More Button,"//button[contains(text(),'Read More') or contains(text(),'Show Less')]",button.text-blue-600,Toggle full description
+SingleProduct,Brand Text,"//p[strong[contains(text(),'Brand:')]]/span",span.text-blue-500,Product brand
+SingleProduct,Category Text,"//p[strong[contains(text(),'Category:')]]/span",span.text-blue-500,Product category
+SingleProduct,Rating Stars,"//div[contains(@class,'text-orange-500')]/i",.text-orange-500 .fa-star,Star rating icons
+SingleProduct,Review Count,"//span[contains(text(),'reviews')]",span.text-gray-600,Review count next to stars
+SingleProduct,Selling Price,"//h2[contains(@class,'text-3xl')]",h2.text-3xl,Main selling price
+SingleProduct,Display Price,"//span[contains(@class,'line-through')]",span.line-through,Strikethrough original price
+SingleProduct,MRP Text,"//del[contains(text(),'Rs.')]",del,Original MRP price shown as strikethrough
+SingleProduct,Tax Info,"//p[contains(text(),'Inclusive')]",p.text-sm,Tax and price disclaimer
+SingleProduct,Quantity Label,//span[text()='Qty:'],span.text-sm,Quantity label
+SingleProduct,Quantity Decrease Button,"//button[./i[contains(@class,'fa-minus')]]",button > .fa-minus,Decrease quantity
+SingleProduct,Quantity Display,"//span[contains(@class,'font-bold')]",span.font-bold,Current quantity count
+SingleProduct,Quantity Increase Button,"//button[./i[contains(@class,'fa-plus')]]",button > .fa-plus,Increase quantity
+SingleProduct,Add to Cart Button,"//button[contains(.,'Add to Cart')]",button:has(.fa-cart-plus):contains('Add to Cart'),Add to cart action
+SingleProduct,Buy Now Button,"//button[contains(.,'Buy Now')]",button:has(.fa-cart-plus):contains('Buy Now'),Buy now action
+SingleProduct,Product Specs Title,"//h2[contains(text(),'Technical')]",h2.text-orange-600,Title above specs table
+SingleProduct,Product Name Row,//li[strong[text()='PRODUCT NAME:']]/span,li:has(strong):contains('PRODUCT NAME:'),Row for product name in specs
+SingleProduct,SKU Row,//li[strong[text()='SKU:']]/span,li:has(strong):contains('SKU:'),Row for SKU in specs
+SingleProduct,Barcode Row,//li[strong[text()='Barcode:']]/span,li:has(strong):contains('Barcode:'),Row for barcode
+SingleProduct,Related Section Heading,"//h2[contains(text(),'Explore More')]",h2.text-xl,Related products section heading
+SingleProduct,Related Product Card,"//a[contains(@href,'single-product')]",a[href*='single-product'],Each related product card
+SingleProduct,Related Product Image,//a//img,a img,Image in related product card
+SingleProduct,Related Product Name,//a/h4,a h4,Name of related product
+SingleProduct,Related Product Price,"//a//p[contains(@class,'text-orange-600')]",a p.text-orange-600,Price in related product
+SingleProduct,Scroll Left Button,"//button[contains(@class,'-left-4')]",button.-left-4,Scroll left related carousel
+SingleProduct,Scroll Right Button,"//button[contains(@class,'-right-4')]",button.-right-4,Scroll right related carousel

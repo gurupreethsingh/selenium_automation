@@ -1,0 +1,277 @@
+--- Shop all page scenarios
+
+##  1. **Page Load & Initial Render**
+
+*   Verify that the shop page loads without errors.
+*   Confirm the presence of the header "Our Products".
+*   Verify that filters sidebar is visible on large screens.
+*   Confirm that products are loaded and displayed.
+*   Validate that the animated "toast message" area is hidden initially.
+
+---
+
+##  2. **Product View Modes (Grid, Card, List)**
+
+*   Click the **Grid View** button and confirm that products are rendered in grid layout.
+*   Click the **Card View** button and confirm that products are rendered in card layout.
+*   Click the **List View** button and confirm that products are rendered in list layout.
+*   Verify the view mode changes with appropriate UI transformation.
+
+---
+
+##  3. **Filtering Functionality**
+
+*   Apply a filter (category/price/brand/etc.) and verify the product list updates.
+*   Clear filters and verify the full product list is shown.
+*   Check that the pagination resets to page 1 on applying a filter.
+*   Verify filtered product count label is updated (e.g., `(12 items)`).
+
+---
+
+##  4. **Wishlist Functionality**
+
+*   Try adding a product to wishlist as a **logged-out** user – ensure a login prompt is shown.
+*   Login, then:
+
+  *   Click the wishlist icon – confirm product is added.
+  *   Click again – confirm product is removed.
+  *   Check toast message is shown for both add and remove.
+*   Confirm correct wishlist icon status (filled or not) after toggling.
+
+---
+
+##  5. **Add to Cart Functionality**
+
+*   Click the "Add to Cart" button for a product in stock – confirm item is added.
+*   Try to add an out-of-stock product – confirm error toast is shown.
+*   Add multiple items and check cart count updates (if visible in the UI).
+
+---
+
+##  6. **Pagination Behavior**
+
+*   Confirm correct number of products per page (based on view mode).
+*   Navigate to next/previous pages – verify product list updates accordingly.
+*   Check first and last page navigation.
+*   Try to navigate when only one page exists – pagination should be hidden or disabled.
+
+---
+
+##  7. **Animation Tests (Optional but Useful)**
+
+*   Verify that animated toast message appears when a product is added/removed from wishlist.
+*   Confirm it disappears after 2 seconds.
+*   Ensure sidebar and main area fade-in on page load.
+
+---
+
+##  8. **Responsiveness & Layout**
+
+*   Resize window to mobile view – verify that layout adapts:
+
+  *   Sidebar collapses (if applicable).
+  *   Product views render correctly.
+  *   Buttons remain clickable and visible.
+
+---
+
+##  9. **API Failure Handling**
+
+*   Simulate backend API failure (e.g., turn off server) and check:
+
+  *   Appropriate error is logged in console.
+  *   No crash occurs on frontend.
+
+---
+
+##  10. **Edge Cases**
+
+*   Test with zero products – verify proper empty state message.
+*   Test with exactly `productsPerPage` items – pagination should be hidden.
+*   Test with one product – layout should still render correctly.
+
+---
+
+##  Bonus: Integration Tests (if you extend scope)
+
+*   End-to-end test: login → filter → add to wishlist → add to cart → go to checkout.
+*   Wishlist persistence: reload the page and ensure wishlist items are remembered.
+
+---
+
+
+
+---
+
+### ✅ `O013_ApplyCategoryFilter_VerifyFilteredProducts`
+
+**Objective:** Apply a category filter and ensure only products from that category appear.
+
+```java
+// Steps:
+1. Open the shop page.
+2. Click a known category checkbox.
+3. Count filtered products from grid.
+4. Verify product titles or categories match expected (partial validation).
+```
+
+---
+
+### ✅ `O014_ApplyBrandFilter_VerifyBrandMatch`
+
+**Objective:** Verify products shown after selecting a brand filter all match that brand.
+
+```java
+// Steps:
+1. Open shop page.
+2. Click a specific brand checkbox from sidebar.
+3. Verify filtered product count is > 0.
+4. Check that each product name/title/brand info contains that brand string.
+```
+
+---
+
+### ✅ `O015_ApplyPriceFilter_VerifyRangeMatch`
+
+**Objective:** Apply price filter and ensure all products are within that range.
+
+```java
+// Steps:
+1. Apply a known price range.
+2. For each visible product:
+   a. Extract selling price (via `.findElement(...).getText()`).
+   b. Convert to integer.
+   c. Verify price falls within selected range.
+```
+
+---
+
+### ✅ `O016_WishlistToggle_UnloggedUser_ShowsLoginToast`
+
+**Objective:** Clicking wishlist icon without login should trigger login toast.
+
+```java
+1. Ensure user is logged out.
+2. Open shop page.
+3. Click wishlist icon on any product.
+4. Check for presence of toast (or text: "Please log in to use the wishlist").
+```
+
+---
+
+### ✅ `O017_AddToCart_UnavailableProduct_ShowsError`
+
+**Objective:** Clicking Add to Cart on an out-of-stock product must trigger "Out of stock" error.
+
+```java
+1. Open shop page.
+2. Locate a product with "Out of Stock" indicator (e.g. check innerText).
+3. Click its "Add to Cart" button.
+4. Verify toast text: "Cannot add. Product is Out of Stock!"
+```
+
+---
+
+### ✅ `O018_PaginationNextBack_VerifyProductSwitch`
+
+**Objective:** Switch pages using pagination and confirm product list changes.
+
+```java
+1. Count products on page 1.
+2. Click page 2 in pagination.
+3. Verify current URL changes (optional).
+4. Compare product names on page 2 vs page 1 → assert different.
+```
+
+---
+
+### ✅ `O019_ToggleViewModes_PreserveProductCount`
+
+**Objective:** Toggle grid ↔ list ↔ card view and ensure product count stays the same.
+
+```java
+1. Get current count in grid view.
+2. Switch to card view.
+3. Get count again → match.
+4. Switch to list view → match again.
+```
+
+---
+
+### ✅ `O020_VerifyWishlistIconStateToggle`
+
+**Objective:** Logged-in user adds/removes wishlist item → heart icon toggles state.
+
+```java
+1. Log in first.
+2. Open shop page.
+3. Click wishlist on 1st product.
+4. Check if icon class or style changes (e.g. red heart).
+5. Click again → should revert.
+```
+
+---
+
+### ✅ `O021_VerifyNoHorizontalScrollInMobile`
+
+**Objective:** Ensure responsiveness – no horizontal scroll on mobile view.
+
+```java
+1. Set browser size: `driver.manage().window().setSize(new Dimension(375, 812));`
+2. Scroll horizontally via JS and get scrollX.
+3. Assert scrollX remains 0.
+```
+
+---
+
+### ✅ `O022_AnimatedToast_ShownOnWishlistToggle`
+
+**Objective:** When wishlist toggled, toast must appear with product name.
+
+```java
+1. Log in.
+2. Click wishlist icon.
+3. Wait for toast.
+4. Verify it contains product name (partial text match).
+```
+
+---
+
+### ✅ `O023_EmptyFilter_NoResultsFoundText`
+
+**Objective:** Apply a filter that results in zero products. Verify message like “No products found.”
+
+```java
+1. Apply a category + brand combo known to yield 0 products.
+2. Wait for product grid to render.
+3. Verify grid is empty and message is present.
+```
+
+---
+
+### ✅ `O024_ProductNameSearch_VerifyMatchingResults`
+
+**Objective:** Use a product search filter and verify result set contains matching names.
+
+```java
+1. Type a partial product name in search bar (if present).
+2. Wait for filter to apply.
+3. Verify all product names contain search term.
+```
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

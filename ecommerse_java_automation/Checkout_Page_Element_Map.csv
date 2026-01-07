@@ -1,0 +1,15 @@
+Section,Element Description,XPath,CSS Selector
+Header,Checkout Page Heading,"//h1[contains(text(),'Checkout')]",h1.text-4xl.font-extrabold
+Address Forms,Billing Address Form Container,"//h2[contains(text(),'Billing Address')]/ancestor::div[contains(@class,'shadow-md')]",div.shadow-md:has(h2:contains('Billing Address'))
+Address Forms,Shipping Address Form Container,"//h2[contains(text(),'Shipping Address')]/ancestor::div[contains(@class,'shadow-md')]",div.shadow-md:has(h2:contains('Shipping Address'))
+Address Forms,Same as Billing Checkbox,//input[@type='checkbox' and @checked],input[type='checkbox']:checked
+Cart Summary,Cart Section Header,"//h2[contains(text(),'Your Cart')]",h2.text-xl.font-bold:has(svg)
+Cart Summary,Cart Item Block,"//div[contains(@class,'items-center border-b')]",div.border-b.pb-3
+Cart Summary,Cart Product Image,"//img[contains(@class,'object-cover')]",img.object-cover
+Cart Summary,Cart Product Name,"//p[contains(@class,'text-gray-800')]",p.font-semibold.text-gray-800
+Cart Summary,Cart Product Quantity,"//p[contains(text(),'Qty:')]",p.text-sm.text-gray-500
+Cart Summary,Cart Product Price,"//p[contains(@class,'text-black')]",p.font-semibold.text-black
+Cart Summary,Total Label,"//h3[contains(text(),'Total')]",h3.text-xl.font-bold.text-gray-700
+Cart Summary,Total Price,//h3[@class='text-xl font-bold text-black'],h3.text-xl.font-bold.text-black
+Cart Summary,Place Order Button,"//button[contains(text(),'Place Order')]",button.bg-gradient-to-r:contains('Place Order')
+Navigation,Back to Shop Button,"//button[contains(text(),'Back to Shop')]",button:has(svg) + span:contains('Back to Shop')

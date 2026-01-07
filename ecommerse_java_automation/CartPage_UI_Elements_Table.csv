@@ -1,0 +1,24 @@
+cart page,title,url,
+,Cart | ECODERS,http://localhost:5173/cart,
+,,,
+,,,
+Element,XPath,CSS Selector,Description
+Page Title,"//h1[contains(text(),'Your Cart')]",div>h1.text-3xl,Main heading 'Your Cart'
+Cart Spinner Icon,"//div[contains(@class,'h-[60vh]')]//svg",.animate-spin-slow,Spinning icon while loading cart
+Cart Spinner Text,"//p[contains(text(),'Loading your cart...')]",p.text-gray-600,Text shown during loading state
+Empty Cart Image,"//img[contains(@alt,'Empty Cart')]",img.mx-auto,Image shown when cart is empty
+Empty Cart Message,"//h2[contains(text(),'Your cart is empty')]",h2.text-xl,Text shown for empty cart state
+Go Shopping Button,"//a[contains(text(),'Go Shopping')]",a.bg-gradient-to-r,Button to redirect to Shop page
+Cart Item Container,"//div[contains(@class,'bg-white') and contains(@class,'rounded-lg')]",.bg-white.rounded-lg,Wrapper for each cart item
+Product Image,"//img[contains(@class,'w-24')]",img.w-24,Product image in the cart
+Product Name,//h2[@class='text-lg font-semibold text-gray-800'],h2.text-lg,Product name
+Product Price,"//p[contains(@class,'text-green-600')]",p.text-green-600,Single item price
+Decrease Quantity Button,"//button[.//svg[contains(@data-icon,'minus')]]",button.bg-gray-100:first-of-type,Decrease product quantity
+Quantity Text,//span[@class='font-semibold text-lg'],span.font-semibold,Current quantity display
+Increase Quantity Button,"//button[.//svg[contains(@data-icon,'plus')]]",button.bg-gray-100:last-of-type,Increase product quantity
+Item Total Price,"//span[contains(@class,'text-green-700')]",span.text-green-700,Total price for item * quantity
+Remove Item Button,"//button[contains(@class,'bg-red-500')]",button.bg-red-500,Button to remove item from cart
+Total Box Container,"//div[contains(@class,'p-6') and contains(.,'Total Amount')]",div.p-6.rounded-xl,Box showing total amount and checkout button
+Total Amount Text,"//h2[contains(text(),'Total Amount')]",h2.text-xl,Heading for total amount
+Total Value,"//p[contains(@class,'text-2xl')]",p.text-2xl,Computed cart total value
+Proceed to Checkout Button,"//button[contains(text(),'Proceed to Checkout')]",button.bg-gradient-to-r,Checkout navigation button

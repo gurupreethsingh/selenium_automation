@@ -1,0 +1,119 @@
+scenarios for the `CartPage.jsx` page.
+
+---
+
+  1. Page Load & UI Elements
+
+   Verify the Cart page loads successfully and displays the title `Your Cart`.
+   If the cart is loading, show loading spinner with the correct icon and message.
+   If the cart is empty:
+
+     Display the empty cart image.
+     Display message `Your cart is empty!`.
+     "Go Shopping" button is visible and redirects to `/shop`.
+
+---
+
+  2. Cart Item Rendering
+
+   Verify that all cart items are rendered with:
+
+     Product image (with fallback if broken).
+     Product name.
+     Product price.
+     Product quantity.
+     Total for that product (`price × quantity`).
+     Remove (trash) button.
+
+---
+
+  3. Quantity Manipulation
+
+   Click the `+` button → quantity should increment.
+   Click the `-` button:
+
+     If quantity > 1 → it should decrement.
+     If quantity = 1 → it should stay 1 (not go to 0 or below).
+   Validate total per item updates correctly after quantity change.
+   Confirm backend or context is updated (if observable in UI).
+
+---
+
+  4. Item Removal
+
+   Click the `Remove` (trash) button → item should be removed from the cart.
+   Verify that the UI updates immediately (item disappears).
+   If it was the last item → verify empty cart state is shown.
+
+---
+
+  5. Cart Total Calculation
+
+   Total amount displayed at the bottom should match the sum of `(price × quantity)` for all items.
+   Change quantity of an item → confirm total updates accordingly.
+   Remove item → confirm total is recalculated correctly.
+   If cart is empty → total should be `0.00` or hidden.
+
+---
+
+  6. Proceed to Checkout
+
+   Button labeled `Proceed to Checkout` should be visible when cart has items.
+   Click the button → user should be redirected to `/checkout`.
+   Cart items should persist in context during navigation.
+
+---
+
+  7. Image Fallback
+
+   Simulate a broken product image URL → verify placeholder image appears.
+
+---
+
+  8. Responsiveness
+
+   Test on smaller screen (mobile view):
+
+     All cart items stack vertically.
+     Buttons and images remain visible and interactive.
+     Checkout button spans full width on small screens.
+
+---
+
+  9. Animation & Transitions
+
+   Verify that each cart item fades/slides in on load (`framer-motion` effect).
+   Confirm loading spinner spins (`animate-spin-slow`).
+   Verify total box animates into view smoothly.
+
+---
+
+  10. Edge Cases
+
+   Load with 0 items → empty cart view.
+   Load with 1 item → ensure all controls work as expected.
+   Load with large quantities → total calculations should still be correct.
+   Remove all items one by one → empty cart state should appear.
+
+---
+
+  Bonus: End-to-End Flow
+
+> Simulate a real user journey:
+
+ Add product from `Shop` page → navigate to Cart → increase quantity → proceed to Checkout → verify product(s) exist in checkout.
+
+---
+
+  Optional Automation Suggestions
+
+If you're using Selenium + Python or Java, here's how you can break this down:
+
+ Selectors:
+
+   `class="text-3xl"` → heading
+   `class="bg-white rounded-lg shadow"` → cart item container
+   `class="bg-gradient-to-r"` → checkout button
+ IDs (for better testing): consider adding `data-testid` attributes for critical buttons like `increase`, `decrease`, `remove`.
+
+---

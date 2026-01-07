@@ -1,0 +1,145 @@
+`MyOrders.jsx` page scenarios.
+
+---
+
+  1. Page Load and Initial State
+
+   Verify that the page loads successfully with the heading `My Orders`.
+   If the user is not logged in, verify that the orders are not fetched.
+   If the user is logged in but has no orders:
+
+   Show message: `No orders placed yet.`
+   Animated `FaClock` icon is shown.
+   If the user has orders:
+
+   Render a list of order cards.
+
+---
+
+  2. Order Card Rendering
+
+   For each order:
+
+     Display Order ID.
+     Display order status as a colored badge:
+
+     `"Delivered"` → green
+     `"Shipped"` → blue
+     anything else → yellow
+     Display each item in a grid:
+
+     Product image
+     Product name
+     Quantity
+     Line total (price × quantity)
+
+---
+
+  3. Cart Items in Each Order
+
+   Check that:
+
+   The product image loads (with fallback on error).
+   Product name is visible and correct.
+   Quantity and total price are displayed correctly.
+   Image and details are wrapped in `border` and `rounded` classes.
+
+---
+
+  4. Billing & Shipping Addresses
+
+   Each order must show:
+
+   Billing Address: full formatted string.
+   Shipping Address: full formatted string.
+   If any address field is missing, it should show "N/A" or be gracefully skipped.
+
+---
+
+  5. Total Price Calculation
+
+   Check the total amount (`order.totalAmount.toFixed(2)`) is displayed at the bottom of each order card.
+   Verify price is prefixed with ₹ and uses the orange-colored icon.
+
+---
+
+  6. Track Delivery Button
+
+   Each order has a `Track Delivery` button.
+
+   Text: `Track Delivery`
+   Icon: `FaShippingFast`
+   Should have `hover:underline` and be clickable.
+   \Optional You can later link this to a tracking modal or route.
+
+---
+
+  7. Image Fallback
+
+   Simulate an invalid image path.
+   Verify that a placeholder image (`https://via.placeholder.com/150`) is loaded.
+
+---
+
+  8. Responsive Layout
+
+   On large screens:
+
+   Items are shown in 3-column grid.
+   On medium (tablet) screens:
+
+   Switches to 2-column layout.
+   On mobile:
+
+   Becomes single-column grid for order items.
+
+---
+
+  9. Edge Case Tests
+
+   Orders with:
+
+   No items (should still render, but show nothing in grid).
+   Missing address fields.
+   Status that is not Delivered/Shipped (e.g. “Processing”).
+   Orders with high item quantities and multiple items.
+
+---
+
+  10. Animations & Styling
+
+   Confirm animated class `animate-fadeIn` applies on page load.
+   Each order card uses hover effect (`hover:shadow-xl`).
+   Icons use correct colors:
+
+   `FaBoxOpen` → orange
+   `FaRupeeSign` → orange
+   `FaClock` → yellow
+   `FaShippingFast` → blue
+
+---
+
+  Suggested Test Selectors
+
+If you want cleaner automation, consider adding `data-testid` attributes:
+
+```jsx
+<div data-testid="order-card">...</div>
+<p data-testid="order-id">{order._id}</p>
+<p data-testid="total-amount">₹{order.totalAmount.toFixed(2)}</p>
+```
+
+---
+
+  End-to-End User Flow Test
+
+1. Login as user who has orders.
+2. Navigate to `/my-orders`.
+3. Verify:
+
+    Orders are rendered.
+    Product details and prices are correct.
+    Click “Track Delivery” (if hooked to tracking feature).
+4. Logout → reload `/my-orders` → should not fetch orders.
+
+---
