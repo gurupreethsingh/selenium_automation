@@ -6,6 +6,7 @@ public class Variables     // jvm - look for main function to start the program.
     {
 		// variables : are named memory locations. it can store any value, during execution we can 
     	// change that value 
+    	// true, false etc keywords cannot use for variable names.
     	
        int a = 5;
        long l = 8765875698769876l;   // long integer  8 bytes
@@ -14,7 +15,6 @@ public class Variables     // jvm - look for main function to start the program.
        char ch = 'a';
        boolean result = true; 
        boolean result1 = false; 
-       
        
        System.out.println(a);
        System.out.println(l);
