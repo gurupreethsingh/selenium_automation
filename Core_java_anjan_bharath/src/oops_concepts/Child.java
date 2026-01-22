@@ -5,14 +5,14 @@ package oops_concepts;
 
 // when only one child class inherits from only one parent class
 
-class Parent
+class Parent  // parent, base, super
 {
 	int money = 10000; 
 }
 
 
 
-public class Child  extends Parent
+public class Child  extends Parent  // child , sub class
 {
      //  int money = 10000;
 	public static void main(String[] args) 

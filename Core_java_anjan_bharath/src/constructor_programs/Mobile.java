@@ -14,11 +14,13 @@ class Whatsapp
 	
 	Whatsapp(int b, String a)
 	{
+		this('s');
 		System.out.println("Send two message");
 	}
 	
 	Whatsapp(int a, int b, int c)
 	{
+		this(1, "hi");
 		System.out.println("Send three message");
 	}
 }
@@ -27,8 +29,6 @@ public class Mobile {
 
 	public static void main(String[] args)   // jvm
 	{
-		new Whatsapp('a');
-		new Whatsapp(3, "hi");
 		new Whatsapp(1,1,1);
 	}
 }
