@@ -25,4 +25,37 @@ public class AllVerifications
 		}
 		return titleVerified;
 	}
+	
+	public static boolean verifyUrlOfWebpage(WebDriver driver, String expectedUrl)
+	{
+		boolean urlVerified = false; 
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		try
+		{
+			wait.until(ExpectedConditions.urlMatches(expectedUrl));
+			urlVerified = true;
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Url not matching " + expectedUrl + " Found : "+ driver.getCurrentUrl());
+		}
+		return urlVerified;
+	}
+	
+	
+	public static boolean verifyTextPresent(WebDriver driver, String expectedText, WebElement element)
+	{
+		boolean textVerified = false; 
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		try
+		{
+			wait.until(ExpectedConditions.textToBePresentInElement(element, expectedText));
+			textVerified = true;
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Text not matching " + expectedText + " Found : "+ element.getText());
+		}
+		return textVerified;
+	}
 }
