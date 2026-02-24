@@ -317,7 +317,7 @@ public class AllVerifications {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		int actualCount = 0;
 		try {
-			wait.until(driver1 -> driver1.findElements(locator).size() == expectedCount);
+			wait.until(driver1 -> driver1.findElements(locator).size() == expectedCount); // lambda function
 			actualCount = driver.findElements(locator).size();
 
 			List<WebElement> allBrandNames = driver.findElements(By
@@ -325,7 +325,6 @@ public class AllVerifications {
 			int actualNameCount = allBrandNames.size();
 
 			for (int i = 0; i < actualNameCount; i++) {
-
 				String eachBrandNameText = allBrandNames.get(i).getText();
 				System.out.println(eachBrandNameText);
 				Thread.sleep(100);

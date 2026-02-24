@@ -24,6 +24,7 @@ public class AS_O1_FindAllLinksInHomepage implements AutomationConstants {
 		String expectedTitle = "Home | ECODERS";
 		AllVerifications.verifyTitleOfWebpage(driver, expectedTitle);
 		// find all the links/ achors tags
+
 		List<WebElement> allLinks = driver.findElements(By.tagName("a"));
 		int linkCount = allLinks.size();
 		System.out.println("Total links found : " + linkCount);
