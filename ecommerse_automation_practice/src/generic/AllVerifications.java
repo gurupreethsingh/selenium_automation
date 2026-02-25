@@ -37,6 +37,7 @@ public class AllVerifications {
 		try {
 			wait.until(ExpectedConditions.urlMatches(expectedUrl));
 			urlVerified = true;
+			System.out.println("Url matching " + expectedUrl + " Found : " + driver.getCurrentUrl());
 		} catch (Exception ex) {
 			System.out.println("Url not matching " + expectedUrl + " Found : " + driver.getCurrentUrl());
 		}

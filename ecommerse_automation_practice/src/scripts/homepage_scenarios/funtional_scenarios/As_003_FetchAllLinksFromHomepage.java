@@ -10,7 +10,7 @@ public class As_003_FetchAllLinksFromHomepage extends OpenClose {
 		OpenClose.openApplication();
 		String expectedHomepageTitle = "Home | ECODERS";
 		Homepage hp = new Homepage(driver);
-		hp.verityHomepageTitle(expectedHomepageTitle);
+		hp.verifyHomepageTitle(expectedHomepageTitle);
 		hp.findAllLinksInHomepageAndPrintTextOfLinks();
 		OpenClose.closeApplication();
 

@@ -13,7 +13,7 @@ public class As_001_ClickShoplinkFromHomepageOpenShoppage extends OpenClose {
 		String expectedHomepageTitle = "Home | ECODERS";
 
 		Homepage hp = new Homepage(driver);
-		hp.verityHomepageTitle(expectedHomepageTitle);
+		hp.verifyHomepageTitle(expectedHomepageTitle);
 
 		// find the shopall link from homepage and click on it.
 		hp.clickOnShopAllLink();

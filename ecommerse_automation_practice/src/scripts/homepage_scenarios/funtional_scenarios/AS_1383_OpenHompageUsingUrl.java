@@ -1,36 +1,24 @@
 package scripts.homepage_scenarios.funtional_scenarios;
 
-import java.time.Duration;
+import generic.Excel;
+import generic.OpenClose;
+import pom.Homepage;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import generic.AutomationConstants;
-
-public class AS_1383_OpenHompageUsingUrl implements AutomationConstants {
+public class AS_1383_OpenHompageUsingUrl extends OpenClose {
 	public static void main(String[] args) throws InterruptedException {
-		// open the chrome browser
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		// enter the url and open the web page / homepage.
-		driver.get(urlOfApplication);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		// confirm whether homepage is opened or not , by verifying the title or url
-		String actualTitle = driver.getTitle();
-		String actualUrl = driver.getCurrentUrl();
 
-		String expectedTitle = "Home | ECODERS"; // this will be given in the requirement
-		String expectedUrl = "http://localhost:5173"; // this will be given in the requirement
+		OpenClose.openApplication();
 
-		if (actualTitle.equals(expectedTitle)) {
-			System.out.println("Test case passed, Title is matcing.");
-		} else {
-			System.out.println("Test case failed, Title is not matcing.");
-		}
+		Homepage hp = new Homepage(driver);
 
-		Thread.sleep(4000);
-		// close the browser
-		driver.quit();
+		String expectedTitle = Excel.getData("Homepage", 1, 0);
+		System.out.println("Title from excel sheet : " + expectedTitle);
+		String expectedUrl = Excel.getData("Homepage", 1, 1);
+		System.out.println("Url from excel sheet : " + expectedUrl);
+
+		hp.verifyHomepageTitle(expectedTitle);
+		hp.verifyHomepageUrl(expectedUrl);
+
+		OpenClose.closeApplication();
 	}
 }

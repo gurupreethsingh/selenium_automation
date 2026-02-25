@@ -10,7 +10,7 @@ public class As_002_ClickWishlistIconFromHomepageOpenWishlistpage extends OpenCl
 		OpenClose.openApplication();
 		String expectedHomepageTitle = "Home | ECODERS";
 		Homepage hp = new Homepage(driver);
-		hp.verityHomepageTitle(expectedHomepageTitle);
+		hp.verifyHomepageTitle(expectedHomepageTitle);
 		hp.clickOnWishlistIcon();
 		String expectedWistlistPageTitle = "Wishlist | ECODERS";
 		WishlistPage wlp = new WishlistPage(driver);

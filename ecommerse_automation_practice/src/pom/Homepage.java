@@ -61,8 +61,12 @@ public class Homepage extends AllVerifications {
 		}
 	}
 
-	public void verityHomepageTitle(String expectedTitle) {
+	public void verifyHomepageTitle(String expectedTitle) {
 		verifyTitleOfWebpage(driver, expectedTitle);
+	}
+
+	public void verifyHomepageUrl(String expectedUrl) {
+		verifyUrlOfWebpage(driver, expectedUrl);
 	}
 
 }
