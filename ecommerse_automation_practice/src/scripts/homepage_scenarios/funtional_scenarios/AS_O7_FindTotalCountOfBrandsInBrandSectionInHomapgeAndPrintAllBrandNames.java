@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import generic.AllVerifications;
 import generic.OpenClose;
 
-public class AS_O6_FindTotalCountOfBrandsInBrandSectionInHomapge extends OpenClose {
+public class AS_O7_FindTotalCountOfBrandsInBrandSectionInHomapgeAndPrintAllBrandNames extends OpenClose {
 
 	public static void main(String[] args) throws InterruptedException {
 		OpenClose.openApplication();
@@ -17,8 +17,9 @@ public class AS_O6_FindTotalCountOfBrandsInBrandSectionInHomapge extends OpenClo
 		AllVerifications.verifyTotalElementsCount(driver, totalExpectedCount,
 				By.cssSelector("div.flex.items-center.w-max:first-child>button"));
 
+		AllVerifications.printAllBrandNamesInHomepage(driver, totalExpectedCount,
+				By.cssSelector(".brandViewport .brandTrack button[title]"));
+
 		OpenClose.closeApplication();
 	}
 }
-
-// div.flex.items-center.w-max:first-child>button   -  find total number of brands 

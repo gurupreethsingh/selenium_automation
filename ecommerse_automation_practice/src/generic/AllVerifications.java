@@ -1,7 +1,9 @@
 package generic;
 
 import java.time.Duration;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -312,33 +314,33 @@ public class AllVerifications {
 //		return countVerified;
 //	}
 
-	public static boolean verifyTotalElementsCount(WebDriver driver, int expectedCount, By locator) {
-		boolean totalCountVerified = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		int actualCount = 0;
-		try {
-			wait.until(driver1 -> driver1.findElements(locator).size() == expectedCount); // lambda function
-			actualCount = driver.findElements(locator).size();
-
-			List<WebElement> allBrandNames = driver.findElements(By
-					.cssSelector("div.flex.items-center.w-max:first-child>button>div>div:last-child>span:first-child"));
-			int actualNameCount = allBrandNames.size();
-
-			for (int i = 0; i < actualNameCount; i++) {
-				String eachBrandNameText = allBrandNames.get(i).getText();
-				System.out.println(eachBrandNameText);
-				Thread.sleep(100);
-			}
-
-			System.out.println(
-					"Count matching - expected count : " + expectedCount + " Found actual count is : " + actualCount);
-		} catch (Exception ex) {
-			System.out.println(
-					"Count Not matching expected count : " + expectedCount + " Found actual count as : " + actualCount);
-			ex.printStackTrace();
-		}
-		return totalCountVerified;
-	}
+//	public static boolean verifyTotalElementsCount(WebDriver driver, int expectedCount, By locator) {
+//		boolean totalCountVerified = false;
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//		int actualCount = 0;
+//		try {
+//			wait.until(driver1 -> driver1.findElements(locator).size() == expectedCount); // lambda function
+//			actualCount = driver.findElements(locator).size();
+//
+//			List<WebElement> allBrandNames = driver.findElements(By
+//					.cssSelector("div.flex.items-center.w-max:first-child>button>div>div:last-child>span:first-child"));
+//			int actualNameCount = allBrandNames.size();
+//
+//			for (int i = 0; i < actualNameCount; i++) {
+//				String eachBrandNameText = allBrandNames.get(i).getText();
+//				System.out.println(eachBrandNameText);
+//				Thread.sleep(100);
+//			}
+//
+//			System.out.println(
+//					"Count matching - expected count : " + expectedCount + " Found actual count is : " + actualCount);
+//		} catch (Exception ex) {
+//			System.out.println(
+//					"Count Not matching expected count : " + expectedCount + " Found actual count as : " + actualCount);
+//			ex.printStackTrace();
+//		}
+//		return totalCountVerified;
+//	}
 
 	// usage : verifyTotalElementsCount(driver, By.cssSelector(".wishlist-card"),
 	// 0));
@@ -346,5 +348,151 @@ public class AllVerifications {
 	// removeButton.click();
 	// verifyTotalElementsCount(driver, By.cssSelector(".wishlist-card"), before
 	// -1));
+
+	public static boolean verifyTotalElementsCount1(WebDriver driver, int expectedCount, By locator) {
+		boolean totalCountVerified = false;
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		int actualCount = 0;
+
+		try {
+			// ✅ wait until the expected count is present in DOM
+			wait.until(d -> d.findElements(locator).size() == expectedCount);
+
+			List<WebElement> brandButtons = driver.findElements(locator);
+			actualCount = brandButtons.size();
+
+			// ✅ Print ALL brand names (visibility independent)
+			// We read from the button's title attribute (title={brand} in React)
+			java.util.Set<String> uniqueBrands = new java.util.LinkedHashSet<>();
+
+			for (WebElement btn : brandButtons) {
+				String brand = btn.getAttribute("title"); // ✅ works even if off-screen
+				if (brand != null) {
+					brand = brand.trim();
+					if (!brand.isEmpty())
+						uniqueBrands.add(brand);
+				}
+			}
+
+			// ✅ If your locator accidentally doesn't include [title], fall back to spans
+			// using textContent
+			// (textContent is more reliable than getText for animated/overflow content)
+			if (uniqueBrands.isEmpty()) {
+				List<WebElement> nameSpans = driver.findElements(By.cssSelector(
+						"div.flex.items-center.w-max:first-child>button[title]>div>div:last-child>span:first-child"));
+				for (WebElement s : nameSpans) {
+					String t = s.getAttribute("textContent");
+					if (t != null) {
+						t = t.trim();
+						if (!t.isEmpty())
+							uniqueBrands.add(t);
+					}
+				}
+			}
+
+			// ✅ Print
+			int count = 0;
+			for (String b : uniqueBrands) {
+				System.out.println(count + 1 + " Brand Name : " + b);
+				count++;
+				Thread.sleep(50);
+			}
+
+			System.out.println("Count matching - expected count : " + expectedCount + " Found actual count is : "
+					+ actualCount + " | Unique names printed: " + uniqueBrands.size());
+
+			// ✅ mark verified
+			totalCountVerified = (actualCount == expectedCount);
+
+		} catch (Exception ex) {
+			System.out.println(
+					"Count Not matching expected count : " + expectedCount + " Found actual count as : " + actualCount);
+			ex.printStackTrace();
+		}
+
+		return totalCountVerified;
+	}
+
+	// simpler version.
+	public static boolean verifyTotalElementsCount(WebDriver driver, int expectedCount, By locator) {
+		boolean totalCountVerified = false;
+		int actualCount = 0;
+
+		try {
+			// 1) Wait until expected number of elements are present (simple loop)
+			for (int i = 0; i < 50; i++) {
+
+				actualCount = driver.findElements(locator).size();
+
+				if (actualCount == expectedCount) {
+					break;
+				}
+				Thread.sleep(200);
+			}
+
+			// 4) Print summary + return result
+			System.out.println(
+					"Count Verification passed, Expected count: " + expectedCount + " | Actual count: " + actualCount);
+
+			totalCountVerified = (actualCount == expectedCount);
+
+		} catch (Exception ex) {
+			System.out.println("Count verification failed. Expected: " + expectedCount + " | Actual: " + actualCount);
+			ex.printStackTrace();
+		}
+
+		return totalCountVerified;
+	}
+
+	public static boolean printAllBrandNamesInHomepage(WebDriver driver, int expectedCount, By locator) {
+		boolean totalCountVerified = false;
+		int actualCount = 0;
+
+		try {
+			// 1) Wait until expected number of elements are present (simple loop)
+			for (int i = 0; i < 50; i++) {
+
+				actualCount = driver.findElements(locator).size();
+
+				if (actualCount == expectedCount) {
+					break;
+				}
+				Thread.sleep(200);
+			}
+
+			// 2) Get all brand buttons
+			List<WebElement> brandButtons = driver.findElements(locator);
+			actualCount = brandButtons.size();
+
+			// 3) Print all brand names (from title attribute)
+			Set<String> uniqueBrands = new LinkedHashSet<>();
+
+			for (WebElement btn : brandButtons) {
+				String brand = btn.getAttribute("title"); // ✅ does not depend on visibility
+				if (brand != null && !brand.trim().isEmpty()) {
+					uniqueBrands.add(brand.trim());
+				}
+			}
+
+			int count = 0;
+			for (String b : uniqueBrands) {
+				System.out.println(count + 1 + " Brand Name : " + b);
+				count++;
+				Thread.sleep(50);
+			}
+
+			// 4) Print summary + return result
+			System.out.println("Expected count: " + expectedCount + " | Actual count: " + actualCount
+					+ " | Unique names printed: " + uniqueBrands.size());
+
+			totalCountVerified = (actualCount == expectedCount);
+
+		} catch (Exception ex) {
+			System.out.println("Count verification failed. Expected: " + expectedCount + " | Actual: " + actualCount);
+			ex.printStackTrace();
+		}
+
+		return totalCountVerified;
+	}
 
 }
