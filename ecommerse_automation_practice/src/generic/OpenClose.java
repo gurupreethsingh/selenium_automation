@@ -4,11 +4,14 @@ import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 public abstract class OpenClose implements AutomationConstants {
 	public static WebDriver driver = null;
 
 	// funtion to open the application
+	@BeforeMethod
 	public static void openApplication() {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
@@ -20,8 +23,9 @@ public abstract class OpenClose implements AutomationConstants {
 
 	// function to close the application
 
+	@AfterMethod
 	public static void closeApplication() throws InterruptedException {
-		Thread.sleep(3000);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.quit();
 	}
 }

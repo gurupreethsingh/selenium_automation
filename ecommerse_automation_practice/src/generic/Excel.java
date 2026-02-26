@@ -2,6 +2,7 @@ package generic;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -14,7 +15,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Excel implements AutomationConstants {
-	public static String getData(String sheetName, int rowNumber, int cellNumber) {
+	public static String getData1(String sheetName, int rowNumber, int cellNumber) {
 		String value = "";
 		try {
 			File f = new File(excelSheetPath);
@@ -29,6 +30,117 @@ public class Excel implements AutomationConstants {
 			System.out.println("Unable to fetch the data from excel sheet.");
 			ex.printStackTrace();
 		}
+		return value;
+	}
+
+	public static int getDataNumberData(String sheetName, int rowNumber, int cellNumber) {
+		double value = 0;
+		try {
+			File f = new File(excelSheetPath);
+			FileInputStream fis = new FileInputStream(f);
+			Workbook wb = new XSSFWorkbook(fis);
+			Sheet sheet = wb.getSheet(sheetName);
+			Row row = sheet.getRow(rowNumber);
+			Cell cell = row.getCell(cellNumber);
+			value = cell.getNumericCellValue();
+
+		} catch (Exception ex) {
+			System.out.println("Unable to fetch the data from excel sheet.");
+			ex.printStackTrace();
+		}
+		return (int) value;
+	}
+
+	public static Object getData(String sheetName, int rowNumber, int cellNumber) throws IOException {
+		Object value = null;
+		FileInputStream fis = null;
+		Workbook wb = null;
+		try {
+			File f = new File(excelSheetPath);
+			fis = new FileInputStream(f);
+			wb = new XSSFWorkbook(fis);
+			Sheet sheet = wb.getSheet(sheetName);
+			Row row = sheet.getRow(rowNumber);
+			Cell cell = row.getCell(cellNumber);
+
+			CellType cellType = cell.getCellType();
+
+			switch (cellType) {
+			case STRING: {
+				value = cell.getStringCellValue();
+				break;
+			}
+			case NUMERIC: {
+				if (DateUtil.isCellDateFormatted(cell)) {
+					value = cell.getDateCellValue();
+				} else {
+					value = cell.getNumericCellValue();
+				}
+				break;
+			}
+			case BOOLEAN: {
+				value = cell.getBooleanCellValue();
+				break;
+			}
+
+			case FORMULA: {
+				FormulaEvaluator fe = wb.getCreationHelper().createFormulaEvaluator();
+				CellValue cellValue = fe.evaluate(cell);
+				if (cellValue == null) {
+					value = null;
+				}
+
+				switch (cellType) {
+				case STRING: {
+					value = cell.getStringCellValue();
+					break;
+				}
+				case NUMERIC: {
+					value = cell.getNumericCellValue();
+					break;
+				}
+				case BOOLEAN: {
+					value = cell.getBooleanCellValue();
+					break;
+				}
+				default: {
+					value = null;
+				}
+
+				}
+			}
+
+			case BLANK: {
+				value = null;
+				break;
+			}
+			case _NONE: {
+				value = null;
+				break;
+			}
+			case ERROR: {
+				value = null;
+				break;
+			}
+
+			default: {
+				value = null;
+			}
+			}
+		} catch (Exception ex) {
+			System.out.println("Unable to fetch the data from excel sheet.");
+			ex.printStackTrace();
+		}
+
+		finally {
+			if (wb != null) {
+				wb.close();
+			}
+			if (fis != null) {
+				fis.close();
+			}
+		}
+
 		return value;
 	}
 
