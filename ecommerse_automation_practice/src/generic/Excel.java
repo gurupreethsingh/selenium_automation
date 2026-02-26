@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.CellValue;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -13,26 +17,109 @@ public class Excel implements AutomationConstants {
 	public static String getData(String sheetName, int rowNumber, int cellNumber) {
 		String value = "";
 		try {
-			// fetch the data from excel sheet.
-			// find the location of the excel sheet.
 			File f = new File(excelSheetPath);
-			// go inside that excel sheet using FileInputStream class.
 			FileInputStream fis = new FileInputStream(f);
-			// we will work in that workbook where all the sheets are present.
 			Workbook wb = new XSSFWorkbook(fis);
-			// get the sheet from where you want to read the data.
 			Sheet sheet = wb.getSheet(sheetName);
-			// in the homepage sheet name, go to the row number
 			Row row = sheet.getRow(rowNumber);
-			// from that row. go to the cell number / column number
 			Cell cell = row.getCell(cellNumber);
-			// from this cell get the string value ,
 			value = cell.getStringCellValue();
 
 		} catch (Exception ex) {
 			System.out.println("Unable to fetch the data from excel sheet.");
 			ex.printStackTrace();
 		}
+		return value;
+	}
+
+	public static Object getDataFromCell(String sheetName, int rowNumber, int cellNumber) {
+		Object value = null;
+		FileInputStream fis = null;
+		Workbook wb = null;
+
+		try {
+			File f = new File(excelSheetPath);
+			fis = new FileInputStream(f);
+			wb = new XSSFWorkbook(fis);
+
+			Sheet sheet = wb.getSheet(sheetName);
+			if (sheet == null)
+				return null;
+
+			Row row = sheet.getRow(rowNumber);
+			if (row == null)
+				return null;
+
+			Cell cell = row.getCell(cellNumber, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+			if (cell == null)
+				return null;
+
+			CellType cellType = cell.getCellType();
+
+			switch (cellType) {
+			case STRING:
+				value = cell.getStringCellValue();
+				break;
+
+			case BOOLEAN:
+				value = cell.getBooleanCellValue();
+				break;
+
+			case NUMERIC:
+				if (DateUtil.isCellDateFormatted(cell)) {
+					value = cell.getDateCellValue();
+				} else {
+					value = cell.getNumericCellValue();
+				}
+				break;
+
+			case FORMULA: {
+				FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
+				CellValue cellValue = evaluator.evaluate(cell);
+				if (cellValue == null)
+					return null;
+
+				switch (cellValue.getCellType()) {
+				case STRING:
+					value = cellValue.getStringValue();
+					break;
+				case NUMERIC:
+					value = cellValue.getNumberValue();
+					break;
+				case BOOLEAN:
+					value = cellValue.getBooleanValue();
+					break;
+				default:
+					value = null;
+					break;
+				}
+				break;
+			}
+
+			case BLANK:
+			case _NONE:
+			case ERROR:
+			default:
+				value = null;
+				break;
+			}
+
+		} catch (Exception ex) {
+			System.out.println("Excel read error: " + ex.getMessage());
+			ex.printStackTrace();
+		} finally {
+			try {
+				if (wb != null)
+					wb.close();
+			} catch (Exception ignored) {
+			}
+			try {
+				if (fis != null)
+					fis.close();
+			} catch (Exception ignored) {
+			}
+		}
+
 		return value;
 	}
 }
