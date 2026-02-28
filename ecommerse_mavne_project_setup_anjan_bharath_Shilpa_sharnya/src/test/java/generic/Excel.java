@@ -12,7 +12,6 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Excel implements AutomationConstants {
@@ -59,7 +58,7 @@ public class Excel implements AutomationConstants {
 		try {
 			File f = new File(excelSheetPath);
 			fis = new FileInputStream(f);
-			wb = WorkbookFactory.create(fis);
+			wb = new XSSFWorkbook(fis);
 			Sheet sheet = wb.getSheet(sheetName);
 			Row row = sheet.getRow(rowNumber);
 			Cell cell = row.getCell(cellNumber);
