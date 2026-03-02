@@ -1,14 +1,14 @@
 package generic;
 
 import java.time.Duration;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -17,490 +17,605 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AllVerifications {
 
-	public static WebDriver driver;
+	protected final WebDriver driver;
 
-	public AllVerifications(WebDriver driver) { // constructor injection.
+	// ✅ constructor injection
+	public AllVerifications(WebDriver driver) {
 		this.driver = driver;
 	}
 
-	// function to verify the title of the page.
-	public static boolean verifyTitleOfWebpage(String expectedTitle) {
-		boolean titleVerified = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	// ============================================================
+	// ✅ CENTRAL CONFIG
+	// ============================================================
+	private static final int DEFAULT_WAITING_TIME_IN_SEC = 15;
+	private static final int DEFAULT_RETRY_COUNT = 2;
+
+	protected WebDriverWait createWait(int seconds) {
+		return new WebDriverWait(driver, Duration.ofSeconds(seconds));
+	}
+
+	// ============================================================
+	// ✅ UNIVERSAL WAITS (By)
+	// ============================================================
+
+	public WebElement waitUntilElementPresent(By locator, int timeoutSeconds, String name) {
 		try {
-			wait.until(ExpectedConditions.titleIs(expectedTitle));
-			titleVerified = true;
-			System.out.println("Title verification passed , expected title was : " + expectedTitle + " Found : "
-					+ driver.getTitle());
+			System.out.println("[WAIT PRESENCE] " + name + " | " + locator);
+			return createWait(timeoutSeconds).until(ExpectedConditions.presenceOfElementLocated(locator));
+		} catch (TimeoutException te) {
+			System.out.println("[WAIT PRESENCE TIMEOUT] " + name + " | " + locator);
+			return null;
+		} catch (Exception e) {
+			System.out.println("[WAIT PRESENCE FAILED] " + name + " | " + locator);
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public WebElement waitUntilElementVisible(By locator, int timeoutSeconds, String name) {
+		try {
+			System.out.println("[WAIT VISIBLE] " + name + " | " + locator);
+			return createWait(timeoutSeconds).until(ExpectedConditions.visibilityOfElementLocated(locator));
+		} catch (TimeoutException te) {
+			System.out.println("[WAIT VISIBLE TIMEOUT] " + name + " | " + locator);
+			return null;
+		} catch (Exception e) {
+			System.out.println("[WAIT VISIBLE FAILED] " + name + " | " + locator);
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public boolean waitUntilElementInvisible(By locator, int timeoutSeconds, String name) {
+		try {
+			System.out.println("[WAIT INVISIBLE] " + name + " | " + locator);
+			boolean ok = createWait(timeoutSeconds).until(ExpectedConditions.invisibilityOfElementLocated(locator));
+			System.out.println("[WAIT INVISIBLE DONE] " + name + " -> " + ok);
+			return ok;
+		} catch (Exception e) {
+			System.out.println("[WAIT INVISIBLE FAILED] " + name + " | " + locator);
+			return false;
+		}
+	}
+
+	public boolean isElementPresentInDOM(By locator) {
+		try {
+			return driver.findElements(locator).size() > 0;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	// ============================================================
+	// ✅ UNIVERSAL WAITS (WebElement)
+	// ============================================================
+
+	public WebElement waitUntilElementVisible(WebElement element, int timeoutSeconds, String name) {
+		try {
+			System.out.println("[WAIT VISIBLE] " + name);
+			return createWait(timeoutSeconds).until(ExpectedConditions.visibilityOf(element));
+		} catch (TimeoutException te) {
+			System.out.println("[WAIT VISIBLE TIMEOUT] " + name);
+			return null;
+		} catch (Exception e) {
+			System.out.println("[WAIT VISIBLE FAILED] " + name);
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public WebElement waitUntilElementClickable(WebElement element, int timeoutSeconds, String name) {
+		try {
+			System.out.println("[WAIT CLICKABLE] " + name);
+			return createWait(timeoutSeconds).until(ExpectedConditions.elementToBeClickable(element));
+		} catch (TimeoutException te) {
+			System.out.println("[WAIT CLICKABLE TIMEOUT] " + name);
+			return null;
+		} catch (Exception e) {
+			System.out.println("[WAIT CLICKABLE FAILED] " + name);
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	// ============================================================
+	// ✅ UNIVERSAL CLICK (WebElement / By)
+	// ============================================================
+
+	public boolean clickOnElement(WebElement element, String elementName) {
+		boolean clicked = false;
+
+		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT; attempt++) {
+			try {
+				System.out.println("[CLICK TRY " + attempt + "] " + elementName);
+
+				waitUntilElementVisible(element, DEFAULT_WAITING_TIME_IN_SEC, elementName);
+				waitUntilElementClickable(element, DEFAULT_WAITING_TIME_IN_SEC, elementName);
+
+				element.click();
+				clicked = true;
+
+				System.out.println("[CLICK SUCCESS] " + elementName);
+				break;
+
+			} catch (StaleElementReferenceException sere) {
+				System.out.println("[STALE ELEMENT] " + elementName + " | retrying...");
+			} catch (Exception ex) {
+				System.out.println("[CLICK FAILED] " + elementName);
+				ex.printStackTrace();
+				break;
+			}
+		}
+
+		return clicked;
+	}
+
+	public boolean clickOnElement(By locator, String elementName) {
+		boolean clicked = false;
+
+		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT; attempt++) {
+			try {
+				System.out.println("[CLICK TRY " + attempt + "] " + elementName + " | " + locator);
+
+				WebElement element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+						.until(ExpectedConditions.elementToBeClickable(locator));
+				element.click();
+
+				clicked = true;
+				System.out.println("[CLICK SUCCESS] " + elementName);
+				break;
+
+			} catch (StaleElementReferenceException sere) {
+				System.out.println("[STALE ELEMENT] " + elementName + " | " + locator + " | retrying...");
+			} catch (Exception ex) {
+				System.out.println("[CLICK FAILED] " + elementName + " | " + locator);
+				ex.printStackTrace();
+				break;
+			}
+		}
+
+		return clicked;
+	}
+
+	// ============================================================
+	// ✅ TYPE + KEYS
+	// ============================================================
+
+	public boolean typeInInputField(WebElement element, String value, String fieldName) {
+		boolean typed = false;
+
+		try {
+			waitUntilElementVisible(element, DEFAULT_WAITING_TIME_IN_SEC, fieldName);
+
+			if (value == null) {
+				System.out.println("[TYPE ERROR] " + fieldName + " value is NULL");
+				return false;
+			}
+
+			String trimmed = value.trim();
+			if (trimmed.isEmpty()) {
+				System.out.println("[TYPE ERROR] " + fieldName + " value is EMPTY/WHITESPACE");
+				return false;
+			}
+
+			element.clear();
+			element.sendKeys(trimmed);
+
+			typed = true;
+			System.out.println("[TYPE SUCCESS] " + fieldName + " : " + trimmed);
+
+		} catch (StaleElementReferenceException sere) {
+			System.out.println("[STALE TYPE] " + fieldName + " | retrying once...");
+			try {
+				element.clear();
+				element.sendKeys(value.trim());
+				typed = true;
+			} catch (Exception ex) {
+				System.out.println("[TYPE FAILED AFTER RETRY] " + fieldName);
+			}
 		} catch (Exception ex) {
-			System.out.println("Title not matching " + expectedTitle + " Found : " + driver.getTitle());
+			System.out.println("[TYPE FAILED] " + fieldName);
+			ex.printStackTrace();
+		}
+
+		return typed;
+	}
+
+	public boolean pressKeyInElement(WebElement element, Keys key, String name) {
+		try {
+			waitUntilElementVisible(element, DEFAULT_WAITING_TIME_IN_SEC, name);
+			element.sendKeys(key);
+			System.out.println("[PRESS KEY SUCCESS] " + name + " -> " + key);
+			return true;
+		} catch (Exception e) {
+			System.out.println("[PRESS KEY FAILED] " + name + " -> " + key);
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	// ============================================================
+	// ✅ TEXT / DISPLAY HELPERS
+	// ============================================================
+
+	public String getTextFromElement(WebElement element, String name) {
+		try {
+			waitUntilElementVisible(element, DEFAULT_WAITING_TIME_IN_SEC, name);
+			String t = element.getText();
+			t = (t == null) ? "" : t.trim();
+			System.out.println("[GET TEXT] " + name + " -> " + t);
+			return t;
+		} catch (Exception e) {
+			System.out.println("[GET TEXT FAILED] " + name);
+			return "";
+		}
+	}
+
+	public int getIntegerFromElementText(WebElement element, String name) {
+		try {
+			String txt = getTextFromElement(element, name);
+			if (txt == null || txt.trim().isEmpty())
+				return 0;
+			return Integer.parseInt(txt.trim());
+		} catch (Exception e) {
+			System.out.println("[GET INT FAILED] " + name);
+			return 0;
+		}
+	}
+
+	public boolean isElementDisplayed(WebElement element, String name) {
+		try {
+			waitUntilElementVisible(element, DEFAULT_WAITING_TIME_IN_SEC, name);
+			boolean ok = element.isDisplayed();
+			System.out.println("[IS DISPLAYED] " + name + " -> " + ok);
+			return ok;
+		} catch (Exception e) {
+			System.out.println("[IS DISPLAYED FAILED] " + name);
+			return false;
+		}
+	}
+
+	// ============================================================
+	// ✅ VERIFICATION METHODS
+	// ============================================================
+
+	public boolean verifyTitleOfWebpage(String expectedTitle) {
+		boolean titleVerified = false;
+		try {
+			System.out.println("[VERIFY TITLE] Expected: " + expectedTitle);
+			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(ExpectedConditions.titleIs(expectedTitle));
+			titleVerified = true;
+			System.out.println("[TITLE PASS] Expected: " + expectedTitle + " | Found: " + driver.getTitle());
+		} catch (Exception ex) {
+			System.out.println("[TITLE FAIL] Expected: " + expectedTitle + " | Found: " + safeTitle());
 		}
 		return titleVerified;
 	}
 
-	public static boolean verifyUrlOfWebpage(String expectedUrl) {
+	public boolean verifyUrlOfWebpage(String expectedUrl) {
 		boolean urlVerified = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		try {
-			wait.until(ExpectedConditions.urlMatches(expectedUrl));
+			System.out.println("[VERIFY URL] Expected: " + expectedUrl);
+			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(ExpectedConditions.urlMatches(expectedUrl));
 			urlVerified = true;
-			System.out.println("Url matching " + expectedUrl + " Found : " + driver.getCurrentUrl());
+			System.out.println("[URL PASS] Expected: " + expectedUrl + " | Found: " + driver.getCurrentUrl());
 		} catch (Exception ex) {
-			System.out.println("Url not matching " + expectedUrl + " Found : " + driver.getCurrentUrl());
+			System.out.println("[URL FAIL] Expected: " + expectedUrl + " | Found: " + safeUrl());
 		}
 		return urlVerified;
 	}
 
-	// function to verify if the text is persent, but case sensitive, will show
-	// error if case dont match
-//	public static boolean verifyTextPresent(WebDriver driver, String expectedText, WebElement element) {
-//		boolean textVerified = false;
-//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//		try {
-//			wait.until(ExpectedConditions.textToBePresentInElement(element, expectedText));
-//			textVerified = true;
-//			if (textVerified == true) {
-//				System.out.println("Text is matching " + expectedText + " Found : " + element.getText());
-//			}
-//		} catch (Exception ex) {
-//			System.out.println("Text not matching " + expectedText + " Found : " + element.getText());
-//		}
-//		return textVerified;
-//	}
-
-	// function to verify text is present or not.
-	public static boolean verifyTextPresent(String expectedText, WebElement element) {
+	public boolean verifyTextPresent(String expectedText, WebElement element) {
 		boolean textVerified = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		try {
-			wait.until(ExpectedConditions.textToBePresentInElement(element, expectedText));
+			System.out.println("[VERIFY TEXT] Expected: " + expectedText);
+			createWait(DEFAULT_WAITING_TIME_IN_SEC)
+					.until(ExpectedConditions.textToBePresentInElement(element, expectedText));
 			textVerified = true;
-			System.out.println(
-					"Text verification passed : expected text was " + expectedText + " found " + element.getText());
+			System.out.println("[TEXT PASS] Expected: " + expectedText + " | Found: " + safeGet(element));
 		} catch (Exception ex) {
-			System.out.println(
-					"Text verification failed : expected text was " + expectedText + " found " + element.getText());
-			ex.printStackTrace();
+			System.out.println("[TEXT FAIL] Expected: " + expectedText + " | Found: " + safeGet(element));
 		}
-
 		return textVerified;
 	}
 
-	// function to check if text exists, irrespective of uppercase or lowercase
-	public static boolean verifyTextPresentIgnoreCase(String expectedText, WebElement element) {
-		boolean textVerified = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
+	private String safeGet(WebElement element) {
 		try {
-			wait.until(ExpectedConditions.visibilityOf(element));
-
-			String actualText = element.getText().trim();
-
-			// ✅ Ignore case comparison
-			if (actualText.equalsIgnoreCase(expectedText.trim())) {
-				textVerified = true;
-				System.out.println("Text is matching (Ignore Case): " + expectedText + " Found: " + actualText);
-			} else {
-				System.out.println("Text not matching (Ignore Case): " + expectedText + " Found: " + actualText);
-			}
-		} catch (Exception ex) {
-			System.out.println("Element not found or text not matching: " + expectedText);
+			String t = element.getText();
+			return t == null ? "" : t;
+		} catch (Exception e) {
+			return "";
 		}
-
-		return textVerified;
 	}
 
-	// function to verify any type of text with numbers anywhere in the text.
-	public static boolean verifyTextPresentWithNumbers(String expectedPattern, WebElement element) {
-		boolean textVerified = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
+	private String safeTitle() {
 		try {
-			wait.until(ExpectedConditions.visibilityOf(element));
-			String actualText = element.getText().trim();
-			// ✅ Match pattern (numbers can appear anywhere)
-			if (actualText.matches(expectedPattern)) {
-				textVerified = true;
-				System.out.println("Text is matching (With Numbers): " + actualText);
-			} else {
-				System.out.println("Text not matching (With Numbers). Expected Pattern: " + expectedPattern + " Found: "
-						+ actualText);
-			}
-		} catch (Exception ex) {
-			System.out.println("Element not found or pattern not matched.");
+			return driver.getTitle();
+		} catch (Exception e) {
+			return "";
 		}
-
-		return textVerified;
 	}
 
-	/*
-	 * ✅ How to Use This Function Example 1: "117 products"
-	 * verifyTextPresentWithNumbers(driver, "\\d+ products", element);
-	 * 
-	 * Example 2: "Showing 10 of 30 products" verifyTextPresentWithNumbers(driver,
-	 * "Showing \\d+ of \\d+ products", element);
-	 * 
-	 * Example 3: "Total Product 75" verifyTextPresentWithNumbers(driver,
-	 * "Total Product \\d+", element);
-	 */
-
-	// text not present function.
-	public static boolean verifyTextNotPresent(String expectedText, By locator) {
-		boolean textNotPresent = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
+	private String safeUrl() {
 		try {
-			// ✅ Wait until element disappears from DOM
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-			textNotPresent = true;
-			System.out.println("Text removed successfully. Not Found: " + expectedText);
-		} catch (Exception ex) {
-			System.out.println("Text is still present. Found : " + expectedText);
+			return driver.getCurrentUrl();
+		} catch (Exception e) {
+			return "";
 		}
-
-		return textNotPresent;
 	}
 
-	// text not to be present in the nested element / elements
-	public static boolean verifyTextNotPresentInNestedElements(By containerOrElementLocator, String expectedText)
-			throws Exception {
-		boolean textNotPresent = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	public boolean verifyTextPresentIgnoreCase(String expectedText, WebElement element) {
+		try {
+			waitUntilElementVisible(element, DEFAULT_WAITING_TIME_IN_SEC, "verifyTextPresentIgnoreCase element");
 
+			String actualText = element.getText() == null ? "" : element.getText().trim();
+			String exp = expectedText == null ? "" : expectedText.trim();
+
+			boolean ok = actualText.equalsIgnoreCase(exp);
+			System.out.println(ok ? "[TEXT PASS - IGNORECASE]"
+					: "[TEXT FAIL - IGNORECASE]" + " Expected: " + exp + " | Found: " + actualText);
+
+			return ok;
+		} catch (Exception ex) {
+			System.out.println("[TEXT FAIL - IGNORECASE] Element not found or exception.");
+			return false;
+		}
+	}
+
+	public boolean verifyTextPresentWithNumbers(String expectedPattern, WebElement element) {
+		try {
+			waitUntilElementVisible(element, DEFAULT_WAITING_TIME_IN_SEC, "verifyTextPresentWithNumbers element");
+			String actualText = element.getText() == null ? "" : element.getText().trim();
+
+			boolean ok = actualText.matches(expectedPattern);
+			System.out.println(ok ? "[TEXT PASS - PATTERN] " + actualText
+					: "[TEXT FAIL - PATTERN] Expected Pattern: " + expectedPattern + " | Found: " + actualText);
+
+			return ok;
+		} catch (Exception ex) {
+			System.out.println("[TEXT FAIL - PATTERN] Element not found or pattern not matched.");
+			return false;
+		}
+	}
+
+	public boolean verifyTextNotPresent(String expectedText, By locator) {
+		try {
+			System.out.println("[VERIFY TEXT NOT PRESENT] " + expectedText + " | " + locator);
+			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(ExpectedConditions.invisibilityOfElementLocated(locator));
+			System.out.println("[TEXT REMOVED PASS] Not Found: " + expectedText);
+			return true;
+		} catch (Exception ex) {
+			System.out.println("[TEXT REMOVED FAIL] Still Found: " + expectedText);
+			return false;
+		}
+	}
+
+	public boolean verifyTextNotPresentInNestedElements(By containerOrElementLocator, String expectedText) {
 		try {
 			String exp = expectedText == null ? "" : expectedText.trim();
 
-			// ✅ Wait until:
-			// 1) element not found OR
-			// 2) element found but not displayed OR
-			// 3) element found but text does NOT contain expectedText
-			boolean ok = wait.until((ExpectedCondition<Boolean>) d -> {
+			System.out.println("[VERIFY NESTED TEXT NOT PRESENT] " + exp + " | " + containerOrElementLocator);
+
+			boolean ok = createWait(DEFAULT_WAITING_TIME_IN_SEC).until((ExpectedCondition<Boolean>) d -> {
 				try {
 					List<WebElement> els = d.findElements(containerOrElementLocator);
 
-					// ✅ If element is not in DOM at all => PASS
 					if (els == null || els.isEmpty())
 						return true;
 
 					WebElement el = els.get(0);
 
-					// ✅ If element exists but not visible => PASS
 					if (!el.isDisplayed())
 						return true;
 
-					// ✅ If visible, check text from the container (includes nested text)
 					String actual = (el.getText() == null) ? "" : el.getText().trim();
-
-					// ✅ Text NOT present => PASS
 					return !actual.contains(exp);
+
 				} catch (StaleElementReferenceException sere) {
-					// DOM updated; re-try in next poll
 					return false;
 				} catch (NoSuchElementException nse) {
-					// not found => PASS
 					return true;
 				} catch (Exception e) {
-					// Any other transient render issue -> retry
 					return false;
 				}
 			});
 
-			if (ok) {
-				textNotPresent = true;
-				System.out
-						.println("Text NOT present now: " + expectedText + " | Locator: " + containerOrElementLocator);
-			}
-		} catch (Exception te) {
-			System.out.println(
-					"Text still present after wait: " + expectedText + " | Locator: " + containerOrElementLocator);
+			System.out.println(ok ? "[NESTED TEXT NOT PRESENT PASS]" : "[NESTED TEXT NOT PRESENT FAIL]");
+			return ok;
+
+		} catch (Exception e) {
+			System.out.println("[NESTED TEXT NOT PRESENT FAIL] Still present: " + expectedText + " | "
+					+ containerOrElementLocator);
+			return false;
 		}
-		return textNotPresent;
 	}
 
-	// function to click on the element if its clickable
-	public static boolean clickOnElementIfClickable(WebElement element) {
-		boolean elementClicked = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		try {
-			wait.until(ExpectedConditions.elementToBeClickable(element));
-			element.click();
-			elementClicked = true;
-			System.out.println("Element clicked successfully : " + element);
+	// ============================================================
+	// ✅ CLICK IF… WRAPPERS
+	// ============================================================
 
-		} catch (Exception ex) {
-			System.out.println("Element is not clickable or Visible : " + element);
-			ex.printStackTrace();
-		}
-		return elementClicked;
+	public boolean clickOnElementIfClickable(WebElement element) {
+		return clickOnElement(element, "clickOnElementIfClickable -> " + element);
 	}
 
-	// function to click on the element if the element is first visible, and then if
-	// its enabled.
-	public static boolean clickOnElementIfVisibleAndEnabled(WebElement element) {
-		boolean elementClicked = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
+	public boolean clickOnElementIfVisibleAndEnabled(WebElement element) {
 		try {
-			// ✅ Step 1: Wait until element is visible
-			wait.until(ExpectedConditions.visibilityOf(element));
-			System.out.println("Element is visible.");
+			waitUntilElementVisible(element, DEFAULT_WAITING_TIME_IN_SEC,
+					"clickOnElementIfVisibleAndEnabled -> element");
 
-			// ✅ Step 2: Check if element is enabled
 			if (element.isEnabled()) {
-				System.out.println("Element is enabled.");
-				// ✅ Step 3: Click the element
-				element.click();
-				elementClicked = true;
-				System.out.println("Element clicked successfully.");
-			} else {
-				System.out.println("Element is visible but NOT enabled, cannot click.");
+				return clickOnElement(element, "clickOnElementIfVisibleAndEnabled -> element");
 			}
-		} catch (Exception ex) {
-			System.out.println("Element is NOT visible within wait time, cannot click.");
-			ex.printStackTrace();
-		}
 
-		return elementClicked;
+			System.out.println("[CLICK BLOCKED] Element is visible but NOT enabled.");
+			return false;
+
+		} catch (Exception ex) {
+			System.out.println("[CLICK FAILED] Element not visible within wait time.");
+			return false;
+		}
 	}
 
-	// function to handle alert and accept the alert
-	public static boolean handleAlertIfAlertIsPresentAndAccept() {
-		boolean alertHandledAndAccepted = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+	// ============================================================
+	// ✅ ALERT HANDLERS
+	// ============================================================
+
+	public boolean acceptAlertIfPresent() {
 		try {
-			wait.until(ExpectedConditions.alertIsPresent());
+			System.out.println("[ALERT WAIT] Accept");
+			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(ExpectedConditions.alertIsPresent());
+
 			Alert alert = driver.switchTo().alert();
-			System.out.println("Alert text is : " + alert.getText());
+			System.out.println("[ALERT TEXT] " + alert.getText());
+
 			alert.accept();
-			alertHandledAndAccepted = true;
-			System.out.println("Alert is handeled successfully, navigating to next page.");
+			System.out.println("[ALERT ACCEPTED] Successfully.");
+			return true;
+
 		} catch (Exception ex) {
-			System.out.println("Unable to handle the alert.");
-			ex.printStackTrace();
+			System.out.println("[ALERT ACCEPT FAILED]");
+			return false;
 		}
-		return alertHandledAndAccepted;
 	}
 
-	// function to handle alert dismiss/ cancel the alert
-	public static boolean handleAlertIfAlertIsPresentAndDismiss() {
-		boolean alertHandledAndRejected = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+	public boolean dismissAlertIfPresent() {
 		try {
-			wait.until(ExpectedConditions.alertIsPresent());
+			System.out.println("[ALERT WAIT] Dismiss");
+			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(ExpectedConditions.alertIsPresent());
+
 			Alert alert = driver.switchTo().alert();
-			System.out.println("Alert text is : " + alert.getText());
+			System.out.println("[ALERT TEXT] " + alert.getText());
+
 			alert.dismiss();
-			alertHandledAndRejected = true;
-			System.out.println("Alert is handeled successfully, navigating to next page.");
+			System.out.println("[ALERT DISMISSED] Successfully.");
+			return true;
+
 		} catch (Exception ex) {
-			System.out.println("Unable to handle the alert.");
-			ex.printStackTrace();
+			System.out.println("[ALERT DISMISS FAILED]");
+			return false;
 		}
-		return alertHandledAndRejected;
 	}
 
-	// function to verify total element count in any element (using lambda function)
-//	public static boolean verifyTotalElementsCount(WebDriver driver, By locator, int expectedCount) {
-//		boolean countVerified = false;
-//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//
-//		try {
-//			// ✅ Wait until element count becomes expected count
-//			wait.until(driver1 -> driver1.findElements(locator).size() == expectedCount);
-//
-//			int actualCount = driver.findElements(locator).size();
-//
-//			if (actualCount == expectedCount) {
-//				countVerified = true;
-//				System.out.println("Count is matching. Expected: " + expectedCount + " Found: " + actualCount);
-//			}
-//		} catch (Exception ex) {
-//			int actualCount = driver.findElements(locator).size();
-//			System.out.println("Count not matching. Expected: " + expectedCount + " Found: " + actualCount);
-//		}
-//
-//		return countVerified;
-//	}
+	// ============================================================
+	// ✅ COUNT / PRINT HELPERS
+	// ============================================================
 
-//	public static boolean verifyTotalElementsCount(WebDriver driver, int expectedCount, By locator) {
-//		boolean totalCountVerified = false;
-//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	public boolean verifyTotalElementsCount(int expectedCount, By locator) {
+		int actualCount = 0;
+
+		try {
+			System.out.println("[COUNT VERIFY] Expected: " + expectedCount + " | Locator: " + locator);
+
+			for (int i = 1; i <= 50; i++) {
+				actualCount = driver.findElements(locator).size();
+				if (actualCount == expectedCount) {
+					System.out.println("[COUNT MATCH] attempt=" + i + " | Found: " + actualCount);
+					break;
+				}
+				Thread.sleep(200);
+			}
+
+			System.out.println("[COUNT RESULT] Expected: " + expectedCount + " | Actual: " + actualCount);
+			return (actualCount == expectedCount);
+
+		} catch (Exception ex) {
+			System.out.println("[COUNT FAILED] Expected: " + expectedCount + " | Actual: " + actualCount);
+			return false;
+		}
+	}
+
+//	public boolean printAllBrandNamesInHomepage(int expectedCount, By locator) {
 //		int actualCount = 0;
+//
 //		try {
-//			wait.until(driver1 -> driver1.findElements(locator).size() == expectedCount); // lambda function
-//			actualCount = driver.findElements(locator).size();
+//			System.out.println("[PRINT BRANDS] ExpectedCount: " + expectedCount + " | Locator: " + locator);
 //
-//			List<WebElement> allBrandNames = driver.findElements(By
-//					.cssSelector("div.flex.items-center.w-max:first-child>button>div>div:last-child>span:first-child"));
-//			int actualNameCount = allBrandNames.size();
-//
-//			for (int i = 0; i < actualNameCount; i++) {
-//				String eachBrandNameText = allBrandNames.get(i).getText();
-//				System.out.println(eachBrandNameText);
-//				Thread.sleep(100);
+//			for (int i = 1; i <= 50; i++) {
+//				actualCount = driver.findElements(locator).size();
+//				if (actualCount == expectedCount) {
+//					System.out.println("[BRANDS COUNT MATCH] attempt=" + i + " | Found: " + actualCount);
+//					break;
+//				}
+//				Thread.sleep(200);
 //			}
 //
-//			System.out.println(
-//					"Count matching - expected count : " + expectedCount + " Found actual count is : " + actualCount);
+//			List<WebElement> brandButtons = driver.findElements(locator);
+//			actualCount = brandButtons.size();
+//
+//			Set<String> uniqueBrands = new LinkedHashSet<>();
+//			for (WebElement btn : brandButtons) {
+//				String brand = btn.getAttribute("title");
+//				if (brand != null && !brand.trim().isEmpty())
+//					uniqueBrands.add(brand.trim());
+//			}
+//
+//			int count = 0;
+//			for (String b : uniqueBrands) {
+//				System.out.println((count + 1) + " Brand Name : " + b);
+//				count++;
+//				Thread.sleep(50);
+//			}
+//
+//			System.out.println("[BRANDS SUMMARY] Expected: " + expectedCount + " | Actual: " + actualCount
+//					+ " | Unique: " + uniqueBrands.size());
+//
+//			return (actualCount == expectedCount);
+//
+//		} catch (Exception ex) {
+//			System.out.println("[PRINT BRANDS FAILED] Expected: " + expectedCount + " | Actual: " + actualCount);
+//			return false;
+//		}
+//	}
+//
+//	public boolean verifyTotalElementsCount1(int expectedCount, By locator) {
+//		int actualCount = 0;
+//
+//		try {
+//			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//			wait.until(d -> d.findElements(locator).size() == expectedCount);
+//
+//			List<WebElement> brandButtons = driver.findElements(locator);
+//			actualCount = brandButtons.size();
+//
+//			java.util.Set<String> uniqueBrands = new java.util.LinkedHashSet<>();
+//			for (WebElement btn : brandButtons) {
+//				String brand = btn.getAttribute("title");
+//				if (brand != null) {
+//					brand = brand.trim();
+//					if (!brand.isEmpty())
+//						uniqueBrands.add(brand);
+//				}
+//			}
+//
+//			if (uniqueBrands.isEmpty()) {
+//				List<WebElement> nameSpans = driver.findElements(By.cssSelector(
+//						"div.flex.items-center.w-max:first-child>button[title]>div>div:last-child>span:first-child"));
+//				for (WebElement s : nameSpans) {
+//					String t = s.getAttribute("textContent");
+//					if (t != null) {
+//						t = t.trim();
+//						if (!t.isEmpty())
+//							uniqueBrands.add(t);
+//					}
+//				}
+//			}
+//
+//			int count = 0;
+//			for (String b : uniqueBrands) {
+//				System.out.println(count + 1 + " Brand Name : " + b);
+//				count++;
+//				Thread.sleep(50);
+//			}
+//
+//			System.out.println("Count matching - expected count : " + expectedCount + " Found actual count is : "
+//					+ actualCount + " | Unique names printed: " + uniqueBrands.size());
+//
+//			return (actualCount == expectedCount);
+//
 //		} catch (Exception ex) {
 //			System.out.println(
 //					"Count Not matching expected count : " + expectedCount + " Found actual count as : " + actualCount);
-//			ex.printStackTrace();
+//			return false;
 //		}
-//		return totalCountVerified;
 //	}
-
-	// usage : verifyTotalElementsCount(driver, By.cssSelector(".wishlist-card"),
-	// 0));
-	// int before = getTotalElementsCount(driver, By.cssSelector(".wishlist-card"));
-	// removeButton.click();
-	// verifyTotalElementsCount(driver, By.cssSelector(".wishlist-card"), before
-	// -1));
-
-	public static boolean verifyTotalElementsCount1(int expectedCount, By locator) {
-		boolean totalCountVerified = false;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		int actualCount = 0;
-
-		try {
-			// ✅ wait until the expected count is present in DOM
-			wait.until(d -> d.findElements(locator).size() == expectedCount);
-
-			List<WebElement> brandButtons = driver.findElements(locator);
-			actualCount = brandButtons.size();
-
-			// ✅ Print ALL brand names (visibility independent)
-			// We read from the button's title attribute (title={brand} in React)
-			java.util.Set<String> uniqueBrands = new java.util.LinkedHashSet<>();
-
-			for (WebElement btn : brandButtons) {
-				String brand = btn.getAttribute("title"); // ✅ works even if off-screen
-				if (brand != null) {
-					brand = brand.trim();
-					if (!brand.isEmpty())
-						uniqueBrands.add(brand);
-				}
-			}
-
-			// ✅ If your locator accidentally doesn't include [title], fall back to spans
-			// using textContent
-			// (textContent is more reliable than getText for animated/overflow content)
-			if (uniqueBrands.isEmpty()) {
-				List<WebElement> nameSpans = driver.findElements(By.cssSelector(
-						"div.flex.items-center.w-max:first-child>button[title]>div>div:last-child>span:first-child"));
-				for (WebElement s : nameSpans) {
-					String t = s.getAttribute("textContent");
-					if (t != null) {
-						t = t.trim();
-						if (!t.isEmpty())
-							uniqueBrands.add(t);
-					}
-				}
-			}
-
-			// ✅ Print
-			int count = 0;
-			for (String b : uniqueBrands) {
-				System.out.println(count + 1 + " Brand Name : " + b);
-				count++;
-				Thread.sleep(50);
-			}
-
-			System.out.println("Count matching - expected count : " + expectedCount + " Found actual count is : "
-					+ actualCount + " | Unique names printed: " + uniqueBrands.size());
-
-			// ✅ mark verified
-			totalCountVerified = (actualCount == expectedCount);
-
-		} catch (Exception ex) {
-			System.out.println(
-					"Count Not matching expected count : " + expectedCount + " Found actual count as : " + actualCount);
-			ex.printStackTrace();
-		}
-
-		return totalCountVerified;
-	}
-
-	// simpler version.
-	public static boolean verifyTotalElementsCount(int expectedCount, By locator) {
-		boolean totalCountVerified = false;
-		int actualCount = 0;
-
-		try {
-			// 1) Wait until expected number of elements are present (simple loop)
-			for (int i = 0; i < 50; i++) {
-
-				actualCount = driver.findElements(locator).size();
-
-				if (actualCount == expectedCount) {
-					break;
-				}
-				Thread.sleep(200);
-			}
-
-			// 4) Print summary + return result
-			System.out.println(
-					"Count Verification passed, Expected count: " + expectedCount + " | Actual count: " + actualCount);
-
-			totalCountVerified = (actualCount == expectedCount);
-
-		} catch (Exception ex) {
-			System.out.println("Count verification failed. Expected: " + expectedCount + " | Actual: " + actualCount);
-			ex.printStackTrace();
-		}
-
-		return totalCountVerified;
-	}
-
-	public static boolean printAllBrandNamesInHomepage(int expectedCount, By locator) {
-		boolean totalCountVerified = false;
-		int actualCount = 0;
-
-		try {
-			// 1) Wait until expected number of elements are present (simple loop)
-			for (int i = 0; i < 50; i++) {
-
-				actualCount = driver.findElements(locator).size();
-
-				if (actualCount == expectedCount) {
-					break;
-				}
-				Thread.sleep(200);
-			}
-
-			// 2) Get all brand buttons
-			List<WebElement> brandButtons = driver.findElements(locator);
-			actualCount = brandButtons.size();
-
-			// 3) Print all brand names (from title attribute)
-			Set<String> uniqueBrands = new LinkedHashSet<>();
-
-			for (WebElement btn : brandButtons) {
-				String brand = btn.getAttribute("title"); // ✅ does not depend on visibility
-				if (brand != null && !brand.trim().isEmpty()) {
-					uniqueBrands.add(brand.trim());
-				}
-			}
-
-			int count = 0;
-			for (String b : uniqueBrands) {
-				System.out.println(count + 1 + " Brand Name : " + b);
-				count++;
-				Thread.sleep(50);
-			}
-
-			// 4) Print summary + return result
-			System.out.println("Expected count: " + expectedCount + " | Actual count: " + actualCount
-					+ " | Unique names printed: " + uniqueBrands.size());
-
-			totalCountVerified = (actualCount == expectedCount);
-
-		} catch (Exception ex) {
-			System.out.println("Count verification failed. Expected: " + expectedCount + " | Actual: " + actualCount);
-			ex.printStackTrace();
-		}
-
-		return totalCountVerified;
-	}
-
 }

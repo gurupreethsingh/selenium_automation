@@ -8,15 +8,15 @@ import generic.Excel;
 import generic.OpenClose;
 import pom.Homepage;
 
-public class AS_7178_ClickLogoFromHeaderReloadHomepage extends OpenClose {
+public class AS_4343_ClickLogoImageFromHeaderReloadHomepage extends OpenClose {
 
 	@Test
-	public void testClickOnLogoFromHeaderOfHomepageReloadHomepage() throws IOException {
+	public void testClickOnLogoApplicationNameHomepageReloadHomepage() throws IOException {
 
 		Homepage hp = new Homepage(driver);
 		String expectedTitle = (String) Excel.getData("Homepage", 1, 0);
 		hp.verifyHomepageTitle(expectedTitle);
-		hp.clickHeaderLogoHome();
+		hp.clickHeaderLogoAppNameAndPrintText();
 		hp.verifyHomepageTitle(expectedTitle);
 
 	}

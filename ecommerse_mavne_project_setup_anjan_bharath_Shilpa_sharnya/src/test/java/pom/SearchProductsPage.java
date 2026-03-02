@@ -12,7 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import generic.AllVerifications;
 
-public class ShopPage extends AllVerifications {
+public class SearchProductsPage extends AllVerifications {
 
 	// ============================================================
 	// ✅ HEADER - LEFT (Logo + Shop All)
@@ -160,7 +160,7 @@ public class ShopPage extends AllVerifications {
 	// ✅ INIT
 	// ============================================================
 
-	public ShopPage(WebDriver driver) {
+	public SearchProductsPage(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
 	}
@@ -261,7 +261,7 @@ public class ShopPage extends AllVerifications {
 		openUserDropdown();
 		WebElement btn = findButtonByExactText(headerUserDropdownButtons, optionText);
 		if (btn == null) {
-			System.out.println("[SHOPPAGE] Dropdown option not found: " + optionText);
+			System.out.println("[SEARCHPRODUCTSPAGE] Dropdown option not found: " + optionText);
 			return;
 		}
 		clickOnElement(btn, "User Dropdown Option: " + optionText);
@@ -304,7 +304,7 @@ public class ShopPage extends AllVerifications {
 		if (cartBtn != null)
 			clickOnElement(cartBtn, "Mobile Menu Cart");
 		else
-			System.out.println("[SHOPPAGE] Mobile Menu Cart button not found.");
+			System.out.println("[SEARCHPRODUCTSPAGE] Mobile Menu Cart button not found.");
 	}
 
 	public void clickMobileMenuWishlistButton() {
@@ -315,7 +315,7 @@ public class ShopPage extends AllVerifications {
 		if (wlBtn != null)
 			clickOnElement(wlBtn, "Mobile Menu Wishlist");
 		else
-			System.out.println("[SHOPPAGE] Mobile Menu Wishlist button not found.");
+			System.out.println("[SEARCHPRODUCTSPAGE] Mobile Menu Wishlist button not found.");
 	}
 
 	// ============================================================
@@ -329,7 +329,7 @@ public class ShopPage extends AllVerifications {
 
 	public void closeMiniCart() {
 		if (!isElementPresentInDOM(miniCartPopupBy)) {
-			System.out.println("[SHOPPAGE] MiniCart popup is not open. Nothing to close.");
+			System.out.println("[SEARCHPRODUCTSPAGE] MiniCart popup is not open. Nothing to close.");
 			return;
 		}
 		clickOnElement(miniCartCloseButtonBy, "MiniCart Close Button");
@@ -347,7 +347,7 @@ public class ShopPage extends AllVerifications {
 	public void clickMiniCartBrowseProductsWhenEmpty() {
 		openMiniCart();
 		if (!isElementPresentInDOM(miniCartBrowseProductsLinkBy)) {
-			System.out.println("[SHOPPAGE] Browse products link not visible (cart might not be empty).");
+			System.out.println("[SEARCHPRODUCTSPAGE] Browse products link not visible (cart might not be empty).");
 			return;
 		}
 		clickOnElement(miniCartBrowseProductsLinkBy, "MiniCart Browse Products Link");
@@ -377,12 +377,12 @@ public class ShopPage extends AllVerifications {
 
 		List<WebElement> removeBtns = driver.findElements(miniCartRemoveButtonsBy);
 		if (removeBtns.isEmpty()) {
-			System.out.println("[SHOPPAGE] No remove buttons found (cart empty?).");
+			System.out.println("[SEARCHPRODUCTSPAGE] No remove buttons found (cart empty?).");
 			return;
 		}
 
 		if (indexZeroBased < 0 || indexZeroBased >= removeBtns.size()) {
-			System.out.println("[SHOPPAGE] Invalid remove index: " + indexZeroBased);
+			System.out.println("[SEARCHPRODUCTSPAGE] Invalid remove index: " + indexZeroBased);
 			return;
 		}
 
@@ -450,11 +450,11 @@ public class ShopPage extends AllVerifications {
 
 	public void clickFooterSocialLinkByIndex(int indexZeroBased) {
 		if (footerSocialLinks == null || footerSocialLinks.isEmpty()) {
-			System.out.println("[SHOPPAGE] No footer social links found.");
+			System.out.println("[SEARCHPRODUCTSPAGE] No footer social links found.");
 			return;
 		}
 		if (indexZeroBased < 0 || indexZeroBased >= footerSocialLinks.size()) {
-			System.out.println("[SHOPPAGE] Invalid footer social index: " + indexZeroBased);
+			System.out.println("[SEARCHPRODUCTSPAGE] Invalid footer social index: " + indexZeroBased);
 			return;
 		}
 		clickOnElement(footerSocialLinks.get(indexZeroBased), "Footer Social Link #" + indexZeroBased);
@@ -498,11 +498,11 @@ public class ShopPage extends AllVerifications {
 	// ✅ PAGE VERIFICATION
 	// ============================================================
 
-	public void verifyShopPageTitle(String expectedTitle) {
+	public void verifySearchProductsPageTitle(String expectedTitle) {
 		verifyTitleOfWebpage(expectedTitle);
 	}
 
-	public void verifyShopPageUrl(String expectedUrl) {
+	public void verifySearchProductsPageUrl(String expectedUrl) {
 		verifyUrlOfWebpage(expectedUrl);
 	}
 }

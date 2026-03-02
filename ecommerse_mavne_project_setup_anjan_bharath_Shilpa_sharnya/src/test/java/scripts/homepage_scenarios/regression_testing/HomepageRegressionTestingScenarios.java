@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import generic.Excel;
 import generic.OpenClose;
 import pom.Homepage;
-import pom.Shoppage;
+import pom.ShopPage;
 
 public class HomepageRegressionTestingScenarios extends OpenClose {
 
@@ -27,31 +27,41 @@ public class HomepageRegressionTestingScenarios extends OpenClose {
 
 	}
 
-	@Test(priority = 2, enabled = false)
-	public void testClickOnLogoFromHeaderOfHomepageReloadHomepage() {
+	@Test(priority = 2, enabled = true)
+	public void testClickOnLogoFromHeaderOfHomepageReloadHomepage() throws IOException {
 
 		Homepage hp = new Homepage(driver);
-		String expectedTitle = Excel.getData1("Homepage", 1, 0);
+		String expectedTitle = (String) Excel.getData("Homepage", 1, 0);
 		hp.verifyHomepageTitle(expectedTitle);
-		hp.clickOnLogo();
+		hp.clickHeaderLogoHome();
 		hp.verifyHomepageTitle(expectedTitle);
 
 	}
 
-	@Test(priority = 3, invocationCount = 5)
-	public void testClickShopAllLinkFromHeaderOpenShopPage() {
+	@Test(priority = 3, enabled = true)
+	public void testClickOnLogoApplicationNameHomepageReloadHomepage() throws IOException {
 
 		Homepage hp = new Homepage(driver);
-		String expectedHomeTitle = Excel.getData1("Homepage", 1, 0);
+		String expectedTitle = (String) Excel.getData("Homepage", 1, 0);
+		hp.verifyHomepageTitle(expectedTitle);
+		hp.clickHeaderLogoAppNameAndPrintText();
+		hp.verifyHomepageTitle(expectedTitle);
+
+	}
+
+	@Test(priority = 4, invocationCount = 1)
+	public void testClickShopAllLinkFromHeaderOpenShopPage() throws IOException {
+
+		Homepage hp = new Homepage(driver);
+		String expectedHomeTitle = (String) Excel.getData("Homepage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomeTitle);
 
 		// update row/col as per your excel
-		hp.clickOnShopAllLink();
+		hp.clickHeaderShopAllDesktop();
 
-		Shoppage sp = new Shoppage(driver);
-		String expectedShopTitle = Excel.getData1("Shoppage", 1, 0);
-		sp.verifyShoppageTitle(expectedShopTitle);
+		ShopPage sp = new ShopPage(driver);
+		String expectedShopTitle = (String) Excel.getData("Shoppage", 1, 0);
+		sp.verifyShopPageTitle(expectedShopTitle);
 
 	}
-
 }
