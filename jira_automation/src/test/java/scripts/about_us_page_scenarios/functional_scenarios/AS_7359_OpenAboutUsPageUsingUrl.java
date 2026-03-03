@@ -12,6 +12,7 @@ public class AS_7359_OpenAboutUsPageUsingUrl extends OpenClose {
 
 	@Test
 	public void testOpenAboutUsPageUsingUrl() throws IOException {
+
 		String expectedTitle = (String) Excel.getData("AboutUsPage", 1, 0);
 
 		driver.get(URL_ABOUT_US);
