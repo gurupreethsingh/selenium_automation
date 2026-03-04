@@ -8,13 +8,13 @@ import generic.Excel;
 import generic.OpenClose;
 import pom.HomePage;
 
-public class AS_7348_OpenHomePageUsingUrl extends OpenClose {
+public class AS_7347_OpenHomePageUsingUrlForwardSlashHome extends OpenClose {
 
 	@Test
-	public void testOpenHomePageUsingUrl() throws IOException {
+	public void testOpenHomePageUsingUrlForwardSlashHome() throws IOException {
 		String expectedTitle = (String) Excel.getData("HomePage", 1, 0);
 
-		driver.get(URL_HOME_ALT_2);
+		driver.get(URL_HOME_ALT_1);
 
 		HomePage page = new HomePage(driver);
 		page.verifyHomePageTitle(expectedTitle);

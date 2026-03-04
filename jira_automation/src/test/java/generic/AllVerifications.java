@@ -19,20 +19,50 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class AllVerifications {
 
 	protected final WebDriver driver;
+	protected final ScreenshotUtility su;
 
 	// ✅ constructor injection
 	public AllVerifications(WebDriver driver) {
 		this.driver = driver;
+		this.su = new ScreenshotUtility(driver);
 	}
 
 	// ============================================================
 	// ✅ CENTRAL CONFIG
 	// ============================================================
-	private static final int DEFAULT_WAITING_TIME_IN_SEC = 15;
+	protected static final int DEFAULT_WAITING_TIME_IN_SEC = 15;
 	private static final int DEFAULT_RETRY_COUNT = 2;
 
 	protected WebDriverWait createWait(int seconds) {
 		return new WebDriverWait(driver, Duration.ofSeconds(seconds));
+	}
+
+	// ============================================================
+	// ✅ SCREENSHOT HELPERS
+	// ============================================================
+	private String safeTag(String tag) {
+		if (tag == null || tag.trim().isEmpty())
+			return "UNKNOWN";
+		return tag.replaceAll("[^a-zA-Z0-9-_]", "_");
+	}
+
+	protected void captureFailure(String tag) {
+		try {
+			su.captureScreenshot(); // your utility already makes unique name
+			System.out.println("[SCREENSHOT CAPTURED] " + safeTag(tag));
+		} catch (Exception e) {
+			System.out.println("[SCREENSHOT FAILED] " + safeTag(tag));
+		}
+	}
+
+	protected void captureFailure(String tag, Exception ex) {
+		try {
+			su.captureScreenshot();
+			System.out.println("[SCREENSHOT CAPTURED] " + safeTag(tag) + " | "
+					+ (ex == null ? "" : ex.getClass().getSimpleName()));
+		} catch (Exception e) {
+			System.out.println("[SCREENSHOT FAILED] " + safeTag(tag));
+		}
 	}
 
 	// ============================================================
@@ -45,10 +75,12 @@ public class AllVerifications {
 			return createWait(timeoutSeconds).until(ExpectedConditions.presenceOfElementLocated(locator));
 		} catch (TimeoutException te) {
 			System.out.println("[WAIT PRESENCE TIMEOUT] " + name + " | " + locator);
+			captureFailure("WAIT_PRESENCE_TIMEOUT_" + name, te);
 			return null;
 		} catch (Exception e) {
 			System.out.println("[WAIT PRESENCE FAILED] " + name + " | " + locator);
 			e.printStackTrace();
+			captureFailure("WAIT_PRESENCE_FAILED_" + name, e);
 			return null;
 		}
 	}
@@ -59,10 +91,12 @@ public class AllVerifications {
 			return createWait(timeoutSeconds).until(ExpectedConditions.visibilityOfElementLocated(locator));
 		} catch (TimeoutException te) {
 			System.out.println("[WAIT VISIBLE TIMEOUT] " + name + " | " + locator);
+			captureFailure("WAIT_VISIBLE_TIMEOUT_" + name, te);
 			return null;
 		} catch (Exception e) {
 			System.out.println("[WAIT VISIBLE FAILED] " + name + " | " + locator);
 			e.printStackTrace();
+			captureFailure("WAIT_VISIBLE_FAILED_" + name, e);
 			return null;
 		}
 	}
@@ -75,6 +109,8 @@ public class AllVerifications {
 			return ok;
 		} catch (Exception e) {
 			System.out.println("[WAIT INVISIBLE FAILED] " + name + " | " + locator);
+			e.printStackTrace();
+			captureFailure("WAIT_INVISIBLE_FAILED_" + name, e);
 			return false;
 		}
 	}
@@ -83,6 +119,8 @@ public class AllVerifications {
 		try {
 			return driver.findElements(locator).size() > 0;
 		} catch (Exception e) {
+			e.printStackTrace();
+			captureFailure("IS_ELEMENT_PRESENT_IN_DOM_FAILED", e);
 			return false;
 		}
 	}
@@ -97,10 +135,12 @@ public class AllVerifications {
 			return createWait(timeoutSeconds).until(ExpectedConditions.visibilityOf(element));
 		} catch (TimeoutException te) {
 			System.out.println("[WAIT VISIBLE TIMEOUT] " + name);
+			captureFailure("WAIT_VISIBLE_ELEMENT_TIMEOUT_" + name, te);
 			return null;
 		} catch (Exception e) {
 			System.out.println("[WAIT VISIBLE FAILED] " + name);
 			e.printStackTrace();
+			captureFailure("WAIT_VISIBLE_ELEMENT_FAILED_" + name, e);
 			return null;
 		}
 	}
@@ -111,10 +151,12 @@ public class AllVerifications {
 			return createWait(timeoutSeconds).until(ExpectedConditions.elementToBeClickable(element));
 		} catch (TimeoutException te) {
 			System.out.println("[WAIT CLICKABLE TIMEOUT] " + name);
+			captureFailure("WAIT_CLICKABLE_TIMEOUT_" + name, te);
 			return null;
 		} catch (Exception e) {
 			System.out.println("[WAIT CLICKABLE FAILED] " + name);
 			e.printStackTrace();
+			captureFailure("WAIT_CLICKABLE_FAILED_" + name, e);
 			return null;
 		}
 	}
@@ -141,9 +183,11 @@ public class AllVerifications {
 
 			} catch (StaleElementReferenceException sere) {
 				System.out.println("[STALE ELEMENT] " + elementName + " | retrying...");
+				captureFailure("CLICK_STALE_" + elementName, sere);
 			} catch (Exception ex) {
 				System.out.println("[CLICK FAILED] " + elementName);
 				ex.printStackTrace();
+				captureFailure("CLICK_FAILED_" + elementName, ex);
 				break;
 			}
 		}
@@ -168,9 +212,11 @@ public class AllVerifications {
 
 			} catch (StaleElementReferenceException sere) {
 				System.out.println("[STALE ELEMENT] " + elementName + " | " + locator + " | retrying...");
+				captureFailure("CLICK_BY_STALE_" + elementName, sere);
 			} catch (Exception ex) {
 				System.out.println("[CLICK FAILED] " + elementName + " | " + locator);
 				ex.printStackTrace();
+				captureFailure("CLICK_BY_FAILED_" + elementName, ex);
 				break;
 			}
 		}
@@ -186,12 +232,12 @@ public class AllVerifications {
 		try {
 			if (element == null) {
 				System.out.println("[SCROLL FAILED] " + name + " -> element is NULL");
+				captureFailure("SCROLL_FAILED_NULL_" + name);
 				return;
 			}
 
 			System.out.println("[SCROLL] " + name);
 
-			// wait for visibility (safe)
 			waitUntilElementVisible(element, DEFAULT_WAITING_TIME_IN_SEC, name);
 
 			((JavascriptExecutor) driver)
@@ -202,6 +248,7 @@ public class AllVerifications {
 		} catch (Exception e) {
 			System.out.println("[SCROLL FAILED] " + name);
 			e.printStackTrace();
+			captureFailure("SCROLL_FAILED_" + name, e);
 		}
 	}
 
@@ -217,12 +264,14 @@ public class AllVerifications {
 
 			if (value == null) {
 				System.out.println("[TYPE ERROR] " + fieldName + " value is NULL");
+				captureFailure("TYPE_NULL_" + fieldName);
 				return false;
 			}
 
 			String trimmed = value.trim();
 			if (trimmed.isEmpty()) {
 				System.out.println("[TYPE ERROR] " + fieldName + " value is EMPTY/WHITESPACE");
+				captureFailure("TYPE_EMPTY_" + fieldName);
 				return false;
 			}
 
@@ -234,16 +283,22 @@ public class AllVerifications {
 
 		} catch (StaleElementReferenceException sere) {
 			System.out.println("[STALE TYPE] " + fieldName + " | retrying once...");
+			captureFailure("TYPE_STALE_" + fieldName, sere);
+
 			try {
 				element.clear();
 				element.sendKeys(value.trim());
 				typed = true;
 			} catch (Exception ex) {
 				System.out.println("[TYPE FAILED AFTER RETRY] " + fieldName);
+				ex.printStackTrace();
+				captureFailure("TYPE_FAILED_AFTER_RETRY_" + fieldName, ex);
 			}
+
 		} catch (Exception ex) {
 			System.out.println("[TYPE FAILED] " + fieldName);
 			ex.printStackTrace();
+			captureFailure("TYPE_FAILED_" + fieldName, ex);
 		}
 
 		return typed;
@@ -258,6 +313,7 @@ public class AllVerifications {
 		} catch (Exception e) {
 			System.out.println("[PRESS KEY FAILED] " + name + " -> " + key);
 			e.printStackTrace();
+			captureFailure("PRESS_KEY_FAILED_" + name + "_" + key, e);
 			return false;
 		}
 	}
@@ -271,10 +327,12 @@ public class AllVerifications {
 			waitUntilElementVisible(element, DEFAULT_WAITING_TIME_IN_SEC, name);
 			String t = element.getText();
 			t = (t == null) ? "" : t.trim();
-			System.out.println("[GET TEXT] " + name + " -> " + t);
+			System.out.println("[GOT TEXT] " + name + " -> " + t);
 			return t;
 		} catch (Exception e) {
-			System.out.println("[GET TEXT FAILED] " + name);
+			System.out.println("[GETTING TEXT FAILED] " + name);
+			e.printStackTrace();
+			captureFailure("GET_TEXT_FAILED_" + name, e);
 			return "";
 		}
 	}
@@ -287,6 +345,8 @@ public class AllVerifications {
 			return Integer.parseInt(txt.trim());
 		} catch (Exception e) {
 			System.out.println("[GET INT FAILED] " + name);
+			e.printStackTrace();
+			captureFailure("GET_INT_FAILED_" + name, e);
 			return 0;
 		}
 	}
@@ -296,9 +356,16 @@ public class AllVerifications {
 			waitUntilElementVisible(element, DEFAULT_WAITING_TIME_IN_SEC, name);
 			boolean ok = element.isDisplayed();
 			System.out.println("[IS DISPLAYED] " + name + " -> " + ok);
+
+			if (!ok) {
+				captureFailure("IS_DISPLAYED_FALSE_" + name);
+			}
 			return ok;
+
 		} catch (Exception e) {
 			System.out.println("[IS DISPLAYED FAILED] " + name);
+			e.printStackTrace();
+			captureFailure("IS_DISPLAYED_FAILED_" + name, e);
 			return false;
 		}
 	}
@@ -316,6 +383,8 @@ public class AllVerifications {
 			System.out.println("[TITLE PASS] Expected: " + expectedTitle + " | Found: " + driver.getTitle());
 		} catch (Exception ex) {
 			System.out.println("[TITLE FAIL] Expected: " + expectedTitle + " | Found: " + safeTitle());
+			ex.printStackTrace();
+			captureFailure("VERIFY_TITLE_FAIL_" + expectedTitle, ex);
 		}
 		return titleVerified;
 	}
@@ -329,6 +398,8 @@ public class AllVerifications {
 			System.out.println("[URL PASS] Expected: " + expectedUrl + " | Found: " + driver.getCurrentUrl());
 		} catch (Exception ex) {
 			System.out.println("[URL FAIL] Expected: " + expectedUrl + " | Found: " + safeUrl());
+			ex.printStackTrace();
+			captureFailure("VERIFY_URL_FAIL_" + expectedUrl, ex);
 		}
 		return urlVerified;
 	}
@@ -343,6 +414,8 @@ public class AllVerifications {
 			System.out.println("[TEXT PASS] Expected: " + expectedText + " | Found: " + safeGet(element));
 		} catch (Exception ex) {
 			System.out.println("[TEXT FAIL] Expected: " + expectedText + " | Found: " + safeGet(element));
+			ex.printStackTrace();
+			captureFailure("VERIFY_TEXT_FAIL_" + expectedText, ex);
 		}
 		return textVerified;
 	}
@@ -383,9 +456,15 @@ public class AllVerifications {
 			System.out.println(ok ? "[TEXT PASS - IGNORECASE]"
 					: "[TEXT FAIL - IGNORECASE]" + " Expected: " + exp + " | Found: " + actualText);
 
+			if (!ok) {
+				captureFailure("VERIFY_TEXT_IGNORECASE_FAIL_expected_" + exp + "_found_" + actualText);
+			}
+
 			return ok;
 		} catch (Exception ex) {
 			System.out.println("[TEXT FAIL - IGNORECASE] Element not found or exception.");
+			ex.printStackTrace();
+			captureFailure("VERIFY_TEXT_IGNORECASE_EXCEPTION_" + expectedText, ex);
 			return false;
 		}
 	}
@@ -399,9 +478,15 @@ public class AllVerifications {
 			System.out.println(ok ? "[TEXT PASS - PATTERN] " + actualText
 					: "[TEXT FAIL - PATTERN] Expected Pattern: " + expectedPattern + " | Found: " + actualText);
 
+			if (!ok) {
+				captureFailure("VERIFY_TEXT_PATTERN_FAIL_pattern_" + expectedPattern + "_found_" + actualText);
+			}
+
 			return ok;
 		} catch (Exception ex) {
 			System.out.println("[TEXT FAIL - PATTERN] Element not found or pattern not matched.");
+			ex.printStackTrace();
+			captureFailure("VERIFY_TEXT_PATTERN_EXCEPTION_" + expectedPattern, ex);
 			return false;
 		}
 	}
@@ -414,6 +499,8 @@ public class AllVerifications {
 			return true;
 		} catch (Exception ex) {
 			System.out.println("[TEXT REMOVED FAIL] Still Found: " + expectedText);
+			ex.printStackTrace();
+			captureFailure("VERIFY_TEXT_NOT_PRESENT_FAIL_" + expectedText, ex);
 			return false;
 		}
 	}
@@ -449,11 +536,17 @@ public class AllVerifications {
 			});
 
 			System.out.println(ok ? "[NESTED TEXT NOT PRESENT PASS]" : "[NESTED TEXT NOT PRESENT FAIL]");
+
+			if (!ok) {
+				captureFailure("VERIFY_NESTED_TEXT_NOT_PRESENT_FAIL_" + exp);
+			}
 			return ok;
 
 		} catch (Exception e) {
 			System.out.println("[NESTED TEXT NOT PRESENT FAIL] Still present: " + expectedText + " | "
 					+ containerOrElementLocator);
+			e.printStackTrace();
+			captureFailure("VERIFY_NESTED_TEXT_NOT_PRESENT_EXCEPTION_" + expectedText, e);
 			return false;
 		}
 	}
@@ -476,10 +569,13 @@ public class AllVerifications {
 			}
 
 			System.out.println("[CLICK BLOCKED] Element is visible but NOT enabled.");
+			captureFailure("CLICK_BLOCKED_NOT_ENABLED");
 			return false;
 
 		} catch (Exception ex) {
 			System.out.println("[CLICK FAILED] Element not visible within wait time.");
+			ex.printStackTrace();
+			captureFailure("CLICK_VISIBLE_ENABLED_FAILED", ex);
 			return false;
 		}
 	}
@@ -502,6 +598,8 @@ public class AllVerifications {
 
 		} catch (Exception ex) {
 			System.out.println("[ALERT ACCEPT FAILED]");
+			ex.printStackTrace();
+			captureFailure("ALERT_ACCEPT_FAILED", ex);
 			return false;
 		}
 	}
@@ -520,6 +618,8 @@ public class AllVerifications {
 
 		} catch (Exception ex) {
 			System.out.println("[ALERT DISMISS FAILED]");
+			ex.printStackTrace();
+			captureFailure("ALERT_DISMISS_FAILED", ex);
 			return false;
 		}
 	}
@@ -544,106 +644,18 @@ public class AllVerifications {
 			}
 
 			System.out.println("[COUNT RESULT] Expected: " + expectedCount + " | Actual: " + actualCount);
-			return (actualCount == expectedCount);
+
+			boolean ok = (actualCount == expectedCount);
+			if (!ok) {
+				captureFailure("COUNT_MISMATCH_expected_" + expectedCount + "_actual_" + actualCount);
+			}
+			return ok;
 
 		} catch (Exception ex) {
 			System.out.println("[COUNT FAILED] Expected: " + expectedCount + " | Actual: " + actualCount);
+			ex.printStackTrace();
+			captureFailure("COUNT_FAILED_expected_" + expectedCount + "_actual_" + actualCount, ex);
 			return false;
 		}
 	}
-
-//	public boolean printAllBrandNamesInHomepage(int expectedCount, By locator) {
-//		int actualCount = 0;
-//
-//		try {
-//			System.out.println("[PRINT BRANDS] ExpectedCount: " + expectedCount + " | Locator: " + locator);
-//
-//			for (int i = 1; i <= 50; i++) {
-//				actualCount = driver.findElements(locator).size();
-//				if (actualCount == expectedCount) {
-//					System.out.println("[BRANDS COUNT MATCH] attempt=" + i + " | Found: " + actualCount);
-//					break;
-//				}
-//				Thread.sleep(200);
-//			}
-//
-//			List<WebElement> brandButtons = driver.findElements(locator);
-//			actualCount = brandButtons.size();
-//
-//			Set<String> uniqueBrands = new LinkedHashSet<>();
-//			for (WebElement btn : brandButtons) {
-//				String brand = btn.getAttribute("title");
-//				if (brand != null && !brand.trim().isEmpty())
-//					uniqueBrands.add(brand.trim());
-//			}
-//
-//			int count = 0;
-//			for (String b : uniqueBrands) {
-//				System.out.println((count + 1) + " Brand Name : " + b);
-//				count++;
-//				Thread.sleep(50);
-//			}
-//
-//			System.out.println("[BRANDS SUMMARY] Expected: " + expectedCount + " | Actual: " + actualCount
-//					+ " | Unique: " + uniqueBrands.size());
-//
-//			return (actualCount == expectedCount);
-//
-//		} catch (Exception ex) {
-//			System.out.println("[PRINT BRANDS FAILED] Expected: " + expectedCount + " | Actual: " + actualCount);
-//			return false;
-//		}
-//	}
-//
-//	public boolean verifyTotalElementsCount1(int expectedCount, By locator) {
-//		int actualCount = 0;
-//
-//		try {
-//			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//			wait.until(d -> d.findElements(locator).size() == expectedCount);
-//
-//			List<WebElement> brandButtons = driver.findElements(locator);
-//			actualCount = brandButtons.size();
-//
-//			java.util.Set<String> uniqueBrands = new java.util.LinkedHashSet<>();
-//			for (WebElement btn : brandButtons) {
-//				String brand = btn.getAttribute("title");
-//				if (brand != null) {
-//					brand = brand.trim();
-//					if (!brand.isEmpty())
-//						uniqueBrands.add(brand);
-//				}
-//			}
-//
-//			if (uniqueBrands.isEmpty()) {
-//				List<WebElement> nameSpans = driver.findElements(By.cssSelector(
-//						"div.flex.items-center.w-max:first-child>button[title]>div>div:last-child>span:first-child"));
-//				for (WebElement s : nameSpans) {
-//					String t = s.getAttribute("textContent");
-//					if (t != null) {
-//						t = t.trim();
-//						if (!t.isEmpty())
-//							uniqueBrands.add(t);
-//					}
-//				}
-//			}
-//
-//			int count = 0;
-//			for (String b : uniqueBrands) {
-//				System.out.println(count + 1 + " Brand Name : " + b);
-//				count++;
-//				Thread.sleep(50);
-//			}
-//
-//			System.out.println("Count matching - expected count : " + expectedCount + " Found actual count is : "
-//					+ actualCount + " | Unique names printed: " + uniqueBrands.size());
-//
-//			return (actualCount == expectedCount);
-//
-//		} catch (Exception ex) {
-//			System.out.println(
-//					"Count Not matching expected count : " + expectedCount + " Found actual count as : " + actualCount);
-//			return false;
-//		}
-//	}
 }
