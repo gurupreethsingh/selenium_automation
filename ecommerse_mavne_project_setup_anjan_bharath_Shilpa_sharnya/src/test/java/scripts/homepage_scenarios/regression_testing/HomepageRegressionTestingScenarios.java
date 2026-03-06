@@ -32,7 +32,7 @@ public class HomepageRegressionTestingScenarios extends OpenClose {
 	public void testOpenHomepageUsing_forwardslash_homeAsUrl() throws IOException {
 		// @BeforeMethod
 
-		driver.get(urlOfApplication1);
+		driver.get(URL_HOME_ALT_1);
 
 		Homepage hp = new Homepage(driver);
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
@@ -104,7 +104,7 @@ public class HomepageRegressionTestingScenarios extends OpenClose {
 		hp.clickSearchButtonDesktop();
 		// user will navigate to search products page.
 		SearchProductsPage spp = new SearchProductsPage(driver);
-		String expectedTitleOfSearchProductsPage = (String) Excel.getData(excelSheetPath, 1, 0);
+		String expectedTitleOfSearchProductsPage = (String) Excel.getData(EXCEL_SHEET_PATH, 1, 0);
 		spp.verifySearchProductsPageTitle(expectedTitleOfSearchProductsPage);
 		spp.verifySearchProductsPageUrl("http://localhost:5173/search-products?query=samsung");
 		// find the text in the page. and match with the query word typed.

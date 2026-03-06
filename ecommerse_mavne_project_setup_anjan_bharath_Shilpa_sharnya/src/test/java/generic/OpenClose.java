@@ -1,118 +1,92 @@
-//package generic;
-//
-//import java.time.Duration;
-//
-//import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.chrome.ChromeDriver;
-//import org.testng.annotations.AfterMethod;
-//import org.testng.annotations.BeforeMethod;
-//
-//public class OpenClose implements AutomationConstants {
-//
-//	public WebDriver driver;
-//
-//	// funtion to open the application
-//	@BeforeMethod
-//	public void openApplication() {
-//		driver = new ChromeDriver();
-//		driver.manage().window().maximize();
-//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-//		// enter the url and open the web page / homepage.
-//		driver.get(urlOfApplication);
-//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-//	}
-//
-//	// function to close the application
-//
-//	@AfterMethod
-//	public void closeApplication() throws InterruptedException {
-//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-//		driver.quit();
-//	}
-//
-//}
-
 package generic;
 
 import java.time.Duration;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.asserts.SoftAssert;
 
 public class OpenClose implements AutomationConstants {
 
 	public WebDriver driver;
 
-//	@BeforeMethod
-//	public void openApplicationInDesktop() {
-//
-//		ChromeOptions options = new ChromeOptions();
-//
-//		// ✅ optional (keeps browser stable in CI / avoids random issues)
-//		options.addArguments("--remote-allow-origins=*");
-//		options.addArguments("--disable-notifications");
-//		options.addArguments("--disable-infobars");
-//		options.addArguments("--start-maximized");
-//
-//		// ✅ if you want headless later (uncomment)
-//		// options.addArguments("--headless=new");
-//		// options.addArguments("--window-size=1920,1080");
-//
-//		driver = new ChromeDriver(options);
-//
-//		// ✅ If you use maximize, do it once (start-maximized already does it, but ok)
-//		driver.manage().window().maximize();
-//
-//		// ✅ IMPORTANT:
-//		// Do NOT mix implicit waits with explicit waits (AllVerifications).
-//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
-//
-//		// ✅ prevent hanging
-//		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-//		driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
-//
-//		// ✅ open app
-//		driver.get(urlOfApplication);
-//	}
+	// ✅ Available to all test classes that extend OpenClose
+	protected SoftAssert softAssert;
 
-	@BeforeMethod
-	public void openApplicationInMobile() {
+	// ✅ Opens browser + creates SoftAssert object before every @Test
+	@BeforeMethod(alwaysRun = true)
+	public void openApplicationInDesktop() {
+
+		// ✅ SoftAssert init for every test
+		softAssert = new SoftAssert();
 
 		ChromeOptions options = new ChromeOptions();
-
-		// ✅ optional (keeps browser stable in CI / avoids random issues)
 		options.addArguments("--remote-allow-origins=*");
 		options.addArguments("--disable-notifications");
 		options.addArguments("--disable-infobars");
-
-		// mobile scree size iphone 12/13/14
-		options.addArguments("--window-size=390,844");
+		options.addArguments("--start-maximized");
 
 		driver = new ChromeDriver(options);
 
-		// ✅ IMPORTANT:
-		// Do NOT mix implicit waits with explicit waits (AllVerifications).
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
-
-		// ✅ prevent hanging
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 		driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
 
-		// ✅ open app
-		driver.get(urlOfApplication);
+		driver.get(URL_HOME);
+	}
+
+//	// for mobile screen automation use this.
+//	@BeforeMethod
+//	public void openApplicationInMobileViews() {
+// 	softAssert = new SoftAssert();
+//		ChromeOptions options = new ChromeOptions();
+//		options.addArguments("--remote-allow-origins=*");
+//		options.addArguments("--disable-notifications");
+//		options.addArguments("--disable-infobars");
+//		// ✅ Mobile screen size (example: iPhone 12/13/14)
+//		options.addArguments("--window-size=390,844");
+//		driver = new ChromeDriver(options);
+//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+//		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+//		driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
+
+//		driver.get(URL_HOME);
+//	}
+
+	public void setViewport(int width, int height) {
+		try {
+			driver.manage().window().setSize(new Dimension(width, height));
+			System.out.println("[VIEWPORT] set to " + width + "x" + height);
+		} catch (Exception e) {
+			System.out.println("[VIEWPORT] failed to set size: " + e.getMessage());
+		}
 	}
 
 	@AfterMethod(alwaysRun = true)
 	public void closeApplication() {
+
+		// ✅ Assert all at the end so test doesn't stop in middle
 		try {
-			if (driver != null) {
-				driver.quit();
+			if (softAssert != null) {
+				softAssert.assertAll();
 			}
-		} catch (Exception e) {
-			System.out.println("[TEARDOWN] Error while quitting driver: " + e.getMessage());
+		} catch (AssertionError ae) {
+			// ✅ Print message, but re-throw so TestNG marks the test as FAILED
+			System.out.println("[SOFT ASSERT FAILURES] " + ae.getMessage());
+			throw ae;
+		} finally {
+			// ✅ Always quit browser even if assertAll fails
+			try {
+				if (driver != null) {
+					driver.quit();
+				}
+			} catch (Exception e) {
+				System.out.println("[TEARDOWN] Error while quitting driver: " + e.getMessage());
+			}
 		}
 	}
 }

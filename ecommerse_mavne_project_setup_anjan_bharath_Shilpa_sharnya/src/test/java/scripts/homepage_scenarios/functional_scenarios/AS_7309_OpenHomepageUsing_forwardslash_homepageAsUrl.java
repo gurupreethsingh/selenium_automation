@@ -13,7 +13,7 @@ public class AS_7309_OpenHomepageUsing_forwardslash_homepageAsUrl extends OpenCl
 	public void testOpenHomepageUsing_forwardslash_homepageAsUrl() throws IOException {
 		// @BeforeMethod
 
-		driver.get(urlOfApplication2);
+		driver.get(URL_HOME_ALT_2);
 
 		Homepage hp = new Homepage(driver);
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);

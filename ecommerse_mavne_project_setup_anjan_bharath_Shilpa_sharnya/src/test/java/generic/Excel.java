@@ -28,7 +28,7 @@ public class Excel implements AutomationConstants {
 			return null;
 		}
 
-		try (FileInputStream fis = new FileInputStream(new File(excelSheetPath));
+		try (FileInputStream fis = new FileInputStream(new File(EXCEL_SHEET_PATH));
 				Workbook wb = WorkbookFactory.create(fis)) {
 
 			Sheet sheet = wb.getSheet(sheetName);

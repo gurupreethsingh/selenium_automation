@@ -665,8 +665,8 @@ public class Homepage extends AllVerifications {
 	// ✅ PAGE VERIFICATION
 	// ============================================================
 
-	public void verifyHomepageTitle(String expectedTitle) {
-		verifyTitleOfWebpage(expectedTitle);
+	public boolean verifyHomepageTitle(String expectedTitle) {
+		return verifyTitleOfWebpage(expectedTitle);
 	}
 
 	public void verifyHomepageUrl(String expectedUrl) {

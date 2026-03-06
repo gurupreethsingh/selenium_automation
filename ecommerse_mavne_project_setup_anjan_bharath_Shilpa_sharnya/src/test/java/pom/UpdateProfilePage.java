@@ -15,155 +15,317 @@ import generic.AllVerifications;
 public class UpdateProfilePage extends AllVerifications {
 
 	// ============================================================
-	// ✅ HEADER - LEFT (Logo + Shop All)
+	// ✅ PAGE ROOT / WRAPPER
 	// ============================================================
 
-	@FindBy(css = "header nav a[aria-label='Go to home']")
-	private WebElement headerHomeLogoLink;
+	@FindBy(css = "div.up-scope")
+	private WebElement updateProfilePageRoot;
 
-	@FindBy(css = "header nav a[aria-label='Go to home'] span.text-\\[13px\\].font-extrabold")
-	private WebElement headerHomeLogoAppNameText;
-
-	@FindBy(css = "header nav a[href='/shop']")
-	private WebElement headerShopAllLinkDesktop;
+	@FindBy(css = "div.up-scope div.shell.w-full.px-3.sm\\:px-5.lg\\:px-10.py-6")
+	private WebElement updateProfileShellWrapper;
 
 	// ============================================================
-	// ✅ HEADER - SEARCH
+	// ✅ MOBILE SECTION ROOT
 	// ============================================================
 
-	@FindBy(css = "header nav form[role='search'] input[type='text']")
-	private WebElement headerSearchInputDesktop;
+	@FindBy(css = "div.up-scope div.sm\\:hidden")
+	private WebElement mobileSectionRoot;
 
-	@FindBy(css = "header nav form[role='search'] button[type='submit']")
-	private WebElement headerSearchButtonDesktop;
-
-	@FindBy(css = "header div.lg\\:hidden form[role='search'] input[type='text']")
-	private WebElement headerSearchInputMobileRow;
-
-	@FindBy(css = "header div.lg\\:hidden form[role='search'] button[type='submit']")
-	private WebElement headerSearchButtonMobileRow;
+	@FindBy(css = "div.up-scope div.sm\\:hidden form#updateProfileForm")
+	private WebElement mobileUpdateProfileForm;
 
 	// ============================================================
-	// ✅ HEADER - RIGHT (Desktop Wishlist + MiniCart + Login/User)
+	// ✅ MOBILE HERO CARD
 	// ============================================================
 
-	@FindBy(css = "header a[href='/wishlist'][aria-label='Wishlist']")
-	private WebElement headerWishlistLinkDesktop;
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.relative.w-full.overflow-hidden.rounded-3xl.bg-slate-100.upCard")
+	private WebElement mobileHeroCard;
 
-	@FindBy(css = "header a[href='/login'][aria-label='Sign in']")
-	private WebElement headerSignInLinkDesktop;
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.relative.w-full.overflow-hidden.rounded-3xl.bg-slate-100.upCard img")
+	private WebElement mobileProfileImage;
 
-	@FindBy(css = "header button[aria-haspopup='menu']")
-	private WebElement headerUserDropdownButton;
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.absolute.bottom-2\\.5.left-3.right-3.flex.items-end.justify-between.gap-3")
+	private WebElement mobileHeroBottomContent;
 
-	@FindBy(css = "header div.absolute.right-0 button")
-	private List<WebElement> headerUserDropdownButtons;
+	@FindBy(css = "div.up-scope div.sm\\:hidden p.text-white.text-\\[11px\\].font-bold.opacity-90")
+	private WebElement mobileHeroUpdateProfileLabel;
 
-	// ============================================================
-	// ✅ HEADER - MOBILE RIGHT ICONS
-	// ============================================================
+	@FindBy(css = "div.up-scope div.sm\\:hidden h2.text-white.text-\\[16px\\].font-extrabold.truncate.leading-tight")
+	private WebElement mobileHeroNameText;
 
-	@FindBy(css = "header a[href='/wishlist'][aria-label='Wishlist']")
-	private WebElement headerWishlistLinkMobile;
+	@FindBy(css = "div.up-scope div.sm\\:hidden p.text-white\\/90.text-\\[11px\\].font-semibold.truncate")
+	private WebElement mobileHeroEmailText;
 
-	@FindBy(css = "header a[href='/cart'][aria-label='Cart']")
-	private WebElement headerCartLinkMobile;
-
-	@FindBy(css = "header button[aria-label='Open menu']")
-	private WebElement headerOpenMobileMenuButton;
+	@FindBy(css = "div.up-scope div.sm\\:hidden button[type='submit'][form='updateProfileForm'][aria-label='Save profile']")
+	private WebElement mobileHeroSaveButton;
 
 	// ============================================================
-	// ✅ MOBILE MENU (DialogPanel role=dialog)
+	// ✅ MOBILE FORM CARD
 	// ============================================================
 
-	@FindBy(css = "header div[role='dialog'][aria-modal='true']")
-	private WebElement mobileMenuDialogPanel;
-
-	@FindBy(css = "header div[role='dialog'][aria-modal='true'] button[aria-label='Close menu']")
-	private WebElement mobileMenuCloseButton;
-
-	@FindBy(css = "header div[role='dialog'][aria-modal='true'] form input[type='text']")
-	private WebElement mobileMenuSearchInput;
-
-	@FindBy(css = "header div[role='dialog'][aria-modal='true'] form button[type='submit']")
-	private WebElement mobileMenuSearchButton;
-
-	@FindBy(css = "header div[role='dialog'][aria-modal='true'] a[href='/shop']")
-	private WebElement mobileMenuShopAllLink;
-
-	@FindBy(css = "header div[role='dialog'][aria-modal='true'] a[href='/login']")
-	private WebElement mobileMenuLoginLink;
+	@FindBy(css = "div.up-scope div.sm\\:hidden form#updateProfileForm div.upCard.overflow-hidden")
+	private WebElement mobileFormMainCard;
 
 	// ============================================================
-	// ✅ MINI CART (MiniCart.jsx) - scoped by .mc-scope
+	// ✅ MOBILE SECTION TITLES
 	// ============================================================
 
-	@FindBy(css = ".mc-scope button[aria-label='Open cart']")
-	private WebElement miniCartOpenButton;
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.mTitle")
+	private List<WebElement> mobileSectionTitles;
 
-	@FindBy(css = ".mc-scope button[aria-label='Open cart'] span")
-	private WebElement miniCartCountBadge;
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.mTitle p.mLabel.text-slate-900")
+	private List<WebElement> mobileSectionTitleTexts;
 
-	// Popup container (only exists when open)
-	private final By miniCartPopupBy = By.cssSelector(".mc-scope .mcCard");
-
-	private final By miniCartCloseButtonBy = By.cssSelector(".mc-scope .mcCard button[aria-label='Close']");
-	private final By miniCartBrowseProductsLinkBy = By.cssSelector(".mc-scope .mcCard a[href='/shop']");
-	private final By miniCartItemsContainerBy = By.cssSelector(".mc-scope .mcCard .mcScroll");
-	private final By miniCartItemRowsBy = By.cssSelector(".mc-scope .mcCard .mcScroll > div");
-	private final By miniCartRemoveButtonsBy = By.cssSelector(".mc-scope .mcCard button[aria-label='Remove']");
-	private final By miniCartTotalValueBy = By.cssSelector(".mc-scope .mcCard .mt-4 .text-slate-900");
-	private final By miniCartViewCartLinkBy = By.cssSelector(".mc-scope .mcCard a[href='/cart']");
-	private final By miniCartCheckoutButtonBy = By.cssSelector(".mc-scope .mcCard button.btnGhost");
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.mTitle p.mSub")
+	private List<WebElement> mobileSectionSubtitleTexts;
 
 	// ============================================================
-	// ✅ FOOTER + SubscriptionForm.jsx
+	// ✅ MOBILE ACCOUNT DETAILS - FULL NAME
 	// ============================================================
 
-	@FindBy(css = "footer")
-	private WebElement footerRoot;
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.mField.flex.items-start.gap-3")
+	private List<WebElement> mobileFullWidthFields;
 
-	@FindBy(css = "footer a[href='/about-us']")
-	private WebElement footerAboutUsLink;
-
-	@FindBy(css = "footer a[href='/contact-us']")
-	private WebElement footerContactUsLink;
-
-	@FindBy(css = "footer a[href='/careers']")
-	private WebElement footerCareersLink;
-
-	@FindBy(css = "footer a[href='/all-blogs']")
-	private WebElement footerBlogsLink;
-
-	@FindBy(css = "footer a[href='/help-center']")
-	private WebElement footerHelpCenterLink;
-
-	@FindBy(css = "footer a[href='/privacy-policy']")
-	private WebElement footerPrivacyPolicyLink;
-
-	@FindBy(css = "footer a[href='/terms-of-service']")
-	private WebElement footerTermsOfServiceLink;
-
-	@FindBy(css = "footer a[target='_blank'][rel='noreferrer']")
-	private List<WebElement> footerSocialLinks;
-
-	@FindBy(css = "footer form.flex.flex-col.space-y-3 input[type='email']")
-	private WebElement footerSubscribeEmailInput;
-
-	@FindBy(css = "footer form.flex.flex-col.space-y-3 button[type='submit']")
-	private WebElement footerSubscribeButton;
-
-	private final By footerSubscribeErrorBy = By.cssSelector("footer form.flex.flex-col.space-y-3 p.text-red-500");
-	private final By footerSubscribeOkMsgBy = By.cssSelector("footer form.flex.flex-col.space-y-3 p.text-green-600");
+	@FindBy(css = "div.up-scope div.sm\\:hidden input[name='name']")
+	private WebElement mobileFullNameInput;
 
 	// ============================================================
-	// ✅ INIT
+	// ✅ MOBILE ACCOUNT DETAILS - EMAIL + PHONE
 	// ============================================================
 
-	public UpdateProfilePage(WebDriver driver) {
-		super(driver);
-		PageFactory.initElements(driver, this);
-	}
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.grid.grid-cols-2.gap-2.px-3.py-2\\.5")
+	private List<WebElement> mobileTwoColumnFieldRows;
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden input[name='email']")
+	private WebElement mobileEmailInput;
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden input[name='phone']")
+	private WebElement mobilePhoneInput;
+
+	// ============================================================
+	// ✅ MOBILE ADDRESS FIELDS
+	// ============================================================
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden input[name='address.street']")
+	private WebElement mobileStreetInput;
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden input[name='address.city']")
+	private WebElement mobileCityInput;
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden input[name='address.state']")
+	private WebElement mobileStateInput;
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden input[name='address.postalCode']")
+	private WebElement mobilePostalCodeInput;
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden input[name='address.country']")
+	private WebElement mobileCountryInput;
+
+	// ============================================================
+	// ✅ MOBILE PROFILE IMAGE UPLOAD
+	// ============================================================
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.px-4.py-3.border-t")
+	private WebElement mobileProfileImageUploadSection;
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.px-4.py-3.border-t p.mLabel.text-slate-900")
+	private WebElement mobileProfileImageUploadTitle;
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.px-4.py-3.border-t p.mSub")
+	private WebElement mobileProfileImageUploadSubtitle;
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden label[for='profileImageMobile']")
+	private WebElement mobileChooseFileLabel;
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden input#profileImageMobile[type='file']")
+	private WebElement mobileProfileImageFileInput;
+
+	private final By mobileSelectedFileTextBy = By.cssSelector(
+			"div.up-scope div.sm\\:hidden div.px-4.py-3.border-t p.text-\\[11px\\].font-semibold.text-slate-600.break-words");
+
+	// ============================================================
+	// ✅ MOBILE STICKY ACTIONS
+	// ============================================================
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.fixed.left-0.right-0.bottom-0.z-40")
+	private WebElement mobileStickyActionBar;
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.fixed.left-0.right-0.bottom-0.z-40 button[type='button']")
+	private WebElement mobileGoBackButton;
+
+	@FindBy(css = "div.up-scope div.sm\\:hidden div.fixed.left-0.right-0.bottom-0.z-40 button[type='submit']")
+	private WebElement mobileBottomSaveButton;
+
+	// ============================================================
+	// ✅ DESKTOP/TABLET SECTION ROOT
+	// ============================================================
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block")
+	private WebElement desktopSectionRoot;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block form")
+	private WebElement desktopUpdateProfileForm;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block form.upCard.overflow-hidden")
+	private WebElement desktopMainFormCard;
+
+	// ============================================================
+	// ✅ DESKTOP HEADER
+	// ============================================================
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.px-6.lg\\:px-8.py-6.border-b")
+	private WebElement desktopHeaderSection;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block button[type='button'].inline-flex.items-center.gap-2.text-\\[12px\\].font-extrabold.text-slate-600.hover\\:text-slate-900.transition")
+	private WebElement desktopBackButton;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block h1.mt-3.text-\\[26px\\].font-extrabold.text-slate-900")
+	private WebElement desktopPageHeading;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block p.mt-1.text-\\[13px\\].font-semibold.upMuted")
+	private WebElement desktopPageSubtitle;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block button.btnGhost")
+	private List<WebElement> desktopGhostButtons;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block button.btnOrange.inline-flex.items-center.gap-2")
+	private List<WebElement> desktopSaveButtons;
+
+	// ============================================================
+	// ✅ DESKTOP BODY GRID
+	// ============================================================
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.px-6.lg\\:px-8.py-7")
+	private WebElement desktopBodySection;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.grid.grid-cols-12.gap-7")
+	private WebElement desktopBodyGrid;
+
+	// ============================================================
+	// ✅ DESKTOP LEFT COLUMN - PROFILE CARD
+	// ============================================================
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.col-span-12.lg\\:col-span-4")
+	private WebElement desktopLeftColumn;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.col-span-12.lg\\:col-span-4 div.upSoftBorder.rounded-3xl.overflow-hidden.bg-white")
+	private WebElement desktopProfileCard;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.col-span-12.lg\\:col-span-4 div.relative img")
+	private WebElement desktopProfileImage;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.absolute.bottom-3.left-4.right-4 p.text-white.text-\\[12px\\].font-extrabold.truncate")
+	private WebElement desktopProfileNameText;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.absolute.bottom-3.left-4.right-4 p.text-white\\/90.text-\\[12px\\].font-semibold.truncate")
+	private WebElement desktopProfileEmailText;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.col-span-12.lg\\:col-span-4 div.p-5")
+	private WebElement desktopProfileImageUploadSection;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.col-span-12.lg\\:col-span-4 div.p-5 p.text-\\[12px\\].font-extrabold.text-slate-900")
+	private WebElement desktopProfileImageTitle;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.col-span-12.lg\\:col-span-4 div.p-5 p.text-\\[12px\\].font-semibold.upMuted.mt-1")
+	private WebElement desktopProfileImageSubtitle;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block label[for='profileImageDesktop']")
+	private WebElement desktopChooseFileLabel;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block input#profileImageDesktop[type='file']")
+	private WebElement desktopProfileImageFileInput;
+
+	private final By desktopSelectedFileTextBy = By.cssSelector(
+			"div.up-scope div.hidden.sm\\:block div.col-span-12.lg\\:col-span-4 div.p-5 p.mt-2.text-\\[12px\\].font-semibold.text-slate-600.break-words");
+
+	// ============================================================
+	// ✅ DESKTOP RIGHT COLUMN - FORM CARD
+	// ============================================================
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.col-span-12.lg\\:col-span-8")
+	private WebElement desktopRightColumn;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.col-span-12.lg\\:col-span-8 div.upSoftBorder.rounded-3xl.overflow-hidden")
+	private WebElement desktopFormCard;
+
+	// ============================================================
+	// ✅ DESKTOP ACCOUNT DETAILS SECTION
+	// ============================================================
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.px-6.py-4.bg-gradient-to-r.from-orange-50.to-amber-50.border-b")
+	private WebElement desktopAccountDetailsHeader;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.px-6.py-4.bg-gradient-to-r.from-orange-50.to-amber-50.border-b p.text-\\[12px\\].font-extrabold.text-slate-900.uppercase.tracking-wide")
+	private WebElement desktopAccountDetailsTitle;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.px-6.py-4.bg-gradient-to-r.from-orange-50.to-amber-50.border-b p.text-\\[13px\\].font-semibold.upMuted.mt-1")
+	private WebElement desktopAccountDetailsSubtitle;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block input[name='name']")
+	private WebElement desktopFullNameInput;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block input[name='email']")
+	private WebElement desktopEmailInput;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block input[name='phone']")
+	private WebElement desktopPhoneInput;
+
+	// ============================================================
+	// ✅ DESKTOP ADDRESS SECTION
+	// ============================================================
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.px-6.py-4.bg-gradient-to-r.from-orange-50.to-amber-50.border-y")
+	private WebElement desktopAddressHeader;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.px-6.py-4.bg-gradient-to-r.from-orange-50.to-amber-50.border-y p.text-\\[12px\\].font-extrabold.text-slate-900.uppercase.tracking-wide")
+	private WebElement desktopAddressTitle;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.px-6.py-4.bg-gradient-to-r.from-orange-50.to-amber-50.border-y p.text-\\[13px\\].font-semibold.upMuted.mt-1")
+	private WebElement desktopAddressSubtitle;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block input[name='address.street']")
+	private WebElement desktopStreetInput;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block input[name='address.city']")
+	private WebElement desktopCityInput;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block input[name='address.state']")
+	private WebElement desktopStateInput;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block input[name='address.postalCode']")
+	private WebElement desktopPostalCodeInput;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block input[name='address.country']")
+	private WebElement desktopCountryInput;
+
+	// ============================================================
+	// ✅ DESKTOP FIELD ROWS
+	// ============================================================
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.fieldWrap")
+	private List<WebElement> desktopFieldRows;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.fieldLabel")
+	private List<WebElement> desktopFieldLabels;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block input.fieldInput")
+	private List<WebElement> desktopFieldInputs;
+
+	// ============================================================
+	// ✅ DESKTOP BOTTOM ACTION BAR
+	// ============================================================
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.px-6.py-5.border-t.flex.items-center.justify-end.gap-3")
+	private WebElement desktopBottomActionBar;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.px-6.py-5.border-t.flex.items-center.justify-end.gap-3 button.btnGhost")
+	private WebElement desktopBottomCancelButton;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.px-6.py-5.border-t.flex.items-center.justify-end.gap-3 button.btnOrange.inline-flex.items-center.gap-2")
+	private WebElement desktopBottomSaveChangesButton;
+
+	@FindBy(css = "div.up-scope div.hidden.sm\\:block div.mt-4.text-\\[12px\\].font-semibold.upMuted")
+	private WebElement desktopTipText;
 
 	// ============================================================
 	// ✅ INTERNAL SIMPLE HELPERS (NO WAITS)
@@ -179,327 +341,487 @@ public class UpdateProfilePage extends AllVerifications {
 		return null;
 	}
 
+	private WebElement getInputFieldByName(String fieldName) {
+		List<WebElement> els = driver.findElements(By.cssSelector("input[name='" + fieldName + "']"));
+		if (els.isEmpty())
+			return null;
+		return els.get(0);
+	}
+
 	// ============================================================
-	// ✅ HEADER ACTIONS
+	// ✅ INIT
 	// ============================================================
 
-	public void clickHeaderLogoHome() {
-		clickOnElement(headerHomeLogoLink, "Header Home Logo");
+	public UpdateProfilePage(WebDriver driver) {
+		super(driver);
+		PageFactory.initElements(driver, this);
 	}
 
-	public String clickHeaderLogoAppNameAndPrintText() {
-		headerHomeLogoAppNameText.click();
-		return getTextFromElement(headerHomeLogoAppNameText, "Header App Name Text");
+	// ============================================================
+	// ✅ PAGE ROOT ACTIONS
+	// ============================================================
+
+	public boolean isUpdateProfilePageRootDisplayed() {
+		return isElementDisplayed(updateProfilePageRoot, "Update Profile Page Root");
 	}
 
-	public void clickHeaderShopAllDesktop() {
-		clickOnElement(headerShopAllLinkDesktop, "Header SHOP ALL (Desktop)");
+	public boolean isUpdateProfileShellWrapperDisplayed() {
+		return isElementDisplayed(updateProfileShellWrapper, "Update Profile Shell Wrapper");
 	}
 
-	// ---------- Search (Desktop / Mobile Row) ----------
+	// ============================================================
+	// ✅ MOBILE SECTION ACTIONS
+	// ============================================================
 
-	public void enterValueIntoSearchField(String keys) {
-		typeInInputField(headerSearchInputDesktop, keys, "Header Search (Desktop)");
+	public boolean isMobileSectionVisible() {
+		return isElementPresentInDOM(By.cssSelector("div.up-scope div.sm\\:hidden"));
 	}
 
-	public void enterValueIntoSearchField(int keys) {
-		enterValueIntoSearchField(String.valueOf(keys));
+	public boolean isMobileFormVisible() {
+		return isElementPresentInDOM(By.cssSelector("div.up-scope div.sm\\:hidden form#updateProfileForm"));
 	}
 
-	public void enterValueIntoSearchField(long keys) {
-		enterValueIntoSearchField(String.valueOf(keys));
+	public boolean isMobileHeroCardVisible() {
+		return isElementPresentInDOM(By.cssSelector(
+				"div.up-scope div.sm\\:hidden div.relative.w-full.overflow-hidden.rounded-3xl.bg-slate-100.upCard"));
 	}
 
-	public void enterValueIntoSearchField(double keys) {
-		enterValueIntoSearchField(String.valueOf(keys));
+	public String getMobileHeroUpdateProfileLabelText() {
+		return getTextFromElement(mobileHeroUpdateProfileLabel, "Mobile Hero Update Profile Label");
 	}
 
-	public void clickSearchButtonDesktop() {
-		clickOnElement(headerSearchButtonDesktop, "Header Search Button (Desktop)");
+	public String getMobileHeroNameText() {
+		return getTextFromElement(mobileHeroNameText, "Mobile Hero Name Text");
 	}
 
-	public void searchDesktop(String query) {
-		enterValueIntoSearchField(query);
-		clickSearchButtonDesktop();
+	public String getMobileHeroEmailText() {
+		return getTextFromElement(mobileHeroEmailText, "Mobile Hero Email Text");
 	}
 
-	public void searchDesktopAndPressEnter(String query) {
-		typeInInputField(headerSearchInputDesktop, query, "Header Search (Desktop)");
-		pressKeyInElement(headerSearchInputDesktop, Keys.ENTER, "Header Search Desktop ENTER");
+	public void clickMobileHeroSaveButton() {
+		clickOnElement(mobileHeroSaveButton, "Mobile Hero Save Button");
 	}
 
-	public void searchMobileRow(String query) {
-		typeInInputField(headerSearchInputMobileRow, query, "Header Search (Mobile Row)");
-		clickOnElement(headerSearchButtonMobileRow, "Header Search Button (Mobile Row)");
+	public boolean isMobileProfileImageDisplayed() {
+		return isElementDisplayed(mobileProfileImage, "Mobile Profile Image");
 	}
 
-	// ---------- Wishlist / Cart (Mobile) ----------
+	// ============================================================
+	// ✅ MOBILE SECTION TITLE ACTIONS
+	// ============================================================
 
-	public void clickWishlistDesktop() {
-		clickOnElement(headerWishlistLinkDesktop, "Wishlist (Desktop)");
+	public int getMobileSectionTitleCount() {
+		return mobileSectionTitles == null ? 0 : mobileSectionTitles.size();
 	}
 
-	public void clickWishlistMobile() {
-		clickOnElement(headerWishlistLinkMobile, "Wishlist (Mobile)");
+	public List<String> getMobileSectionTitleTexts() {
+		List<String> texts = new ArrayList<>();
+		if (mobileSectionTitleTexts != null) {
+			for (WebElement el : mobileSectionTitleTexts) {
+				String t = el.getText();
+				if (t != null && !t.trim().isEmpty())
+					texts.add(t.trim());
+			}
+		}
+		return texts;
 	}
 
-	public void clickCartMobile() {
-		clickOnElement(headerCartLinkMobile, "Cart (Mobile)");
+	public List<String> getMobileSectionSubtitleTexts() {
+		List<String> texts = new ArrayList<>();
+		if (mobileSectionSubtitleTexts != null) {
+			for (WebElement el : mobileSectionSubtitleTexts) {
+				String t = el.getText();
+				if (t != null && !t.trim().isEmpty())
+					texts.add(t.trim());
+			}
+		}
+		return texts;
 	}
 
-	public void clickSignInDesktop() {
-		clickOnElement(headerSignInLinkDesktop, "Sign In (Desktop)");
+	// ============================================================
+	// ✅ MOBILE FIELD ACTIONS
+	// ============================================================
+
+	public void enterMobileFullName(String value) {
+		typeInInputField(mobileFullNameInput, value, "Mobile Full Name");
 	}
 
-	// ---------- User dropdown ----------
-
-	public void openUserDropdown() {
-		clickOnElement(headerUserDropdownButton, "User Dropdown");
+	public void enterMobileEmail(String value) {
+		typeInInputField(mobileEmailInput, value, "Mobile Email");
 	}
 
-	public void clickUserDropdownOption(String optionText) {
-		openUserDropdown();
-		WebElement btn = findButtonByExactText(headerUserDropdownButtons, optionText);
+	public void enterMobilePhone(String value) {
+		typeInInputField(mobilePhoneInput, value, "Mobile Phone");
+	}
+
+	public void enterMobileStreet(String value) {
+		typeInInputField(mobileStreetInput, value, "Mobile Street");
+	}
+
+	public void enterMobileCity(String value) {
+		typeInInputField(mobileCityInput, value, "Mobile City");
+	}
+
+	public void enterMobileState(String value) {
+		typeInInputField(mobileStateInput, value, "Mobile State");
+	}
+
+	public void enterMobilePostalCode(String value) {
+		typeInInputField(mobilePostalCodeInput, value, "Mobile Postal Code");
+	}
+
+	public void enterMobileCountry(String value) {
+		typeInInputField(mobileCountryInput, value, "Mobile Country");
+	}
+
+	public String getMobileFullNameValue() {
+		return getAttributeValueFromElement(mobileFullNameInput, "value", "Mobile Full Name");
+	}
+
+	public String getMobileEmailValue() {
+		return getAttributeValueFromElement(mobileEmailInput, "value", "Mobile Email");
+	}
+
+	public String getMobilePhoneValue() {
+		return getAttributeValueFromElement(mobilePhoneInput, "value", "Mobile Phone");
+	}
+
+	public String getMobileStreetValue() {
+		return getAttributeValueFromElement(mobileStreetInput, "value", "Mobile Street");
+	}
+
+	public String getMobileCityValue() {
+		return getAttributeValueFromElement(mobileCityInput, "value", "Mobile City");
+	}
+
+	public String getMobileStateValue() {
+		return getAttributeValueFromElement(mobileStateInput, "value", "Mobile State");
+	}
+
+	public String getMobilePostalCodeValue() {
+		return getAttributeValueFromElement(mobilePostalCodeInput, "value", "Mobile Postal Code");
+	}
+
+	public String getMobileCountryValue() {
+		return getAttributeValueFromElement(mobileCountryInput, "value", "Mobile Country");
+	}
+
+	// ============================================================
+	// ✅ MOBILE FILE UPLOAD ACTIONS
+	// ============================================================
+
+	public boolean isMobileProfileImageUploadSectionVisible() {
+		return isElementDisplayed(mobileProfileImageUploadSection, "Mobile Profile Image Upload Section");
+	}
+
+	public String getMobileProfileImageUploadTitleText() {
+		return getTextFromElement(mobileProfileImageUploadTitle, "Mobile Profile Image Upload Title");
+	}
+
+	public String getMobileProfileImageUploadSubtitleText() {
+		return getTextFromElement(mobileProfileImageUploadSubtitle, "Mobile Profile Image Upload Subtitle");
+	}
+
+	public void uploadProfileImageInMobile(String absoluteFilePath) {
+		typeInInputField(mobileProfileImageFileInput, absoluteFilePath, "Mobile Profile Image File Input");
+	}
+
+	public String getMobileSelectedFileText() {
+		if (!isElementPresentInDOM(mobileSelectedFileTextBy))
+			return "";
+		List<WebElement> els = driver.findElements(mobileSelectedFileTextBy);
+		if (els.isEmpty())
+			return "";
+		String t = els.get(0).getText();
+		return t == null ? "" : t.trim();
+	}
+
+	// ============================================================
+	// ✅ MOBILE STICKY ACTIONS
+	// ============================================================
+
+	public boolean isMobileStickyActionBarVisible() {
+		return isElementPresentInDOM(
+				By.cssSelector("div.up-scope div.sm\\:hidden div.fixed.left-0.right-0.bottom-0.z-40"));
+	}
+
+	public void clickMobileGoBackButton() {
+		clickOnElement(mobileGoBackButton, "Mobile Go Back Button");
+	}
+
+	public void clickMobileBottomSaveButton() {
+		clickOnElement(mobileBottomSaveButton, "Mobile Bottom Save Button");
+	}
+
+	// ============================================================
+	// ✅ DESKTOP/TABLET SECTION ACTIONS
+	// ============================================================
+
+	public boolean isDesktopSectionVisible() {
+		return isElementPresentInDOM(By.cssSelector("div.up-scope div.hidden.sm\\:block"));
+	}
+
+	public boolean isDesktopMainFormCardVisible() {
+		return isElementPresentInDOM(By.cssSelector("div.up-scope div.hidden.sm\\:block form.upCard.overflow-hidden"));
+	}
+
+	// ============================================================
+	// ✅ DESKTOP HEADER ACTIONS
+	// ============================================================
+
+	public boolean isDesktopHeaderSectionVisible() {
+		return isElementDisplayed(desktopHeaderSection, "Desktop Header Section");
+	}
+
+	public void clickDesktopBackButton() {
+		clickOnElement(desktopBackButton, "Desktop Back Button");
+	}
+
+	public String getDesktopPageHeadingText() {
+		return getTextFromElement(desktopPageHeading, "Desktop Page Heading");
+	}
+
+	public String getDesktopPageSubtitleText() {
+		return getTextFromElement(desktopPageSubtitle, "Desktop Page Subtitle");
+	}
+
+	public void clickDesktopTopCancelButton() {
+		WebElement btn = findButtonByExactText(desktopGhostButtons, "Cancel");
 		if (btn == null) {
-			System.out.println("[UPDATEPROFILEPAGE] Dropdown option not found: " + optionText);
+			System.out.println("[UPDATE PROFILE] Desktop top cancel button not found.");
 			return;
 		}
-		clickOnElement(btn, "User Dropdown Option: " + optionText);
+		clickOnElement(btn, "Desktop Top Cancel Button");
+	}
+
+	public void clickDesktopTopSaveChangesButton() {
+		if (desktopSaveButtons == null || desktopSaveButtons.isEmpty()) {
+			System.out.println("[UPDATE PROFILE] Desktop top save changes button not found.");
+			return;
+		}
+		clickOnElement(desktopSaveButtons.get(0), "Desktop Top Save Changes Button");
 	}
 
 	// ============================================================
-	// ✅ MOBILE MENU ACTIONS
+	// ✅ DESKTOP LEFT PROFILE CARD ACTIONS
 	// ============================================================
 
-	public void openMobileMenu() {
-		clickOnElement(headerOpenMobileMenuButton, "Open Mobile Menu");
-		waitUntilElementVisible(mobileMenuDialogPanel, 10, "Mobile Menu Dialog Panel");
+	public boolean isDesktopProfileCardVisible() {
+		return isElementDisplayed(desktopProfileCard, "Desktop Profile Card");
 	}
 
-	public void closeMobileMenu() {
-		clickOnElement(mobileMenuCloseButton, "Close Mobile Menu");
+	public boolean isDesktopProfileImageDisplayed() {
+		return isElementDisplayed(desktopProfileImage, "Desktop Profile Image");
 	}
 
-	public void searchInMobileMenu(String query) {
-		openMobileMenu();
-		typeInInputField(mobileMenuSearchInput, query, "Mobile Menu Search");
-		clickOnElement(mobileMenuSearchButton, "Mobile Menu Search Button");
+	public String getDesktopProfileNameText() {
+		return getTextFromElement(desktopProfileNameText, "Desktop Profile Name Text");
 	}
 
-	public void clickMobileMenuShopAll() {
-		openMobileMenu();
-		clickOnElement(mobileMenuShopAllLink, "Mobile Menu SHOP ALL");
+	public String getDesktopProfileEmailText() {
+		return getTextFromElement(desktopProfileEmailText, "Desktop Profile Email Text");
 	}
 
-	public void clickMobileMenuLogin() {
-		openMobileMenu();
-		clickOnElement(mobileMenuLoginLink, "Mobile Menu Login");
+	public String getDesktopProfileImageTitleText() {
+		return getTextFromElement(desktopProfileImageTitle, "Desktop Profile Image Title");
 	}
 
-	public void clickMobileMenuCartButton() {
-		openMobileMenu();
-		List<WebElement> buttons = driver
-				.findElements(By.cssSelector("header div[role='dialog'][aria-modal='true'] button"));
-		WebElement cartBtn = findButtonByExactText(buttons, "Cart");
-		if (cartBtn != null)
-			clickOnElement(cartBtn, "Mobile Menu Cart");
-		else
-			System.out.println("[UPDATEPROFILEPAGE] Mobile Menu Cart button not found.");
+	public String getDesktopProfileImageSubtitleText() {
+		return getTextFromElement(desktopProfileImageSubtitle, "Desktop Profile Image Subtitle");
 	}
 
-	public void clickMobileMenuWishlistButton() {
-		openMobileMenu();
-		List<WebElement> buttons = driver
-				.findElements(By.cssSelector("header div[role='dialog'][aria-modal='true'] button"));
-		WebElement wlBtn = findButtonByExactText(buttons, "Wishlist");
-		if (wlBtn != null)
-			clickOnElement(wlBtn, "Mobile Menu Wishlist");
-		else
-			System.out.println("[UPDATEPROFILEPAGE] Mobile Menu Wishlist button not found.");
+	public void uploadProfileImageInDesktop(String absoluteFilePath) {
+		typeInInputField(desktopProfileImageFileInput, absoluteFilePath, "Desktop Profile Image File Input");
 	}
 
-	// ============================================================
-	// ✅ MINI CART ACTIONS (MiniCart.jsx)
-	// ============================================================
-
-	public void openMiniCart() {
-		clickOnElement(miniCartOpenButton, "MiniCart Open Button");
-		waitUntilElementPresent(miniCartPopupBy, 10, "MiniCart Popup");
-	}
-
-	public void closeMiniCart() {
-		if (!isElementPresentInDOM(miniCartPopupBy)) {
-			System.out.println("[UPDATEPROFILEPAGE] MiniCart popup is not open. Nothing to close.");
-			return;
-		}
-		clickOnElement(miniCartCloseButtonBy, "MiniCart Close Button");
-		waitUntilElementInvisible(miniCartPopupBy, 10, "MiniCart Popup");
-	}
-
-	public boolean isMiniCartOpen() {
-		return isElementPresentInDOM(miniCartPopupBy);
-	}
-
-	public int getMiniCartBadgeCount() {
-		return getIntegerFromElementText(miniCartCountBadge, "MiniCart Badge Count");
-	}
-
-	public void clickMiniCartBrowseProductsWhenEmpty() {
-		openMiniCart();
-		if (!isElementPresentInDOM(miniCartBrowseProductsLinkBy)) {
-			System.out.println("[UPDATEPROFILEPAGE] Browse products link not visible (cart might not be empty).");
-			return;
-		}
-		clickOnElement(miniCartBrowseProductsLinkBy, "MiniCart Browse Products Link");
-	}
-
-	public int getMiniCartItemRowCount() {
-		openMiniCart();
-		return driver.findElements(miniCartItemRowsBy).size();
-	}
-
-	public List<String> getMiniCartItemNames() {
-		openMiniCart();
-		List<String> names = new ArrayList<>();
-		List<WebElement> titles = driver.findElements(By.cssSelector(".mc-scope .mcCard .mcScroll h3"));
-		for (WebElement t : titles) {
-			String txt = t.getText();
-			if (txt != null && !txt.trim().isEmpty())
-				names.add(txt.trim());
-		}
-		return names;
-	}
-
-	public void removeMiniCartItemByIndex(int indexZeroBased) {
-		openMiniCart();
-
-		waitUntilElementPresent(miniCartItemsContainerBy, 10, "MiniCart Items Container");
-
-		List<WebElement> removeBtns = driver.findElements(miniCartRemoveButtonsBy);
-		if (removeBtns.isEmpty()) {
-			System.out.println("[UPDATEPROFILEPAGE] No remove buttons found (cart empty?).");
-			return;
-		}
-
-		if (indexZeroBased < 0 || indexZeroBased >= removeBtns.size()) {
-			System.out.println("[UPDATEPROFILEPAGE] Invalid remove index: " + indexZeroBased);
-			return;
-		}
-
-		clickOnElement(removeBtns.get(indexZeroBased), "MiniCart Remove Item #" + indexZeroBased);
-	}
-
-	public void clickMiniCartViewCart() {
-		openMiniCart();
-		clickOnElement(miniCartViewCartLinkBy, "MiniCart View Cart Link");
-	}
-
-	public void clickMiniCartCheckout() {
-		openMiniCart();
-		clickOnElement(miniCartCheckoutButtonBy, "MiniCart Checkout Button");
-	}
-
-	public String getMiniCartTotalText() {
-		openMiniCart();
-		List<WebElement> totals = driver.findElements(miniCartTotalValueBy);
-		if (totals.isEmpty())
+	public String getDesktopSelectedFileText() {
+		if (!isElementPresentInDOM(desktopSelectedFileTextBy))
 			return "";
-		String txt = totals.get(totals.size() - 1).getText();
-		return txt == null ? "" : txt.trim();
-	}
-
-	// ============================================================
-	// ✅ FOOTER + SUBSCRIPTIONFORM ACTIONS
-	// ============================================================
-
-	public boolean isFooterVisible() {
-		return isElementDisplayed(footerRoot, "Footer Root");
-	}
-
-	public void clickFooterAboutUs() {
-		clickOnElement(footerAboutUsLink, "Footer About Us");
-	}
-
-	public void clickFooterContactUs() {
-		clickOnElement(footerContactUsLink, "Footer Contact Us");
-	}
-
-	public void clickFooterCareers() {
-		clickOnElement(footerCareersLink, "Footer Careers");
-	}
-
-	public void clickFooterBlogs() {
-		clickOnElement(footerBlogsLink, "Footer Blogs");
-	}
-
-	public void clickFooterHelpCenter() {
-		clickOnElement(footerHelpCenterLink, "Footer Help Center");
-	}
-
-	public void clickFooterPrivacyPolicy() {
-		clickOnElement(footerPrivacyPolicyLink, "Footer Privacy Policy");
-	}
-
-	public void clickFooterTermsOfService() {
-		clickOnElement(footerTermsOfServiceLink, "Footer Terms of Service");
-	}
-
-	public int getFooterSocialLinkCount() {
-		return footerSocialLinks == null ? 0 : footerSocialLinks.size();
-	}
-
-	public void clickFooterSocialLinkByIndex(int indexZeroBased) {
-		if (footerSocialLinks == null || footerSocialLinks.isEmpty()) {
-			System.out.println("[UPDATEPROFILEPAGE] No footer social links found.");
-			return;
-		}
-		if (indexZeroBased < 0 || indexZeroBased >= footerSocialLinks.size()) {
-			System.out.println("[UPDATEPROFILEPAGE] Invalid footer social index: " + indexZeroBased);
-			return;
-		}
-		clickOnElement(footerSocialLinks.get(indexZeroBased), "Footer Social Link #" + indexZeroBased);
-	}
-
-	// ✅ SubscriptionForm - enter email + submit
-	public void enterEmailInFooterSubscription(String email) {
-		typeInInputField(footerSubscribeEmailInput, email, "Footer Subscribe Email");
-	}
-
-	public void clickFooterSubscribeButton() {
-		clickOnElement(footerSubscribeButton, "Footer Subscribe Button");
-	}
-
-	public void subscribeFromFooter(String email) {
-		enterEmailInFooterSubscription(email);
-		clickFooterSubscribeButton();
-	}
-
-	public String getFooterSubscriptionError() {
-		if (!isElementPresentInDOM(footerSubscribeErrorBy))
-			return "";
-		List<WebElement> els = driver.findElements(footerSubscribeErrorBy);
+		List<WebElement> els = driver.findElements(desktopSelectedFileTextBy);
 		if (els.isEmpty())
 			return "";
 		String t = els.get(0).getText();
 		return t == null ? "" : t.trim();
 	}
 
-	public String getFooterSubscriptionSuccessMessage() {
-		if (!isElementPresentInDOM(footerSubscribeOkMsgBy))
+	// ============================================================
+	// ✅ DESKTOP ACCOUNT DETAILS ACTIONS
+	// ============================================================
+
+	public String getDesktopAccountDetailsTitleText() {
+		return getTextFromElement(desktopAccountDetailsTitle, "Desktop Account Details Title");
+	}
+
+	public String getDesktopAccountDetailsSubtitleText() {
+		return getTextFromElement(desktopAccountDetailsSubtitle, "Desktop Account Details Subtitle");
+	}
+
+	public void enterDesktopFullName(String value) {
+		typeInInputField(desktopFullNameInput, value, "Desktop Full Name");
+	}
+
+	public void enterDesktopEmail(String value) {
+		typeInInputField(desktopEmailInput, value, "Desktop Email");
+	}
+
+	public void enterDesktopPhone(String value) {
+		typeInInputField(desktopPhoneInput, value, "Desktop Phone");
+	}
+
+	public String getDesktopFullNameValue() {
+		return getAttributeValueFromElement(desktopFullNameInput, "value", "Desktop Full Name");
+	}
+
+	public String getDesktopEmailValue() {
+		return getAttributeValueFromElement(desktopEmailInput, "value", "Desktop Email");
+	}
+
+	public String getDesktopPhoneValue() {
+		return getAttributeValueFromElement(desktopPhoneInput, "value", "Desktop Phone");
+	}
+
+	// ============================================================
+	// ✅ DESKTOP ADDRESS ACTIONS
+	// ============================================================
+
+	public String getDesktopAddressTitleText() {
+		return getTextFromElement(desktopAddressTitle, "Desktop Address Title");
+	}
+
+	public String getDesktopAddressSubtitleText() {
+		return getTextFromElement(desktopAddressSubtitle, "Desktop Address Subtitle");
+	}
+
+	public void enterDesktopStreet(String value) {
+		typeInInputField(desktopStreetInput, value, "Desktop Street");
+	}
+
+	public void enterDesktopCity(String value) {
+		typeInInputField(desktopCityInput, value, "Desktop City");
+	}
+
+	public void enterDesktopState(String value) {
+		typeInInputField(desktopStateInput, value, "Desktop State");
+	}
+
+	public void enterDesktopPostalCode(String value) {
+		typeInInputField(desktopPostalCodeInput, value, "Desktop Postal Code");
+	}
+
+	public void enterDesktopCountry(String value) {
+		typeInInputField(desktopCountryInput, value, "Desktop Country");
+	}
+
+	public String getDesktopStreetValue() {
+		return getAttributeValueFromElement(desktopStreetInput, "value", "Desktop Street");
+	}
+
+	public String getDesktopCityValue() {
+		return getAttributeValueFromElement(desktopCityInput, "value", "Desktop City");
+	}
+
+	public String getDesktopStateValue() {
+		return getAttributeValueFromElement(desktopStateInput, "value", "Desktop State");
+	}
+
+	public String getDesktopPostalCodeValue() {
+		return getAttributeValueFromElement(desktopPostalCodeInput, "value", "Desktop Postal Code");
+	}
+
+	public String getDesktopCountryValue() {
+		return getAttributeValueFromElement(desktopCountryInput, "value", "Desktop Country");
+	}
+
+	// ============================================================
+	// ✅ DESKTOP FIELD HELPERS
+	// ============================================================
+
+	public int getDesktopFieldRowCount() {
+		return desktopFieldRows == null ? 0 : desktopFieldRows.size();
+	}
+
+	public List<String> getDesktopFieldLabelTexts() {
+		List<String> labels = new ArrayList<>();
+		if (desktopFieldLabels != null) {
+			for (WebElement el : desktopFieldLabels) {
+				String t = el.getText();
+				if (t != null && !t.trim().isEmpty())
+					labels.add(t.trim());
+			}
+		}
+		return labels;
+	}
+
+	public int getDesktopFieldInputCount() {
+		return desktopFieldInputs == null ? 0 : desktopFieldInputs.size();
+	}
+
+	public void clearDesktopFieldByName(String fieldName) {
+		WebElement input = getInputFieldByName(fieldName);
+		if (input == null) {
+			System.out.println("[UPDATE PROFILE] Desktop field not found: " + fieldName);
+			return;
+		}
+		clearInputField(input, "Desktop Field: " + fieldName);
+	}
+
+	public void pressEnterInDesktopFieldByName(String fieldName) {
+		WebElement input = getInputFieldByName(fieldName);
+		if (input == null) {
+			System.out.println("[UPDATE PROFILE] Desktop field not found: " + fieldName);
+			return;
+		}
+		pressKeyInElement(input, Keys.ENTER, "Desktop Field ENTER: " + fieldName);
+	}
+
+	// ============================================================
+	// ✅ DESKTOP BOTTOM ACTIONS
+	// ============================================================
+
+	public boolean isDesktopBottomActionBarVisible() {
+		return isElementDisplayed(desktopBottomActionBar, "Desktop Bottom Action Bar");
+	}
+
+	public void clickDesktopBottomCancelButton() {
+		clickOnElement(desktopBottomCancelButton, "Desktop Bottom Cancel Button");
+	}
+
+	public void clickDesktopBottomSaveChangesButton() {
+		clickOnElement(desktopBottomSaveChangesButton, "Desktop Bottom Save Changes Button");
+	}
+
+	public String getDesktopTipText() {
+		return getTextFromElement(desktopTipText, "Desktop Tip Text");
+	}
+
+	// ============================================================
+	// ✅ COMMON / GENERIC FIELD METHODS
+	// ============================================================
+
+	public void enterValueInFieldByName(String fieldName, String value) {
+		WebElement input = getInputFieldByName(fieldName);
+		if (input == null) {
+			System.out.println("[UPDATE PROFILE] Field not found by name: " + fieldName);
+			return;
+		}
+		typeInInputField(input, value, "Field By Name: " + fieldName);
+	}
+
+	public String getValueFromFieldByName(String fieldName) {
+		WebElement input = getInputFieldByName(fieldName);
+		if (input == null) {
+			System.out.println("[UPDATE PROFILE] Field not found by name: " + fieldName);
 			return "";
-		List<WebElement> els = driver.findElements(footerSubscribeOkMsgBy);
-		if (els.isEmpty())
-			return "";
-		String t = els.get(0).getText();
-		return t == null ? "" : t.trim();
+		}
+		return getAttributeValueFromElement(input, "value", "Field By Name: " + fieldName);
 	}
 
 	// ============================================================
 	// ✅ PAGE VERIFICATION
 	// ============================================================
 
-	public void verifyUpdateProfilePageTitle(String expectedTitle) {
-		verifyTitleOfWebpage(expectedTitle);
+	public boolean verifyUpdateProfilePageTitle(String expectedTitle) {
+		return verifyTitleOfWebpage(expectedTitle);
 	}
 
 	public void verifyUpdateProfilePageUrl(String expectedUrl) {

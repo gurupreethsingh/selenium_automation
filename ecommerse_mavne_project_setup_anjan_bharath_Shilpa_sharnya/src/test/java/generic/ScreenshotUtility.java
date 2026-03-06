@@ -61,7 +61,7 @@ public class ScreenshotUtility extends OpenClose {
 			File ramLocation = ts.getScreenshotAs(OutputType.FILE);
 
 			// ✅ ensure folder exists
-			File folder = new File(faliedScreeshotFolder);
+			File folder = new File(FAILED_SCREENSHOT_FOLDER);
 			if (!folder.exists()) {
 				folder.mkdirs();
 			}
