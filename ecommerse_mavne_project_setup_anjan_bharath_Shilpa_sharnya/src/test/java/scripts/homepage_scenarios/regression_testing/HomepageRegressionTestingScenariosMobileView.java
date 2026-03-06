@@ -10,7 +10,7 @@ import pom.Homepage;
 import pom.SearchProductsPage;
 import pom.ShopPage;
 
-public class HomepageRegressionTestingScenarios extends OpenClose {
+public class HomepageRegressionTestingScenariosMobileView extends OpenClose {
 
 	@Test(priority = 1)
 	public void testOpenHomepageUsingUrl() throws IOException {

@@ -510,12 +510,12 @@ public class HomePage extends AllVerifications {
 		return isElementDisplayed(pageRoot, "HomePage Root");
 	}
 
-	public void verifyHomePageTitle(String expectedTitle) {
-		verifyTitleOfWebpage(expectedTitle);
+	public boolean verifyHomePageTitle(String expectedTitle) {
+		return verifyTitleOfWebpage(expectedTitle);
 	}
 
-	public void verifyHomePageUrl(String expectedUrl) {
-		verifyUrlOfWebpage(expectedUrl);
+	public boolean verifyHomePageUrl(String expectedUrl) {
+		return verifyUrlOfWebpage(expectedUrl);
 	}
 
 	// ============================================================

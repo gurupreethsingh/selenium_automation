@@ -784,6 +784,19 @@ public class AllVerifications {
 		}
 	}
 
+	public WebElement waitUntilElementIsClickable(WebElement element, int timeoutSeconds, String elementName) {
+		new WebDriverWait(driver, Duration.ofSeconds(10));
+		try {
+			return createWait(timeoutSeconds).until(ExpectedConditions.elementToBeClickable(element));
+
+		} catch (Exception ex) {
+			System.out.println("Unable to click on the element.");
+			ex.printStackTrace();
+			// screenshot code.
+			return null;
+		}
+	}
+
 	// ============================================================
 	// ✅ UNIVERSAL CLICK (WebElement / By)
 	// ============================================================

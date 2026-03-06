@@ -18,7 +18,6 @@ public class AS_6496_ClickShopAllLinkFromHeaderOpenShopPage extends OpenClose {
 		String expectedHomeTitle = (String) Excel.getData("Homepage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomeTitle);
 
-		// update row/col as per your excel
 		hp.clickHeaderShopAllDesktop();
 
 		ShopPage sp = new ShopPage(driver);

@@ -12,10 +12,9 @@ public class AS_7423_OpenCreateTodoListPageUsingUrl extends OpenClose {
 
 	@Test
 	public void testOpenCreateTodoListPageUsingUrl() throws IOException {
+
 		String expectedTitle = (String) Excel.getData("CreateTodoListPage", 1, 0);
-
 		driver.get(URL_CREATE_TODO_LIST);
-
 		CreateTodoListPage page = new CreateTodoListPage(driver);
 		page.verifyCreateTodoListPageTitle(expectedTitle);
 	}

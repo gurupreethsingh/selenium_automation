@@ -120,6 +120,9 @@ public class Homepage extends AllVerifications {
 	// ✅ HOMEPAGE - HERO CAROUSEL
 	// ============================================================
 
+	@FindBy(css = "div#root")
+	private WebElement pageRootContainer; // parent element which contains the entire page/homepage.
+
 	@FindBy(css = "div#carouselExampleDark")
 	private WebElement heroCarousel;
 
@@ -470,6 +473,10 @@ public class Homepage extends AllVerifications {
 	// ============================================================
 	// ✅ HOMEPAGE ACTIONS
 	// ============================================================
+
+	public boolean isHomePageRootDisplayed() {
+		return isElementDisplayed(pageRootContainer, "HomePage Root / Parent section.");
+	}
 
 	public boolean isHeroCarouselVisible() {
 		return isElementDisplayed(heroCarousel, "Hero Carousel");

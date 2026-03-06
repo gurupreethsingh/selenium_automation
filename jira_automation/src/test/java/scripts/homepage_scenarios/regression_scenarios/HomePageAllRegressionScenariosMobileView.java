@@ -13,8 +13,7 @@ public class HomePageAllRegressionScenariosMobileView extends OpenClose {
 	@Test
 	public void testOpenHomePageUsingUrl_MobileView() throws IOException {
 
-		// ✅ Pick any ONE mobile size
-		// Example: iPhone 12/13/14 (390 x 844)
+		// ✅ Pick any ONE mobile size// Example: iPhone 12/13/14 (390 x 844)
 		setViewport(390, 844);
 
 		// ✅ Open in mobile viewport

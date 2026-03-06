@@ -46,8 +46,40 @@ public class OpenClose implements AutomationConstants {
 
 	public WebDriver driver;
 
+//	@BeforeMethod
+//	public void openApplicationInDesktop() {
+//
+//		ChromeOptions options = new ChromeOptions();
+//
+//		// ✅ optional (keeps browser stable in CI / avoids random issues)
+//		options.addArguments("--remote-allow-origins=*");
+//		options.addArguments("--disable-notifications");
+//		options.addArguments("--disable-infobars");
+//		options.addArguments("--start-maximized");
+//
+//		// ✅ if you want headless later (uncomment)
+//		// options.addArguments("--headless=new");
+//		// options.addArguments("--window-size=1920,1080");
+//
+//		driver = new ChromeDriver(options);
+//
+//		// ✅ If you use maximize, do it once (start-maximized already does it, but ok)
+//		driver.manage().window().maximize();
+//
+//		// ✅ IMPORTANT:
+//		// Do NOT mix implicit waits with explicit waits (AllVerifications).
+//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+//
+//		// ✅ prevent hanging
+//		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+//		driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
+//
+//		// ✅ open app
+//		driver.get(urlOfApplication);
+//	}
+
 	@BeforeMethod
-	public void openApplication() {
+	public void openApplicationInMobile() {
 
 		ChromeOptions options = new ChromeOptions();
 
@@ -55,16 +87,11 @@ public class OpenClose implements AutomationConstants {
 		options.addArguments("--remote-allow-origins=*");
 		options.addArguments("--disable-notifications");
 		options.addArguments("--disable-infobars");
-		options.addArguments("--start-maximized");
 
-		// ✅ if you want headless later (uncomment)
-		// options.addArguments("--headless=new");
-		// options.addArguments("--window-size=1920,1080");
+		// mobile scree size iphone 12/13/14
+		options.addArguments("--window-size=390,844");
 
 		driver = new ChromeDriver(options);
-
-		// ✅ If you use maximize, do it once (start-maximized already does it, but ok)
-		driver.manage().window().maximize();
 
 		// ✅ IMPORTANT:
 		// Do NOT mix implicit waits with explicit waits (AllVerifications).

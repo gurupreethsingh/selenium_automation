@@ -23,9 +23,7 @@ public class AS_4728_VerifyHeroBadgesResponsiveWrap_NoOverlap extends OpenClose 
 				// Mobiles
 				{ 320, 568, "iPhone SE (320x568)" }, { 360, 800, "Android Small (360x800)" },
 				{ 390, 844, "iPhone 12/13/14 (390x844)" }, { 412, 915, "Pixel (412x915)" },
-
-				// Tablets
-//				{ 768, 1024, "iPad (768x1024)" }, { 820, 1180, "iPad Air (820x1180)" }
+//				{ 768, 1024, "iPad (768x1024)" }, { 820, 1180, "iPad Air (820x1180)" }  // Tablets
 		};
 	}
 
