@@ -38,6 +38,8 @@ public interface AutomationConstants {
 
 	String URL_PAGE_NOT_FOUND = BASE_URL + "/page-not-found";
 
+	String URL_SHOP = BASE_URL + "/shop";
+
 	// ============================================================
 	// ✅ ADMIN / SUPERADMIN / DASHBOARDS (STATIC)
 	// ============================================================

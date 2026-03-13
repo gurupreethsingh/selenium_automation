@@ -1361,6 +1361,7 @@ import java.util.NoSuchElementException;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -1587,6 +1588,34 @@ public class AllVerifications {
 	}
 
 	// ============================================================
+	// ✅ SCROLL HELPERS
+	// ============================================================
+
+	public void scrollToElement(WebElement element, String name) {
+		try {
+			if (element == null) {
+				System.out.println("[SCROLL FAILED] " + name + " -> element is NULL");
+				captureFailure("SCROLL_FAILED_NULL_" + name);
+				return;
+			}
+
+			System.out.println("[SCROLL] " + name);
+
+			waitUntilElementVisible(element, DEFAULT_WAITING_TIME_IN_SEC, name);
+
+			((JavascriptExecutor) driver)
+					.executeScript("arguments[0].scrollIntoView({behavior:'instant', block:'center'});", element);
+
+			System.out.println("[SCROLL SUCCESS] " + name);
+
+		} catch (Exception e) {
+			System.out.println("[SCROLL FAILED] " + name);
+			e.printStackTrace();
+			captureFailure("SCROLL_FAILED_" + name, e);
+		}
+	}
+
+	// ============================================================
 	// ✅ TYPE + KEYS
 	// ============================================================
 
@@ -1799,7 +1828,7 @@ public class AllVerifications {
 		return urlVerified;
 	}
 
-	public boolean verifyTextPresent(String expectedText, WebElement element) {
+	public boolean verifyTextPresent(WebElement element, String expectedText) {
 		boolean textVerified = false;
 		try {
 			System.out.println("[VERIFY TEXT] Expected: " + expectedText);

@@ -129,6 +129,24 @@ public class Homepage extends AllVerifications {
 	@FindBy(css = "div#carouselExampleDark .carousel-indicators button")
 	private List<WebElement> heroCarouselIndicators;
 
+	@FindBy(css = "div#carouselExampleDark .carousel-indicators button")
+	private WebElement heroCarouselFirstlIndicator;
+
+	@FindBy(css = "div#carouselExampleDark .carousel-indicators button")
+	private WebElement heroCarouselSecondIndicator;
+
+	@FindBy(css = "div#carouselExampleDark .carousel-indicators button")
+	private WebElement heroCarouselThirdIndicator;
+
+	@FindBy(css = "main.flex-grow>div.min-h-screen>div.hp-font div.carousel-inner>div.carousel-item:first-child h1")
+	private WebElement mainHeroHeadingFirstSlider;
+
+	@FindBy(css = "main.flex-grow>div.min-h-screen>div.hp-font div.carousel-inner>div.carousel-item:first-child h1")
+	private WebElement mainHeroHeadingSecondSlider;
+
+	@FindBy(css = "main.flex-grow>div.min-h-screen>div.hp-font div.carousel-inner>div.carousel-item:first-child h1")
+	private WebElement mainHeroHeadingThirdSlider;
+
 	// ============================================================
 	// ✅ HOMEPAGE - CATEGORY CAROUSEL
 	// ============================================================
@@ -488,6 +506,15 @@ public class Homepage extends AllVerifications {
 			return;
 		}
 		clickOnElement(heroCarouselIndicators.get(indexZeroBased), "Hero Indicator " + indexZeroBased);
+	}
+
+	public void clickFirstIndicatorInHeroSection() {
+		clickOnElement(heroCarouselFirstlIndicator, "First Indicator In Hero Section.");
+	}
+
+	public void verifyTextOfFirstHeadingInHeroSection() {
+
+		verifyTextPresent(mainHeroHeadingFirstSlider, "Summer Collection 2025");
 	}
 
 	// ---------- Categories ----------
