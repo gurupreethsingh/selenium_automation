@@ -1356,11 +1356,14 @@
 package generic;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -2027,14 +2030,20 @@ public class AllVerifications {
 		int actualCount = 0;
 
 		try {
+			if (locator == null) {
+				throw new IllegalArgumentException("Locator is null");
+			}
+
 			System.out.println("[COUNT VERIFY] Expected: " + expectedCount + " | Locator: " + locator);
 
 			for (int i = 1; i <= 50; i++) {
 				actualCount = driver.findElements(locator).size();
+
 				if (actualCount == expectedCount) {
 					System.out.println("[COUNT MATCH] attempt=" + i + " | Found: " + actualCount);
 					break;
 				}
+
 				Thread.sleep(200);
 			}
 
@@ -2045,12 +2054,187 @@ public class AllVerifications {
 				captureFailure(
 						"COUNT MISMATCH -> expected=" + expectedCount + " actual=" + actualCount + " | " + locator);
 			}
+
 			return ok;
 
 		} catch (Exception ex) {
 			System.out.println("[COUNT FAILED] Expected: " + expectedCount + " | Actual: " + actualCount);
 			captureFailure("COUNT FAILED -> expected=" + expectedCount + " actual=" + actualCount + " | " + locator,
 					ex);
+			return false;
+		}
+	}
+
+	public boolean verifyTotalElementsCount(int expectedCount, List<WebElement> elements) {
+		int actualCount = 0;
+
+		try {
+
+			if (elements == null) {
+				throw new IllegalArgumentException("Element list is null");
+			}
+
+			System.out.println("[COUNT VERIFY] Expected: " + expectedCount);
+
+			for (int i = 1; i <= 50; i++) {
+
+				actualCount = elements.size();
+
+				if (actualCount == expectedCount) {
+					System.out.println("[COUNT MATCH] attempt=" + i + " | Found: " + actualCount);
+					break;
+				}
+
+				Thread.sleep(200);
+			}
+
+			System.out.println("[COUNT RESULT] Expected: " + expectedCount + " | Actual: " + actualCount);
+
+			boolean ok = (actualCount == expectedCount);
+
+			if (!ok) {
+				captureFailure("COUNT MISMATCH -> expected=" + expectedCount + " actual=" + actualCount);
+			}
+
+			return ok;
+
+		} catch (Exception ex) {
+
+			System.out.println("[COUNT FAILED] Expected: " + expectedCount + " | Actual: " + actualCount);
+
+			captureFailure("COUNT FAILED -> expected=" + expectedCount + " actual=" + actualCount, ex);
+
+			return false;
+		}
+	}
+
+	// generic function print names of all the elements
+	public void printTextOfAllElements(List<WebElement> elements, String elementName) {
+		try {
+			if (elements == null) {
+				throw new IllegalArgumentException(elementName + " list is null");
+			}
+
+			System.out.println("[PRINT ALL TEXT] " + elementName + " | Total elements: " + elements.size());
+
+			for (int i = 0; i < elements.size(); i++) {
+				String text = elements.get(i).getText().trim();
+				System.out.println((i + 1) + ". " + text);
+			}
+
+		} catch (Exception ex) {
+			System.out.println("[PRINT ALL TEXT FAILED] " + elementName);
+			captureFailure("[PRINT ALL TEXT FAILED] " + elementName, ex);
+		}
+	}
+
+	public List<String> fetchAllElementTexts(List<WebElement> elements, String elementName) {
+		List<String> allTexts = new ArrayList<>();
+
+		try {
+			if (elements == null) {
+				throw new IllegalArgumentException(elementName + " list is null");
+			}
+
+			System.out.println("[FETCH TEXT START] " + elementName + " | Total elements: " + elements.size());
+
+			for (int i = 0; i < elements.size(); i++) {
+				String text = elements.get(i).getText().trim();
+				allTexts.add(text);
+				System.out.println((i + 1) + ". " + text);
+			}
+
+			System.out.println("[FETCH TEXT COMPLETED] " + elementName);
+			return allTexts;
+
+		} catch (Exception ex) {
+			System.out.println("[FETCH TEXT FAILED] " + elementName);
+			captureFailure("[FETCH TEXT FAILED] " + elementName, ex);
+			return allTexts;
+		}
+	}
+
+	// generic function to click on each element and navigate back to previous page.
+
+	public boolean clickEachElementOneByOneAndNavigateBack(By locator, String elementName,
+			By pageLoadLocatorAfterBack) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAITING_TIME_IN_SEC));
+
+		try {
+			if (locator == null) {
+				throw new IllegalArgumentException(elementName + " locator is null");
+			}
+
+			int totalElements = driver.findElements(locator).size();
+
+			if (totalElements == 0) {
+				System.out.println("[CLICK LOOP FAILED] " + elementName + " | No elements found");
+				captureFailure("[CLICK LOOP FAILED] " + elementName + " | No elements found");
+				return false;
+			}
+
+			System.out.println("[CLICK LOOP START] " + elementName + " | Total elements: " + totalElements);
+
+			for (int i = 0; i < totalElements; i++) {
+				String oldUrl = driver.getCurrentUrl();
+
+				List<WebElement> freshElements = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+
+				if (i >= freshElements.size()) {
+					System.out.println("[CLICK LOOP STOPPED] Index out of bounds at index: " + i);
+					captureFailure("[CLICK LOOP STOPPED] " + elementName + " | Index out of bounds at index: " + i);
+					return false;
+				}
+
+				WebElement currentElement = freshElements.get(i);
+				String currentText = currentElement.getText().trim();
+
+				System.out.println("[CLICKING] " + elementName + " Index: " + (i + 1) + " | Text: " + currentText);
+
+				try {
+					((JavascriptExecutor) driver).executeScript(
+							"arguments[0].scrollIntoView({block:'center', inline:'nearest'});", currentElement);
+
+					wait.until(ExpectedConditions.visibilityOf(currentElement));
+					wait.until(ExpectedConditions.elementToBeClickable(currentElement));
+
+					try {
+						currentElement.click();
+					} catch (ElementClickInterceptedException e) {
+						System.out.println("[NORMAL CLICK INTERCEPTED] Falling back to JS click for: " + currentText);
+						((JavascriptExecutor) driver).executeScript("arguments[0].click();", currentElement);
+					}
+
+					wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(oldUrl)));
+
+				} catch (Exception clickEx) {
+					System.out.println(
+							"[CLICK FAILED] " + elementName + " | Index: " + (i + 1) + " | Text: " + currentText);
+					captureFailure("[CLICK FAILED] " + elementName + " | Index=" + (i + 1) + " | Text=" + currentText,
+							clickEx);
+					return false;
+				}
+
+				System.out.println("[AFTER CLICK] URL: " + driver.getCurrentUrl());
+				System.out.println("[AFTER CLICK] TITLE: " + driver.getTitle());
+
+				driver.navigate().back();
+
+				if (pageLoadLocatorAfterBack != null) {
+					wait.until(ExpectedConditions.visibilityOfElementLocated(pageLoadLocatorAfterBack));
+				}
+
+				wait.until(ExpectedConditions.urlToBe(oldUrl));
+
+				System.out.println("[BACK DONE] Returned after clicking: " + currentText);
+			}
+
+			System.out.println("[CLICK LOOP COMPLETED] " + elementName);
+			return true;
+
+		} catch (Exception ex) {
+			System.out.println("[CLICK LOOP FAILED] " + elementName);
+			captureFailure("[CLICK LOOP FAILED] " + elementName, ex);
 			return false;
 		}
 	}

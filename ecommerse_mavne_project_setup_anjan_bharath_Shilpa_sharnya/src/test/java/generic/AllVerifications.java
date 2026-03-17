@@ -2084,6 +2084,59 @@ public class AllVerifications {
 		}
 	}
 
+	public boolean verifyTotalElementsCount(int expectedCount, List<WebElement> element) {
+		int actualCount = 0;
+
+		try {
+			System.out.println("[COUNT VERIFY] Expected: " + expectedCount + " | Locator: " + element);
+
+			for (int i = 1; i <= 50; i++) {
+				actualCount = element.size();
+				if (actualCount == expectedCount) {
+					System.out.println("[COUNT MATCH] attempt=" + i + " | Found: " + actualCount);
+					break;
+				}
+				Thread.sleep(200);
+			}
+
+			System.out.println("[COUNT RESULT] Expected: " + expectedCount + " | Actual: " + actualCount);
+
+			boolean ok = (actualCount == expectedCount);
+			if (!ok) {
+				captureFailure(
+						"COUNT MISMATCH -> expected=" + expectedCount + " actual=" + actualCount + " | " + element);
+			}
+			return ok;
+
+		} catch (Exception ex) {
+			System.out.println("[COUNT FAILED] Expected: " + expectedCount + " | Actual: " + actualCount);
+			captureFailure("COUNT FAILED -> expected=" + expectedCount + " actual=" + actualCount + " | " + element,
+					ex);
+			return false;
+		}
+	}
+
+	// generic function to print names of all the elements.
+	public void printTextOfAllElements(List<WebElement> elements, String elementName) {
+		try {
+			if (elements == null) {
+				throw new IllegalArgumentException(elementName + " List is null");
+			}
+
+			System.out.println("[PRINTING ALL TEXTS] " + elementName + " | Total elements found : " + elements.size());
+
+			for (int i = 0; i < elements.size(); i++) {
+				String text = elements.get(i).getText().trim();
+				System.out.println(i + 1 + ". " + text);
+			}
+
+		} catch (Exception ex) {
+			System.out.println("[PRINT ALL TEXT FAILED]" + elementName);
+			captureFailure("[PRINT ALL TEXT FAILED]" + elementName, ex);
+			ex.printStackTrace();
+		}
+	}
+
 	// ============================================================
 	// (kept commented methods as-is)
 	// ============================================================

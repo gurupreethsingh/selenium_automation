@@ -160,6 +160,55 @@ public class Homepage extends AllVerifications {
 	@FindBy(css = "section div.flex.gap-3.overflow-x-auto > div[title]")
 	private List<WebElement> categoryCardsByTitle;
 
+	@FindBy(css = "section.m-8>div.flex.flex-col>div>h2")
+	private WebElement categoryMainHeadingText;
+
+	@FindBy(css = "section.m-8>div.flex.flex-col>div>p")
+	private WebElement categorySubHeadingText;
+
+	@FindBy(css = "section.m-8>div.flex.flex-col>div:last-child")
+	private WebElement categoryCountText;
+
+	public String verifyCategoryMainHeadingText() {
+		return getTextFromElement(categoryMainHeadingText, "Explore Categories");
+	}
+
+	public String verifyCategorySubHeadingText() {
+		return getTextFromElement(categorySubHeadingText, "Tap any category to instantly search products.");
+	}
+
+	public String verifyCategoryCountText() {
+		return getTextFromElement(categoryCountText, "Showing 7 of 10 categories");
+	}
+
+	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div")
+	private List<WebElement> allCategoryItems;
+
+	public boolean verifyTotalCategoriesItemsCount(int expectedCount) {
+		return verifyTotalElementsCount(expectedCount, allCategoryItems);
+	}
+
+	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div>div.relative>div.absolute.bottom-3>div.flex>span:first-child")
+	private List<WebElement> allCategoryNames;
+
+	public void printAllCategoryNames() {
+		printTextOfAllElements(allCategoryNames, "All Category Names");
+	}
+
+	@FindBy(css = "div.brandTrack>div:first-child>button>div>div:last-child>span:first-child")
+	private List<WebElement> allBrandNames;
+
+	public void printAllBrandNames() {
+		printTextOfAllElements(allBrandNames, "All Brand Names");
+	}
+
+	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div>div.relative>div.absolute.bottom-3>div.flex>span:first-child")
+	private List<WebElement> allProductNames;
+
+	public void printAllProductNames() {
+		printTextOfAllElements(allProductNames, "All Product Names");
+	}
+
 	// ============================================================
 	// ✅ HOMEPAGE - BRANDS MARQUEE
 	// ============================================================

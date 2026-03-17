@@ -77,4 +77,45 @@ public class HomePageFullRegressionScenarios extends OpenClose {
 		spp.verifySearchProductsPageTitle(expectedSearchProductsPageTitle);
 	}
 
+	// categories section scenarios.
+
+	@Test(priority = 5, enabled = true, invocationCount = 1)
+	public void textVerifyCategoryMainHeadingText() throws IOException {
+		String homepageExpectedText = (String) Excel.getData("HomePage", 1, 0);
+
+		HomePage hp = new HomePage(driver);
+		hp.verifyHomepageTitle(homepageExpectedText);
+
+		// now verify the main category heading text.
+		String expectedCategoryMainHeadingText = (String) Excel.getData("HomePage", 1, 5);
+		hp.verifyCategoryMainHeadingText(expectedCategoryMainHeadingText);
+
+	}
+
+	@Test(priority = 6, enabled = true, invocationCount = 1)
+	public void textVerifyCategorySubHeadingText() throws IOException {
+		String homepageExpectedText = (String) Excel.getData("HomePage", 1, 0);
+
+		HomePage hp = new HomePage(driver);
+		hp.verifyHomepageTitle(homepageExpectedText);
+
+		// now verify the Sub category heading text.
+		String expectedCategorySubHeadingText = (String) Excel.getData("HomePage", 1, 6);
+		hp.verifyCategorySubHeadingText(expectedCategorySubHeadingText);
+
+	}
+
+	@Test(priority = 7, enabled = true, invocationCount = 1)
+	public void textVerifyCategoryCountText() throws IOException {
+		String homepageExpectedText = (String) Excel.getData("HomePage", 1, 0);
+
+		HomePage hp = new HomePage(driver);
+		hp.verifyHomepageTitle(homepageExpectedText);
+
+		// now verify the Sub category heading text.
+		String expectedCategoryCountText = (String) Excel.getData("HomePage", 1, 7);
+		hp.verifyCategoryCountText(expectedCategoryCountText);
+
+	}
+
 }

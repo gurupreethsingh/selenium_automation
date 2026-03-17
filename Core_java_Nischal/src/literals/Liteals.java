@@ -11,7 +11,7 @@ public class Liteals {
 	// public - application level access(no permission is requied to run the code.)
 	// static - single copy.
 	// void - main functions return type
-	// main - it is the name of the funciton from where program should start.
+	// main() - it is the name of the funciton from where program should start.
 	// (JVM will look for main() function to start the program.
 	public static void main(String[] args) {
 		System.out.println(34);

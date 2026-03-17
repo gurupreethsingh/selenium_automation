@@ -827,6 +827,8 @@ public class HomePage extends AllVerifications {
 	@FindBy(css = "div#root")
 	private WebElement pageRootContainer;
 
+	private final By pageRootContainerBy = By.cssSelector("div#root");
+
 	@FindBy(css = "div#carouselExampleDark")
 	private WebElement heroCarousel;
 
@@ -845,6 +847,55 @@ public class HomePage extends AllVerifications {
 
 	@FindBy(css = "section div.flex.gap-3.overflow-x-auto > div[title]")
 	private List<WebElement> categoryCardsByTitle;
+
+	@FindBy(css = "section.m-8>div>div>h2")
+	private WebElement categoryMainHeading;
+
+	public void verifyCategoryMainHeadingText(String expectedText) {
+		getTextFromElement(categoryMainHeading, "Category Main Heading");
+	}
+
+	@FindBy(css = "section.m-8>div>div>p")
+	private WebElement categorySubHeading;
+
+	public void verifyCategorySubHeadingText(String expectedText) {
+		getTextFromElement(categorySubHeading, "Category Sub Heading");
+	}
+
+	@FindBy(css = "section.m-8>div:first-child>div:last-child")
+	private WebElement categoryCountText;
+
+	public void verifyCategoryCountText(String expectedText) {
+		getTextFromElement(categoryCountText, "Category Sub Heading");
+	}
+
+	// locator for ALL individual category items
+	private By totalCategoryItems = By.cssSelector("section.m-8 > div.relative > div.flex.gap-3 > div");
+
+	public boolean verifyTotalCategoryCount(int expectedCategoryCount) {
+		return verifyTotalElementsCount(expectedCategoryCount, totalCategoryItems);
+	}
+
+	@FindBy(css = "section.m-8 > div.relative > div.flex.gap-3 > div > div.relative > div.absolute > div.flex.items-center > span:first-child")
+	private List<WebElement> allCategoryNames;
+
+	@FindBy(css = "section.m-8 > div.relative > div.flex.gap-3 > div > div.relative > div.absolute > div.flex.items-center > span:last-child")
+	private List<WebElement> allCategoryShopButtons;
+
+	private By allCategoryNamesBy = By.cssSelector(
+			"section.m-8 > div.relative > div.flex.gap-3 > div > div.relative > div.absolute > div.flex.items-center > span:first-child");
+
+	private By allCategoryShopButtonsBy = By.cssSelector(
+			"section.m-8 > div.relative > div.flex.gap-3 > div > div.relative > div.absolute > div.flex.items-center > span:last-child");
+
+	public void printEachCategoryNames() {
+		printTextOfAllElements(allCategoryNames, "All Category Names");
+	}
+
+	public boolean clickOnEachCategoryShopButtons() {
+		return clickEachElementOneByOneAndNavigateBack(allCategoryShopButtonsBy, "All Category Shop Buttons",
+				pageRootContainerBy);
+	}
 
 	// ============================================================
 	// ✅ HOMEPAGE - BRANDS MARQUEE
