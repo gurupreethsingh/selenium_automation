@@ -195,13 +195,6 @@ public class Homepage extends AllVerifications {
 		printTextOfAllElements(allCategoryNames, "All Category Names");
 	}
 
-	@FindBy(css = "div.brandTrack>div:first-child>button>div>div:last-child>span:first-child")
-	private List<WebElement> allBrandNames2;
-
-	public void printAllBrandNames() {
-		printTextOfAllElements(allBrandNames2, "All Brand Names");
-	}
-
 	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div>div.relative>div.absolute.bottom-3>div.flex>span:first-child")
 	private List<WebElement> allProductNames;
 
@@ -210,27 +203,37 @@ public class Homepage extends AllVerifications {
 	}
 
 	// ============================================================
-	// ✅ HOMEPAGE - BRANDS MARQUEE
+	// ✅ HOMEPAGE - BRANDS SECTION ELEMENTS
 	// ============================================================
 
-	@FindBy(css = "section button[aria-label='Next brands (left)']")
-	private WebElement brandsScrollLeftButton;
+	@FindBy(css = "section.m-10>div:first-child>div>h2")
+	private WebElement brandSectionMainHeading;
 
-	@FindBy(css = "section button[aria-label='Next brands (right)']")
-	private WebElement brandsScrollRightButton;
+	@FindBy(css = "section.m-10>div:first-child>div>p")
+	private WebElement brandSectionSubHeading;
 
-	@FindBy(css = "section button[title]")
-	private List<WebElement> brandButtonsWithTitle;
+	@FindBy(css = "section.m-10>div:first-child>div.hidden")
+	private WebElement brandSectionCountText;
 
-	// ============================================================
-	// ✅ HOMEPAGE - BRAND PRODUCTS GRID
-	// ============================================================
+	@FindBy(css = "div.brandTrack>div.flex:first-child>button>div>div.flex.items-center.gap-2>span.uppercase")
+	private List<WebElement> allBrandNames;
 
-	@FindBy(css = "section button[type='button'].underline")
-	private List<WebElement> brandGridShowMoreLessLinks;
+	public String verifyBrandSectionMainHeading() {
+		return getTextFromElement(brandSectionMainHeading, "Popular Brands");
+	}
 
-	@FindBy(css = "section div.grid div.rounded-2xl.border[title]")
-	private List<WebElement> brandProductCardsByTitle;
+	public String verifyBrandSectionSubHeading() {
+		return getTextFromElement(brandSectionSubHeading,
+				"Smooth infinite marquee • drag / swipe anytime • tap to search");
+	}
+
+	public String verifyBrandSectionCountText() {
+		return getTextFromElement(brandSectionCountText, "117 brands");
+	}
+
+	public void printAllBrandNames() {
+		printTextOfAllElements(allBrandNames, "All Brand Names");
+	}
 
 	// ============================================================
 	// ✅ FOOTER + SubscriptionForm.jsx
@@ -586,58 +589,6 @@ public class Homepage extends AllVerifications {
 			return;
 		}
 		clickOnElement(el, "Category Card: " + categoryName);
-	}
-
-	// ---------- Brands ----------
-	public void clickBrandsLeftArrow() {
-		clickOnElement(brandsScrollLeftButton, "Brands Left Arrow");
-	}
-
-	public void clickBrandsRightArrow() {
-		clickOnElement(brandsScrollRightButton, "Brands Right Arrow");
-	}
-
-	public int getBrandButtonCount() {
-		return brandButtonsWithTitle == null ? 0 : brandButtonsWithTitle.size();
-	}
-
-	public void clickBrandByTitle(String brandTitle) {
-		WebElement el = findElementByTitle(brandButtonsWithTitle, brandTitle);
-		if (el == null) {
-			System.out.println("[HOMEPAGE] Brand not found: " + brandTitle);
-			return;
-		}
-		clickOnElement(el, "Brand: " + brandTitle);
-	}
-
-	// ---------- Brand products grid ----------
-	public void clickShowMoreBrands() {
-		WebElement btn = findButtonByExactText(brandGridShowMoreLessLinks, "Show more →");
-		if (btn != null)
-			clickOnElement(btn, "Show more brands");
-		else
-			System.out.println("[HOMEPAGE] 'Show more →' button not visible.");
-	}
-
-	public void clickShowLessBrands() {
-		WebElement btn = findButtonByExactText(brandGridShowMoreLessLinks, "Show less ←");
-		if (btn != null)
-			clickOnElement(btn, "Show less brands");
-		else
-			System.out.println("[HOMEPAGE] 'Show less ←' button not visible.");
-	}
-
-	public int getBrandProductCardCountVisible() {
-		return brandProductCardsByTitle == null ? 0 : brandProductCardsByTitle.size();
-	}
-
-	public void clickBrandProductByName(String productName) {
-		WebElement el = findElementByTitle(brandProductCardsByTitle, productName);
-		if (el == null) {
-			System.out.println("[HOMEPAGE] Product card not found by title: " + productName);
-			return;
-		}
-		clickOnElement(el, "Product Card: " + productName);
 	}
 
 	public List<String> getVisibleBrandProductNames() {

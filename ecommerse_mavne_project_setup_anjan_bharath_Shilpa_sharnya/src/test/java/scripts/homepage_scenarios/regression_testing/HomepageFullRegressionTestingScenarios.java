@@ -11,7 +11,7 @@ import pom.Homepage;
 import pom.SearchProductsPage;
 import pom.ShopPage;
 
-public class HomepageRegressionTestingScenarios extends OpenClose {
+public class HomepageFullRegressionTestingScenarios extends OpenClose {
 
 	@Test(priority = 1)
 	public void testOpenHomepageUsingUrl() throws IOException {
@@ -194,6 +194,56 @@ public class HomepageRegressionTestingScenarios extends OpenClose {
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		hp.printAllCategoryNames();
+
+	}
+
+	// brand scenarios
+
+	@Test(priority = 13, invocationCount = 1, enabled = true)
+	public void testVerifyBrandSectionMainHeading() throws IOException {
+		// verify whether you are in homepage.
+		String exptectedHomepageTitle = (String) Excel.getData("HomePage", 1, 0);
+		Homepage hp = new Homepage(driver);
+		hp.verifyHomepageTitle(exptectedHomepageTitle);
+
+		// find the main heading in the brand section and verfiy whether it is Popular
+		// Brands
+		hp.verifyBrandSectionMainHeading();
+
+		String exptectedBrandMainHeading = (String) Excel.getData("HomePage", 1, 8);
+		Assert.assertEquals(hp.verifyBrandSectionMainHeading(), exptectedBrandMainHeading);
+
+	}
+
+	@Test(priority = 14, invocationCount = 1, enabled = true)
+	public void testVerifyBrandSectionSubHeading() throws IOException {
+		// verify whether you are in homepage.
+		String exptectedHomepageTitle = (String) Excel.getData("HomePage", 1, 0);
+		Homepage hp = new Homepage(driver);
+		hp.verifyHomepageTitle(exptectedHomepageTitle);
+
+		// find the main heading in the brand section and verfiy whether it is Popular
+		// Brands
+		hp.verifyBrandSectionSubHeading();
+
+		String exptectedBrandSubHeading = (String) Excel.getData("HomePage", 1, 9);
+		Assert.assertEquals(hp.verifyBrandSectionSubHeading(), exptectedBrandSubHeading);
+
+	}
+
+	@Test(priority = 15, invocationCount = 1, enabled = true)
+	public void testVerifyBrandSectionCountText() throws IOException {
+		// verify whether you are in homepage.
+		String exptectedHomepageTitle = (String) Excel.getData("HomePage", 1, 0);
+		Homepage hp = new Homepage(driver);
+		hp.verifyHomepageTitle(exptectedHomepageTitle);
+
+		// find the main heading in the brand section and verfiy whether it is Popular
+		// Brands
+		hp.verifyBrandSectionCountText();
+
+		String exptectedBrandCountText = (String) Excel.getData("HomePage", 1, 10);
+		Assert.assertEquals(hp.verifyBrandSectionCountText(), exptectedBrandCountText);
 
 	}
 
