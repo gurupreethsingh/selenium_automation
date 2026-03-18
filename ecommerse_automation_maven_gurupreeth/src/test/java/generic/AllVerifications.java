@@ -1357,6 +1357,7 @@ package generic;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -2239,102 +2240,303 @@ public class AllVerifications {
 		}
 	}
 
-	// ============================================================
-	// (kept commented methods as-is)
-	// ============================================================
+	// fetching names from any slider. with click options.
+	public List<String> fetchAllTextsFromSlider(By itemLocator, By nextButtonLocator, String elementName) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAITING_TIME_IN_SEC));
+		LinkedHashSet<String> uniqueTexts = new LinkedHashSet<>();
 
-//	public boolean printAllBrandNamesInHomepage(int expectedCount, By locator) {
-//		int actualCount = 0;
-//
-//		try {
-//			System.out.println("[PRINT BRANDS] ExpectedCount: " + expectedCount + " | Locator: " + locator);
-//
-//			for (int i = 1; i <= 50; i++) {
-//				actualCount = driver.findElements(locator).size();
-//				if (actualCount == expectedCount) {
-//					System.out.println("[BRANDS COUNT MATCH] attempt=" + i + " | Found: " + actualCount);
-//					break;
-//				}
-//				Thread.sleep(200);
-//			}
-//
-//			List<WebElement> brandButtons = driver.findElements(locator);
-//			actualCount = brandButtons.size();
-//
-//			Set<String> uniqueBrands = new LinkedHashSet<>();
-//			for (WebElement btn : brandButtons) {
-//				String brand = btn.getAttribute("title");
-//				if (brand != null && !brand.trim().isEmpty())
-//					uniqueBrands.add(brand.trim());
-//			}
-//
-//			int count = 0;
-//			for (String b : uniqueBrands) {
-//				System.out.println((count + 1) + " Brand Name : " + b);
-//				count++;
-//				Thread.sleep(50);
-//			}
-//
-//			System.out.println("[BRANDS SUMMARY] Expected: " + expectedCount + " | Actual: " + actualCount
-//					+ " | Unique: " + uniqueBrands.size());
-//
-//			return (actualCount == expectedCount);
-//
-//		} catch (Exception ex) {
-//			System.out.println("[PRINT BRANDS FAILED] Expected: " + expectedCount + " | Actual: " + actualCount);
-//			return false;
-//		}
-//	}
-//
-//	public boolean verifyTotalElementsCount1(int expectedCount, By locator) {
-//		int actualCount = 0;
-//
-//		try {
-//			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//			wait.until(d -> d.findElements(locator).size() == expectedCount);
-//
-//			List<WebElement> brandButtons = driver.findElements(locator);
-//			actualCount = brandButtons.size();
-//
-//			java.util.Set<String> uniqueBrands = new java.util.LinkedHashSet<>();
-//			for (WebElement btn : brandButtons) {
-//				String brand = btn.getAttribute("title");
-//				if (brand != null) {
-//					brand = brand.trim();
-//					if (!brand.isEmpty())
-//						uniqueBrands.add(brand);
-//				}
-//			}
-//
-//			if (uniqueBrands.isEmpty()) {
-//				List<WebElement> nameSpans = driver.findElements(By.cssSelector(
-//						"div.flex.items-center.w-max:first-child>button[title]>div>div:last-child>span:first-child"));
-//				for (WebElement s : nameSpans) {
-//					String t = s.getAttribute("textContent");
-//					if (t != null) {
-//						t = t.trim();
-//						if (!t.isEmpty())
-//							uniqueBrands.add(t);
-//					}
-//				}
-//			}
-//
-//			int count = 0;
-//			for (String b : uniqueBrands) {
-//				System.out.println(count + 1 + " Brand Name : " + b);
-//				count++;
-//				Thread.sleep(50);
-//			}
-//
-//			System.out.println("Count matching - expected count : " + expectedCount + " Found actual count is : "
-//					+ actualCount + " | Unique names printed: " + uniqueBrands.size());
-//
-//			return (actualCount == expectedCount);
-//
-//		} catch (Exception ex) {
-//			System.out.println(
-//					"Count Not matching expected count : " + expectedCount + " Found actual count as : " + actualCount);
-//			return false;
-//		}
-//	}
+		try {
+			if (itemLocator == null) {
+				throw new IllegalArgumentException(elementName + " item locator is null");
+			}
+
+			if (nextButtonLocator == null) {
+				throw new IllegalArgumentException(elementName + " next button locator is null");
+			}
+
+			System.out.println("[SLIDER FETCH START] " + elementName);
+
+			int sameStateCount = 0;
+			String previousSnapshot = "";
+
+			for (int attempt = 1; attempt <= 50; attempt++) {
+
+				List<WebElement> visibleItems = wait
+						.until(ExpectedConditions.presenceOfAllElementsLocatedBy(itemLocator));
+
+				StringBuilder currentSnapshotBuilder = new StringBuilder();
+
+				for (WebElement item : visibleItems) {
+					String text = item.getText().trim();
+
+					if (!text.isEmpty()) {
+						uniqueTexts.add(text);
+						currentSnapshotBuilder.append(text).append("|");
+					}
+				}
+
+				String currentSnapshot = currentSnapshotBuilder.toString();
+
+				System.out.println("[SLIDER STEP] Attempt: " + attempt + " | Unique " + elementName + " count: "
+						+ uniqueTexts.size());
+
+				WebElement nextButton;
+				try {
+					nextButton = wait.until(ExpectedConditions.presenceOfElementLocated(nextButtonLocator));
+				} catch (Exception e) {
+					System.out.println("[SLIDER END] Next button not found");
+					break;
+				}
+
+				boolean isDisabled = !nextButton.isEnabled()
+						|| "true".equalsIgnoreCase(nextButton.getAttribute("disabled"))
+						|| nextButton.getAttribute("class") != null
+								&& nextButton.getAttribute("class").toLowerCase().contains("disabled");
+
+				if (isDisabled) {
+					System.out.println("[SLIDER END] Next button is disabled");
+					break;
+				}
+
+				try {
+					((JavascriptExecutor) driver).executeScript(
+							"arguments[0].scrollIntoView({block:'center', inline:'center'});", nextButton);
+
+					try {
+						wait.until(ExpectedConditions.elementToBeClickable(nextButton)).click();
+					} catch (ElementClickInterceptedException e) {
+						System.out.println("[SLIDER NEXT CLICK INTERCEPTED] Falling back to JS click");
+						((JavascriptExecutor) driver).executeScript("arguments[0].click();", nextButton);
+					}
+
+					Thread.sleep(1000);
+
+				} catch (Exception clickEx) {
+					System.out.println("[SLIDER END] Could not click next button");
+					break;
+				}
+
+				if (currentSnapshot.equals(previousSnapshot)) {
+					sameStateCount++;
+				} else {
+					sameStateCount = 0;
+				}
+
+				previousSnapshot = currentSnapshot;
+
+				if (sameStateCount >= 2) {
+					System.out.println("[SLIDER END] No new items appearing after multiple attempts");
+					break;
+				}
+			}
+
+			List<String> result = new ArrayList<>(uniqueTexts);
+
+			System.out.println("[SLIDER FETCH COMPLETED] " + elementName + " | Total unique items: " + result.size());
+
+			for (int i = 0; i < result.size(); i++) {
+				System.out.println((i + 1) + ". " + result.get(i));
+			}
+
+			return result;
+
+		} catch (Exception ex) {
+			System.out.println("[SLIDER FETCH FAILED] " + elementName);
+			captureFailure("[SLIDER FETCH FAILED] " + elementName, ex);
+			return new ArrayList<>();
+		}
+	}
+
+	// fetching text from auto sliding slider without any click operation.
+
+	public List<String> fetchAllUniqueTextsFromAutoSlider(By locator, int expectedUniqueCount, String elementName) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAITING_TIME_IN_SEC));
+		LinkedHashSet<String> uniqueTexts = new LinkedHashSet<>();
+
+		try {
+			if (locator == null) {
+				throw new IllegalArgumentException(elementName + " locator is null");
+			}
+
+			System.out.println(
+					"[AUTO SLIDER FETCH START] " + elementName + " | Expected unique count: " + expectedUniqueCount);
+
+			int idleRounds = 0;
+			int lastSize = 0;
+
+			for (int attempt = 1; attempt <= 300; attempt++) {
+				List<WebElement> elements = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+
+				for (WebElement element : elements) {
+					try {
+						String text = element.getText().trim();
+						if (!text.isEmpty()) {
+							uniqueTexts.add(text);
+						}
+					} catch (Exception ignored) {
+					}
+				}
+
+				System.out.println("[AUTO SLIDER FETCH] Attempt: " + attempt + " | Unique " + elementName + ": "
+						+ uniqueTexts.size());
+
+				if (uniqueTexts.size() == expectedUniqueCount) {
+					break;
+				}
+
+				if (uniqueTexts.size() == lastSize) {
+					idleRounds++;
+				} else {
+					idleRounds = 0;
+				}
+
+				lastSize = uniqueTexts.size();
+
+				if (idleRounds >= 20) {
+					System.out.println("[AUTO SLIDER FETCH STOP] No new " + elementName + " found for many rounds");
+					break;
+				}
+
+				Thread.sleep(300);
+			}
+
+			List<String> result = new ArrayList<>(uniqueTexts);
+
+			System.out.println(
+					"[AUTO SLIDER FETCH COMPLETED] " + elementName + " | Total unique found: " + result.size());
+
+			for (int i = 0; i < result.size(); i++) {
+				System.out.println((i + 1) + ". " + result.get(i));
+			}
+
+			return result;
+
+		} catch (Exception ex) {
+			System.out.println("[AUTO SLIDER FETCH FAILED] " + elementName);
+			captureFailure("[AUTO SLIDER FETCH FAILED] " + elementName, ex);
+			return new ArrayList<>();
+		}
+	}
+
+	// click one visible element by text from auto slider
+	public boolean clickVisibleAutoSliderElementByText(By locator, String targetText, String elementName) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAITING_TIME_IN_SEC));
+
+		try {
+			if (locator == null) {
+				throw new IllegalArgumentException(elementName + " locator is null");
+			}
+
+			if (targetText == null || targetText.trim().isEmpty()) {
+				throw new IllegalArgumentException(elementName + " target text is null/empty");
+			}
+
+			System.out.println("[AUTO SLIDER CLICK SEARCH] " + elementName + " -> " + targetText);
+
+			for (int attempt = 1; attempt <= 100; attempt++) {
+				List<WebElement> elements = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+
+				for (WebElement element : elements) {
+					try {
+						String currentText = element.getText().trim();
+
+						if (targetText.equals(currentText) && element.isDisplayed()) {
+							((JavascriptExecutor) driver).executeScript(
+									"arguments[0].scrollIntoView({block:'center', inline:'center'});", element);
+
+							Thread.sleep(200);
+
+							try {
+								wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+							} catch (ElementClickInterceptedException e) {
+								System.out.println(
+										"[AUTO SLIDER CLICK INTERCEPTED] Falling back to JS click for: " + targetText);
+								((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+							}
+
+							System.out.println("[AUTO SLIDER CLICK SUCCESS] " + elementName + " -> " + targetText);
+							return true;
+						}
+					} catch (Exception ignored) {
+					}
+				}
+
+				Thread.sleep(300);
+			}
+
+			System.out.println("[AUTO SLIDER CLICK FAILED] Could not find visible text: " + targetText);
+			captureFailure("[AUTO SLIDER CLICK FAILED] " + elementName + " -> " + targetText);
+			return false;
+
+		} catch (Exception ex) {
+			System.out.println("[AUTO SLIDER CLICK FAILED] " + elementName + " -> " + targetText);
+			captureFailure("[AUTO SLIDER CLICK FAILED] " + elementName + " -> " + targetText, ex);
+			return false;
+		}
+	}
+
+	// click each unique element one by one from auto slider
+
+	public boolean clickEachUniqueTextElementFromAutoSlider(By locator, int expectedUniqueCount, String elementName,
+			By pageLoadLocatorAfterBack) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAITING_TIME_IN_SEC));
+
+		try {
+			List<String> allUniqueTexts = fetchAllUniqueTextsFromAutoSlider(locator, expectedUniqueCount, elementName);
+
+			if (allUniqueTexts.isEmpty()) {
+				System.out.println("[AUTO SLIDER CLICK LOOP FAILED] No " + elementName + " found");
+				captureFailure("[AUTO SLIDER CLICK LOOP FAILED] No " + elementName + " found");
+				return false;
+			}
+
+			System.out.println("[AUTO SLIDER CLICK LOOP START] " + elementName + " | Total unique items: "
+					+ allUniqueTexts.size());
+
+			for (int i = 0; i < allUniqueTexts.size(); i++) {
+				String textToClick = allUniqueTexts.get(i);
+				String oldUrl = driver.getCurrentUrl();
+
+				System.out.println(
+						"[AUTO SLIDER CLICKING] " + elementName + " Index: " + (i + 1) + " | Text: " + textToClick);
+
+				boolean clicked = clickVisibleAutoSliderElementByText(locator, textToClick, elementName);
+
+				if (!clicked) {
+					captureFailure("[AUTO SLIDER CLICK LOOP FAILED] Could not click: " + textToClick);
+					return false;
+				}
+
+				try {
+					wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(oldUrl)));
+				} catch (Exception ignored) {
+				}
+
+				System.out.println("[AFTER CLICK] URL: " + driver.getCurrentUrl());
+				System.out.println("[AFTER CLICK] TITLE: " + driver.getTitle());
+
+				driver.navigate().back();
+
+				if (pageLoadLocatorAfterBack != null) {
+					wait.until(ExpectedConditions.visibilityOfElementLocated(pageLoadLocatorAfterBack));
+				}
+
+				try {
+					wait.until(ExpectedConditions.urlToBe(oldUrl));
+				} catch (Exception ignored) {
+				}
+
+				System.out.println("[BACK DONE] Returned after clicking: " + textToClick);
+			}
+
+			System.out.println("[AUTO SLIDER CLICK LOOP COMPLETED] " + elementName);
+			return true;
+
+		} catch (Exception ex) {
+			System.out.println("[AUTO SLIDER CLICK LOOP FAILED] " + elementName);
+			captureFailure("[AUTO SLIDER CLICK LOOP FAILED] " + elementName, ex);
+			return false;
+		}
+	}
+
 }

@@ -892,6 +892,12 @@ public class HomePage extends AllVerifications {
 		printTextOfAllElements(allCategoryNames, "All Category Names");
 	}
 
+	private By categorySliderNextButtonBy = By.cssSelector("section button[aria-label='Scroll categories right']");
+
+	public List<String> printAllCategoryNamesFromSlider() {
+		return fetchAllTextsFromSlider(allCategoryNamesBy, categorySliderNextButtonBy, "Category Names");
+	}
+
 	public boolean clickOnEachCategoryShopButtons() {
 		return clickEachElementOneByOneAndNavigateBack(allCategoryShopButtonsBy, "All Category Shop Buttons",
 				pageRootContainerBy);
@@ -909,6 +915,17 @@ public class HomePage extends AllVerifications {
 
 	@FindBy(css = "section button[title]")
 	private List<WebElement> brandButtonsWithTitle;
+
+	@FindBy(css = "section.m-10 > div.rounded-2xl > div.relative > div.brandViewport > div.brandTrack > div > button span:first-child")
+	private List<WebElement> allBrandNames;
+
+	private By allBrandNamesBy = By.cssSelector(
+			"section.m-10 > div.rounded-2xl > div.relative > div.brandViewport > div.brandTrack > div > button span:first-child");
+
+	// function to fetch and print all the brand names.
+	public void fetchAndPrintAllBrandNames() {
+
+	}
 
 	// ============================================================
 	// ✅ HOMEPAGE - BRAND PRODUCTS GRID
@@ -1417,6 +1434,13 @@ public class HomePage extends AllVerifications {
 				names.add(txt.trim());
 		}
 		return names;
+	}
+
+	@FindBy(css = "div.brandTrack>div:first-child>button>div>div:last-child>span:first-child")
+	private List<WebElement> allBrandNames2;
+
+	public void printAllBrandNames() {
+		printTextOfAllElements(allBrandNames2, "All Brand Names");
 	}
 
 	// ============================================================

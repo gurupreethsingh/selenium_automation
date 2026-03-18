@@ -13,7 +13,7 @@ import generic.Excel;
 import generic.OpenClose;
 import pom.HomePage;
 
-public class HomePageFooterFullRegressionScenarios extends OpenClose {
+public class HomePageFooterRegressionScenarios extends OpenClose {
 
 	@Test(priority = 1, enabled = true, invocationCount = 1)
 	public void testVerifyFooterOfHomepageIsDisplayed() throws IOException, InterruptedException {

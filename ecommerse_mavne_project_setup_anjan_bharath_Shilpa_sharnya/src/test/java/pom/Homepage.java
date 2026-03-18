@@ -196,10 +196,10 @@ public class Homepage extends AllVerifications {
 	}
 
 	@FindBy(css = "div.brandTrack>div:first-child>button>div>div:last-child>span:first-child")
-	private List<WebElement> allBrandNames;
+	private List<WebElement> allBrandNames2;
 
 	public void printAllBrandNames() {
-		printTextOfAllElements(allBrandNames, "All Brand Names");
+		printTextOfAllElements(allBrandNames2, "All Brand Names");
 	}
 
 	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div>div.relative>div.absolute.bottom-3>div.flex>span:first-child")
