@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
-import pom.Homepage;
+import pom.HomePage;
 
 public class HomepageCategoySectionRegressionTestingScenarios extends OpenClose {
 
@@ -17,7 +17,7 @@ public class HomepageCategoySectionRegressionTestingScenarios extends OpenClose 
 		// open the application and navigate to the homepage.
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the main heading of the category section.
@@ -35,7 +35,7 @@ public class HomepageCategoySectionRegressionTestingScenarios extends OpenClose 
 		// open the application and navigate to the homepage.
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the Sub heading of the category section.
@@ -53,7 +53,7 @@ public class HomepageCategoySectionRegressionTestingScenarios extends OpenClose 
 		// open the application and navigate to the homepage.
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the Sub heading of the category section.
@@ -71,7 +71,7 @@ public class HomepageCategoySectionRegressionTestingScenarios extends OpenClose 
 		// open the application and navigate to the homepage.
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the category count
@@ -88,7 +88,7 @@ public class HomepageCategoySectionRegressionTestingScenarios extends OpenClose 
 		// open the application and navigate to the homepage.
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		hp.printAllCategoryNames();

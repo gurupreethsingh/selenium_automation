@@ -12,7 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import generic.AllVerifications;
 
-public class Homepage extends AllVerifications {
+public class HomePage extends AllVerifications {
 
 	// ============================================================
 	// ✅ HEADER - LEFT (Logo + Shop All)
@@ -279,7 +279,7 @@ public class Homepage extends AllVerifications {
 	// ✅ INIT
 	// ============================================================
 
-	public Homepage(WebDriver driver) {
+	public HomePage(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
 	}

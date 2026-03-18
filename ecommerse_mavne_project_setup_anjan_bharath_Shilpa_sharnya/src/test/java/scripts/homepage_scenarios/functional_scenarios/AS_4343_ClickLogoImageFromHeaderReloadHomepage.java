@@ -6,15 +6,15 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
-import pom.Homepage;
+import pom.HomePage;
 
 public class AS_4343_ClickLogoImageFromHeaderReloadHomepage extends OpenClose {
 
 	@Test
 	public void testClickOnLogoApplicationNameHomepageReloadHomepage() throws IOException {
 
-		Homepage hp = new Homepage(driver);
-		String expectedTitle = (String) Excel.getData("Homepage", 1, 0);
+		HomePage hp = new HomePage(driver);
+		String expectedTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedTitle);
 		hp.clickHeaderLogoAppNameAndPrintText();
 		hp.verifyHomepageTitle(expectedTitle);

@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
-import pom.Homepage;
+import pom.HomePage;
 import pom.SearchProductsPage;
 import pom.ShopPage;
 
@@ -15,13 +15,13 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 
 	@Test(priority = 1)
 	public void testOpenHomepageUsingUrl() throws IOException {
-		Homepage hp = new Homepage(driver);
-		String expectedTitle = (String) Excel.getData("Homepage", 1, 0);
+		HomePage hp = new HomePage(driver);
+		String expectedTitle = (String) Excel.getData("HomePage", 1, 0);
 		System.out.println("Title from excel sheet : " + expectedTitle);
-		String expectedUrl = (String) Excel.getData("Homepage", 1, 1);
+		String expectedUrl = (String) Excel.getData("HomePage", 1, 1);
 		System.out.println("Url from excel sheet : " + expectedUrl);
 
-		int password = ((Double) Excel.getData("Homepage", 1, 4)).intValue();// 12345.0
+		int password = ((Double) Excel.getData("HomePage", 1, 4)).intValue();// 12345.0
 		System.out.println(password);
 
 		hp.verifyHomepageTitle(expectedTitle);
@@ -35,7 +35,7 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 
 		driver.get(URL_HOME_ALT_1);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
 		hp.verifyHomepageTitle(expectedHomePageTitle);
@@ -46,7 +46,7 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 	@Test(priority = 3, enabled = true)
 	public void testVerifyRootContainerInHomepageIsDispalyed() throws IOException {
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
 		hp.verifyHomepageTitle(expectedHomePageTitle);
@@ -58,8 +58,8 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 	@Test(priority = 4, enabled = true)
 	public void testClickOnLogoFromHeaderOfHomepageReloadHomepage() throws IOException {
 
-		Homepage hp = new Homepage(driver);
-		String expectedTitle = (String) Excel.getData("Homepage", 1, 0);
+		HomePage hp = new HomePage(driver);
+		String expectedTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedTitle);
 		hp.clickHeaderLogoHome();
 		hp.verifyHomepageTitle(expectedTitle);
@@ -69,8 +69,8 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 	@Test(priority = 5, enabled = true)
 	public void testClickOnLogoApplicationNameHomepageReloadHomepage() throws IOException {
 
-		Homepage hp = new Homepage(driver);
-		String expectedTitle = (String) Excel.getData("Homepage", 1, 0);
+		HomePage hp = new HomePage(driver);
+		String expectedTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedTitle);
 		hp.clickHeaderLogoAppNameAndPrintText();
 		hp.verifyHomepageTitle(expectedTitle);
@@ -80,8 +80,8 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 	@Test(priority = 6, invocationCount = 1)
 	public void testClickShopAllLinkFromHeaderOpenShopPage() throws IOException {
 
-		Homepage hp = new Homepage(driver);
-		String expectedHomeTitle = (String) Excel.getData("Homepage", 1, 0);
+		HomePage hp = new HomePage(driver);
+		String expectedHomeTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomeTitle);
 
 		// update row/col as per your excel
@@ -96,8 +96,8 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 	@Test(priority = 7, invocationCount = 1)
 	public void testSearchProductFromHomepageNavigateToSearchPage() throws IOException {
 		// find the input field
-		Homepage hp = new Homepage(driver);
-//		String productNameTyped = (String)Excel.getData("Homepage", 2, 2);
+		HomePage hp = new HomePage(driver);
+//		String productNameTyped = (String)Excel.getData("HomePage", 2, 2);
 		// enter some query or product name into the input field.
 		hp.enterValueIntoSearchField("samsung");
 		// find the seach button.
@@ -119,7 +119,7 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 		// open the application and navigate to the homepage.
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the main heading of the category section.
@@ -137,7 +137,7 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 		// open the application and navigate to the homepage.
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the Sub heading of the category section.
@@ -155,7 +155,7 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 		// open the application and navigate to the homepage.
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the Sub heading of the category section.
@@ -173,7 +173,7 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 		// open the application and navigate to the homepage.
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the category count
@@ -190,7 +190,7 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 		// open the application and navigate to the homepage.
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		hp.printAllCategoryNames();
@@ -203,7 +203,7 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 	public void testVerifyBrandSectionMainHeading() throws IOException {
 		// verify whether you are in homepage.
 		String exptectedHomepageTitle = (String) Excel.getData("HomePage", 1, 0);
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(exptectedHomepageTitle);
 
 		// find the main heading in the brand section and verfiy whether it is Popular
@@ -219,7 +219,7 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 	public void testVerifyBrandSectionSubHeading() throws IOException {
 		// verify whether you are in homepage.
 		String exptectedHomepageTitle = (String) Excel.getData("HomePage", 1, 0);
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(exptectedHomepageTitle);
 
 		// find the main heading in the brand section and verfiy whether it is Popular
@@ -235,7 +235,7 @@ public class HomepageFullRegressionTestingScenarios extends OpenClose {
 	public void testVerifyBrandSectionCountText() throws IOException {
 		// verify whether you are in homepage.
 		String exptectedHomepageTitle = (String) Excel.getData("HomePage", 1, 0);
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(exptectedHomepageTitle);
 
 		// find the main heading in the brand section and verfiy whether it is Popular

@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
-import pom.Homepage;
+import pom.HomePage;
 
 public class AS_6550_VerityCategoryCountText extends OpenClose {
 	@Test
@@ -15,7 +15,7 @@ public class AS_6550_VerityCategoryCountText extends OpenClose {
 		// open the application and navigate to the homepage.
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the Sub heading of the category section.

@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
-import pom.Homepage;
+import pom.HomePage;
 
 public class HomepageBrandSectionRegressionScenarios extends OpenClose {
 
@@ -15,7 +15,7 @@ public class HomepageBrandSectionRegressionScenarios extends OpenClose {
 	public void testVerifyBrandSectionMainHeading() throws IOException {
 		// verify whether you are in homepage.
 		String exptectedHomepageTitle = (String) Excel.getData("HomePage", 1, 0);
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(exptectedHomepageTitle);
 
 		// find the main heading in the brand section and verfiy whether it is Popular
@@ -31,7 +31,7 @@ public class HomepageBrandSectionRegressionScenarios extends OpenClose {
 	public void testVerifyBrandSectionSubHeading() throws IOException {
 		// verify whether you are in homepage.
 		String exptectedHomepageTitle = (String) Excel.getData("HomePage", 1, 0);
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(exptectedHomepageTitle);
 
 		// find the main heading in the brand section and verfiy whether it is Popular
@@ -47,7 +47,7 @@ public class HomepageBrandSectionRegressionScenarios extends OpenClose {
 	public void testVerifyBrandSectionCountText() throws IOException {
 		// verify whether you are in homepage.
 		String exptectedHomepageTitle = (String) Excel.getData("HomePage", 1, 0);
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle(exptectedHomepageTitle);
 
 		// find the main heading in the brand section and verfiy whether it is Popular

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
-import pom.Homepage;
+import pom.HomePage;
 
 public class AS_7309_OpenHomepageUsing_forwardslash_homepageAsUrl extends OpenClose {
 	@Test
@@ -15,7 +15,7 @@ public class AS_7309_OpenHomepageUsing_forwardslash_homepageAsUrl extends OpenCl
 
 		driver.get(URL_HOME_ALT_2);
 
-		Homepage hp = new Homepage(driver);
+		HomePage hp = new HomePage(driver);
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 
 		hp.verifyHomepageTitle(expectedHomePageTitle);
