@@ -1778,20 +1778,15 @@ public class AllVerifications {
 		return false;
 	}
 
-	// ============================================================
-	// ✅ ENTERPRISE CLICK - WEBELEMENT
-	// ============================================================
+	// ENTERPRISE CLICK - WEBELEMENT
 	public boolean clickOnElement(WebElement element, String elementName) {
 		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT + 1; attempt++) {
 			try {
 				if (element == null) {
 					throw new IllegalArgumentException("Element is null");
 				}
-
 				String displayName = normalizeName(elementName, getElementDisplayName(element));
-
 				System.out.println("[CLICK ATTEMPT " + attempt + "] " + displayName);
-
 				// 1. Validate element reference still exists
 				try {
 					element.isDisplayed();
@@ -1800,31 +1795,24 @@ public class AllVerifications {
 				} catch (Exception ex) {
 					throw new NoSuchElementException("Element is not present in DOM: " + displayName);
 				}
-
 				// 2. Scroll to center
 				scrollElementToCenter(element);
-
 				// 3. Wait until visible
 				WebElement visibleElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 						.until(ExpectedConditions.visibilityOf(element));
-
 				// 4. Wait until clickable
 				WebElement clickableElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 						.until(ExpectedConditions.elementToBeClickable(visibleElement));
-
 				// 5. Check enabled
 				if (!clickableElement.isEnabled()) {
 					throw new IllegalStateException("Element is disabled: " + displayName);
 				}
-
 				// 6. Resolve best possible text for reporting
 				String clickedText = getCleanText(clickableElement);
 				if (clickedText == null || clickedText.trim().isEmpty()) {
 					clickedText = displayName;
 				}
-
 				System.out.println("[CLICKING ELEMENT] " + clickedText);
-
 				// 7. Normal click -> Actions click -> JS click
 				try {
 					clickableElement.click();
@@ -1836,26 +1824,21 @@ public class AllVerifications {
 						((JavascriptExecutor) driver).executeScript("arguments[0].click();", clickableElement);
 					}
 				}
-
 				System.out.println("[CLICK SUCCESS] " + clickedText);
 				return true;
-
 			} catch (StaleElementReferenceException sere) {
 				System.out.println("[CLICK STALE] " + elementName + " | Retrying...");
 				captureFailure("CLICK STALE -> " + elementName, sere);
-
 			} catch (TimeoutException te) {
 				System.out.println("[CLICK TIMEOUT] " + elementName + " | " + te.getMessage());
 				captureFailure("CLICK TIMEOUT -> " + elementName, te);
 				return false;
-
 			} catch (Exception ex) {
 				System.out.println("[CLICK FAILED] " + elementName + " | " + ex.getMessage());
 				captureFailure("CLICK FAILED -> " + elementName, ex);
 				return false;
 			}
 		}
-
 		System.out.println("[CLICK FAILED AFTER RETRIES] " + elementName);
 		captureFailure("CLICK FAILED AFTER RETRIES -> " + elementName);
 		return false;
@@ -2272,11 +2255,11 @@ public class AllVerifications {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 
 			@SuppressWarnings("unchecked")
-			List<String> texts = (List<String>) js
-					.executeScript("var elements = document.querySelectorAll(arguments[0]);" + "var result = [];"
-							+ "for (var i = 0; i < elements.length; i++) {"
-							+ "    var text = elements[i].textContent.trim();" + "    if (text !== '') {"
-							+ "        result.push(text);" + "    }" + "}" + "return result;", cssSelector);
+			List<String> texts = (List<String>) js.executeScript(""
+					+ "var elements = document.querySelectorAll(arguments[0]);" + "var result = [];"
+					+ "for (var i = 0; i < elements.length; i++) " + "{" + "var text = elements[i].textContent.trim();"
+					+ "if (text !== '') " + "{" + "result.push(text);" + "    " + "}" + "}" + "return result;",
+					cssSelector);
 
 			System.out
 					.println("[PRINT ALL TEXT USING JAVASCRIPT] " + elementName + " | Total elements: " + texts.size());

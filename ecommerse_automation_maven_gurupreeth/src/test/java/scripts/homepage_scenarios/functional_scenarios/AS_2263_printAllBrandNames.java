@@ -21,6 +21,7 @@ public class AS_2263_printAllBrandNames extends OpenClose {
 		Assert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed");
 
 		List<String> brands = hp.printAllBrandNamesUsingJavascript();
+//		hp.printAllBrandNames();
 
 		Assert.assertFalse(brands.isEmpty(), "Brand names list is empty");
 

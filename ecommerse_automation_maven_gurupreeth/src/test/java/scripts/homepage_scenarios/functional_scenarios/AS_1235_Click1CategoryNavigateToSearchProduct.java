@@ -21,6 +21,7 @@ public class AS_1235_Click1CategoryNavigateToSearchProduct extends OpenClose {
 
 		Assert.assertTrue(hp.verifyHomepageTitle(homepageExpectedText), "Homepage title verification failed");
 
+		// click on any one category from the homepage.
 		Assert.assertTrue(hp.clickOnCategory(), "Category click on Electronics failed.");
 
 		// now after click user navigates to search products page.
@@ -34,7 +35,7 @@ public class AS_1235_Click1CategoryNavigateToSearchProduct extends OpenClose {
 		String categoryName = "Electronics";
 		String expectedSearchProductsPageUrl = "http://localhost:5173/search-products?query=" + categoryName;
 
-		Assert.assertTrue(spp.verifyUrlOfWebpage(expectedSearchProductsPageUrl));
+		Assert.assertTrue(spp.verifyUrlOfWebpage(expectedSearchProductsPageUrl), "Url Verification failed.");
 
 	}
 }

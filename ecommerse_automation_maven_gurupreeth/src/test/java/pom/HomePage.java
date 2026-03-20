@@ -63,7 +63,7 @@ public class HomePage extends AllVerifications {
 	private WebElement categoryCountText;
 
 	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div.duration-300:first-child")
-	private WebElement singleCategoryName;
+	private WebElement singleCategoryName; // electronics
 
 	// locator for ALL individual category items
 	private By totalCategoryItems = By.cssSelector("section.m-8 > div.relative > div.flex.gap-3 > div");
@@ -99,7 +99,6 @@ public class HomePage extends AllVerifications {
 	private WebElement brandTrack;
 
 	// HOMEPAGE - CATEGORY SECTION ACTION METHODS
-
 	public boolean verifyCategoryParentContainerIsDisplayed() {
 		return verifyElementPresentAndVisible(categoryParentContainer, "Category Parent Container");
 	}
