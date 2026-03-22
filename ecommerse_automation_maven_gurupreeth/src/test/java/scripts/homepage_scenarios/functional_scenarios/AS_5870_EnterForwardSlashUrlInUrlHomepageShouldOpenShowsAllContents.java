@@ -12,7 +12,7 @@ import pom.HomePage;
 public class AS_5870_EnterForwardSlashUrlInUrlHomepageShouldOpenShowsAllContents extends OpenClose {
 
 	@Test
-	public void testEnterForwardSlashUrlInBrowserHomepageShouldOpenShowingAllContents()
+	public void testEnterForwardSlashUrlInUrlHomepageShouldOpenShowsAllContents()
 			throws IOException, InterruptedException {
 		SoftAssert sa = new SoftAssert();
 

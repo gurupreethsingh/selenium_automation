@@ -13,7 +13,7 @@ import pom.SearchProductsPage;
 public class AS_2319_fetchAllProductsIn1CategoryInSearchProductsPg extends OpenClose {
 
 	@Test
-	public void testFetchAllProductsIn1CategoryInSearchProductsPg() throws IOException, InterruptedException {
+	public void testFetchAllProductsInOfCategoryInSearchProductsPg() throws IOException, InterruptedException {
 
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 

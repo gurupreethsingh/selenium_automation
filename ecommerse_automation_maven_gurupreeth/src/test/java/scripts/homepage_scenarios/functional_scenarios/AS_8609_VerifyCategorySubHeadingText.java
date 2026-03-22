@@ -11,6 +11,7 @@ import pom.HomePage;
 public class AS_8609_VerifyCategorySubHeadingText extends OpenClose {
 	@Test
 	public void textVerifyCategorySubHeadingText() throws IOException {
+
 		String homepageExpectedText = (String) Excel.getData("HomePage", 1, 0);
 
 		HomePage hp = new HomePage(driver);

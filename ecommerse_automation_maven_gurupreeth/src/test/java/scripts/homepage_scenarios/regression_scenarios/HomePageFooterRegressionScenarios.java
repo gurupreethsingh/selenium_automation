@@ -1,476 +1,392 @@
 package scripts.homepage_scenarios.regression_scenarios;
 
 import java.io.IOException;
-import java.util.Set;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
 public class HomePageFooterRegressionScenarios extends OpenClose {
 
 	@Test(priority = 1, enabled = true, invocationCount = 1)
-	public void testVerifyFooterOfHomepageIsDisplayed() throws IOException, InterruptedException {
+	public void testVerifyFooterRootAndMainWrapperDisplayed() throws IOException {
+
+		SoftAssert softAssert = new SoftAssert();
 
 		HomePage hp = new HomePage(driver);
-
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		Assert.assertTrue(hp.isFooterVisible(), "Footer of homepage is not displayed.");
+		softAssert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed");
+		softAssert.assertTrue(footer.verifyFooterRootIsDisplayed(), "Footer root is not displayed");
+		softAssert.assertTrue(footer.verifyFooterMainWrapperIsDisplayed(), "Footer main wrapper is not displayed");
+
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 2, enabled = true, invocationCount = 1)
-	public void testClickAboutUsLinkFromFooterOfHomepageUserGetsNavigatedToAboutUsPage()
-			throws IOException, InterruptedException {
+	public void testVerifyTrustBadgesSectionAndCount() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifyTrustBadgesSectionIsDisplayed(), "Trust badges section is not displayed");
+		softAssert.assertTrue(footer.verifyTotalTrustBadgeCardsCount(4), "Trust badge cards count mismatch");
 
-		hp.clickFooterAboutUs();
-		Thread.sleep(1000);
-
-		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("about"),
-				"User is not navigated to About Us page.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 3, enabled = true, invocationCount = 1)
-	public void testClickContactUsLinkFromFooterOfHomepageUserGetsNavigatedToContactUsPage()
-			throws IOException, InterruptedException {
+	public void testVerifyIndividualTrustBadgeCardsDisplayed() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifyFastDeliveryCardIsDisplayed(), "Fast Delivery card is not displayed");
+		softAssert.assertTrue(footer.verifyEasyReturnsCardIsDisplayed(), "Easy Returns card is not displayed");
+		softAssert.assertTrue(footer.verifyBuyerProtectionCardIsDisplayed(), "Buyer Protection card is not displayed");
+		softAssert.assertTrue(footer.verifySupportCardIsDisplayed(), "Support card is not displayed");
 
-		hp.clickFooterContactUs();
-		Thread.sleep(1000);
-
-		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("contact"),
-				"User is not navigated to Contact Us page.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 4, enabled = true, invocationCount = 1)
-	public void testClickCareersLinkFromFooterOfHomepageUserGetsNavigatedToCareersPage()
-			throws IOException, InterruptedException {
+	public void testVerifyTrustBadgeTitlesText() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifyFastDeliveryTitleText("Fast Delivery"),
+				"Fast Delivery title verification failed");
+		softAssert.assertTrue(footer.verifyEasyReturnsTitleText("Easy Returns"),
+				"Easy Returns title verification failed");
+		softAssert.assertTrue(footer.verifyBuyerProtectionTitleText("Buyer Protection"),
+				"Buyer Protection title verification failed");
+		softAssert.assertTrue(footer.verifySupportTitleText("Support"), "Support title verification failed");
 
-		hp.clickFooterCareers();
-		Thread.sleep(1000);
-
-		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("careers"),
-				"User is not navigated to Careers page.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 5, enabled = true, invocationCount = 1)
-	public void testClickBlogsLinkFromFooterOfHomepageUserGetsNavigatedToAllBlogsPage()
-			throws IOException, InterruptedException {
+	public void testVerifyFooterGridSectionDisplayed() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifyFooterGridSectionIsDisplayed(), "Footer grid section is not displayed");
 
-		hp.clickFooterBlogs();
-		Thread.sleep(1000);
-
-		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("blog"),
-				"User is not navigated to All Blogs page.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 6, enabled = true, invocationCount = 1)
-	public void testClickHelpCenterLinkFromFooterOfHomepageUserGetsNavigatedToHelpCenterPage()
-			throws IOException, InterruptedException {
+	public void testVerifyCompanyInfoSectionDisplayed() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifyCompanyInfoSectionIsDisplayed(), "Company info section is not displayed");
+		softAssert.assertTrue(footer.verifyContactInfoBlockIsDisplayed(), "Contact info block is not displayed");
+		softAssert.assertTrue(footer.verifySupportEmailBlockIsDisplayed(), "Support email block is not displayed");
+		softAssert.assertTrue(footer.verifySupportPhoneBlockIsDisplayed(), "Support phone block is not displayed");
+		softAssert.assertTrue(footer.verifyWorkingHoursBlockIsDisplayed(), "Working hours block is not displayed");
+		softAssert.assertTrue(footer.verifyLocationBlockIsDisplayed(), "Location block is not displayed");
 
-		hp.clickFooterHelpCenter();
-		Thread.sleep(1000);
-
-		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("help"),
-				"User is not navigated to Help Center page.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 7, enabled = true, invocationCount = 1)
-	public void testClickPrivacyPolicyLinkFromFooterOfHomepageUserGetsNavigatedToPrivacyPolicyPage()
-			throws IOException, InterruptedException {
+	public void testVerifyCompanyInfoTexts() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifyEcodersBadgeText("Ecoders"), "Ecoders badge text verification failed");
+		softAssert.assertTrue(footer.verifyCompanyDescriptionText("Empowering online shopping"),
+				"Company description text verification failed");
+		softAssert.assertTrue(footer.verifySupportEmailText("support@ecoders.com"),
+				"Support email verification failed");
+		softAssert.assertTrue(footer.verifySupportPhoneText("+91 90000 00000"), "Support phone verification failed");
+		softAssert.assertTrue(footer.verifyWorkingHoursText("Mon–Sat • 9:00 AM – 7:00 PM"),
+				"Working hours verification failed");
+		softAssert.assertTrue(footer.verifyLocationText("Bengaluru, Karnataka, India"), "Location verification failed");
 
-		hp.clickFooterPrivacyPolicy();
-		Thread.sleep(1000);
-
-		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("privacy"),
-				"User is not navigated to Privacy Policy page.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 8, enabled = true, invocationCount = 1)
-	public void testClickTermsOfServiceLinkFromFooterOfHomepageUserGetsNavigatedToTermsOfServicePage()
-			throws IOException, InterruptedException {
+	public void testVerifyCompanyLinksSectionDisplayed() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifyCompanyLinksSectionIsDisplayed(), "Company links section is not displayed");
+		softAssert.assertTrue(footer.verifyCompanySectionHeadingText("Company"),
+				"Company section heading verification failed");
+		softAssert.assertTrue(footer.verifyFooterAboutUsLinkIsDisplayed(), "About Us link is not displayed");
+		softAssert.assertTrue(footer.verifyFooterContactUsLinkIsDisplayed(), "Contact Us link is not displayed");
+		softAssert.assertTrue(footer.verifyFooterCareersLinkIsDisplayed(), "Careers link is not displayed");
+		softAssert.assertTrue(footer.verifyFooterBlogsLinkIsDisplayed(), "Blogs link is not displayed");
+		softAssert.assertTrue(footer.verifyTotalCompanyLinksCount(4), "Company links count mismatch");
 
-		hp.clickFooterTermsOfService();
-		Thread.sleep(1000);
-
-		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("terms"),
-				"User is not navigated to Terms of Service page.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 9, enabled = true, invocationCount = 1)
-	public void testVerifyTotalNumberOfSocialMediaLinksDisplayedInFooterOfHomepageIsCorrect()
-			throws IOException, InterruptedException {
+	public void testVerifySecurePaymentsCardSection() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifySecurePaymentsCardIsDisplayed(), "Secure Payments card is not displayed");
+		softAssert.assertTrue(footer.verifySecurePaymentsHeadingText("Secure Payments"),
+				"Secure Payments heading verification failed");
+		softAssert.assertTrue(footer.verifyPaymentIconsBlockIsDisplayed(), "Payment icons block is not displayed");
+		softAssert.assertTrue(footer.verifyPaymentInfoText("Multiple payment options supported"),
+				"Payment info text verification failed");
 
-		int actualCount = hp.getFooterSocialLinkCount();
-		Assert.assertEquals(actualCount, 6, "Total number of social media links displayed in footer is incorrect.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 10, enabled = true, invocationCount = 1)
-	public void testClickFirstSocialMediaIconFromFooterOfHomepageCorrespondingPageShouldOpenInDifferentTab()
-			throws IOException, InterruptedException {
+	public void testVerifySupportLinksSectionDisplayed() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifySupportLinksSectionIsDisplayed(), "Support links section is not displayed");
+		softAssert.assertTrue(footer.verifySupportSectionHeadingText("Support"),
+				"Support section heading verification failed");
+		softAssert.assertTrue(footer.verifyFooterHelpCenterLinkIsDisplayed(), "Help Center link is not displayed");
+		softAssert.assertTrue(footer.verifyFooterPrivacyPolicyLinkIsDisplayed(),
+				"Privacy Policy link is not displayed");
+		softAssert.assertTrue(footer.verifyFooterTermsOfServiceLinkIsDisplayed(),
+				"Terms of Service link is not displayed");
+		softAssert.assertTrue(footer.verifyTotalSupportLinksCount(3), "Support links count mismatch");
 
-		Set<String> oldWindows = driver.getWindowHandles();
-		hp.clickFooterSocialLinkByIndex(0);
-		Thread.sleep(1500);
-
-		Set<String> newWindows = driver.getWindowHandles();
-		Assert.assertTrue(newWindows.size() > oldWindows.size(),
-				"First social media icon did not open in a different tab.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 11, enabled = true, invocationCount = 1)
-	public void testClickAll6SocialMediaIconsOneByOneFromFooterOfHomepageCorrespondingPagesShouldOpenInAnotherTab()
-			throws IOException, InterruptedException {
+	public void testVerifySubscribeTipCardTexts() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifySubscribeTipCardIsDisplayed(), "Subscribe tip card is not displayed");
+		softAssert.assertTrue(footer.verifySubscribeTipHeadingText("Tip: Subscribe to get deal alerts"),
+				"Subscribe tip heading verification failed");
+		softAssert.assertTrue(footer.verifySubscribeTipSubText("New arrivals"),
+				"Subscribe tip subtext verification failed");
 
-		int socialLinkCount = hp.getFooterSocialLinkCount();
-		Assert.assertEquals(socialLinkCount, 6, "Footer does not contain exactly 6 social media icons.");
-
-		for (int i = 0; i < socialLinkCount; i++) {
-			Set<String> oldWindows = driver.getWindowHandles();
-			hp.clickFooterSocialLinkByIndex(i);
-			Thread.sleep(1500);
-
-			Set<String> newWindows = driver.getWindowHandles();
-			Assert.assertTrue(newWindows.size() > oldWindows.size(),
-					"Corresponding social media page did not open in another tab for icon index: " + i);
-
-			for (String win : newWindows) {
-				if (!oldWindows.contains(win)) {
-					driver.switchTo().window(win);
-					driver.close();
-				}
-			}
-
-			for (String win : oldWindows) {
-				driver.switchTo().window(win);
-				break;
-			}
-		}
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 12, enabled = true, invocationCount = 1)
-	public void testEnterValidEmailInFooterOfHomepageAndClickSubscribeSuccessMessageShouldBeDisplayed()
-			throws IOException, InterruptedException {
+	public void testVerifyFollowAndSubscribeSectionDisplayed() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifyFollowAndSubscribeSectionIsDisplayed(),
+				"Follow and Subscribe section is not displayed");
+		softAssert.assertTrue(footer.verifyFollowAndSubscribeHeadingText("Follow & Subscribe"),
+				"Follow and Subscribe heading verification failed");
+		softAssert.assertTrue(footer.verifySocialIconsContainerIsDisplayed(),
+				"Social icons container is not displayed");
+		softAssert.assertTrue(footer.verifyTotalSocialLinksCount(6), "Social links count mismatch");
 
-		String validEmail = (String) Excel.getData("HomePageFooter", 1, 0);
-		hp.subscribeFromFooter(validEmail);
-		Thread.sleep(2000);
-
-		String successMessage = hp.getFooterSubscriptionSuccessMessage();
-		Assert.assertFalse(successMessage.isEmpty(),
-				"Success message is not displayed after entering valid email in footer subscription field.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 13, enabled = true, invocationCount = 1)
-	public void testEnterInvalidEmailInFooterOfHomepageAndClickSubscribeErrorMessageShouldBeDisplayed()
-			throws IOException, InterruptedException {
+	public void testVerifyAllSocialLinksDisplayed() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifyFooterFacebookLinkIsDisplayed(), "Facebook link is not displayed");
+		softAssert.assertTrue(footer.verifyFooterTwitterLinkIsDisplayed(), "Twitter link is not displayed");
+		softAssert.assertTrue(footer.verifyFooterGithubLinkIsDisplayed(), "Github link is not displayed");
+		softAssert.assertTrue(footer.verifyFooterLinkedinLinkIsDisplayed(), "Linkedin link is not displayed");
+		softAssert.assertTrue(footer.verifyFooterInstagramLinkIsDisplayed(), "Instagram link is not displayed");
+		softAssert.assertTrue(footer.verifyFooterYoutubeLinkIsDisplayed(), "Youtube link is not displayed");
 
-		String invalidEmail = (String) Excel.getData("HomePageFooter", 2, 0);
-		hp.subscribeFromFooter(invalidEmail);
-		Thread.sleep(1500);
-
-		String errorMessage = hp.getFooterSubscriptionError();
-		Assert.assertFalse(errorMessage.isEmpty(),
-				"Error message is not displayed for invalid email entered in footer subscription field.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 14, enabled = true, invocationCount = 1)
-	public void testLeaveSubscriptionFieldEmptyInFooterOfHomepageAndClickSubscribeValidationErrorShouldBeDisplayed()
-			throws IOException, InterruptedException {
+	public void testVerifySubscriptionFormSectionDisplayed() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifySubscribeContainerIsDisplayed(), "Subscribe container is not displayed");
+		softAssert.assertTrue(footer.verifySubscribeFormHeadingText("Stay in the loop"),
+				"Subscribe form heading verification failed");
+		softAssert.assertTrue(footer.verifySubscribeFormCardIsDisplayed(), "Subscribe form card is not displayed");
+		softAssert.assertTrue(footer.verifySubscriptionFormIsDisplayed(), "Subscription form is not displayed");
+		softAssert.assertTrue(footer.verifySubscriptionEmailTextFieldIsDisplayed(),
+				"Subscription email field is not displayed");
+		softAssert.assertTrue(footer.verifySubscriptionButtonIsDisplayed(), "Subscription button is not displayed");
 
-		hp.clickFooterSubscribeButton();
-		Thread.sleep(1500);
-
-		String errorMessage = hp.getFooterSubscriptionError();
-		Assert.assertFalse(errorMessage.isEmpty(),
-				"Validation error is not displayed when footer subscription field is left empty.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 15, enabled = true, invocationCount = 1)
-	public void testEnterOnlySpacesInFooterOfHomepageAndClickSubscribeValidationErrorShouldBeDisplayed()
-			throws IOException, InterruptedException {
+	public void testVerifyFooterBottomSectionDisplayed() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifyFooterBottomSectionIsDisplayed(), "Footer bottom section is not displayed");
+		softAssert.assertTrue(footer.verifySecureFastReliableBlockIsDisplayed(),
+				"Secure fast reliable block is not displayed");
 
-		hp.subscribeFromFooter("   ");
-		Thread.sleep(1500);
-
-		String errorMessage = hp.getFooterSubscriptionError();
-		Assert.assertFalse(errorMessage.isEmpty(),
-				"Validation error is not displayed when only spaces are entered in footer subscription field.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 16, enabled = true, invocationCount = 1)
-	public void testEnterEmailWithoutAtSymbolInFooterOfHomepageAndClickSubscribeErrorMessageShouldBeDisplayed()
-			throws IOException, InterruptedException {
+	public void testVerifyFooterBottomTexts() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.verifyCopyrightText("©"), "Copyright text verification failed");
+		softAssert.assertTrue(footer.verifySecureFastReliableText("Secure • Fast • Reliable"),
+				"Secure fast reliable text verification failed");
+		softAssert.assertTrue(footer.verifyFooterTaglineText("Made with care for smarter shopping."),
+				"Footer tagline verification failed");
 
-		String invalidEmail = (String) Excel.getData("HomePageFooter", 5, 0);
-		hp.subscribeFromFooter(invalidEmail);
-		Thread.sleep(1500);
-
-		String errorMessage = hp.getFooterSubscriptionError();
-		Assert.assertFalse(errorMessage.isEmpty(),
-				"Error message is not displayed for email without @ in footer subscription.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 17, enabled = true, invocationCount = 1)
-	public void testEnterEmailWithoutDomainInFooterOfHomepageAndClickSubscribeErrorMessageShouldBeDisplayed()
-			throws IOException, InterruptedException {
+	public void testClickFooterAboutUsLinkAndVerifyNavigation() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		Footer footer = new Footer(driver);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		softAssert.assertTrue(footer.clickOnFooterAboutUsLink(), "Failed to click About Us link");
+		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/about-us"),
+				"About Us page URL verification failed");
 
-		String invalidEmail = (String) Excel.getData("HomePageFooter", 4, 0);
-		hp.subscribeFromFooter(invalidEmail);
-		Thread.sleep(1500);
-
-		String errorMessage = hp.getFooterSubscriptionError();
-		Assert.assertFalse(errorMessage.isEmpty(),
-				"Error message is not displayed for email without domain in footer subscription.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 18, enabled = true, invocationCount = 1)
-	public void testEnterAlreadySubscribedEmailInFooterOfHomepageAndClickSubscribeShouldDisplayAlreadySubscribedMessage()
-			throws IOException, InterruptedException {
+	public void testClickFooterContactUsLinkAndVerifyNavigation() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		driver.navigate().to(URL_HOME);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		Footer footer = new Footer(driver);
 
-		String alreadySubscribedEmail = (String) Excel.getData("HomePageFooter", 3, 0);
-		hp.subscribeFromFooter(alreadySubscribedEmail);
-		Thread.sleep(2000);
+		softAssert.assertTrue(footer.clickOnFooterContactUsLink(), "Failed to click Contact Us link");
+		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/contact-us"),
+				"Contact Us page URL verification failed");
 
-		String actualMessage = hp.getFooterSubscriptionError();
-		Assert.assertEquals(actualMessage, "Email is already subscribed.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 19, enabled = true, invocationCount = 1)
-	public void testEnterValidEmailInFooterOfHomepageAndPressEnterSubscriptionShouldWorkCorrectly()
-			throws IOException, InterruptedException {
+	public void testClickFooterCareersLinkAndVerifyNavigation() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		driver.navigate().to(URL_HOME);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		Footer footer = new Footer(driver);
 
-		String validEmail = (String) Excel.getData("HomePageFooter", 1, 0);
+		softAssert.assertTrue(footer.clickOnFooterCareersLink(), "Failed to click Careers link");
+		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/careers"),
+				"Careers page URL verification failed");
 
-		WebElement emailField = driver
-				.findElement(By.cssSelector("footer form.flex.flex-col.space-y-3 input[type='email']"));
-		emailField.clear();
-		emailField.sendKeys(validEmail);
-		emailField.sendKeys(Keys.ENTER);
-		Thread.sleep(2000);
-
-		String successMessage = hp.getFooterSubscriptionSuccessMessage();
-		Assert.assertFalse(successMessage.isEmpty(),
-				"Subscription did not work correctly when Enter key was pressed from footer email field.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 20, enabled = true, invocationCount = 1)
-	public void testVerifyEmailSubscriptionInputFieldInFooterOfHomepageAcceptsAllValidEmailFormats()
-			throws IOException, InterruptedException {
+	public void testClickFooterBlogsLinkAndVerifyNavigation() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		driver.navigate().to(URL_HOME);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		Footer footer = new Footer(driver);
 
-		String validEmail = (String) Excel.getData("HomePageFooter", 1, 0);
-		hp.subscribeFromFooter(validEmail);
-		Thread.sleep(2000);
+		softAssert.assertTrue(footer.clickOnFooterBlogsLink(), "Failed to click Blogs link");
+		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/all-blogs"),
+				"Blogs page URL verification failed");
 
-		String successMessage = hp.getFooterSubscriptionSuccessMessage();
-		String errorMessage = hp.getFooterSubscriptionError();
-
-		Assert.assertTrue(!successMessage.isEmpty() && errorMessage.isEmpty(),
-				"Valid email format was not accepted in footer subscription field.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 21, enabled = true, invocationCount = 1)
-	public void testVerifyEmailSubscriptionInputFieldInFooterOfHomepageDoesNotAcceptAllInvalidEmailFormat()
-			throws IOException, InterruptedException {
+	public void testClickFooterHelpCenterLinkAndVerifyNavigation() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		driver.navigate().to(URL_HOME);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		Footer footer = new Footer(driver);
 
-		String invalidEmail = (String) Excel.getData("HomePageFooter", 2, 0);
-		hp.subscribeFromFooter(invalidEmail);
-		Thread.sleep(1500);
+		softAssert.assertTrue(footer.clickOnFooterHelpCenterLink(), "Failed to click Help Center link");
+		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/help-center"),
+				"Help Center page URL verification failed");
 
-		String errorMessage = hp.getFooterSubscriptionError();
-		Assert.assertFalse(errorMessage.isEmpty(), "Invalid email format was accepted in footer subscription field.");
+		softAssert.assertAll();
 	}
 
 	@Test(priority = 22, enabled = true, invocationCount = 1)
-	public void testVerifyEmailSubscriptionFieldInFooterOfHomepageGetsClearedAfterSuccessfulSubscription()
-			throws IOException, InterruptedException {
+	public void testClickFooterPrivacyPolicyLinkAndVerifyNavigation() throws IOException {
 
-		HomePage hp = new HomePage(driver);
+		SoftAssert softAssert = new SoftAssert();
 
-		String homepageUrlWithForwardSlash = (String) Excel.getData("HomePage", 1, 1);
-		driver.get(homepageUrlWithForwardSlash);
+		driver.navigate().to(URL_HOME);
 
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
+		Footer footer = new Footer(driver);
 
-		String validEmail = (String) Excel.getData("HomePageFooter", 1, 0);
-		hp.subscribeFromFooter(validEmail);
-		Thread.sleep(2000);
+		softAssert.assertTrue(footer.clickOnFooterPrivacyPolicyLink(), "Failed to click Privacy Policy link");
+		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/privacy-policy"),
+				"Privacy Policy page URL verification failed");
 
-		String actualValue = driver
-				.findElement(By.cssSelector("footer form.flex.flex-col.space-y-3 input[type='email']"))
-				.getAttribute("value");
+		softAssert.assertAll();
+	}
 
-		Assert.assertTrue(actualValue == null || actualValue.trim().isEmpty(),
-				"Email subscription field is not cleared after successful subscription.");
+	@Test(priority = 23, enabled = true, invocationCount = 1)
+	public void testClickFooterTermsOfServiceLinkAndVerifyNavigation() throws IOException {
+
+		SoftAssert softAssert = new SoftAssert();
+
+		driver.navigate().to(URL_HOME);
+
+		Footer footer = new Footer(driver);
+
+		softAssert.assertTrue(footer.clickOnFooterTermsOfServiceLink(), "Failed to click Terms of Service link");
+		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/terms-of-service"),
+				"Terms of Service page URL verification failed");
+
+		softAssert.assertAll();
 	}
 }

@@ -13,7 +13,7 @@ import pom.SearchProductsPage;
 public class AS_3577_clickAnyShopButtonOnCategoryCard extends OpenClose {
 
 	@Test
-	public void testClickingOnAllCategoryShopButtonsOneByOne() throws IOException {
+	public void testClickingOnAnyOneCategoryShopButton() throws IOException {
 		String homepageExpectedText = (String) Excel.getData("HomePage", 1, 0);
 
 		HomePage hp = new HomePage(driver);

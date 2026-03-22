@@ -14,7 +14,7 @@ import pom.HomePage;
 public class AS_1660_printAllCategoryNamesUsingJavascriptInSubheading extends OpenClose {
 
 	@Test
-	public void testPrintingAllCategoryNames() throws IOException {
+	public void testprintAllCategoryNamesUsingJavascriptInSubheading() throws IOException {
 
 		SoftAssert softAssert = new SoftAssert();
 
