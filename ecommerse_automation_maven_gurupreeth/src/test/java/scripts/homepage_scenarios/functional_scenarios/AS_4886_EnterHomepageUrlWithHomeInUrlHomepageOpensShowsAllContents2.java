@@ -23,6 +23,6 @@ public class AS_4886_EnterHomepageUrlWithHomeInUrlHomepageOpensShowsAllContents2
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the main parent container / root container of homepage is displayed
-		hp.isHomePageRootDisplayed();
+		hp.verifyHomePageRootContainerIsDisplayedAndEnabled();
 	}
 }

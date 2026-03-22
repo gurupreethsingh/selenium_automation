@@ -3,6 +3,7 @@ package scripts.homepage_scenarios.functional_scenarios;
 import java.io.IOException;
 import java.util.List;
 
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,10 +11,10 @@ import generic.Excel;
 import generic.OpenClose;
 import pom.HomePage;
 
-public class AS_1660_printAllCategoryNamesUsingJavascript extends OpenClose {
+public class AS_1300_printAllCategoryNames extends OpenClose {
 
 	@Test
-	public void testPrintAllCategoryNamesUsingJavascript() throws IOException {
+	public void testPrintingAllCategoryNames() throws IOException {
 
 		String homepageExpectedText = (String) Excel.getData("HomePage", 1, 0);
 
@@ -21,7 +22,7 @@ public class AS_1660_printAllCategoryNamesUsingJavascript extends OpenClose {
 
 		Assert.assertTrue(hp.verifyHomepageTitle(homepageExpectedText), "Homepage title verification failed");
 
-		List<String> categories = hp.printAllCategoryNamesUsingJavascript();
+		List<WebElement> categories = hp.printAllCategoryNames();
 
 		Assert.assertFalse(categories.isEmpty(), "Category names list is empty");
 

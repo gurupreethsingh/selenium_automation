@@ -32,6 +32,10 @@ public class HomePage extends AllVerifications {
 	// ✅ HOMEPAGE ACTIONS
 	// ============================================================
 
+	public boolean verifyHomePageRootContainerIsDisplayedAndEnabled() {
+		return verifyElementPresentAndVisible(pageRootContainer, "HomePage Parent Container");
+	}
+
 	public void clickHeroIndicator(int indexZeroBased) {
 		if (indexZeroBased < 0 || heroCarouselIndicators == null || indexZeroBased >= heroCarouselIndicators.size()) {
 			System.out.println("[HOMEPAGE] Invalid hero indicator index: " + indexZeroBased);
@@ -63,7 +67,16 @@ public class HomePage extends AllVerifications {
 	private WebElement categoryCountText;
 
 	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div.duration-300:first-child")
-	private WebElement singleCategoryName; // electronics
+	private WebElement electronicsCategoryName; // electronics
+
+	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div.duration-300>div.relative>div.absolute.bottom-3>div>span:first-child")
+	private WebElement singleCategoryName; // any category name
+
+	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div.duration-300>div.relative>div.absolute.bottom-3>div>span:last-child")
+	private WebElement singleCategorAnyShopButtonName; // any category shop button
+
+	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div.duration-300>div.relative>div.absolute.bottom-3>div>span:last-child")
+	private List<WebElement> allShopButtons; // any category shop button
 
 	// locator for ALL individual category items
 	private By totalCategoryItems = By.cssSelector("section.m-8 > div.relative > div.flex.gap-3 > div");
@@ -75,6 +88,11 @@ public class HomePage extends AllVerifications {
 	private List<WebElement> allCategoryNames;
 
 	String allCategoryNamesUsingJavascript = "section.m-8 > div.relative > div.flex.gap-3 > div > div.relative > div.absolute > div.flex.items-center > span:first-child";
+
+	@FindBy(css = "section.m-8 > div.relative > div.flex.gap-3 > div > div.p-3>p")
+	private List<WebElement> allCategorySubHeadingNames;
+
+	String allCategorySubHeadingNamesUsingJavascript = "section.m-8 > div.relative > div.flex.gap-3 > div > div.p-3>p";
 
 	// brand section elements
 	@FindBy(css = "section.m-10>div:first-child>div>h2")
@@ -128,8 +146,119 @@ public class HomePage extends AllVerifications {
 		return printTextOfAllElementsUsingJavascript(allCategoryNamesUsingJavascript, "All Category Names");
 	}
 
+	public List<WebElement> printAllCategorySubHeadingNames() {
+		return printTextOfAllElements(allCategorySubHeadingNames, "All Category Sub heading");
+	}
+
+	public List<String> printAllCategorySubHeadingNamesUsingJavascript() {
+		return printTextOfAllElementsUsingJavascript(allCategorySubHeadingNamesUsingJavascript, "All Category Names");
+	}
+
 	public boolean clickOnCategory() {
-		return clickOnElement(singleCategoryName, "Electronic Category");
+		return clickOnElement(singleCategoryName, "Electronic category");
+	}
+
+	public boolean clickOnAnyCategory() {
+		return clickOnElement(singleCategoryName, "Category Name");
+	}
+
+	// singleCategorAnyShopButtonyName
+	public boolean clickOnAnyShopButtonOfCategory() {
+		return clickOnElement(singleCategorAnyShopButtonName, "Category Shop Button");
+	}
+
+	public boolean clickOnAllShopButtonOfCategories() {
+		try {
+			if (allShopButtons == null || allShopButtons.isEmpty()) {
+				captureFailure("ALL SHOP BUTTONS LIST EMPTY");
+				return false;
+			}
+
+			return clickOnElement(allShopButtons.get(0), "First Category Shop Button");
+
+		} catch (Exception ex) {
+			captureFailure("CLICK ON FIRST CATEGORY SHOP BUTTON FAILED", ex);
+			return false;
+		}
+	}
+
+	public boolean clickShopButtonByCategoryName(String categoryName) {
+		try {
+			if (categoryName == null || categoryName.trim().isEmpty()) {
+				throw new IllegalArgumentException("Category name is null or empty");
+			}
+
+			String expectedCategory = categoryName.trim();
+
+			if (categoryCardsByTitle == null || categoryCardsByTitle.isEmpty()) {
+				captureFailure("CATEGORY CARD LIST EMPTY");
+				return false;
+			}
+
+			for (int attempt = 1; attempt <= 10; attempt++) {
+
+				System.out.println("[SHOP BUTTON SEARCH ATTEMPT " + attempt + "] Category: " + expectedCategory);
+
+				PageFactory.initElements(driver, this);
+
+				for (int i = 0; i < categoryCardsByTitle.size(); i++) {
+					try {
+						WebElement categoryCard = categoryCardsByTitle.get(i);
+						String actualTitle = categoryCard.getAttribute("title");
+
+						if (actualTitle != null && actualTitle.trim().equalsIgnoreCase(expectedCategory)) {
+
+							if (allShopButtons == null || allShopButtons.size() <= i) {
+								System.out.println(
+										"[SHOP BUTTON NOT FOUND] Category matched but shop button missing for: "
+												+ expectedCategory);
+								captureFailure("SHOP BUTTON NOT FOUND FOR CATEGORY -> " + expectedCategory);
+								return false;
+							}
+
+							System.out
+									.println("[CLICKING SHOP BUTTON] Category: " + expectedCategory + " | Index: " + i);
+
+							return clickOnElement(allShopButtons.get(i),
+									"Shop Button Of Category: " + expectedCategory);
+						}
+
+					} catch (Exception innerEx) {
+						System.out.println("[CATEGORY / SHOP BUTTON MATCH FAILED] " + expectedCategory);
+					}
+				}
+
+				clickOnElement(categoryScrollRightButton, "Category Scroll Right");
+			}
+
+			System.out.println(
+					"[SHOP BUTTON CLICK FAILED] Category not found after slider attempts: " + expectedCategory);
+			captureFailure("SHOP BUTTON CLICK FAILED -> Category not found: " + expectedCategory);
+			return false;
+
+		} catch (Exception ex) {
+			System.out.println("[SHOP BUTTON CLICK FAILED] " + categoryName + " | " + ex.getMessage());
+			captureFailure("SHOP BUTTON CLICK FAILED -> " + categoryName, ex);
+			return false;
+		}
+	}
+
+	public String fetchSingleCategoryNameText() {
+		try {
+			String categoryText = singleCategoryName.getText() == null ? "" : singleCategoryName.getText().trim();
+
+			System.out.println("[SINGLE CATEGORY TEXT] " + categoryText);
+
+			if (categoryText.isEmpty()) {
+				captureFailure("SINGLE CATEGORY TEXT EMPTY");
+			}
+
+			return categoryText;
+
+		} catch (Exception ex) {
+			captureFailure("FETCH SINGLE CATEGORY TEXT FAILED", ex);
+			return "";
+		}
 	}
 
 	public void scrollCategoriesLeft() {
@@ -165,7 +294,34 @@ public class HomePage extends AllVerifications {
 			return false;
 
 		} catch (Exception ex) {
-			System.out.println("[CATEGORY CLICK FAILED] " + categoryName);
+			System.out.println("[CATEGORY CLICK FAILED] " + categoryName + " | " + ex.getMessage());
+			captureFailure("CATEGORY CLICK FAILED -> " + categoryName, ex);
+			return false;
+		}
+	}
+
+	public boolean clickCategoryShopButtonByName(String categoryName, WebElement categoryAllShopButtons) {
+		try {
+			if (categoryName == null || categoryName.trim().isEmpty()) {
+				throw new IllegalArgumentException("Category name is null or empty");
+			}
+
+			String expectedCategory = categoryName.trim();
+
+			for (WebElement category : categoryCardsByTitle) {
+				String actualTitle = category.getAttribute("title");
+
+				if (actualTitle != null && actualTitle.trim().equalsIgnoreCase(expectedCategory)) {
+					return clickOnElement(categoryAllShopButtons, "Category Card: " + expectedCategory);
+				}
+			}
+
+			System.out.println("[CATEGORY CLICK FAILED] Category not found: " + expectedCategory);
+			captureFailure("CATEGORY CLICK FAILED -> Category not found: " + expectedCategory);
+			return false;
+
+		} catch (Exception ex) {
+			System.out.println("[CATEGORY CLICK FAILED] " + categoryName + " | " + ex.getMessage());
 			captureFailure("CATEGORY CLICK FAILED -> " + categoryName, ex);
 			return false;
 		}

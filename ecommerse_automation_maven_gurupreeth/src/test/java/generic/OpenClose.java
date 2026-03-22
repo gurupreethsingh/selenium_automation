@@ -36,7 +36,7 @@ public class OpenClose implements AutomationConstants {
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 		driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
 
-		driver.get(URL_HOME);
+		driver.get(BASE_URL);
 	}
 
 //	// for mobile screen automation use this.

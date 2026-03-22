@@ -22,9 +22,23 @@ public class SearchProductsPage extends AllVerifications {
 	@FindBy(css = "aside.hidden div.w-full div.space-y-1")
 	private WebElement categoryDropdownContainer;
 
-	// All top-level category names in the left category filter
-	@FindBy(css = "aside.hidden div.w-full div.space-y-1 > div > div.flex.items-center.justify-between > span")
-	private List<WebElement> allCategoryDropdownItems;
+	// one single main drop down heading
+	@FindBy(css = "aside.hidden div.w-full div.space-y-1>div>div.flex>span.cursor-pointer.text-orange-600")
+	private WebElement singleHighlightedMainDropDownName;
+
+	// All top-level category drop down names in the left category filter (all
+	// dropdowns)
+	// Example: ELECTRONICS, TOYS
+	@FindBy(css = "aside.hidden div.w-full div.space-y-1 > div > div.flex.items-center.justify-between > span:first-child")
+	private List<WebElement> allCategoryMainDropdownItemNames;
+
+	// All expanded sub-category options of the currently expanded category
+	// Example inside ELECTRONICS: HEADPHONES, LAPTOPS, MOBILE PHONES, SMART WATCH
+	@FindBy(css = "aside.hidden div.w-full div.space-y-1>div>div.pl-4.mt-1.space-y-1>div")
+	private List<WebElement> allExpandedCategoryOptions;
+
+	@FindBy(css = "div.grid-cols-2 div.mt-3>p:first-child")
+	private List<WebElement> allProductsInSingleCategory;
 
 	public SearchProductsPage(WebDriver driver) {
 		super(driver);
@@ -53,23 +67,34 @@ public class SearchProductsPage extends AllVerifications {
 	}
 
 	// ============================================================
-	// ✅ VERIFY CATEGORY DROPDOWN IS DISPLAYED
+	// ✅ PRODUCTS VERIFICATION
+	// ============================================================
+
+	public List<WebElement> fetchAllProductsOfACategory(String categoryName) {
+		return printTextOfAllElements(allProductsInSingleCategory, "[All Products In Category] " + categoryName);
+	}
+
+	// ============================================================
+	// ✅ CATEGORY DROPDOWN MAIN HEADER METHODS
 	// ============================================================
 
 	public boolean verifyCategoryDropdownIsDisplayed() {
 		return verifyElementPresentAndVisible(categoryDropdownContainer, "Search Products Category Dropdown");
 	}
 
-	// ============================================================
-	// ✅ COMPLETE DROPDOWN VALIDATION
-	// Verifies:
-	// 1. dropdown visible
-	// 2. expected category exists
-	// 3. expected category is orange (selected)
-	// 4. all other categories are NOT orange
-	// 5. only one category is selected
-	// ============================================================
+	// Prints top-level category drop down headings names only.
+	// Example: ELECTRONICS, TOYS
+	public List<WebElement> fetchAndPrintAllCategoryDropdownOptions() {
+		return fetchAndPrintAllDropdownOptions(categoryDropdownContainer, allCategoryMainDropdownItemNames,
+				"Search Products Main Category Dropdown");
+	}
 
+	public boolean verifyCategoryExistsInDropdown(String expectedCategoryName) {
+		return verifyOptionExistsInDropdown(categoryDropdownContainer, allCategoryMainDropdownItemNames,
+				expectedCategoryName, "Search Products Main Category Dropdown");
+	}
+
+	// singleHighlightedMainDropDownName
 	public boolean verifySelectedCategoryHighlightedInDropdown(String expectedCategoryName) {
 		try {
 			expectedCategoryName = expectedCategoryName == null ? "" : expectedCategoryName.trim();
@@ -78,52 +103,86 @@ public class SearchProductsPage extends AllVerifications {
 				throw new IllegalArgumentException("Expected category name is null or empty");
 			}
 
-			if (!verifyElementPresentAndVisible(categoryDropdownContainer, "Search Products Category Dropdown")) {
+			if (!verifyDropdownPresentAndVisible(categoryDropdownContainer, "Search Products Main Category Dropdown")) {
 				return false;
 			}
 
-			if (allCategoryDropdownItems == null || allCategoryDropdownItems.isEmpty()) {
-				System.out.println("[CATEGORY DROPDOWN FAIL] No category items found in dropdown");
-				captureFailure("CATEGORY DROPDOWN FAIL -> No category items found");
+			if (!verifyDropdownHasOptions(allCategoryMainDropdownItemNames, "Search Products Main Category Dropdown")) {
 				return false;
 			}
 
 			System.out.println("[CATEGORY DROPDOWN VERIFY]");
 			System.out.println("Expected Selected Category : " + expectedCategoryName);
-			System.out.println("Total Dropdown Categories  : " + allCategoryDropdownItems.size());
+			System.out.println("Total Dropdown Categories  : " + allCategoryMainDropdownItemNames.size());
 
-			WebElement matchedCategoryElement = null;
-			int orangeSelectedCount = 0;
+			// ============================================================
+			// 1. Verify highlighted main dropdown category element is present
+			// ============================================================
+			if (singleHighlightedMainDropDownName == null) {
+				System.out.println("[CATEGORY FAIL] Highlighted category element is null");
+				captureFailure("HIGHLIGHTED CATEGORY ELEMENT IS NULL");
+				return false;
+			}
 
-			for (int i = 0; i < allCategoryDropdownItems.size(); i++) {
-				WebElement categoryElement = allCategoryDropdownItems.get(i);
+			String highlightedCategoryText = "";
+			String highlightedCategoryClass = "";
 
-				String actualText = "";
-				String classValue = "";
+			try {
+				highlightedCategoryText = singleHighlightedMainDropDownName.getText() == null ? ""
+						: singleHighlightedMainDropDownName.getText().trim();
+
+				highlightedCategoryClass = singleHighlightedMainDropDownName.getAttribute("class") == null ? ""
+						: singleHighlightedMainDropDownName.getAttribute("class").trim();
+
+				System.out.println("[HIGHLIGHTED CATEGORY] Text: " + highlightedCategoryText + " | Class: "
+						+ highlightedCategoryClass);
+
+			} catch (Exception ex) {
+				System.out.println("[CATEGORY FAIL] Unable to read highlighted category element");
+				captureFailure("UNABLE TO READ HIGHLIGHTED CATEGORY ELEMENT", ex);
+				return false;
+			}
+
+			// ============================================================
+			// 2. Verify the highlighted category text matches expected
+			// ============================================================
+			if (!highlightedCategoryText.equalsIgnoreCase(expectedCategoryName)) {
+				System.out.println("[CATEGORY FAIL] Highlighted category mismatch");
+				System.out.println("Expected : " + expectedCategoryName);
+				System.out.println("Actual   : " + highlightedCategoryText);
+				captureFailure("HIGHLIGHTED CATEGORY TEXT MISMATCH -> expected=" + expectedCategoryName + " actual="
+						+ highlightedCategoryText);
+				return false;
+			}
+
+			// ============================================================
+			// 3. Verify highlighted category really contains orange class
+			// ============================================================
+			if (!highlightedCategoryClass.contains("text-orange-600")) {
+				System.out.println(
+						"[CATEGORY FAIL] Highlighted category does not contain orange class: " + expectedCategoryName);
+				captureFailure("HIGHLIGHTED CATEGORY DOES NOT HAVE ORANGE CLASS -> " + expectedCategoryName);
+				return false;
+			}
+
+			// ============================================================
+			// 4. Verify expected category exists in all main dropdown names
+			// ============================================================
+			int matchedCountInAllDropdowns = 0;
+
+			for (int i = 0; i < allCategoryMainDropdownItemNames.size(); i++) {
+				WebElement categoryElement = allCategoryMainDropdownItemNames.get(i);
 
 				try {
-					actualText = categoryElement.getText() == null ? "" : categoryElement.getText().trim();
-					classValue = categoryElement.getAttribute("class") == null ? ""
+					String actualText = categoryElement.getText() == null ? "" : categoryElement.getText().trim();
+					String classValue = categoryElement.getAttribute("class") == null ? ""
 							: categoryElement.getAttribute("class").trim();
 
 					System.out.println(
 							"[CATEGORY ITEM] Index: " + (i + 1) + " | Text: " + actualText + " | Class: " + classValue);
 
-					boolean isOrange = classValue.contains("text-orange-600");
-
-					if (isOrange) {
-						orangeSelectedCount++;
-					}
-
 					if (actualText.equalsIgnoreCase(expectedCategoryName)) {
-						matchedCategoryElement = categoryElement;
-
-						if (!isOrange) {
-							System.out.println("[CATEGORY FAIL] Expected category found but NOT highlighted in orange: "
-									+ expectedCategoryName);
-							captureFailure("CATEGORY NOT HIGHLIGHTED ORANGE -> " + expectedCategoryName);
-							return false;
-						}
+						matchedCountInAllDropdowns++;
 					}
 
 				} catch (Exception innerEx) {
@@ -131,17 +190,40 @@ public class SearchProductsPage extends AllVerifications {
 				}
 			}
 
-			if (matchedCategoryElement == null) {
-				System.out.println("[CATEGORY FAIL] Expected category not found in dropdown: " + expectedCategoryName);
-				captureFailure("CATEGORY NOT FOUND IN DROPDOWN -> " + expectedCategoryName);
+			if (matchedCountInAllDropdowns == 0) {
+				System.out.println(
+						"[CATEGORY FAIL] Expected category not found in main dropdown list: " + expectedCategoryName);
+				captureFailure("CATEGORY NOT FOUND IN MAIN DROPDOWN LIST -> " + expectedCategoryName);
 				return false;
 			}
 
-			if (orangeSelectedCount != 1) {
-				System.out.println("[CATEGORY FAIL] More than one / no orange selected category found. Count: "
-						+ orangeSelectedCount);
-				captureFailure("INVALID ORANGE SELECTION COUNT -> expected=1 actual=" + orangeSelectedCount);
+			if (matchedCountInAllDropdowns > 1) {
+				System.out.println("[CATEGORY FAIL] Duplicate category names found in main dropdown list. Count: "
+						+ matchedCountInAllDropdowns + " | Category: " + expectedCategoryName);
+				captureFailure("DUPLICATE CATEGORY NAMES FOUND -> " + expectedCategoryName + " | Count="
+						+ matchedCountInAllDropdowns);
 				return false;
+			}
+
+			// ============================================================
+			// 5. Verify expanded options are present for selected category
+			// ============================================================
+			if (!verifyDropdownHasOptions(allExpandedCategoryOptions,
+					"Expanded Sub Category Options Under Selected Category")) {
+				return false;
+			}
+
+			System.out.println("[EXPANDED OPTIONS COUNT] " + allExpandedCategoryOptions.size());
+
+			for (int i = 0; i < allExpandedCategoryOptions.size(); i++) {
+				try {
+					String optionText = allExpandedCategoryOptions.get(i).getText() == null ? ""
+							: allExpandedCategoryOptions.get(i).getText().trim();
+
+					System.out.println("[EXPANDED OPTION] Index: " + (i + 1) + " | Text: " + optionText);
+				} catch (Exception innerEx) {
+					System.out.println("[EXPANDED OPTION READ FAILED] Index: " + (i + 1));
+				}
 			}
 
 			System.out.println(
@@ -156,38 +238,18 @@ public class SearchProductsPage extends AllVerifications {
 	}
 
 	// ============================================================
-	// ✅ OPTIONAL: ONLY CHECK WHETHER CATEGORY EXISTS IN DROPDOWN
+	// ✅ EXPANDED CATEGORY INNER OPTIONS METHODS
 	// ============================================================
 
-	public boolean verifyCategoryExistsInDropdown(String expectedCategoryName) {
-		try {
-			expectedCategoryName = expectedCategoryName == null ? "" : expectedCategoryName.trim();
+	// Prints inner options inside currently expanded category
+	// Example inside ELECTRONICS: HEADPHONES, LAPTOPS, MOBILE PHONES, SMART WATCH
+	public List<WebElement> fetchAndPrintAllExpandedCategoryOptions() {
+		return fetchAndPrintAllDropdownOptions(categoryDropdownContainer, allExpandedCategoryOptions,
+				"Expanded Category Inner Options");
+	}
 
-			if (expectedCategoryName.isEmpty()) {
-				throw new IllegalArgumentException("Expected category name is null or empty");
-			}
-
-			if (!verifyElementPresentAndVisible(categoryDropdownContainer, "Search Products Category Dropdown")) {
-				return false;
-			}
-
-			for (WebElement categoryElement : allCategoryDropdownItems) {
-				String actualText = categoryElement.getText() == null ? "" : categoryElement.getText().trim();
-
-				if (actualText.equalsIgnoreCase(expectedCategoryName)) {
-					System.out.println("[CATEGORY EXISTS PASS] " + expectedCategoryName);
-					return true;
-				}
-			}
-
-			System.out.println("[CATEGORY EXISTS FAIL] " + expectedCategoryName);
-			captureFailure("CATEGORY DOES NOT EXIST IN DROPDOWN -> " + expectedCategoryName);
-			return false;
-
-		} catch (Exception ex) {
-			System.out.println("[CATEGORY EXISTS VERIFY FAILED] " + expectedCategoryName);
-			captureFailure("CATEGORY EXISTS VERIFY FAILED -> " + expectedCategoryName, ex);
-			return false;
-		}
+	public boolean verifyExpandedCategoryOptionExists(String expectedOptionName) {
+		return verifyOptionExistsInDropdown(categoryDropdownContainer, allExpandedCategoryOptions, expectedOptionName,
+				"Expanded Category Inner Options");
 	}
 }

@@ -10,11 +10,10 @@ import generic.OpenClose;
 import pom.HomePage;
 import pom.SearchProductsPage;
 
-public class AS_1235_Click1CategoryNavigateToSearchProduct extends OpenClose {
+public class AS_3577_clickAnyShopButtonOnCategoryCard extends OpenClose {
 
 	@Test
-	public void testClick1CategoryNavigateToSearchProduct() throws IOException {
-
+	public void testClickingOnAllCategoryShopButtonsOneByOne() throws IOException {
 		String homepageExpectedText = (String) Excel.getData("HomePage", 1, 0);
 
 		HomePage hp = new HomePage(driver);
@@ -28,7 +27,8 @@ public class AS_1235_Click1CategoryNavigateToSearchProduct extends OpenClose {
 		System.out.println("[CLICKING CATEGORY] " + categoryName);
 
 		// click on that category from homepage
-		Assert.assertTrue(hp.clickOnAnyCategory(), "Category click failed for: " + categoryName);
+		Assert.assertTrue(hp.clickOnAnyShopButtonOfCategory(),
+				"Category shop button , click failed for: " + categoryName);
 
 		// now after click user navigates to search products page
 		SearchProductsPage spp = new SearchProductsPage(driver);
