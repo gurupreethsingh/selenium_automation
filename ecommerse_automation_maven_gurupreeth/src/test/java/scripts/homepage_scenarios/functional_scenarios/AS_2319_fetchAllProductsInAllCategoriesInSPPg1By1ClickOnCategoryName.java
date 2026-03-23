@@ -18,25 +18,21 @@ public class AS_2319_fetchAllProductsInAllCategoriesInSPPg1By1ClickOnCategoryNam
 	@Test
 	public void testFetchAllProductsInAllCategoriesInSearchProductsPg() throws IOException {
 
+		// verfy whether user is in homepage.
 		SoftAssert softAssert = new SoftAssert();
-
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 		String expectedSearchProductsPageTitle = (String) Excel.getData("SearchProductsPage", 1, 0);
-
 		HomePage hp = new HomePage(driver);
-
 		Assert.assertTrue(hp.waitForPageToLoad(expectedHomePageTitle, null, "Home Page"),
 				"Home page did not load properly at test start");
-
 		Assert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed");
 
+		// fetch the all the category names. from excelsheet
 		for (int row = 6; row <= 15; row++) {
-
 			String categoryName = null;
 
 			try {
 				categoryName = (String) Excel.getData("HomePage", row, 2);
-
 				System.out.println("\n====================================================");
 				System.out.println("Processing Excel Row : " + row);
 				System.out.println("Category fetched from Excel : " + categoryName);

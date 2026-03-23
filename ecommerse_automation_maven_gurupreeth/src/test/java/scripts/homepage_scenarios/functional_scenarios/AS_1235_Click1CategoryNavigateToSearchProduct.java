@@ -16,15 +16,12 @@ public class AS_1235_Click1CategoryNavigateToSearchProduct extends OpenClose {
 	public void testClick1CategoryNavigateToSearchProduct() throws IOException {
 
 		String homepageExpectedText = (String) Excel.getData("HomePage", 1, 0);
-
 		HomePage hp = new HomePage(driver);
-
 		Assert.assertTrue(hp.verifyHomepageTitle(homepageExpectedText), "Homepage title verification failed");
 
 		// fetch category name before click
 		String categoryName = hp.fetchSingleCategoryNameText();
 		Assert.assertFalse(categoryName.isEmpty(), "Fetched category name is empty");
-
 		System.out.println("[CLICKING CATEGORY] " + categoryName);
 
 		// click on that category from homepage
@@ -32,7 +29,6 @@ public class AS_1235_Click1CategoryNavigateToSearchProduct extends OpenClose {
 
 		// now after click user navigates to search products page
 		SearchProductsPage spp = new SearchProductsPage(driver);
-
 		String searchProductsPageExpectedText = (String) Excel.getData("SearchProductsPage", 1, 0);
 
 		Assert.assertTrue(spp.verifySearchProductsPageTitle(searchProductsPageExpectedText),
