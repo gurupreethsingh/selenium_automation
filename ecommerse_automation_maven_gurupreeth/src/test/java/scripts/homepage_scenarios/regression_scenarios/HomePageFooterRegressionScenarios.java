@@ -239,7 +239,7 @@ public class HomePageFooterRegressionScenarios extends OpenClose {
 		Footer footer = new Footer(driver);
 
 		softAssert.assertTrue(footer.verifySubscribeContainerIsDisplayed(), "Subscribe container is not displayed");
-		softAssert.assertTrue(footer.verifySubscribeFormHeadingText("Stay in the loop"),
+		softAssert.assertTrue(footer.verifySubscribeFormHeading("Subscribe for Updates"),
 				"Subscribe form heading verification failed");
 		softAssert.assertTrue(footer.verifySubscribeFormCardIsDisplayed(), "Subscribe form card is not displayed");
 		softAssert.assertTrue(footer.verifySubscriptionFormIsDisplayed(), "Subscription form is not displayed");
@@ -272,9 +272,9 @@ public class HomePageFooterRegressionScenarios extends OpenClose {
 		Footer footer = new Footer(driver);
 
 		softAssert.assertTrue(footer.verifyCopyrightText("©"), "Copyright text verification failed");
-		softAssert.assertTrue(footer.verifySecureFastReliableText("Secure • Fast • Reliable"),
+		softAssert.assertTrue(footer.verifySecureFastReliableText("Secure.Fast.Reliable"),
 				"Secure fast reliable text verification failed");
-		softAssert.assertTrue(footer.verifyFooterTaglineText("Made with care for smarter shopping."),
+		softAssert.assertTrue(footer.verifyFooterTaglineText("Empowering online shopping — one click at a time."),
 				"Footer tagline verification failed");
 
 		softAssert.assertAll();

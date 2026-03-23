@@ -12,6 +12,7 @@
 //import org.openqa.selenium.By;
 //import org.openqa.selenium.ElementClickInterceptedException;
 //import org.openqa.selenium.JavascriptExecutor;
+//import org.openqa.selenium.Keys;
 //import org.openqa.selenium.NoSuchElementException;
 //import org.openqa.selenium.StaleElementReferenceException;
 //import org.openqa.selenium.TimeoutException;
@@ -26,15 +27,11 @@
 //	protected final WebDriver driver;
 //	protected final ScreenshotUtility su;
 //
-//	// ============================================================
-//	// ✅ CENTRAL CONFIG
-//	// ============================================================
-//	private static final int DEFAULT_WAITING_TIME_IN_SEC = 15;
-//	private static final int DEFAULT_RETRY_COUNT = 2;
+//	protected static final int DEFAULT_WAITING_TIME_IN_SEC = 15;
+//	protected static final int DEFAULT_RETRY_COUNT = 2;
+//	private static final int SPA_SETTLE_POLLS = 3;
+//	private static final long SPA_SETTLE_SLEEP_MS = 250;
 //
-//	// ============================================================
-//	// ✅ CONSTRUCTOR
-//	// ============================================================
 //	public AllVerifications(WebDriver driver) {
 //		this.driver = driver;
 //		this.su = new ScreenshotUtility(driver);
@@ -44,9 +41,6 @@
 //		return new WebDriverWait(driver, Duration.ofSeconds(seconds));
 //	}
 //
-//	// ============================================================
-//	// ✅ SCREENSHOT HELPERS
-//	// ============================================================
 //	protected void captureFailure(String tag) {
 //		try {
 //			System.out.println("[SCREENSHOT] " + tag);
@@ -66,7 +60,166 @@
 //		}
 //	}
 //
-//	// function to check if they are present and visible to perform actions on them.
+//	// ============================================================
+//	// ✅ REACT / SPA AWARE PAGE WAITS
+//	// ============================================================
+//
+//	public boolean waitForDocumentReady(String pageName) {
+//		try {
+//			String displayName = normalizeName(pageName, "PAGE");
+//			System.out.println("[WAIT DOCUMENT READY] " + displayName);
+//
+//			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(driver -> {
+//				try {
+//					String state = String
+//							.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState"));
+//					return "complete".equalsIgnoreCase(state);
+//				} catch (Exception e) {
+//					return false;
+//				}
+//			});
+//
+//			System.out.println("[DOCUMENT READY PASS] " + displayName);
+//			return true;
+//
+//		} catch (Exception ex) {
+//			System.out.println("[DOCUMENT READY FAIL] " + pageName + " | " + ex.getMessage());
+//			captureFailure("DOCUMENT READY FAIL -> " + pageName, ex);
+//			return false;
+//		}
+//	}
+//
+//	private String getDomStabilitySnapshot() {
+//		try {
+//			JavascriptExecutor js = (JavascriptExecutor) driver;
+//
+//			Object result = js.executeScript("var root = document.querySelector('#root') || document.body;"
+//					+ "if (!root) return '';" + "var title = document.title || '';"
+//					+ "var href = window.location.href || '';" + "var childCount = root.querySelectorAll('*').length;"
+//					+ "var textLen = (root.innerText || '').trim().length;"
+//					+ "var htmlLen = (root.innerHTML || '').trim().length;"
+//					+ "return title + '||' + href + '||' + childCount + '||' + textLen + '||' + htmlLen;");
+//
+//			return result == null ? "" : result.toString();
+//
+//		} catch (Exception e) {
+//			return "";
+//		}
+//	}
+//
+//	private boolean waitForSpaDomToSettle(String pageName) {
+//		try {
+//			String displayName = normalizeName(pageName, "PAGE");
+//			System.out.println("[WAIT SPA DOM STABLE] " + displayName);
+//
+//			String previousSnapshot = "";
+//			int stableCount = 0;
+//
+//			long endTime = System.currentTimeMillis() + (DEFAULT_WAITING_TIME_IN_SEC * 1000L);
+//
+//			while (System.currentTimeMillis() < endTime) {
+//				String currentSnapshot = getDomStabilitySnapshot();
+//
+//				if (!currentSnapshot.isEmpty() && currentSnapshot.equals(previousSnapshot)) {
+//					stableCount++;
+//				} else {
+//					stableCount = 0;
+//				}
+//
+//				if (stableCount >= SPA_SETTLE_POLLS) {
+//					System.out.println("[SPA DOM STABLE PASS] " + displayName);
+//					return true;
+//				}
+//
+//				previousSnapshot = currentSnapshot;
+//				Thread.sleep(SPA_SETTLE_SLEEP_MS);
+//			}
+//
+//			System.out.println("[SPA DOM STABLE TIMEOUT] " + displayName);
+//			return false;
+//
+//		} catch (Exception ex) {
+//			System.out.println("[SPA DOM STABLE FAIL] " + pageName + " | " + ex.getMessage());
+//			return false;
+//		}
+//	}
+//
+//	public boolean waitForPageToLoad(String expectedTitle, String expectedUrl, String pageName) {
+//		try {
+//			String displayName = normalizeName(pageName, "PAGE");
+//
+//			final String finalExpectedTitle = safeTrim(expectedTitle);
+//			final String finalExpectedUrl = safeTrim(expectedUrl);
+//
+//			System.out.println("[WAIT PAGE LOAD] " + displayName);
+//			System.out.println("Expected Title : " + finalExpectedTitle);
+//			System.out.println("Expected URL   : " + finalExpectedUrl);
+//
+//			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(driver -> {
+//				try {
+//					String state = String
+//							.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState"));
+//					return "complete".equalsIgnoreCase(state);
+//				} catch (Exception e) {
+//					return false;
+//				}
+//			});
+//
+//			if (!finalExpectedUrl.isEmpty()) {
+//				createWait(DEFAULT_WAITING_TIME_IN_SEC).until(driver -> {
+//					try {
+//						String actualUrl = safeTrim(driver.getCurrentUrl());
+//						return matchesExpectedUrl(actualUrl, finalExpectedUrl);
+//					} catch (Exception e) {
+//						return false;
+//					}
+//				});
+//			}
+//
+//			if (!finalExpectedTitle.isEmpty()) {
+//				createWait(DEFAULT_WAITING_TIME_IN_SEC).until(driver -> {
+//					try {
+//						String actualTitle = safeTrim(driver.getTitle());
+//						return matchesExpectedText(actualTitle, finalExpectedTitle);
+//					} catch (Exception e) {
+//						return false;
+//					}
+//				});
+//			}
+//
+//			waitForSpaDomToSettle(displayName);
+//
+//			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(driver -> {
+//				try {
+//					String actualTitle = safeTrim(driver.getTitle());
+//					String actualUrl = safeTrim(driver.getCurrentUrl());
+//
+//					boolean titleOk = finalExpectedTitle.isEmpty()
+//							|| matchesExpectedText(actualTitle, finalExpectedTitle);
+//
+//					boolean urlOk = finalExpectedUrl.isEmpty() || matchesExpectedUrl(actualUrl, finalExpectedUrl);
+//
+//					return titleOk && urlOk;
+//				} catch (Exception e) {
+//					return false;
+//				}
+//			});
+//
+//			System.out.println("[PAGE LOAD PASS] " + displayName + " | Title: " + safeTitle() + " | URL: " + safeUrl());
+//			return true;
+//
+//		} catch (Exception ex) {
+//			System.out.println("[PAGE LOAD FAIL] " + pageName + " | " + ex.getMessage());
+//			System.out.println("Actual Title : " + safeTitle());
+//			System.out.println("Actual URL   : " + safeUrl());
+//			captureFailure("PAGE LOAD FAIL -> " + pageName, ex);
+//			return false;
+//		}
+//	}
+//
+//	// ============================================================
+//	// ✅ ELEMENT VISIBILITY
+//	// ============================================================
 //
 //	public boolean verifyElementPresentAndVisible(WebElement element, String elementName) {
 //		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT + 1; attempt++) {
@@ -77,9 +230,10 @@
 //
 //				String displayName = normalizeName(elementName, getElementDisplayName(element));
 //
+//				waitForDocumentReady(displayName);
+//
 //				System.out.println("[VERIFY ELEMENT ATTEMPT " + attempt + "] " + displayName);
 //
-//				// 1. Validate reference is still alive
 //				try {
 //					element.isDisplayed();
 //				} catch (StaleElementReferenceException sere) {
@@ -88,11 +242,13 @@
 //					throw new NoSuchElementException("Element is not present in DOM: " + displayName);
 //				}
 //
-//				// 2. Wait until visible
+//				scrollElementToCenter(element);
+//
 //				WebElement visibleElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 //						.until(ExpectedConditions.visibilityOf(element));
 //
-//				// 3. Final displayed check
+//				scrollElementToCenter(visibleElement);
+//
 //				if (!visibleElement.isDisplayed()) {
 //					throw new IllegalStateException("Element is not displayed: " + displayName);
 //				}
@@ -130,23 +286,25 @@
 //
 //				String displayName = normalizeName(elementName, locator.toString());
 //
+//				waitForDocumentReady(displayName);
+//
 //				System.out.println("[VERIFY ELEMENT ATTEMPT " + attempt + "] " + displayName + " | " + locator);
 //
-//				// 1. Check DOM presence
 //				List<WebElement> found = driver.findElements(locator);
 //				if (found.isEmpty()) {
 //					throw new NoSuchElementException("Element is not present in DOM: " + locator);
 //				}
 //
-//				// 2. Wait for presence
 //				WebElement element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 //						.until(ExpectedConditions.presenceOfElementLocated(locator));
 //
-//				// 3. Wait for visibility
+//				scrollElementToCenter(element);
+//
 //				element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 //						.until(ExpectedConditions.visibilityOfElementLocated(locator));
 //
-//				// 4. Final displayed check
+//				scrollElementToCenter(element);
+//
 //				if (!element.isDisplayed()) {
 //					throw new IllegalStateException("Element is not displayed: " + displayName);
 //				}
@@ -175,16 +333,23 @@
 //		return false;
 //	}
 //
-//	// ENTERPRISE CLICK - WEBELEMENT
+//	// ============================================================
+//	// ✅ CLICK - WEBELEMENT
+//	// ============================================================
+//
 //	public boolean clickOnElement(WebElement element, String elementName) {
 //		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT + 1; attempt++) {
 //			try {
 //				if (element == null) {
 //					throw new IllegalArgumentException("Element is null");
 //				}
+//
 //				String displayName = normalizeName(elementName, getElementDisplayName(element));
+//
+//				waitForDocumentReady(displayName);
+//
 //				System.out.println("[CLICK ATTEMPT " + attempt + "] " + displayName);
-//				// 1. Validate element reference still exists
+//
 //				try {
 //					element.isDisplayed();
 //				} catch (StaleElementReferenceException sere) {
@@ -192,25 +357,30 @@
 //				} catch (Exception ex) {
 //					throw new NoSuchElementException("Element is not present in DOM: " + displayName);
 //				}
-//				// 2. Scroll to center
+//
 //				scrollElementToCenter(element);
-//				// 3. Wait until visible
+//
 //				WebElement visibleElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 //						.until(ExpectedConditions.visibilityOf(element));
-//				// 4. Wait until clickable
+//
+//				scrollElementToCenter(visibleElement);
+//
 //				WebElement clickableElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 //						.until(ExpectedConditions.elementToBeClickable(visibleElement));
-//				// 5. Check enabled
+//
+//				scrollElementToCenter(clickableElement);
+//
 //				if (!clickableElement.isEnabled()) {
 //					throw new IllegalStateException("Element is disabled: " + displayName);
 //				}
-//				// 6. Resolve best possible text for reporting
+//
 //				String clickedText = getCleanText(clickableElement);
 //				if (clickedText == null || clickedText.trim().isEmpty()) {
 //					clickedText = displayName;
 //				}
+//
 //				System.out.println("[CLICKING ELEMENT] " + clickedText);
-//				// 7. Normal click -> Actions click -> JS click
+//
 //				try {
 //					clickableElement.click();
 //				} catch (ElementClickInterceptedException e1) {
@@ -221,29 +391,35 @@
 //						((JavascriptExecutor) driver).executeScript("arguments[0].click();", clickableElement);
 //					}
 //				}
+//
 //				System.out.println("[CLICK SUCCESS] " + clickedText);
 //				return true;
+//
 //			} catch (StaleElementReferenceException sere) {
 //				System.out.println("[CLICK STALE] " + elementName + " | Retrying...");
 //				captureFailure("CLICK STALE -> " + elementName, sere);
+//
 //			} catch (TimeoutException te) {
 //				System.out.println("[CLICK TIMEOUT] " + elementName + " | " + te.getMessage());
 //				captureFailure("CLICK TIMEOUT -> " + elementName, te);
 //				return false;
+//
 //			} catch (Exception ex) {
 //				System.out.println("[CLICK FAILED] " + elementName + " | " + ex.getMessage());
 //				captureFailure("CLICK FAILED -> " + elementName, ex);
 //				return false;
 //			}
 //		}
+//
 //		System.out.println("[CLICK FAILED AFTER RETRIES] " + elementName);
 //		captureFailure("CLICK FAILED AFTER RETRIES -> " + elementName);
 //		return false;
 //	}
 //
 //	// ============================================================
-//	// ✅ ENTERPRISE CLICK - LOCATOR
+//	// ✅ CLICK - LOCATOR
 //	// ============================================================
+//
 //	public boolean clickOnElement(By locator, String elementName) {
 //		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT + 1; attempt++) {
 //			try {
@@ -253,35 +429,34 @@
 //
 //				String displayName = normalizeName(elementName, locator.toString());
 //
+//				waitForDocumentReady(displayName);
+//
 //				System.out.println("[CLICK ATTEMPT " + attempt + "] " + displayName + " | " + locator);
 //
-//				// 1. Presence check
 //				List<WebElement> found = driver.findElements(locator);
 //				if (found.isEmpty()) {
 //					throw new NoSuchElementException("Element is not present in DOM: " + locator);
 //				}
 //
-//				// 2. Wait for presence
 //				WebElement element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 //						.until(ExpectedConditions.presenceOfElementLocated(locator));
 //
-//				// 3. Scroll
 //				scrollElementToCenter(element);
 //
-//				// 4. Wait for visibility
 //				element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 //						.until(ExpectedConditions.visibilityOfElementLocated(locator));
 //
-//				// 5. Wait for clickability
+//				scrollElementToCenter(element);
+//
 //				element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 //						.until(ExpectedConditions.elementToBeClickable(locator));
 //
-//				// 6. Enabled check
+//				scrollElementToCenter(element);
+//
 //				if (!element.isEnabled()) {
 //					throw new IllegalStateException("Element is disabled: " + displayName);
 //				}
 //
-//				// 7. Get reporting text
 //				String clickedText = getCleanText(element);
 //				if (clickedText == null || clickedText.trim().isEmpty()) {
 //					clickedText = displayName;
@@ -289,7 +464,6 @@
 //
 //				System.out.println("[CLICKING ELEMENT] " + clickedText);
 //
-//				// 8. Normal click -> Actions click -> JS click
 //				try {
 //					element.click();
 //				} catch (ElementClickInterceptedException e1) {
@@ -325,8 +499,9 @@
 //	}
 //
 //	// ============================================================
-//	// ✅ ENTERPRISE TEXT VERIFICATION // matchType = equals / contains / regex
+//	// ✅ TEXT VERIFY
 //	// ============================================================
+//
 //	public boolean verifyText(WebElement element, String expectedText, String name, String matchType,
 //			boolean ignoreCase) {
 //		try {
@@ -346,9 +521,16 @@
 //				throw new IllegalArgumentException("Invalid matchType: " + matchType);
 //			}
 //
-//			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(ExpectedConditions.visibilityOf(element));
+//			waitForDocumentReady(name);
 //
-//			String actualText = safeTrim(element.getText());
+//			scrollElementToCenter(element);
+//
+//			WebElement visibleElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+//					.until(ExpectedConditions.visibilityOf(element));
+//
+//			scrollElementToCenter(visibleElement);
+//
+//			String actualText = safeTrim(visibleElement.getText());
 //
 //			System.out.println("[TEXT VERIFY]");
 //			System.out.println("Element Name   : " + name);
@@ -373,7 +555,6 @@
 //				try {
 //					Pattern pattern = ignoreCase ? Pattern.compile(expectedText, Pattern.CASE_INSENSITIVE)
 //							: Pattern.compile(expectedText);
-//
 //					result = pattern.matcher(actualText).matches();
 //				} catch (PatternSyntaxException ex) {
 //					throw new IllegalArgumentException("Invalid regex pattern: " + expectedText, ex);
@@ -399,8 +580,7 @@
 //	}
 //
 //	// ============================================================
-//	// ✅ ENTERPRISE TITLE VERIFICATION // EXACT / PARTIAL / NORMALIZED PARTIAL /
-//	// REGEX
+//	// ✅ TITLE VERIFY
 //	// ============================================================
 //	public boolean verifyTitleOfWebpage(String expectedTitle) {
 //		boolean titleVerified = false;
@@ -412,9 +592,13 @@
 //				throw new IllegalArgumentException("Expected title is null or empty");
 //			}
 //
+//			waitForDocumentReady("TITLE VERIFY");
+//
+//			final String finalExpectedTitle = expectedTitle;
+//
 //			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(driver -> {
-//				String title = driver.getTitle();
-//				return title != null && !title.trim().isEmpty();
+//				String actualTitle = safeTrim(driver.getTitle());
+//				return matchesExpectedText(actualTitle, finalExpectedTitle);
 //			});
 //
 //			String actualTitle = safeTrim(driver.getTitle());
@@ -458,8 +642,7 @@
 //	}
 //
 //	// ============================================================
-//	// ✅ ENTERPRISE URL VERIFICATION // EXACT / PARTIAL / NORMALIZED PARTIAL / REGEX
-//	// // with URL decoding
+//	// ✅ URL VERIFY
 //	// ============================================================
 //	public boolean verifyUrlOfWebpage(String expectedUrl) {
 //		boolean urlVerified = false;
@@ -471,38 +654,48 @@
 //				throw new IllegalArgumentException("Expected URL is null or empty");
 //			}
 //
-//			String actualUrl = safeTrim(driver.getCurrentUrl());
-//			String decodedActualUrl = URLDecoder.decode(actualUrl, StandardCharsets.UTF_8);
+//			waitForDocumentReady("URL VERIFY");
 //
-//			String normalizedExpected = normalizeVerificationText(expectedUrl);
+//			final String finalExpectedUrl = safeTrim(URLDecoder.decode(expectedUrl, StandardCharsets.UTF_8));
+//
+//			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(driver -> {
+//				String actualUrl = safeTrim(driver.getCurrentUrl());
+//				return matchesExpectedUrl(actualUrl, finalExpectedUrl);
+//			});
+//
+//			String actualUrl = safeTrim(driver.getCurrentUrl());
+//			String decodedActualUrl = safeTrim(URLDecoder.decode(actualUrl, StandardCharsets.UTF_8));
+//
+//			String normalizedExpected = normalizeVerificationText(finalExpectedUrl);
 //			String normalizedActual = normalizeVerificationText(decodedActualUrl);
 //
 //			System.out.println("[VERIFY URL]");
 //			System.out.println("Expected Input      : " + expectedUrl);
+//			System.out.println("Decoded Expected    : " + finalExpectedUrl);
 //			System.out.println("Actual URL          : " + actualUrl);
 //			System.out.println("Decoded Actual URL  : " + decodedActualUrl);
 //			System.out.println("Normalized Expected : " + normalizedExpected);
 //			System.out.println("Normalized Actual   : " + normalizedActual);
 //
-//			if (decodedActualUrl.equalsIgnoreCase(expectedUrl)) {
+//			if (decodedActualUrl.equalsIgnoreCase(finalExpectedUrl)) {
 //				urlVerified = true;
 //				System.out.println("[URL PASS] Match Type: EXACT");
-//			} else if (decodedActualUrl.toLowerCase().contains(expectedUrl.toLowerCase())) {
+//			} else if (decodedActualUrl.toLowerCase().contains(finalExpectedUrl.toLowerCase())) {
 //				urlVerified = true;
 //				System.out.println("[URL PASS] Match Type: PARTIAL");
 //			} else if (!normalizedExpected.isEmpty() && normalizedActual.contains(normalizedExpected)) {
 //				urlVerified = true;
 //				System.out.println("[URL PASS] Match Type: NORMALIZED PARTIAL");
-//			} else if (isValidRegex(expectedUrl) && decodedActualUrl.matches(expectedUrl)) {
+//			} else if (isValidRegex(finalExpectedUrl) && decodedActualUrl.matches(finalExpectedUrl)) {
 //				urlVerified = true;
 //				System.out.println("[URL PASS] Match Type: REGEX");
 //			}
 //
 //			if (urlVerified) {
-//				System.out.println("[URL PASS] Expected: " + expectedUrl + " | Found: " + actualUrl);
+//				System.out.println("[URL PASS] Expected: " + finalExpectedUrl + " | Found: " + actualUrl);
 //			} else {
-//				System.out.println("[URL FAIL] Expected: " + expectedUrl + " | Found: " + actualUrl);
-//				captureFailure("VERIFY URL FAIL -> expected=" + expectedUrl + " | actual=" + actualUrl
+//				System.out.println("[URL FAIL] Expected: " + finalExpectedUrl + " | Found: " + actualUrl);
+//				captureFailure("VERIFY URL FAIL -> expected=" + finalExpectedUrl + " | actual=" + actualUrl
 //						+ " | decodedActual=" + decodedActualUrl);
 //			}
 //
@@ -517,13 +710,70 @@
 //	// ============================================================
 //	// ✅ INTERNAL HELPERS
 //	// ============================================================
-//	// internal helper to scroll to the center of the element
+//
 //	protected void scrollElementToCenter(WebElement element) {
 //		try {
+//			if (element == null) {
+//				return;
+//			}
 //			((JavascriptExecutor) driver).executeScript(
 //					"arguments[0].scrollIntoView({block:'center', inline:'center', behavior:'instant'});", element);
 //		} catch (Exception e) {
 //			System.out.println("[SCROLL FAILED] Unable to scroll element to center.");
+//		}
+//	}
+//
+//	protected void scrollToTopOfPage() {
+//		try {
+//			((JavascriptExecutor) driver).executeScript("window.scrollTo({top:0, behavior:'instant'});");
+//			System.out.println("[SCROLL TOP PASS]");
+//		} catch (Exception e) {
+//			System.out.println("[SCROLL TOP FAIL]");
+//		}
+//	}
+//
+//	protected void scrollToBottomOfPage() {
+//		try {
+//			((JavascriptExecutor) driver)
+//					.executeScript("window.scrollTo({top:document.body.scrollHeight, behavior:'instant'});");
+//			System.out.println("[SCROLL BOTTOM PASS]");
+//		} catch (Exception e) {
+//			System.out.println("[SCROLL BOTTOM FAIL]");
+//		}
+//	}
+//
+//	protected void scrollByPixels(int x, int y) {
+//		try {
+//			((JavascriptExecutor) driver).executeScript("window.scrollBy(arguments[0], arguments[1]);", x, y);
+//			System.out.println("[SCROLL BY PIXELS PASS] x=" + x + " y=" + y);
+//		} catch (Exception e) {
+//			System.out.println("[SCROLL BY PIXELS FAIL] x=" + x + " y=" + y);
+//		}
+//	}
+//
+//	protected void scrollIntoViewStart(WebElement element) {
+//		try {
+//			if (element == null) {
+//				return;
+//			}
+//			((JavascriptExecutor) driver).executeScript(
+//					"arguments[0].scrollIntoView({block:'start', inline:'nearest', behavior:'instant'});", element);
+//			System.out.println("[SCROLL START PASS]");
+//		} catch (Exception e) {
+//			System.out.println("[SCROLL START FAIL]");
+//		}
+//	}
+//
+//	protected void scrollIntoViewEnd(WebElement element) {
+//		try {
+//			if (element == null) {
+//				return;
+//			}
+//			((JavascriptExecutor) driver).executeScript(
+//					"arguments[0].scrollIntoView({block:'end', inline:'nearest', behavior:'instant'});", element);
+//			System.out.println("[SCROLL END PASS]");
+//		} catch (Exception e) {
+//			System.out.println("[SCROLL END FAIL]");
 //		}
 //	}
 //
@@ -618,7 +868,46 @@
 //		}
 //	}
 //
-//	// generic function print names of all the elements
+//	private boolean matchesExpectedText(String actualText, String expectedText) {
+//		actualText = safeTrim(actualText);
+//		expectedText = safeTrim(expectedText);
+//
+//		if (expectedText.isEmpty()) {
+//			return true;
+//		}
+//
+//		String normalizedExpected = normalizeVerificationText(expectedText);
+//		String normalizedActual = normalizeVerificationText(actualText);
+//
+//		return actualText.equalsIgnoreCase(expectedText)
+//				|| actualText.toLowerCase().contains(expectedText.toLowerCase())
+//				|| (!normalizedExpected.isEmpty() && normalizedActual.contains(normalizedExpected))
+//				|| (isValidRegex(expectedText) && actualText.matches(expectedText));
+//	}
+//
+//	private boolean matchesExpectedUrl(String actualUrl, String expectedUrl) {
+//		actualUrl = safeTrim(actualUrl);
+//		expectedUrl = safeTrim(expectedUrl);
+//
+//		if (expectedUrl.isEmpty()) {
+//			return true;
+//		}
+//
+//		String decodedActualUrl = URLDecoder.decode(actualUrl, StandardCharsets.UTF_8);
+//
+//		String normalizedExpected = normalizeVerificationText(expectedUrl);
+//		String normalizedActual = normalizeVerificationText(decodedActualUrl);
+//
+//		return decodedActualUrl.equalsIgnoreCase(expectedUrl)
+//				|| decodedActualUrl.toLowerCase().contains(expectedUrl.toLowerCase())
+//				|| (!normalizedExpected.isEmpty() && normalizedActual.contains(normalizedExpected))
+//				|| (isValidRegex(expectedUrl) && decodedActualUrl.matches(expectedUrl));
+//	}
+//
+//	// ============================================================
+//	// ✅ PRINT ALL TEXT
+//	// ============================================================
+//
 //	public List<WebElement> printTextOfAllElements(List<WebElement> elements, String elementName) {
 //		try {
 //			if (elements == null) {
@@ -628,21 +917,21 @@
 //			System.out.println("[PRINT ALL TEXT] " + elementName + " | Total elements: " + elements.size());
 //
 //			for (int i = 0; i < elements.size(); i++) {
-//				String text = elements.get(i).getText().trim();
+//				WebElement element = elements.get(i);
+//				scrollElementToCenter(element);
+//				String text = element.getText().trim();
 //				System.out.println((i + 1) + ". " + text);
 //			}
 //
 //		} catch (Exception ex) {
 //			System.out.println("[PRINT ALL TEXT FAILED] " + elementName);
 //			captureFailure("[PRINT ALL TEXT FAILED] " + elementName, ex);
-//			return new java.util.ArrayList<>();
+//			return new ArrayList<>();
 //		}
 //
 //		return elements;
 //	}
 //
-//	// print the text of all the elements direclty from the dom using javascript not
-//	// from element directly
 //	public List<String> printTextOfAllElementsUsingJavascript(String cssSelector, String elementName) {
 //		try {
 //			if (cssSelector == null || cssSelector.trim().isEmpty()) {
@@ -652,11 +941,12 @@
 //			JavascriptExecutor js = (JavascriptExecutor) driver;
 //
 //			@SuppressWarnings("unchecked")
-//			List<String> texts = (List<String>) js.executeScript(""
-//					+ "var elements = document.querySelectorAll(arguments[0]);" + "var result = [];"
-//					+ "for (var i = 0; i < elements.length; i++) " + "{" + "var text = elements[i].textContent.trim();"
-//					+ "if (text !== '') " + "{" + "result.push(text);" + "    " + "}" + "}" + "return result;",
-//					cssSelector);
+//			List<String> texts = (List<String>) js
+//					.executeScript("" + "var elements = document.querySelectorAll(arguments[0]);" + "var result = [];"
+//							+ "for (var i = 0; i < elements.length; i++) {"
+//							+ "  elements[i].scrollIntoView({block:'center', inline:'center', behavior:'instant'});"
+//							+ "  var text = elements[i].textContent.trim();"
+//							+ "  if (text !== '') { result.push(text); }" + "}" + "return result;", cssSelector);
 //
 //			System.out
 //					.println("[PRINT ALL TEXT USING JAVASCRIPT] " + elementName + " | Total elements: " + texts.size());
@@ -674,7 +964,10 @@
 //		}
 //	}
 //
-//	// count functions.
+//	// ============================================================
+//	// ✅ COUNT FUNCTIONS
+//	// ============================================================
+//
 //	public boolean verifyTotalElementsCount(int expectedCount, By locator) {
 //		int actualCount = 0;
 //
@@ -714,12 +1007,10 @@
 //		}
 //	}
 //
-//	// function to count the number of elements.
 //	public boolean verifyTotalElementsCount(int expectedCount, List<?> elements) {
 //		int actualCount = 0;
 //
 //		try {
-//
 //			if (elements == null) {
 //				throw new IllegalArgumentException("Element list is null");
 //			}
@@ -727,7 +1018,6 @@
 //			System.out.println("[COUNT VERIFY] Expected: " + expectedCount);
 //
 //			for (int i = 1; i <= 50; i++) {
-//
 //				actualCount = elements.size();
 //
 //				if (actualCount == expectedCount) {
@@ -749,16 +1039,565 @@
 //			return ok;
 //
 //		} catch (Exception ex) {
-//
 //			System.out.println("[COUNT FAILED] Expected: " + expectedCount + " | Actual: " + actualCount);
-//
 //			captureFailure("COUNT FAILED -> expected=" + expectedCount + " actual=" + actualCount, ex);
+//			return false;
+//		}
+//	}
 //
+//	// ============================================================
+//	// ✅ GENERIC DROPDOWN HELPERS
+//	// ============================================================
+//
+//	public boolean verifyDropdownPresentAndVisible(WebElement dropdownContainer, String dropdownName) {
+//		try {
+//			if (dropdownContainer == null) {
+//				throw new IllegalArgumentException("Dropdown container is null for: " + dropdownName);
+//			}
+//
+//			scrollElementToCenter(dropdownContainer);
+//
+//			boolean status = verifyElementPresentAndVisible(dropdownContainer, dropdownName);
+//
+//			if (status) {
+//				System.out.println("[DROPDOWN PASS] " + dropdownName + " is present and visible");
+//			} else {
+//				System.out.println("[DROPDOWN FAIL] " + dropdownName + " is NOT present and visible");
+//				captureFailure("DROPDOWN NOT VISIBLE -> " + dropdownName);
+//			}
+//
+//			return status;
+//
+//		} catch (Exception ex) {
+//			System.out.println("[DROPDOWN VERIFY FAILED] " + dropdownName);
+//			captureFailure("DROPDOWN VERIFY FAILED -> " + dropdownName, ex);
+//			return false;
+//		}
+//	}
+//
+//	public boolean verifyDropdownHasOptions(List<WebElement> dropdownOptions, String dropdownName) {
+//		try {
+//			if (dropdownOptions == null) {
+//				throw new IllegalArgumentException("Dropdown options list is null for: " + dropdownName);
+//			}
+//
+//			int count = dropdownOptions.size();
+//
+//			System.out.println("[DROPDOWN OPTIONS COUNT] " + dropdownName + " -> " + count);
+//
+//			if (count <= 0) {
+//				System.out.println("[DROPDOWN FAIL] No options found in dropdown: " + dropdownName);
+//				captureFailure("NO DROPDOWN OPTIONS FOUND -> " + dropdownName);
+//				return false;
+//			}
+//
+//			System.out.println("[DROPDOWN PASS] Options found in dropdown: " + dropdownName);
+//			return true;
+//
+//		} catch (Exception ex) {
+//			System.out.println("[DROPDOWN OPTIONS VERIFY FAILED] " + dropdownName);
+//			captureFailure("DROPDOWN OPTIONS VERIFY FAILED -> " + dropdownName, ex);
+//			return false;
+//		}
+//	}
+//
+//	public List<WebElement> fetchAndPrintAllDropdownOptions(WebElement dropdownContainer,
+//			List<WebElement> dropdownOptions, String dropdownName) {
+//		try {
+//			if (!verifyDropdownPresentAndVisible(dropdownContainer, dropdownName)) {
+//				return dropdownOptions;
+//			}
+//
+//			if (!verifyDropdownHasOptions(dropdownOptions, dropdownName)) {
+//				return dropdownOptions;
+//			}
+//
+//			System.out.println("============================================================");
+//			System.out.println("[DROPDOWN OPTIONS PRINT]");
+//			System.out.println("Dropdown Name : " + dropdownName);
+//			System.out.println("Total Options : " + dropdownOptions.size());
+//			System.out.println("============================================================");
+//
+//			return printTextOfAllElements(dropdownOptions, "[DROPDOWN OPTION] " + dropdownName);
+//
+//		} catch (Exception ex) {
+//			System.out.println("[FETCH DROPDOWN OPTIONS FAILED] " + dropdownName);
+//			captureFailure("FETCH DROPDOWN OPTIONS FAILED -> " + dropdownName, ex);
+//			return dropdownOptions;
+//		}
+//	}
+//
+//	public boolean verifyOptionExistsInDropdown(WebElement dropdownContainer, List<WebElement> dropdownOptions,
+//			String expectedOptionText, String dropdownName) {
+//		try {
+//			expectedOptionText = expectedOptionText == null ? "" : expectedOptionText.trim();
+//
+//			if (expectedOptionText.isEmpty()) {
+//				throw new IllegalArgumentException(
+//						"Expected option text is null or empty for dropdown: " + dropdownName);
+//			}
+//
+//			if (!verifyDropdownPresentAndVisible(dropdownContainer, dropdownName)) {
+//				return false;
+//			}
+//
+//			if (!verifyDropdownHasOptions(dropdownOptions, dropdownName)) {
+//				return false;
+//			}
+//
+//			System.out.println("[DROPDOWN OPTION SEARCH]");
+//			System.out.println("Dropdown Name   : " + dropdownName);
+//			System.out.println("Expected Option : " + expectedOptionText);
+//
+//			for (int i = 0; i < dropdownOptions.size(); i++) {
+//				WebElement optionElement = dropdownOptions.get(i);
+//				scrollElementToCenter(optionElement);
+//				String actualText = optionElement.getText() == null ? "" : optionElement.getText().trim();
+//
+//				System.out.println("[DROPDOWN OPTION] Index: " + (i + 1) + " | Text: " + actualText);
+//
+//				if (actualText.equalsIgnoreCase(expectedOptionText)) {
+//					System.out.println("[DROPDOWN OPTION PASS] Found option: " + expectedOptionText);
+//					return true;
+//				}
+//			}
+//
+//			System.out.println("[DROPDOWN OPTION FAIL] Option not found: " + expectedOptionText);
+//			captureFailure("DROPDOWN OPTION NOT FOUND -> " + expectedOptionText + " | Dropdown: " + dropdownName);
+//			return false;
+//
+//		} catch (Exception ex) {
+//			System.out
+//					.println("[DROPDOWN OPTION VERIFY FAILED] " + expectedOptionText + " | Dropdown: " + dropdownName);
+//			captureFailure("DROPDOWN OPTION VERIFY FAILED -> " + expectedOptionText + " | Dropdown: " + dropdownName,
+//					ex);
+//			return false;
+//		}
+//	}
+//
+//	public WebElement fetchMatchingDropdownOption(WebElement dropdownContainer, List<WebElement> dropdownOptions,
+//			String expectedOptionText, String dropdownName) {
+//		try {
+//			expectedOptionText = expectedOptionText == null ? "" : expectedOptionText.trim();
+//
+//			if (expectedOptionText.isEmpty()) {
+//				throw new IllegalArgumentException(
+//						"Expected option text is null or empty for dropdown: " + dropdownName);
+//			}
+//
+//			if (!verifyDropdownPresentAndVisible(dropdownContainer, dropdownName)) {
+//				return null;
+//			}
+//
+//			if (!verifyDropdownHasOptions(dropdownOptions, dropdownName)) {
+//				return null;
+//			}
+//
+//			for (int i = 0; i < dropdownOptions.size(); i++) {
+//				WebElement optionElement = dropdownOptions.get(i);
+//				scrollElementToCenter(optionElement);
+//				String actualText = optionElement.getText() == null ? "" : optionElement.getText().trim();
+//
+//				if (actualText.equalsIgnoreCase(expectedOptionText)) {
+//					System.out.println("[MATCHING DROPDOWN OPTION FOUND] Index: " + (i + 1) + " | Text: " + actualText);
+//					return optionElement;
+//				}
+//			}
+//
+//			System.out.println("[MATCHING DROPDOWN OPTION FAIL] Option not found: " + expectedOptionText);
+//			captureFailure(
+//					"MATCHING DROPDOWN OPTION NOT FOUND -> " + expectedOptionText + " | Dropdown: " + dropdownName);
+//			return null;
+//
+//		} catch (Exception ex) {
+//			System.out.println(
+//					"[FETCH MATCHING DROPDOWN OPTION FAILED] " + expectedOptionText + " | Dropdown: " + dropdownName);
+//			captureFailure(
+//					"FETCH MATCHING DROPDOWN OPTION FAILED -> " + expectedOptionText + " | Dropdown: " + dropdownName,
+//					ex);
+//			return null;
+//		}
+//	}
+//
+//	public int fetchAndPrintDropdownOptionsWithClasses(WebElement dropdownContainer, List<WebElement> dropdownOptions,
+//			String dropdownName) {
+//		int totalOptions = 0;
+//
+//		try {
+//			if (!verifyDropdownPresentAndVisible(dropdownContainer, dropdownName)) {
+//				return totalOptions;
+//			}
+//
+//			if (!verifyDropdownHasOptions(dropdownOptions, dropdownName)) {
+//				return totalOptions;
+//			}
+//
+//			totalOptions = dropdownOptions.size();
+//
+//			System.out.println("============================================================");
+//			System.out.println("[DROPDOWN OPTIONS WITH CLASS PRINT]");
+//			System.out.println("Dropdown Name : " + dropdownName);
+//			System.out.println("Total Options : " + totalOptions);
+//			System.out.println("============================================================");
+//
+//			for (int i = 0; i < dropdownOptions.size(); i++) {
+//				WebElement optionElement = dropdownOptions.get(i);
+//
+//				String actualText = "";
+//				String classValue = "";
+//
+//				try {
+//					scrollElementToCenter(optionElement);
+//					actualText = optionElement.getText() == null ? "" : optionElement.getText().trim();
+//					classValue = optionElement.getAttribute("class") == null ? ""
+//							: optionElement.getAttribute("class").trim();
+//
+//					System.out.println("[DROPDOWN OPTION] Index: " + (i + 1) + " | Text: " + actualText + " | Class: "
+//							+ classValue);
+//
+//				} catch (Exception innerEx) {
+//					System.out.println("[DROPDOWN OPTION READ FAILED] Index: " + (i + 1));
+//				}
+//			}
+//
+//			return totalOptions;
+//
+//		} catch (Exception ex) {
+//			System.out.println("[FETCH DROPDOWN OPTIONS WITH CLASS FAILED] " + dropdownName);
+//			captureFailure("FETCH DROPDOWN OPTIONS WITH CLASS FAILED -> " + dropdownName, ex);
+//			return totalOptions;
+//		}
+//	}
+//
+//	// ✅ MASTER UNIVERSAL DROPDOWN FUNCTION
+//	public boolean handleAndPrintDropdownOptions(WebElement dropdownContainer, List<WebElement> dropdownOptions,
+//			String dropdownName, String expectedOptionText) {
+//		try {
+//			expectedOptionText = expectedOptionText == null ? "" : expectedOptionText.trim();
+//
+//			if (!verifyDropdownPresentAndVisible(dropdownContainer, dropdownName)) {
+//				return false;
+//			}
+//
+//			if (!verifyDropdownHasOptions(dropdownOptions, dropdownName)) {
+//				return false;
+//			}
+//
+//			fetchAndPrintAllDropdownOptions(dropdownContainer, dropdownOptions, dropdownName);
+//
+//			if (!expectedOptionText.isEmpty()) {
+//				return verifyOptionExistsInDropdown(dropdownContainer, dropdownOptions, expectedOptionText,
+//						dropdownName);
+//			}
+//
+//			return true;
+//
+//		} catch (Exception ex) {
+//			System.out.println("[HANDLE AND PRINT DROPDOWN FAILED] " + dropdownName);
+//			captureFailure("HANDLE AND PRINT DROPDOWN FAILED -> " + dropdownName, ex);
+//			return false;
+//		}
+//	}
+//
+//	// input functions.
+//	// ============================================================
+//	// ✅ VERIFY ELEMENT IS ENABLED
+//	// ============================================================
+//
+//	public boolean verifyElementIsEnabled(WebElement element, String elementName) {
+//		try {
+//			if (element == null) {
+//				throw new IllegalArgumentException("Element is null");
+//			}
+//
+//			String displayName = normalizeName(elementName, getElementDisplayName(element));
+//
+//			waitForDocumentReady(displayName);
+//			scrollElementToCenter(element);
+//
+//			WebElement visibleElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+//					.until(ExpectedConditions.visibilityOf(element));
+//
+//			scrollElementToCenter(visibleElement);
+//
+//			boolean status = visibleElement.isEnabled();
+//
+//			System.out.println("[ELEMENT ENABLED VERIFY]");
+//			System.out.println("Element Name : " + displayName);
+//			System.out.println("Is Enabled   : " + status);
+//
+//			if (status) {
+//				System.out.println("[ELEMENT ENABLED PASS] " + displayName);
+//			} else {
+//				System.out.println("[ELEMENT ENABLED FAIL] " + displayName);
+//				captureFailure("ELEMENT ENABLED VERIFY FAILED -> " + displayName);
+//			}
+//
+//			return status;
+//
+//		} catch (Exception ex) {
+//			System.out.println("[ELEMENT ENABLED VERIFY FAILED] " + elementName + " | " + ex.getMessage());
+//			captureFailure("ELEMENT ENABLED VERIFY FAILED -> " + elementName, ex);
+//			return false;
+//		}
+//	}
+//
+//	// ============================================================
+//	// ✅ VERIFY INPUT FIELD PLACEHOLDER
+//	// ============================================================
+//
+//	public boolean verifyInputFieldPlaceholder(WebElement inputField, String expectedPlaceholder, String elementName) {
+//		try {
+//			if (inputField == null) {
+//				throw new IllegalArgumentException("Input field is null");
+//			}
+//
+//			String displayName = normalizeName(elementName, getElementDisplayName(inputField));
+//			String finalExpectedPlaceholder = expectedPlaceholder == null ? "" : expectedPlaceholder.trim();
+//
+//			waitForDocumentReady(displayName);
+//			scrollElementToCenter(inputField);
+//
+//			WebElement visibleInputField = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+//					.until(ExpectedConditions.visibilityOf(inputField));
+//
+//			scrollElementToCenter(visibleInputField);
+//
+//			String actualPlaceholder = visibleInputField.getAttribute("placeholder");
+//			actualPlaceholder = actualPlaceholder == null ? "" : actualPlaceholder.trim();
+//
+//			System.out.println("[INPUT PLACEHOLDER VERIFY]");
+//			System.out.println("Element Name          : " + displayName);
+//			System.out.println("Expected Placeholder  : " + finalExpectedPlaceholder);
+//			System.out.println("Actual Placeholder    : " + actualPlaceholder);
+//
+//			boolean status = actualPlaceholder.equals(finalExpectedPlaceholder);
+//
+//			if (status) {
+//				System.out.println("[INPUT PLACEHOLDER PASS] " + displayName);
+//			} else {
+//				System.out.println("[INPUT PLACEHOLDER FAIL] " + displayName);
+//				captureFailure("INPUT PLACEHOLDER VERIFY FAILED -> " + displayName + " | Expected: "
+//						+ finalExpectedPlaceholder + " | Actual: " + actualPlaceholder);
+//			}
+//
+//			return status;
+//
+//		} catch (Exception ex) {
+//			System.out.println("[INPUT PLACEHOLDER VERIFY FAILED] " + elementName + " | " + ex.getMessage());
+//			captureFailure("INPUT PLACEHOLDER VERIFY FAILED -> " + elementName, ex);
+//			return false;
+//		}
+//	}
+//
+//	// ============================================================
+//	// ✅ CLEAR INPUT FIELD
+//	// ============================================================
+//
+//	public boolean clearInputField(WebElement inputField, String elementName) {
+//		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT + 1; attempt++) {
+//			try {
+//				if (inputField == null) {
+//					throw new IllegalArgumentException("Input field is null");
+//				}
+//
+//				String displayName = normalizeName(elementName, getElementDisplayName(inputField));
+//
+//				waitForDocumentReady(displayName);
+//
+//				System.out.println("[CLEAR INPUT ATTEMPT " + attempt + "] " + displayName);
+//
+//				scrollElementToCenter(inputField);
+//
+//				WebElement visibleInputField = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+//						.until(ExpectedConditions.visibilityOf(inputField));
+//
+//				scrollElementToCenter(visibleInputField);
+//
+//				if (!visibleInputField.isEnabled()) {
+//					throw new IllegalStateException("Input field is disabled: " + displayName);
+//				}
+//
+//				visibleInputField.click();
+//				visibleInputField.clear();
+//
+//				String currentValue = visibleInputField.getAttribute("value");
+//				currentValue = currentValue == null ? "" : currentValue;
+//
+//				if (!currentValue.isEmpty()) {
+//					visibleInputField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+//					visibleInputField.sendKeys(Keys.DELETE);
+//
+//					currentValue = visibleInputField.getAttribute("value");
+//					currentValue = currentValue == null ? "" : currentValue;
+//				}
+//
+//				System.out.println("[CLEAR INPUT RESULT]");
+//				System.out.println("Element Name       : " + displayName);
+//				System.out.println("Value After Clear  : " + currentValue);
+//
+//				boolean status = currentValue.isEmpty();
+//
+//				if (status) {
+//					System.out.println("[CLEAR INPUT PASS] " + displayName);
+//				} else {
+//					System.out.println("[CLEAR INPUT FAIL] " + displayName);
+//					captureFailure("CLEAR INPUT FAILED -> " + displayName + " | Remaining Value: " + currentValue);
+//				}
+//
+//				return status;
+//
+//			} catch (StaleElementReferenceException sere) {
+//				System.out.println("[CLEAR INPUT STALE] " + elementName + " | Retrying...");
+//			} catch (Exception ex) {
+//				System.out.println("[CLEAR INPUT FAILED] " + elementName + " | " + ex.getMessage());
+//				captureFailure("CLEAR INPUT FAILED -> " + elementName, ex);
+//				return false;
+//			}
+//		}
+//
+//		System.out.println("[CLEAR INPUT FAILED AFTER RETRIES] " + elementName);
+//		captureFailure("CLEAR INPUT FAILED AFTER RETRIES -> " + elementName);
+//		return false;
+//	}
+//
+//	// ============================================================
+//	// ✅ ENTER VALUE INTO INPUT FIELD
+//	// ============================================================
+//
+//	public boolean enterValueIntoInputField(WebElement inputField, String valueToEnter, String elementName) {
+//		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT + 1; attempt++) {
+//			try {
+//				if (inputField == null) {
+//					throw new IllegalArgumentException("Input field is null");
+//				}
+//
+//				String displayName = normalizeName(elementName, getElementDisplayName(inputField));
+//				String finalValueToEnter = valueToEnter == null ? "" : valueToEnter;
+//
+//				waitForDocumentReady(displayName);
+//
+//				System.out.println("[ENTER INPUT ATTEMPT " + attempt + "] " + displayName);
+//				System.out.println("Input Value : " + finalValueToEnter);
+//
+//				scrollElementToCenter(inputField);
+//
+//				WebElement visibleInputField = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+//						.until(ExpectedConditions.visibilityOf(inputField));
+//
+//				scrollElementToCenter(visibleInputField);
+//
+//				if (!visibleInputField.isEnabled()) {
+//					throw new IllegalStateException("Input field is disabled: " + displayName);
+//				}
+//
+//				visibleInputField.click();
+//				visibleInputField.sendKeys(finalValueToEnter);
+//
+//				String actualValue = visibleInputField.getAttribute("value");
+//				actualValue = actualValue == null ? "" : actualValue;
+//
+//				System.out.println("[INPUT VALUE ENTERED]");
+//				System.out.println("Element Name    : " + displayName);
+//				System.out.println("Expected Value  : " + finalValueToEnter);
+//				System.out.println("Actual Value    : " + actualValue);
+//
+//				boolean status = actualValue.equals(finalValueToEnter);
+//
+//				if (status) {
+//					System.out.println("[ENTER INPUT PASS] " + displayName);
+//				} else {
+//					System.out.println("[ENTER INPUT FAIL] " + displayName);
+//					captureFailure("ENTER INPUT VERIFY FAILED -> " + displayName + " | Expected: " + finalValueToEnter
+//							+ " | Actual: " + actualValue);
+//				}
+//
+//				return status;
+//
+//			} catch (StaleElementReferenceException sere) {
+//				System.out.println("[ENTER INPUT STALE] " + elementName + " | Retrying...");
+//			} catch (Exception ex) {
+//				System.out.println("[ENTER INPUT FAILED] " + elementName + " | " + ex.getMessage());
+//				captureFailure("ENTER INPUT FAILED -> " + elementName, ex);
+//				return false;
+//			}
+//		}
+//
+//		System.out.println("[ENTER INPUT FAILED AFTER RETRIES] " + elementName);
+//		captureFailure("ENTER INPUT FAILED AFTER RETRIES -> " + elementName);
+//		return false;
+//	}
+//
+//	// ============================================================
+//	// ✅ CLEAR AND ENTER VALUE INTO INPUT FIELD
+//	// ============================================================
+//
+//	public boolean clearAndEnterValueIntoInputField(WebElement inputField, String valueToEnter, String elementName) {
+//		try {
+//			boolean clearStatus = clearInputField(inputField, elementName);
+//			if (!clearStatus) {
+//				return false;
+//			}
+//
+//			return enterValueIntoInputField(inputField, valueToEnter, elementName);
+//
+//		} catch (Exception ex) {
+//			System.out.println("[CLEAR AND ENTER INPUT FAILED] " + elementName + " | " + ex.getMessage());
+//			captureFailure("CLEAR AND ENTER INPUT FAILED -> " + elementName, ex);
+//			return false;
+//		}
+//	}
+//
+//	// ============================================================
+//	// ✅ VERIFY INPUT FIELD VALUE
+//	// ============================================================
+//
+//	public boolean verifyInputFieldValue(WebElement inputField, String expectedValue, String elementName) {
+//		try {
+//			if (inputField == null) {
+//				throw new IllegalArgumentException("Input field is null");
+//			}
+//
+//			String displayName = normalizeName(elementName, getElementDisplayName(inputField));
+//			String finalExpectedValue = expectedValue == null ? "" : expectedValue;
+//
+//			waitForDocumentReady(displayName);
+//			scrollElementToCenter(inputField);
+//
+//			WebElement visibleInputField = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+//					.until(ExpectedConditions.visibilityOf(inputField));
+//
+//			scrollElementToCenter(visibleInputField);
+//
+//			String actualValue = visibleInputField.getAttribute("value");
+//			actualValue = actualValue == null ? "" : actualValue;
+//
+//			System.out.println("[INPUT FIELD VALUE VERIFY]");
+//			System.out.println("Element Name    : " + displayName);
+//			System.out.println("Expected Value  : " + finalExpectedValue);
+//			System.out.println("Actual Value    : " + actualValue);
+//
+//			boolean status = actualValue.equals(finalExpectedValue);
+//
+//			if (status) {
+//				System.out.println("[INPUT FIELD VALUE PASS] " + displayName);
+//			} else {
+//				System.out.println("[INPUT FIELD VALUE FAIL] " + displayName);
+//				captureFailure("INPUT FIELD VALUE VERIFY FAILED -> " + displayName + " | Expected: "
+//						+ finalExpectedValue + " | Actual: " + actualValue);
+//			}
+//
+//			return status;
+//
+//		} catch (Exception ex) {
+//			System.out.println("[INPUT FIELD VALUE VERIFY FAILED] " + elementName + " | " + ex.getMessage());
+//			captureFailure("INPUT FIELD VALUE VERIFY FAILED -> " + elementName, ex);
 //			return false;
 //		}
 //	}
 //
 //}
+
 package generic;
 
 import java.net.URLDecoder;
@@ -772,12 +1611,15 @@ import java.util.regex.PatternSyntaxException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -790,6 +1632,8 @@ public class AllVerifications {
 	protected static final int DEFAULT_RETRY_COUNT = 2;
 	private static final int SPA_SETTLE_POLLS = 3;
 	private static final long SPA_SETTLE_SLEEP_MS = 250;
+	private static final int DEFAULT_COUNT_POLL_ATTEMPTS = 50;
+	private static final long DEFAULT_COUNT_POLL_SLEEP_MS = 200;
 
 	public AllVerifications(WebDriver driver) {
 		this.driver = driver;
@@ -873,7 +1717,6 @@ public class AllVerifications {
 
 			String previousSnapshot = "";
 			int stableCount = 0;
-
 			long endTime = System.currentTimeMillis() + (DEFAULT_WAITING_TIME_IN_SEC * 1000L);
 
 			while (System.currentTimeMillis() < endTime) {
@@ -891,7 +1734,7 @@ public class AllVerifications {
 				}
 
 				previousSnapshot = currentSnapshot;
-				Thread.sleep(SPA_SETTLE_SLEEP_MS);
+				sleepSilently(SPA_SETTLE_SLEEP_MS);
 			}
 
 			System.out.println("[SPA DOM STABLE TIMEOUT] " + displayName);
@@ -914,7 +1757,6 @@ public class AllVerifications {
 			System.out.println("Expected Title : " + finalExpectedTitle);
 			System.out.println("Expected URL   : " + finalExpectedUrl);
 
-			// 1. Browser document ready
 			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(driver -> {
 				try {
 					String state = String
@@ -925,7 +1767,6 @@ public class AllVerifications {
 				}
 			});
 
-			// 2. Wait until URL matches if provided
 			if (!finalExpectedUrl.isEmpty()) {
 				createWait(DEFAULT_WAITING_TIME_IN_SEC).until(driver -> {
 					try {
@@ -937,7 +1778,6 @@ public class AllVerifications {
 				});
 			}
 
-			// 3. Wait until title matches if provided
 			if (!finalExpectedTitle.isEmpty()) {
 				createWait(DEFAULT_WAITING_TIME_IN_SEC).until(driver -> {
 					try {
@@ -949,10 +1789,8 @@ public class AllVerifications {
 				});
 			}
 
-			// 4. SPA settle wait - helps React title/DOM stabilization
 			waitForSpaDomToSettle(displayName);
 
-			// 5. Final confirmation after settle
 			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(driver -> {
 				try {
 					String actualTitle = safeTrim(driver.getTitle());
@@ -960,7 +1798,6 @@ public class AllVerifications {
 
 					boolean titleOk = finalExpectedTitle.isEmpty()
 							|| matchesExpectedText(actualTitle, finalExpectedTitle);
-
 					boolean urlOk = finalExpectedUrl.isEmpty() || matchesExpectedUrl(actualUrl, finalExpectedUrl);
 
 					return titleOk && urlOk;
@@ -1006,8 +1843,12 @@ public class AllVerifications {
 					throw new NoSuchElementException("Element is not present in DOM: " + displayName);
 				}
 
+				scrollElementToCenter(element);
+
 				WebElement visibleElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 						.until(ExpectedConditions.visibilityOf(element));
+
+				scrollElementToCenter(visibleElement);
 
 				if (!visibleElement.isDisplayed()) {
 					throw new IllegalStateException("Element is not displayed: " + displayName);
@@ -1018,7 +1859,10 @@ public class AllVerifications {
 
 			} catch (StaleElementReferenceException sere) {
 				System.out.println("[ELEMENT VERIFY STALE] " + elementName + " | Retrying...");
-				captureFailure("ELEMENT VERIFY STALE -> " + elementName, sere);
+				if (attempt > DEFAULT_RETRY_COUNT) {
+					captureFailure("ELEMENT VERIFY STALE -> " + elementName, sere);
+				}
+				sleepSilently(150);
 
 			} catch (TimeoutException te) {
 				System.out.println("[ELEMENT VERIFY TIMEOUT] " + elementName + " | " + te.getMessage());
@@ -1050,16 +1894,15 @@ public class AllVerifications {
 
 				System.out.println("[VERIFY ELEMENT ATTEMPT " + attempt + "] " + displayName + " | " + locator);
 
-				List<WebElement> found = driver.findElements(locator);
-				if (found.isEmpty()) {
-					throw new NoSuchElementException("Element is not present in DOM: " + locator);
-				}
-
 				WebElement element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 						.until(ExpectedConditions.presenceOfElementLocated(locator));
 
+				scrollElementToCenter(element);
+
 				element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 						.until(ExpectedConditions.visibilityOfElementLocated(locator));
+
+				scrollElementToCenter(element);
 
 				if (!element.isDisplayed()) {
 					throw new IllegalStateException("Element is not displayed: " + displayName);
@@ -1070,7 +1913,10 @@ public class AllVerifications {
 
 			} catch (StaleElementReferenceException sere) {
 				System.out.println("[ELEMENT VERIFY STALE] " + elementName + " | Retrying...");
-				captureFailure("ELEMENT VERIFY STALE -> " + elementName, sere);
+				if (attempt > DEFAULT_RETRY_COUNT) {
+					captureFailure("ELEMENT VERIFY STALE -> " + elementName, sere);
+				}
+				sleepSilently(150);
 
 			} catch (TimeoutException te) {
 				System.out.println("[ELEMENT VERIFY TIMEOUT] " + elementName + " | " + te.getMessage());
@@ -1119,37 +1965,35 @@ public class AllVerifications {
 				WebElement visibleElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 						.until(ExpectedConditions.visibilityOf(element));
 
+				scrollElementToCenter(visibleElement);
+
 				WebElement clickableElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 						.until(ExpectedConditions.elementToBeClickable(visibleElement));
+
+				scrollElementToCenter(clickableElement);
 
 				if (!clickableElement.isEnabled()) {
 					throw new IllegalStateException("Element is disabled: " + displayName);
 				}
 
 				String clickedText = getCleanText(clickableElement);
-				if (clickedText == null || clickedText.trim().isEmpty()) {
+				if (clickedText.isEmpty()) {
 					clickedText = displayName;
 				}
 
 				System.out.println("[CLICKING ELEMENT] " + clickedText);
 
-				try {
-					clickableElement.click();
-				} catch (ElementClickInterceptedException e1) {
-					try {
-						new Actions(driver).moveToElement(clickableElement).pause(Duration.ofMillis(200)).click()
-								.perform();
-					} catch (Exception e2) {
-						((JavascriptExecutor) driver).executeScript("arguments[0].click();", clickableElement);
-					}
-				}
+				performRobustClick(clickableElement);
 
 				System.out.println("[CLICK SUCCESS] " + clickedText);
 				return true;
 
 			} catch (StaleElementReferenceException sere) {
 				System.out.println("[CLICK STALE] " + elementName + " | Retrying...");
-				captureFailure("CLICK STALE -> " + elementName, sere);
+				if (attempt > DEFAULT_RETRY_COUNT) {
+					captureFailure("CLICK STALE -> " + elementName, sere);
+				}
+				sleepSilently(150);
 
 			} catch (TimeoutException te) {
 				System.out.println("[CLICK TIMEOUT] " + elementName + " | " + te.getMessage());
@@ -1185,11 +2029,6 @@ public class AllVerifications {
 
 				System.out.println("[CLICK ATTEMPT " + attempt + "] " + displayName + " | " + locator);
 
-				List<WebElement> found = driver.findElements(locator);
-				if (found.isEmpty()) {
-					throw new NoSuchElementException("Element is not present in DOM: " + locator);
-				}
-
 				WebElement element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 						.until(ExpectedConditions.presenceOfElementLocated(locator));
 
@@ -1198,36 +2037,35 @@ public class AllVerifications {
 				element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 						.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
+				scrollElementToCenter(element);
+
 				element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 						.until(ExpectedConditions.elementToBeClickable(locator));
+
+				scrollElementToCenter(element);
 
 				if (!element.isEnabled()) {
 					throw new IllegalStateException("Element is disabled: " + displayName);
 				}
 
 				String clickedText = getCleanText(element);
-				if (clickedText == null || clickedText.trim().isEmpty()) {
+				if (clickedText.isEmpty()) {
 					clickedText = displayName;
 				}
 
 				System.out.println("[CLICKING ELEMENT] " + clickedText);
 
-				try {
-					element.click();
-				} catch (ElementClickInterceptedException e1) {
-					try {
-						new Actions(driver).moveToElement(element).pause(Duration.ofMillis(200)).click().perform();
-					} catch (Exception e2) {
-						((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
-					}
-				}
+				performRobustClick(element);
 
 				System.out.println("[CLICK SUCCESS] " + clickedText);
 				return true;
 
 			} catch (StaleElementReferenceException sere) {
 				System.out.println("[CLICK STALE] " + elementName + " | Retrying...");
-				captureFailure("CLICK STALE -> " + elementName, sere);
+				if (attempt > DEFAULT_RETRY_COUNT) {
+					captureFailure("CLICK STALE -> " + elementName, sere);
+				}
+				sleepSilently(150);
 
 			} catch (TimeoutException te) {
 				System.out.println("[CLICK TIMEOUT] " + elementName + " | " + te.getMessage());
@@ -1271,9 +2109,14 @@ public class AllVerifications {
 
 			waitForDocumentReady(name);
 
-			createWait(DEFAULT_WAITING_TIME_IN_SEC).until(ExpectedConditions.visibilityOf(element));
+			scrollElementToCenter(element);
 
-			String actualText = safeTrim(element.getText());
+			WebElement visibleElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+					.until(ExpectedConditions.visibilityOf(element));
+
+			scrollElementToCenter(visibleElement);
+
+			String actualText = safeTrim(readTextSafely(visibleElement));
 
 			System.out.println("[TEXT VERIFY]");
 			System.out.println("Element Name   : " + name);
@@ -1325,6 +2168,7 @@ public class AllVerifications {
 	// ============================================================
 	// ✅ TITLE VERIFY
 	// ============================================================
+
 	public boolean verifyTitleOfWebpage(String expectedTitle) {
 		boolean titleVerified = false;
 
@@ -1387,6 +2231,7 @@ public class AllVerifications {
 	// ============================================================
 	// ✅ URL VERIFY
 	// ============================================================
+
 	public boolean verifyUrlOfWebpage(String expectedUrl) {
 		boolean urlVerified = false;
 
@@ -1456,6 +2301,9 @@ public class AllVerifications {
 
 	protected void scrollElementToCenter(WebElement element) {
 		try {
+			if (element == null) {
+				return;
+			}
 			((JavascriptExecutor) driver).executeScript(
 					"arguments[0].scrollIntoView({block:'center', inline:'center', behavior:'instant'});", element);
 		} catch (Exception e) {
@@ -1463,19 +2311,68 @@ public class AllVerifications {
 		}
 	}
 
-	protected String getCleanText(WebElement element) {
-		if (element == null)
-			return "";
-
-		String text = "";
+	protected void scrollToTopOfPage() {
 		try {
-			text = element.getText();
+			((JavascriptExecutor) driver).executeScript("window.scrollTo({top:0, behavior:'instant'});");
+			System.out.println("[SCROLL TOP PASS]");
 		} catch (Exception e) {
-			text = "";
+			System.out.println("[SCROLL TOP FAIL]");
+		}
+	}
+
+	protected void scrollToBottomOfPage() {
+		try {
+			((JavascriptExecutor) driver)
+					.executeScript("window.scrollTo({top:document.body.scrollHeight, behavior:'instant'});");
+			System.out.println("[SCROLL BOTTOM PASS]");
+		} catch (Exception e) {
+			System.out.println("[SCROLL BOTTOM FAIL]");
+		}
+	}
+
+	protected void scrollByPixels(int x, int y) {
+		try {
+			((JavascriptExecutor) driver).executeScript("window.scrollBy(arguments[0], arguments[1]);", x, y);
+			System.out.println("[SCROLL BY PIXELS PASS] x=" + x + " y=" + y);
+		} catch (Exception e) {
+			System.out.println("[SCROLL BY PIXELS FAIL] x=" + x + " y=" + y);
+		}
+	}
+
+	protected void scrollIntoViewStart(WebElement element) {
+		try {
+			if (element == null) {
+				return;
+			}
+			((JavascriptExecutor) driver).executeScript(
+					"arguments[0].scrollIntoView({block:'start', inline:'nearest', behavior:'instant'});", element);
+			System.out.println("[SCROLL START PASS]");
+		} catch (Exception e) {
+			System.out.println("[SCROLL START FAIL]");
+		}
+	}
+
+	protected void scrollIntoViewEnd(WebElement element) {
+		try {
+			if (element == null) {
+				return;
+			}
+			((JavascriptExecutor) driver).executeScript(
+					"arguments[0].scrollIntoView({block:'end', inline:'nearest', behavior:'instant'});", element);
+			System.out.println("[SCROLL END PASS]");
+		} catch (Exception e) {
+			System.out.println("[SCROLL END FAIL]");
+		}
+	}
+
+	protected String getCleanText(WebElement element) {
+		if (element == null) {
+			return "";
 		}
 
-		if (text != null && !text.trim().isEmpty()) {
-			return text.trim();
+		String text = readTextSafely(element);
+		if (!text.isEmpty()) {
+			return text;
 		}
 
 		String[] attrs = { "aria-label", "title", "alt", "name", "value", "placeholder", "id", "href", "src" };
@@ -1487,6 +2384,7 @@ public class AllVerifications {
 					return value.trim();
 				}
 			} catch (Exception e) {
+				// ignore
 			}
 		}
 
@@ -1494,11 +2392,12 @@ public class AllVerifications {
 	}
 
 	protected String getElementDisplayName(WebElement element) {
-		if (element == null)
+		if (element == null) {
 			return "UNKNOWN ELEMENT";
+		}
 
 		String text = getCleanText(element);
-		if (text != null && !text.isEmpty()) {
+		if (!text.isEmpty()) {
 			return text;
 		}
 
@@ -1531,7 +2430,8 @@ public class AllVerifications {
 		if (!name.isEmpty()) {
 			return name;
 		}
-		return safeTrim(fallbackName).isEmpty() ? "UNNAMED ELEMENT" : safeTrim(fallbackName);
+		String fallback = safeTrim(fallbackName);
+		return fallback.isEmpty() ? "UNNAMED ELEMENT" : fallback;
 	}
 
 	private String safeTrim(String value) {
@@ -1579,15 +2479,139 @@ public class AllVerifications {
 			return true;
 		}
 
-		String decodedActualUrl = URLDecoder.decode(actualUrl, StandardCharsets.UTF_8);
+		String decodedActualUrl = safeTrim(URLDecoder.decode(actualUrl, StandardCharsets.UTF_8));
+		String decodedExpectedUrl = safeTrim(URLDecoder.decode(expectedUrl, StandardCharsets.UTF_8));
 
-		String normalizedExpected = normalizeVerificationText(expectedUrl);
+		String normalizedExpected = normalizeVerificationText(decodedExpectedUrl);
 		String normalizedActual = normalizeVerificationText(decodedActualUrl);
 
-		return decodedActualUrl.equalsIgnoreCase(expectedUrl)
-				|| decodedActualUrl.toLowerCase().contains(expectedUrl.toLowerCase())
+		return decodedActualUrl.equalsIgnoreCase(decodedExpectedUrl)
+				|| decodedActualUrl.toLowerCase().contains(decodedExpectedUrl.toLowerCase())
 				|| (!normalizedExpected.isEmpty() && normalizedActual.contains(normalizedExpected))
-				|| (isValidRegex(expectedUrl) && decodedActualUrl.matches(expectedUrl));
+				|| (isValidRegex(decodedExpectedUrl) && decodedActualUrl.matches(decodedExpectedUrl));
+	}
+
+	private void sleepSilently(long millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException ie) {
+			Thread.currentThread().interrupt();
+		}
+	}
+
+	private String readTextSafely(WebElement element) {
+		if (element == null) {
+			return "";
+		}
+
+		try {
+			String text = element.getText();
+			if (text != null && !text.trim().isEmpty()) {
+				return text.trim();
+			}
+		} catch (Exception e) {
+			// ignore
+		}
+
+		try {
+			String textContent = element.getAttribute("textContent");
+			if (textContent != null && !textContent.trim().isEmpty()) {
+				return textContent.trim().replaceAll("\\s+", " ");
+			}
+		} catch (Exception e) {
+			// ignore
+		}
+
+		try {
+			String innerText = element.getAttribute("innerText");
+			if (innerText != null && !innerText.trim().isEmpty()) {
+				return innerText.trim().replaceAll("\\s+", " ");
+			}
+		} catch (Exception e) {
+			// ignore
+		}
+
+		return "";
+	}
+
+	private void performRobustClick(WebElement element) {
+		try {
+			element.click();
+			return;
+		} catch (ElementClickInterceptedException e) {
+			// fallback below
+		}
+
+		try {
+			new Actions(driver).moveToElement(element).pause(Duration.ofMillis(200)).click().perform();
+			return;
+		} catch (Exception e) {
+			// fallback below
+		}
+
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+	}
+
+	private boolean isMacPlatform() {
+		try {
+			if (driver instanceof RemoteWebDriver) {
+				Platform platform = ((RemoteWebDriver) driver).getCapabilities().getPlatformName();
+				return platform != null && platform.is(Platform.MAC);
+			}
+		} catch (Exception e) {
+			// ignore
+		}
+
+		String os = System.getProperty("os.name", "");
+		return os.toLowerCase().contains("mac");
+	}
+
+	private Keys getSelectAllModifierKey() {
+		return isMacPlatform() ? Keys.COMMAND : Keys.CONTROL;
+	}
+
+	private boolean waitForCountMatch(By locator, int expectedCount) {
+		int actualCount = -1;
+
+		for (int i = 1; i <= DEFAULT_COUNT_POLL_ATTEMPTS; i++) {
+			try {
+				actualCount = driver.findElements(locator).size();
+			} catch (Exception e) {
+				actualCount = -1;
+			}
+
+			if (actualCount == expectedCount) {
+				System.out.println("[COUNT MATCH] attempt=" + i + " | Found: " + actualCount);
+				return true;
+			}
+
+			sleepSilently(DEFAULT_COUNT_POLL_SLEEP_MS);
+		}
+
+		System.out.println("[COUNT RESULT] Expected: " + expectedCount + " | Actual: " + actualCount);
+		return false;
+	}
+
+	private boolean waitForCountMatch(List<?> elements, int expectedCount) {
+		int actualCount = -1;
+
+		for (int i = 1; i <= DEFAULT_COUNT_POLL_ATTEMPTS; i++) {
+			try {
+				actualCount = elements.size();
+			} catch (Exception e) {
+				actualCount = -1;
+			}
+
+			if (actualCount == expectedCount) {
+				System.out.println("[COUNT MATCH] attempt=" + i + " | Found: " + actualCount);
+				return true;
+			}
+
+			sleepSilently(DEFAULT_COUNT_POLL_SLEEP_MS);
+		}
+
+		System.out.println("[COUNT RESULT] Expected: " + expectedCount + " | Actual: " + actualCount);
+		return false;
 	}
 
 	// ============================================================
@@ -1603,8 +2627,16 @@ public class AllVerifications {
 			System.out.println("[PRINT ALL TEXT] " + elementName + " | Total elements: " + elements.size());
 
 			for (int i = 0; i < elements.size(); i++) {
-				String text = elements.get(i).getText().trim();
-				System.out.println((i + 1) + ". " + text);
+				try {
+					WebElement element = elements.get(i);
+					scrollElementToCenter(element);
+					String text = readTextSafely(element);
+					System.out.println((i + 1) + ". " + text);
+				} catch (StaleElementReferenceException sere) {
+					System.out.println((i + 1) + ". [STALE ELEMENT]");
+				} catch (Exception innerEx) {
+					System.out.println((i + 1) + ". [UNABLE TO READ TEXT]");
+				}
 			}
 
 		} catch (Exception ex) {
@@ -1625,10 +2657,17 @@ public class AllVerifications {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 
 			@SuppressWarnings("unchecked")
-			List<String> texts = (List<String>) js.executeScript(""
-					+ "var elements = document.querySelectorAll(arguments[0]);" + "var result = [];"
-					+ "for (var i = 0; i < elements.length; i++) {" + "  var text = elements[i].textContent.trim();"
-					+ "  if (text !== '') { result.push(text); }" + "}" + "return result;", cssSelector);
+			List<String> texts = (List<String>) js
+					.executeScript("var elements = document.querySelectorAll(arguments[0]);" + "var result = [];"
+							+ "for (var i = 0; i < elements.length; i++) {"
+							+ "  elements[i].scrollIntoView({block:'center', inline:'center', behavior:'instant'});"
+							+ "  var text = (elements[i].textContent || elements[i].innerText || '').trim();"
+							+ "  if (text !== '') { result.push(text.replace(/\\s+/g, ' ')); }" + "}"
+							+ "return result;", cssSelector);
+
+			if (texts == null) {
+				texts = new ArrayList<>();
+			}
 
 			System.out
 					.println("[PRINT ALL TEXT USING JAVASCRIPT] " + elementName + " | Total elements: " + texts.size());
@@ -1651,8 +2690,6 @@ public class AllVerifications {
 	// ============================================================
 
 	public boolean verifyTotalElementsCount(int expectedCount, By locator) {
-		int actualCount = 0;
-
 		try {
 			if (locator == null) {
 				throw new IllegalArgumentException("Locator is null");
@@ -1660,21 +2697,10 @@ public class AllVerifications {
 
 			System.out.println("[COUNT VERIFY] Expected: " + expectedCount + " | Locator: " + locator);
 
-			for (int i = 1; i <= 50; i++) {
-				actualCount = driver.findElements(locator).size();
+			boolean ok = waitForCountMatch(locator, expectedCount);
 
-				if (actualCount == expectedCount) {
-					System.out.println("[COUNT MATCH] attempt=" + i + " | Found: " + actualCount);
-					break;
-				}
-
-				Thread.sleep(200);
-			}
-
-			System.out.println("[COUNT RESULT] Expected: " + expectedCount + " | Actual: " + actualCount);
-
-			boolean ok = (actualCount == expectedCount);
 			if (!ok) {
+				int actualCount = driver.findElements(locator).size();
 				captureFailure(
 						"COUNT MISMATCH -> expected=" + expectedCount + " actual=" + actualCount + " | " + locator);
 			}
@@ -1682,16 +2708,13 @@ public class AllVerifications {
 			return ok;
 
 		} catch (Exception ex) {
-			System.out.println("[COUNT FAILED] Expected: " + expectedCount + " | Actual: " + actualCount);
-			captureFailure("COUNT FAILED -> expected=" + expectedCount + " actual=" + actualCount + " | " + locator,
-					ex);
+			System.out.println("[COUNT FAILED] Expected: " + expectedCount);
+			captureFailure("COUNT FAILED -> expected=" + expectedCount + " | " + locator, ex);
 			return false;
 		}
 	}
 
 	public boolean verifyTotalElementsCount(int expectedCount, List<?> elements) {
-		int actualCount = 0;
-
 		try {
 			if (elements == null) {
 				throw new IllegalArgumentException("Element list is null");
@@ -1699,43 +2722,33 @@ public class AllVerifications {
 
 			System.out.println("[COUNT VERIFY] Expected: " + expectedCount);
 
-			for (int i = 1; i <= 50; i++) {
-				actualCount = elements.size();
-
-				if (actualCount == expectedCount) {
-					System.out.println("[COUNT MATCH] attempt=" + i + " | Found: " + actualCount);
-					break;
-				}
-
-				Thread.sleep(200);
-			}
-
-			System.out.println("[COUNT RESULT] Expected: " + expectedCount + " | Actual: " + actualCount);
-
-			boolean ok = (actualCount == expectedCount);
+			boolean ok = waitForCountMatch(elements, expectedCount);
 
 			if (!ok) {
+				int actualCount = elements.size();
 				captureFailure("COUNT MISMATCH -> expected=" + expectedCount + " actual=" + actualCount);
 			}
 
 			return ok;
 
 		} catch (Exception ex) {
-			System.out.println("[COUNT FAILED] Expected: " + expectedCount + " | Actual: " + actualCount);
-			captureFailure("COUNT FAILED -> expected=" + expectedCount + " actual=" + actualCount, ex);
+			System.out.println("[COUNT FAILED] Expected: " + expectedCount);
+			captureFailure("COUNT FAILED -> expected=" + expectedCount, ex);
 			return false;
 		}
 	}
 
-// ============================================================
-// ✅ GENERIC DROPDOWN HELPERS
-// ============================================================
+	// ============================================================
+	// ✅ GENERIC DROPDOWN HELPERS
+	// ============================================================
 
 	public boolean verifyDropdownPresentAndVisible(WebElement dropdownContainer, String dropdownName) {
 		try {
 			if (dropdownContainer == null) {
 				throw new IllegalArgumentException("Dropdown container is null for: " + dropdownName);
 			}
+
+			scrollElementToCenter(dropdownContainer);
 
 			boolean status = verifyElementPresentAndVisible(dropdownContainer, dropdownName);
 
@@ -1761,7 +2774,21 @@ public class AllVerifications {
 				throw new IllegalArgumentException("Dropdown options list is null for: " + dropdownName);
 			}
 
-			int count = dropdownOptions.size();
+			int count = 0;
+
+			for (int i = 1; i <= DEFAULT_COUNT_POLL_ATTEMPTS; i++) {
+				try {
+					count = dropdownOptions.size();
+				} catch (Exception e) {
+					count = 0;
+				}
+
+				if (count > 0) {
+					break;
+				}
+
+				sleepSilently(DEFAULT_COUNT_POLL_SLEEP_MS);
+			}
 
 			System.out.println("[DROPDOWN OPTIONS COUNT] " + dropdownName + " -> " + count);
 
@@ -1810,7 +2837,7 @@ public class AllVerifications {
 	public boolean verifyOptionExistsInDropdown(WebElement dropdownContainer, List<WebElement> dropdownOptions,
 			String expectedOptionText, String dropdownName) {
 		try {
-			expectedOptionText = expectedOptionText == null ? "" : expectedOptionText.trim();
+			expectedOptionText = safeTrim(expectedOptionText);
 
 			if (expectedOptionText.isEmpty()) {
 				throw new IllegalArgumentException(
@@ -1831,7 +2858,8 @@ public class AllVerifications {
 
 			for (int i = 0; i < dropdownOptions.size(); i++) {
 				WebElement optionElement = dropdownOptions.get(i);
-				String actualText = optionElement.getText() == null ? "" : optionElement.getText().trim();
+				scrollElementToCenter(optionElement);
+				String actualText = safeTrim(readTextSafely(optionElement));
 
 				System.out.println("[DROPDOWN OPTION] Index: " + (i + 1) + " | Text: " + actualText);
 
@@ -1857,7 +2885,7 @@ public class AllVerifications {
 	public WebElement fetchMatchingDropdownOption(WebElement dropdownContainer, List<WebElement> dropdownOptions,
 			String expectedOptionText, String dropdownName) {
 		try {
-			expectedOptionText = expectedOptionText == null ? "" : expectedOptionText.trim();
+			expectedOptionText = safeTrim(expectedOptionText);
 
 			if (expectedOptionText.isEmpty()) {
 				throw new IllegalArgumentException(
@@ -1874,7 +2902,8 @@ public class AllVerifications {
 
 			for (int i = 0; i < dropdownOptions.size(); i++) {
 				WebElement optionElement = dropdownOptions.get(i);
-				String actualText = optionElement.getText() == null ? "" : optionElement.getText().trim();
+				scrollElementToCenter(optionElement);
+				String actualText = safeTrim(readTextSafely(optionElement));
 
 				if (actualText.equalsIgnoreCase(expectedOptionText)) {
 					System.out.println("[MATCHING DROPDOWN OPTION FOUND] Index: " + (i + 1) + " | Text: " + actualText);
@@ -1925,9 +2954,9 @@ public class AllVerifications {
 				String classValue = "";
 
 				try {
-					actualText = optionElement.getText() == null ? "" : optionElement.getText().trim();
-					classValue = optionElement.getAttribute("class") == null ? ""
-							: optionElement.getAttribute("class").trim();
+					scrollElementToCenter(optionElement);
+					actualText = safeTrim(readTextSafely(optionElement));
+					classValue = safeTrim(optionElement.getAttribute("class"));
 
 					System.out.println("[DROPDOWN OPTION] Index: " + (i + 1) + " | Text: " + actualText + " | Class: "
 							+ classValue);
@@ -1946,11 +2975,11 @@ public class AllVerifications {
 		}
 	}
 
-// ✅ MASTER UNIVERSAL DROPDOWN FUNCTION
+	// ✅ MASTER UNIVERSAL DROPDOWN FUNCTION
 	public boolean handleAndPrintDropdownOptions(WebElement dropdownContainer, List<WebElement> dropdownOptions,
 			String dropdownName, String expectedOptionText) {
 		try {
-			expectedOptionText = expectedOptionText == null ? "" : expectedOptionText.trim();
+			expectedOptionText = safeTrim(expectedOptionText);
 
 			if (!verifyDropdownPresentAndVisible(dropdownContainer, dropdownName)) {
 				return false;
@@ -1972,6 +3001,316 @@ public class AllVerifications {
 		} catch (Exception ex) {
 			System.out.println("[HANDLE AND PRINT DROPDOWN FAILED] " + dropdownName);
 			captureFailure("HANDLE AND PRINT DROPDOWN FAILED -> " + dropdownName, ex);
+			return false;
+		}
+	}
+
+	// input functions.
+	// ============================================================
+	// ✅ VERIFY ELEMENT IS ENABLED
+	// ============================================================
+
+	public boolean verifyElementIsEnabled(WebElement element, String elementName) {
+		try {
+			if (element == null) {
+				throw new IllegalArgumentException("Element is null");
+			}
+
+			String displayName = normalizeName(elementName, getElementDisplayName(element));
+
+			waitForDocumentReady(displayName);
+			scrollElementToCenter(element);
+
+			WebElement visibleElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+					.until(ExpectedConditions.visibilityOf(element));
+
+			scrollElementToCenter(visibleElement);
+
+			boolean status = visibleElement.isEnabled();
+
+			System.out.println("[ELEMENT ENABLED VERIFY]");
+			System.out.println("Element Name : " + displayName);
+			System.out.println("Is Enabled   : " + status);
+
+			if (status) {
+				System.out.println("[ELEMENT ENABLED PASS] " + displayName);
+			} else {
+				System.out.println("[ELEMENT ENABLED FAIL] " + displayName);
+				captureFailure("ELEMENT ENABLED VERIFY FAILED -> " + displayName);
+			}
+
+			return status;
+
+		} catch (Exception ex) {
+			System.out.println("[ELEMENT ENABLED VERIFY FAILED] " + elementName + " | " + ex.getMessage());
+			captureFailure("ELEMENT ENABLED VERIFY FAILED -> " + elementName, ex);
+			return false;
+		}
+	}
+
+	// ============================================================
+	// ✅ VERIFY INPUT FIELD PLACEHOLDER
+	// ============================================================
+
+	public boolean verifyInputFieldPlaceholder(WebElement inputField, String expectedPlaceholder, String elementName) {
+		try {
+			if (inputField == null) {
+				throw new IllegalArgumentException("Input field is null");
+			}
+
+			String displayName = normalizeName(elementName, getElementDisplayName(inputField));
+			String finalExpectedPlaceholder = safeTrim(expectedPlaceholder);
+
+			waitForDocumentReady(displayName);
+			scrollElementToCenter(inputField);
+
+			WebElement visibleInputField = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+					.until(ExpectedConditions.visibilityOf(inputField));
+
+			scrollElementToCenter(visibleInputField);
+
+			String actualPlaceholder = safeTrim(visibleInputField.getAttribute("placeholder"));
+
+			System.out.println("[INPUT PLACEHOLDER VERIFY]");
+			System.out.println("Element Name          : " + displayName);
+			System.out.println("Expected Placeholder  : " + finalExpectedPlaceholder);
+			System.out.println("Actual Placeholder    : " + actualPlaceholder);
+
+			boolean status = actualPlaceholder.equals(finalExpectedPlaceholder);
+
+			if (status) {
+				System.out.println("[INPUT PLACEHOLDER PASS] " + displayName);
+			} else {
+				System.out.println("[INPUT PLACEHOLDER FAIL] " + displayName);
+				captureFailure("INPUT PLACEHOLDER VERIFY FAILED -> " + displayName + " | Expected: "
+						+ finalExpectedPlaceholder + " | Actual: " + actualPlaceholder);
+			}
+
+			return status;
+
+		} catch (Exception ex) {
+			System.out.println("[INPUT PLACEHOLDER VERIFY FAILED] " + elementName + " | " + ex.getMessage());
+			captureFailure("INPUT PLACEHOLDER VERIFY FAILED -> " + elementName, ex);
+			return false;
+		}
+	}
+
+	// ============================================================
+	// ✅ CLEAR INPUT FIELD
+	// ============================================================
+
+	public boolean clearInputField(WebElement inputField, String elementName) {
+		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT + 1; attempt++) {
+			try {
+				if (inputField == null) {
+					throw new IllegalArgumentException("Input field is null");
+				}
+
+				String displayName = normalizeName(elementName, getElementDisplayName(inputField));
+
+				waitForDocumentReady(displayName);
+
+				System.out.println("[CLEAR INPUT ATTEMPT " + attempt + "] " + displayName);
+
+				scrollElementToCenter(inputField);
+
+				WebElement visibleInputField = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+						.until(ExpectedConditions.visibilityOf(inputField));
+
+				scrollElementToCenter(visibleInputField);
+
+				if (!visibleInputField.isEnabled()) {
+					throw new IllegalStateException("Input field is disabled: " + displayName);
+				}
+
+				visibleInputField.click();
+				visibleInputField.clear();
+
+				String currentValue = safeTrim(visibleInputField.getAttribute("value"));
+
+				if (!currentValue.isEmpty()) {
+					visibleInputField.sendKeys(Keys.chord(getSelectAllModifierKey(), "a"));
+					visibleInputField.sendKeys(Keys.DELETE);
+					currentValue = safeTrim(visibleInputField.getAttribute("value"));
+				}
+
+				if (!currentValue.isEmpty()) {
+					((JavascriptExecutor) driver).executeScript(
+							"arguments[0].value=''; arguments[0].dispatchEvent(new Event('input', {bubbles:true})); arguments[0].dispatchEvent(new Event('change', {bubbles:true}));",
+							visibleInputField);
+					currentValue = safeTrim(visibleInputField.getAttribute("value"));
+				}
+
+				System.out.println("[CLEAR INPUT RESULT]");
+				System.out.println("Element Name       : " + displayName);
+				System.out.println("Value After Clear  : " + currentValue);
+
+				boolean status = currentValue.isEmpty();
+
+				if (status) {
+					System.out.println("[CLEAR INPUT PASS] " + displayName);
+				} else {
+					System.out.println("[CLEAR INPUT FAIL] " + displayName);
+					captureFailure("CLEAR INPUT FAILED -> " + displayName + " | Remaining Value: " + currentValue);
+				}
+
+				return status;
+
+			} catch (StaleElementReferenceException sere) {
+				System.out.println("[CLEAR INPUT STALE] " + elementName + " | Retrying...");
+				if (attempt > DEFAULT_RETRY_COUNT) {
+					captureFailure("CLEAR INPUT STALE -> " + elementName, sere);
+				}
+				sleepSilently(150);
+
+			} catch (Exception ex) {
+				System.out.println("[CLEAR INPUT FAILED] " + elementName + " | " + ex.getMessage());
+				captureFailure("CLEAR INPUT FAILED -> " + elementName, ex);
+				return false;
+			}
+		}
+
+		System.out.println("[CLEAR INPUT FAILED AFTER RETRIES] " + elementName);
+		captureFailure("CLEAR INPUT FAILED AFTER RETRIES -> " + elementName);
+		return false;
+	}
+
+	// ============================================================
+	// ✅ ENTER VALUE INTO INPUT FIELD
+	// ============================================================
+
+	public boolean enterValueIntoInputField(WebElement inputField, String valueToEnter, String elementName) {
+		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT + 1; attempt++) {
+			try {
+				if (inputField == null) {
+					throw new IllegalArgumentException("Input field is null");
+				}
+
+				String displayName = normalizeName(elementName, getElementDisplayName(inputField));
+				String finalValueToEnter = valueToEnter == null ? "" : valueToEnter;
+
+				waitForDocumentReady(displayName);
+
+				System.out.println("[ENTER INPUT ATTEMPT " + attempt + "] " + displayName);
+				System.out.println("Input Value : " + finalValueToEnter);
+
+				scrollElementToCenter(inputField);
+
+				WebElement visibleInputField = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+						.until(ExpectedConditions.visibilityOf(inputField));
+
+				scrollElementToCenter(visibleInputField);
+
+				if (!visibleInputField.isEnabled()) {
+					throw new IllegalStateException("Input field is disabled: " + displayName);
+				}
+
+				visibleInputField.click();
+				visibleInputField.sendKeys(finalValueToEnter);
+
+				String actualValue = visibleInputField.getAttribute("value");
+				actualValue = actualValue == null ? "" : actualValue;
+
+				System.out.println("[INPUT VALUE ENTERED]");
+				System.out.println("Element Name    : " + displayName);
+				System.out.println("Expected Value  : " + finalValueToEnter);
+				System.out.println("Actual Value    : " + actualValue);
+
+				boolean status = actualValue.equals(finalValueToEnter);
+
+				if (status) {
+					System.out.println("[ENTER INPUT PASS] " + displayName);
+				} else {
+					System.out.println("[ENTER INPUT FAIL] " + displayName);
+					captureFailure("ENTER INPUT VERIFY FAILED -> " + displayName + " | Expected: " + finalValueToEnter
+							+ " | Actual: " + actualValue);
+				}
+
+				return status;
+
+			} catch (StaleElementReferenceException sere) {
+				System.out.println("[ENTER INPUT STALE] " + elementName + " | Retrying...");
+				if (attempt > DEFAULT_RETRY_COUNT) {
+					captureFailure("ENTER INPUT STALE -> " + elementName, sere);
+				}
+				sleepSilently(150);
+
+			} catch (Exception ex) {
+				System.out.println("[ENTER INPUT FAILED] " + elementName + " | " + ex.getMessage());
+				captureFailure("ENTER INPUT FAILED -> " + elementName, ex);
+				return false;
+			}
+		}
+
+		System.out.println("[ENTER INPUT FAILED AFTER RETRIES] " + elementName);
+		captureFailure("ENTER INPUT FAILED AFTER RETRIES -> " + elementName);
+		return false;
+	}
+
+	// ============================================================
+	// ✅ CLEAR AND ENTER VALUE INTO INPUT FIELD
+	// ============================================================
+
+	public boolean clearAndEnterValueIntoInputField(WebElement inputField, String valueToEnter, String elementName) {
+		try {
+			boolean clearStatus = clearInputField(inputField, elementName);
+			if (!clearStatus) {
+				return false;
+			}
+
+			return enterValueIntoInputField(inputField, valueToEnter, elementName);
+
+		} catch (Exception ex) {
+			System.out.println("[CLEAR AND ENTER INPUT FAILED] " + elementName + " | " + ex.getMessage());
+			captureFailure("CLEAR AND ENTER INPUT FAILED -> " + elementName, ex);
+			return false;
+		}
+	}
+
+	// ============================================================
+	// ✅ VERIFY INPUT FIELD VALUE
+	// ============================================================
+
+	public boolean verifyInputFieldValue(WebElement inputField, String expectedValue, String elementName) {
+		try {
+			if (inputField == null) {
+				throw new IllegalArgumentException("Input field is null");
+			}
+
+			String displayName = normalizeName(elementName, getElementDisplayName(inputField));
+			String finalExpectedValue = expectedValue == null ? "" : expectedValue;
+
+			waitForDocumentReady(displayName);
+			scrollElementToCenter(inputField);
+
+			WebElement visibleInputField = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+					.until(ExpectedConditions.visibilityOf(inputField));
+
+			scrollElementToCenter(visibleInputField);
+
+			String actualValue = visibleInputField.getAttribute("value");
+			actualValue = actualValue == null ? "" : actualValue;
+
+			System.out.println("[INPUT FIELD VALUE VERIFY]");
+			System.out.println("Element Name    : " + displayName);
+			System.out.println("Expected Value  : " + finalExpectedValue);
+			System.out.println("Actual Value    : " + actualValue);
+
+			boolean status = actualValue.equals(finalExpectedValue);
+
+			if (status) {
+				System.out.println("[INPUT FIELD VALUE PASS] " + displayName);
+			} else {
+				System.out.println("[INPUT FIELD VALUE FAIL] " + displayName);
+				captureFailure("INPUT FIELD VALUE VERIFY FAILED -> " + displayName + " | Expected: "
+						+ finalExpectedValue + " | Actual: " + actualValue);
+			}
+
+			return status;
+
+		} catch (Exception ex) {
+			System.out.println("[INPUT FIELD VALUE VERIFY FAILED] " + elementName + " | " + ex.getMessage());
+			captureFailure("INPUT FIELD VALUE VERIFY FAILED -> " + elementName, ex);
 			return false;
 		}
 	}

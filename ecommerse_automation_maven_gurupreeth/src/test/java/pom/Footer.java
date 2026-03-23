@@ -220,10 +220,10 @@ public class Footer extends AllVerifications {
 	@FindBy(css = "footer.hp-font div.mt-6")
 	private WebElement subscribeContainer;
 
-	@FindBy(css = "footer.hp-font h4.text-gray-900.text-\\[13px\\].font-extrabold")
+	@FindBy(css = "footer div.flex.items-center.gap-2.mb-3>h4")
 	private WebElement subscribeFormHeading;
 
-	@FindBy(css = "footer.hp-font div.rounded-2xl.bg-white.border.border-orange-100.shadow-sm.p-4")
+	@FindBy(css = "footer.hp-font div.rounded-2xl.bg-white.border.border-orange-100.shadow-sm.p-4:nth-of-type(2)")
 	private WebElement subscribeFormCard;
 
 	@FindBy(css = "footer.hp-font form")
@@ -235,7 +235,7 @@ public class Footer extends AllVerifications {
 	@FindBy(css = "footer.hp-font form button[type='submit']")
 	private WebElement subscriptionButton;
 
-	@FindBy(css = "footer.hp-font form p.text-red-500.text-sm")
+	@FindBy(css = "footer.hp-font form>p.text-red-500.text-sm")
 	private WebElement subscriptionErrorMessage;
 
 	@FindBy(css = "footer.hp-font form p.text-green-600.text-sm")
@@ -588,7 +588,7 @@ public class Footer extends AllVerifications {
 		return verifyElementPresentAndVisible(subscribeContainer, "Subscribe Container");
 	}
 
-	public boolean verifySubscribeFormHeadingText(String expectedText) {
+	public boolean verifySubscribeFormHeading(String expectedText) {
 		return verifyText(subscribeFormHeading, expectedText, "Subscribe Form Heading", "equals", true);
 	}
 
