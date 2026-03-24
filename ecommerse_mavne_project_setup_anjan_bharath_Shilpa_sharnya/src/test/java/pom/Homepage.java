@@ -1,10 +1,9 @@
 package pom;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,113 +14,13 @@ import generic.AllVerifications;
 public class HomePage extends AllVerifications {
 
 	// ============================================================
-	// ✅ HEADER - LEFT (Logo + Shop All)
-	// ============================================================
-
-	@FindBy(css = "header nav a[aria-label='Go to home']")
-	private WebElement headerHomeLogoLink;
-
-	@FindBy(css = "header nav a[aria-label='Go to home'] span.text-\\[13px\\].font-extrabold")
-	private WebElement headerHomeLogoAppNameText;
-
-	@FindBy(css = "header nav a[href='/shop']")
-	private WebElement headerShopAllLinkDesktop;
-
-	// ============================================================
-	// ✅ HEADER - SEARCH
-	// ============================================================
-
-	@FindBy(css = "header nav form[role='search'] input[type='text']")
-	private WebElement headerSearchInputDesktop;
-
-	@FindBy(css = "header nav form[role='search'] button[type='submit']")
-	private WebElement headerSearchButtonDesktop;
-
-	@FindBy(css = "header div.lg\\:hidden form[role='search'] input[type='text']")
-	private WebElement headerSearchInputMobileRow;
-
-	@FindBy(css = "header div.lg\\:hidden form[role='search'] button[type='submit']")
-	private WebElement headerSearchButtonMobileRow;
-
-	// ============================================================
-	// ✅ HEADER - RIGHT (Desktop Wishlist + MiniCart + Login/User)
-	// ============================================================
-
-	@FindBy(css = "header a[href='/wishlist'][aria-label='Wishlist']")
-	private WebElement headerWishlistLinkDesktop;
-
-	@FindBy(css = "header a[href='/login'][aria-label='Sign in']")
-	private WebElement headerSignInLinkDesktop;
-
-	@FindBy(css = "header button[aria-haspopup='menu']")
-	private WebElement headerUserDropdownButton;
-
-	@FindBy(css = "header div.absolute.right-0 button")
-	private List<WebElement> headerUserDropdownButtons;
-
-	// ============================================================
-	// ✅ HEADER - MOBILE RIGHT ICONS
-	// ============================================================
-
-	@FindBy(css = "header a[href='/wishlist'][aria-label='Wishlist']")
-	private WebElement headerWishlistLinkMobile;
-
-	@FindBy(css = "header a[href='/cart'][aria-label='Cart']")
-	private WebElement headerCartLinkMobile;
-
-	@FindBy(css = "header button[aria-label='Open menu']")
-	private WebElement headerOpenMobileMenuButton;
-
-	// ============================================================
-	// ✅ MOBILE MENU (DialogPanel role=dialog)
-	// ============================================================
-
-	@FindBy(css = "header div[role='dialog'][aria-modal='true']")
-	private WebElement mobileMenuDialogPanel;
-
-	@FindBy(css = "header div[role='dialog'][aria-modal='true'] button[aria-label='Close menu']")
-	private WebElement mobileMenuCloseButton;
-
-	@FindBy(css = "header div[role='dialog'][aria-modal='true'] form input[type='text']")
-	private WebElement mobileMenuSearchInput;
-
-	@FindBy(css = "header div[role='dialog'][aria-modal='true'] form button[type='submit']")
-	private WebElement mobileMenuSearchButton;
-
-	@FindBy(css = "header div[role='dialog'][aria-modal='true'] a[href='/shop']")
-	private WebElement mobileMenuShopAllLink;
-
-	@FindBy(css = "header div[role='dialog'][aria-modal='true'] a[href='/login']")
-	private WebElement mobileMenuLoginLink;
-
-	// ============================================================
-	// ✅ MINI CART (MiniCart.jsx) - scoped by .mc-scope
-	// ============================================================
-
-	@FindBy(css = ".mc-scope button[aria-label='Open cart']")
-	private WebElement miniCartOpenButton;
-
-	@FindBy(css = ".mc-scope button[aria-label='Open cart'] span")
-	private WebElement miniCartCountBadge;
-
-	// Popup container (only exists when open)
-	private final By miniCartPopupBy = By.cssSelector(".mc-scope .mcCard");
-
-	private final By miniCartCloseButtonBy = By.cssSelector(".mc-scope .mcCard button[aria-label='Close']");
-	private final By miniCartBrowseProductsLinkBy = By.cssSelector(".mc-scope .mcCard a[href='/shop']");
-	private final By miniCartItemsContainerBy = By.cssSelector(".mc-scope .mcCard .mcScroll");
-	private final By miniCartItemRowsBy = By.cssSelector(".mc-scope .mcCard .mcScroll > div");
-	private final By miniCartRemoveButtonsBy = By.cssSelector(".mc-scope .mcCard button[aria-label='Remove']");
-	private final By miniCartTotalValueBy = By.cssSelector(".mc-scope .mcCard .mt-4 .text-slate-900");
-	private final By miniCartViewCartLinkBy = By.cssSelector(".mc-scope .mcCard a[href='/cart']");
-	private final By miniCartCheckoutButtonBy = By.cssSelector(".mc-scope .mcCard button.btnGhost");
-
-	// ============================================================
 	// ✅ HOMEPAGE - HERO CAROUSEL
 	// ============================================================
 
 	@FindBy(css = "div#root")
-	private WebElement pageRootContainer; // parent element which contains the entire page/homepage.
+	private WebElement pageRootContainer;
+
+	private final By pageRootContainerBy = By.cssSelector("div#root");
 
 	@FindBy(css = "div#carouselExampleDark")
 	private WebElement heroCarousel;
@@ -129,27 +28,25 @@ public class HomePage extends AllVerifications {
 	@FindBy(css = "div#carouselExampleDark .carousel-indicators button")
 	private List<WebElement> heroCarouselIndicators;
 
-	@FindBy(css = "div#carouselExampleDark .carousel-indicators button")
-	private WebElement heroCarouselFirstlIndicator;
-
-	@FindBy(css = "div#carouselExampleDark .carousel-indicators button")
-	private WebElement heroCarouselSecondIndicator;
-
-	@FindBy(css = "div#carouselExampleDark .carousel-indicators button")
-	private WebElement heroCarouselThirdIndicator;
-
-	@FindBy(css = "main.flex-grow>div.min-h-screen>div.hp-font div.carousel-inner>div.carousel-item:first-child h1")
-	private WebElement mainHeroHeadingFirstSlider;
-
-	@FindBy(css = "main.flex-grow>div.min-h-screen>div.hp-font div.carousel-inner>div.carousel-item:first-child h1")
-	private WebElement mainHeroHeadingSecondSlider;
-
-	@FindBy(css = "main.flex-grow>div.min-h-screen>div.hp-font div.carousel-inner>div.carousel-item:first-child h1")
-	private WebElement mainHeroHeadingThirdSlider;
-
 	// ============================================================
-	// ✅ HOMEPAGE - CATEGORY CAROUSEL
+	// ✅ HOMEPAGE ACTIONS
 	// ============================================================
+
+	public boolean verifyHomePageRootContainerIsDisplayedAndEnabled() {
+		return verifyElementPresentAndVisible(pageRootContainer, "HomePage Parent Container");
+	}
+
+	public void clickHeroIndicator(int indexZeroBased) {
+		if (indexZeroBased < 0 || heroCarouselIndicators == null || indexZeroBased >= heroCarouselIndicators.size()) {
+			System.out.println("[HOMEPAGE] Invalid hero indicator index: " + indexZeroBased);
+			return;
+		}
+		clickOnElement(heroCarouselIndicators.get(indexZeroBased), "Hero Indicator " + indexZeroBased);
+	}
+
+	// HOMEPAGE - CATEGORY CAROUSEL SECTION ELEMENTS
+	@FindBy(css = "section.m-8")
+	private WebElement categoryParentContainer;
 
 	@FindBy(css = "section button[aria-label='Scroll categories left']")
 	private WebElement categoryScrollLeftButton;
@@ -160,52 +57,44 @@ public class HomePage extends AllVerifications {
 	@FindBy(css = "section div.flex.gap-3.overflow-x-auto > div[title]")
 	private List<WebElement> categoryCardsByTitle;
 
-	@FindBy(css = "section.m-8>div.flex.flex-col>div>h2")
-	private WebElement categoryMainHeadingText;
+	@FindBy(css = "section.m-8>div>div>h2")
+	private WebElement categoryMainHeading;
 
-	@FindBy(css = "section.m-8>div.flex.flex-col>div>p")
-	private WebElement categorySubHeadingText;
+	@FindBy(css = "section.m-8>div>div>p")
+	private WebElement categorySubHeading;
 
-	@FindBy(css = "section.m-8>div.flex.flex-col>div:last-child")
+	@FindBy(css = "section.m-8>div:first-child>div:last-child")
 	private WebElement categoryCountText;
 
-	public String verifyCategoryMainHeadingText() {
-		return getTextFromElement(categoryMainHeadingText, "Explore Categories");
-	}
+	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div.duration-300:first-child")
+	private WebElement electronicsCategoryName; // electronics
 
-	public String verifyCategorySubHeadingText() {
-		return getTextFromElement(categorySubHeadingText, "Tap any category to instantly search products.");
-	}
+	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div.duration-300>div.relative>div.absolute.bottom-3>div>span:first-child")
+	private WebElement singleCategoryName; // any category name
 
-	public String verifyCategoryCountText() {
-		return getTextFromElement(categoryCountText, "Showing 7 of 10 categories");
-	}
+	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div.duration-300>div.relative>div.absolute.bottom-3>div>span:last-child")
+	private WebElement singleCategorAnyShopButtonName; // any category shop button
 
-	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div")
-	private List<WebElement> allCategoryItems;
+	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div.duration-300>div.relative>div.absolute.bottom-3>div>span:last-child")
+	private List<WebElement> allShopButtons; // any category shop button
 
-	public boolean verifyTotalCategoriesItemsCount(int expectedCount) {
-		return verifyTotalElementsCount(expectedCount, allCategoryItems);
-	}
+	// locator for ALL individual category items
+	private By totalCategoryItems = By.cssSelector("section.m-8 > div.relative > div.flex.gap-3 > div");
 
-	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div>div.relative>div.absolute.bottom-3>div.flex>span:first-child")
+	@FindBy(css = "section.m-8 > div.relative > div.flex.gap-3 > div > div.relative > div.absolute > div.flex.items-center > span:last-child")
+	private List<WebElement> allCategoryShopButtons;
+
+	@FindBy(css = "section.m-8 > div.relative > div.flex.gap-3 > div > div.relative > div.absolute > div.flex.items-center > span:first-child")
 	private List<WebElement> allCategoryNames;
 
-	public void printAllCategoryNames() {
-		printTextOfAllElements(allCategoryNames, "All Category Names");
-	}
+	String allCategoryNamesUsingJavascript = "section.m-8 > div.relative > div.flex.gap-3 > div > div.relative > div.absolute > div.flex.items-center > span:first-child";
 
-	@FindBy(css = "div.flex.gap-3.overflow-x-auto.scroll-smooth.px-1.py-2.hide-scrollbar>div>div.relative>div.absolute.bottom-3>div.flex>span:first-child")
-	private List<WebElement> allProductNames;
+	@FindBy(css = "section.m-8 > div.relative > div.flex.gap-3 > div > div.p-3>p")
+	private List<WebElement> allCategorySubHeadingNames;
 
-	public void printAllProductNames() {
-		printTextOfAllElements(allProductNames, "All Product Names");
-	}
+	String allCategorySubHeadingNamesUsingJavascript = "section.m-8 > div.relative > div.flex.gap-3 > div > div.p-3>p";
 
-	// ============================================================
-	// ✅ HOMEPAGE - BRANDS SECTION ELEMENTS
-	// ============================================================
-
+	// brand section elements
 	@FindBy(css = "section.m-10>div:first-child>div>h2")
 	private WebElement brandSectionMainHeading;
 
@@ -218,358 +107,172 @@ public class HomePage extends AllVerifications {
 	@FindBy(css = "div.brandTrack>div.flex:first-child>button>div>div.flex.items-center.gap-2>span.uppercase")
 	private List<WebElement> allBrandNames;
 
-	public String verifyBrandSectionMainHeading() {
-		return getTextFromElement(brandSectionMainHeading, "Popular Brands");
+	@FindBy(css = "section button[aria-label='Next brands (left)']")
+	private WebElement brandsScrollLeftButton;
+
+	@FindBy(css = "section button[aria-label='Next brands (right)']")
+	private WebElement brandsScrollRightButton;
+
+	@FindBy(css = "div.brandTrack")
+	private WebElement brandTrack;
+
+	@FindBy(css = "form.w-full.max-w-3xl input")
+	private WebElement headerSearchInputField;
+
+	@FindBy(css = "form.w-full.max-w-3xl button")
+	private WebElement searchButton;
+
+	@FindBy(css = "form.flex.flex-col.space-y-3>input")
+	private WebElement footerEmailInputField;
+
+	@FindBy(css = "form.flex.flex-col.space-y-3>button")
+	private WebElement subscribeButton;
+
+	// HOMEPAGE - CATEGORY SECTION ACTION METHODS
+	public boolean verifyCategoryParentContainerIsDisplayed() {
+		return verifyElementPresentAndVisible(categoryParentContainer, "Category Parent Container");
 	}
 
-	public String verifyBrandSectionSubHeading() {
-		return getTextFromElement(brandSectionSubHeading,
-				"Smooth infinite marquee • drag / swipe anytime • tap to search");
+	public boolean verifyCategoryMainHeadingText(String expectedText) {
+		return verifyText(categoryMainHeading, expectedText, "Category Main Heading", "equals", true);
 	}
 
-	public String verifyBrandSectionCountText() {
-		return getTextFromElement(brandSectionCountText, "117 brands");
+	public boolean verifyCategorySubHeadingText(String expectedText) {
+		return verifyText(categorySubHeading, expectedText, "Category Sub Heading", "equals", true);
 	}
 
-	public void printAllBrandNames() {
-		printTextOfAllElements(allBrandNames, "All Brand Names");
+	public boolean verifyCategoryCountText(String expectedText) {
+		return verifyText(categoryCountText, expectedText, "Category Count Text", "contains", true);
 	}
 
-	// ============================================================
-	// ✅ FOOTER + SubscriptionForm.jsx
-	// ============================================================
-
-	@FindBy(css = "footer")
-	private WebElement footerRoot;
-
-	@FindBy(css = "footer a[href='/about-us']")
-	private WebElement footerAboutUsLink;
-
-	@FindBy(css = "footer a[href='/contact-us']")
-	private WebElement footerContactUsLink;
-
-	@FindBy(css = "footer a[href='/careers']")
-	private WebElement footerCareersLink;
-
-	@FindBy(css = "footer a[href='/all-blogs']")
-	private WebElement footerBlogsLink;
-
-	@FindBy(css = "footer a[href='/help-center']")
-	private WebElement footerHelpCenterLink;
-
-	@FindBy(css = "footer a[href='/privacy-policy']")
-	private WebElement footerPrivacyPolicyLink;
-
-	@FindBy(css = "footer a[href='/terms-of-service']")
-	private WebElement footerTermsOfServiceLink;
-
-	@FindBy(css = "footer a[target='_blank'][rel='noreferrer']")
-	private List<WebElement> footerSocialLinks;
-
-	@FindBy(css = "footer form.flex.flex-col.space-y-3 input[type='email']")
-	private WebElement footerSubscribeEmailInput;
-
-	@FindBy(css = "footer form.flex.flex-col.space-y-3 button[type='submit']")
-	private WebElement footerSubscribeButton;
-
-	private final By footerSubscribeErrorBy = By.cssSelector("footer form.flex.flex-col.space-y-3 p.text-red-500");
-	private final By footerSubscribeOkMsgBy = By.cssSelector("footer form.flex.flex-col.space-y-3 p.text-green-600");
-
-	// ============================================================
-	// ✅ INIT
-	// ============================================================
-
-	public HomePage(WebDriver driver) {
-		super(driver);
-		PageFactory.initElements(driver, this);
+	public boolean verifyTotalCategoryCount(int expectedCategoryCount) {
+		return verifyTotalElementsCount(expectedCategoryCount, totalCategoryItems);
 	}
 
-	// ============================================================
-	// ✅ INTERNAL SIMPLE HELPERS (NO WAITS)
-	// ============================================================
+	public List<WebElement> printAllCategoryNames() {
+		return printTextOfAllElements(allCategoryNames, "All Category Names");
 
-	private WebElement findButtonByExactText(List<WebElement> buttons, String exactText) {
-		String exp = exactText == null ? "" : exactText.trim();
-		for (WebElement b : buttons) {
-			String t = (b.getText() == null) ? "" : b.getText().trim();
-			if (t.equals(exp))
-				return b;
+	}
+
+	public List<String> printAllCategoryNamesUsingJavascript() {
+		return printTextOfAllElementsUsingJavascript(allCategoryNamesUsingJavascript, "All Category Names");
+	}
+
+	public List<WebElement> printAllCategorySubHeadingNames() {
+		return printTextOfAllElements(allCategorySubHeadingNames, "All Category Sub heading");
+	}
+
+	public List<String> printAllCategorySubHeadingNamesUsingJavascript() {
+		return printTextOfAllElementsUsingJavascript(allCategorySubHeadingNamesUsingJavascript, "All Category Names");
+	}
+
+	public boolean clickOnCategory() {
+		return clickOnElement(singleCategoryName, "Electronic category");
+	}
+
+	public boolean clickOnAnyCategory() {
+		return clickOnElement(singleCategoryName, "Category Name");
+	}
+
+	// singleCategorAnyShopButtonyName
+	public boolean clickOnAnyShopButtonOfCategory() {
+		return clickOnElement(singleCategorAnyShopButtonName, "Category Shop Button");
+	}
+
+	public boolean clickOnAllShopButtonOfCategories() {
+		try {
+			if (allShopButtons == null || allShopButtons.isEmpty()) {
+				captureFailure("ALL SHOP BUTTONS LIST EMPTY");
+				return false;
+			}
+
+			return clickOnElement(allShopButtons.get(0), "First Category Shop Button");
+
+		} catch (Exception ex) {
+			captureFailure("CLICK ON FIRST CATEGORY SHOP BUTTON FAILED", ex);
+			return false;
 		}
-		return null;
 	}
 
-	private WebElement findElementByTitle(List<WebElement> elements, String title) {
-		String exp = title == null ? "" : title.trim();
-		if (exp.isEmpty())
-			return null;
+	public boolean clickShopButtonByCategoryName(String categoryName) {
+		try {
+			if (categoryName == null || categoryName.trim().isEmpty()) {
+				throw new IllegalArgumentException("Category name is null or empty");
+			}
 
-		for (WebElement el : elements) {
-			String t = el.getAttribute("title");
-			if (t != null && t.trim().equalsIgnoreCase(exp))
-				return el;
+			String expectedCategory = categoryName.trim();
+
+			if (categoryCardsByTitle == null || categoryCardsByTitle.isEmpty()) {
+				captureFailure("CATEGORY CARD LIST EMPTY");
+				return false;
+			}
+
+			for (int attempt = 1; attempt <= 10; attempt++) {
+
+				System.out.println("[SHOP BUTTON SEARCH ATTEMPT " + attempt + "] Category: " + expectedCategory);
+
+				PageFactory.initElements(driver, this);
+
+				for (int i = 0; i < categoryCardsByTitle.size(); i++) {
+					try {
+						WebElement categoryCard = categoryCardsByTitle.get(i);
+						String actualTitle = categoryCard.getAttribute("title");
+
+						if (actualTitle != null && actualTitle.trim().equalsIgnoreCase(expectedCategory)) {
+
+							if (allShopButtons == null || allShopButtons.size() <= i) {
+								System.out.println(
+										"[SHOP BUTTON NOT FOUND] Category matched but shop button missing for: "
+												+ expectedCategory);
+								captureFailure("SHOP BUTTON NOT FOUND FOR CATEGORY -> " + expectedCategory);
+								return false;
+							}
+
+							System.out
+									.println("[CLICKING SHOP BUTTON] Category: " + expectedCategory + " | Index: " + i);
+
+							return clickOnElement(allShopButtons.get(i),
+									"Shop Button Of Category: " + expectedCategory);
+						}
+
+					} catch (Exception innerEx) {
+						System.out.println("[CATEGORY / SHOP BUTTON MATCH FAILED] " + expectedCategory);
+					}
+				}
+
+				clickOnElement(categoryScrollRightButton, "Category Scroll Right");
+			}
+
+			System.out.println(
+					"[SHOP BUTTON CLICK FAILED] Category not found after slider attempts: " + expectedCategory);
+			captureFailure("SHOP BUTTON CLICK FAILED -> Category not found: " + expectedCategory);
+			return false;
+
+		} catch (Exception ex) {
+			System.out.println("[SHOP BUTTON CLICK FAILED] " + categoryName + " | " + ex.getMessage());
+			captureFailure("SHOP BUTTON CLICK FAILED -> " + categoryName, ex);
+			return false;
 		}
-		return null;
 	}
 
-	// ============================================================
-	// ✅ HEADER ACTIONS
-	// ============================================================
+	public String fetchSingleCategoryNameText() {
+		try {
+			String categoryText = singleCategoryName.getText() == null ? "" : singleCategoryName.getText().trim();
 
-	public void clickHeaderLogoHome() {
-		clickOnElement(headerHomeLogoLink, "Header Home Logo");
-	}
+			System.out.println("[SINGLE CATEGORY TEXT] " + categoryText);
 
-	public String clickHeaderLogoAppNameAndPrintText() {
-		headerHomeLogoAppNameText.click();
-		return getTextFromElement(headerHomeLogoAppNameText, "Header App Name Text");
-	}
+			if (categoryText.isEmpty()) {
+				captureFailure("SINGLE CATEGORY TEXT EMPTY");
+			}
 
-	public void clickHeaderShopAllDesktop() {
-		clickOnElement(headerShopAllLinkDesktop, "Header SHOP ALL (Desktop)");
-	}
+			return categoryText;
 
-	// ---------- Search (Desktop / Mobile Row) ----------
-
-	public void enterValueIntoSearchField(String keys) {
-		typeInInputField(headerSearchInputDesktop, keys, "Header Search (Desktop)");
-	}
-
-	public void enterValueIntoSearchField(int keys) {
-		enterValueIntoSearchField(String.valueOf(keys));
-	}
-
-	public void enterValueIntoSearchField(long keys) {
-		enterValueIntoSearchField(String.valueOf(keys));
-	}
-
-	public void enterValueIntoSearchField(double keys) {
-		enterValueIntoSearchField(String.valueOf(keys));
-	}
-
-	public void clickSearchButtonDesktop() {
-		clickOnElement(headerSearchButtonDesktop, "Header Search Button (Desktop)");
-	}
-
-	public void searchDesktop(String query) {
-		enterValueIntoSearchField(query);
-		clickSearchButtonDesktop();
-	}
-
-	public void searchDesktopAndPressEnter(String query) {
-		typeInInputField(headerSearchInputDesktop, query, "Header Search (Desktop)");
-		pressKeyInElement(headerSearchInputDesktop, Keys.ENTER, "Header Search Desktop ENTER");
-	}
-
-	public void searchMobileRow(String query) {
-		typeInInputField(headerSearchInputMobileRow, query, "Header Search (Mobile Row)");
-		clickOnElement(headerSearchButtonMobileRow, "Header Search Button (Mobile Row)");
-	}
-
-	// ---------- Wishlist / Cart (Mobile) ----------
-
-	public void clickWishlistDesktop() {
-		clickOnElement(headerWishlistLinkDesktop, "Wishlist (Desktop)");
-	}
-
-	public void clickWishlistMobile() {
-		clickOnElement(headerWishlistLinkMobile, "Wishlist (Mobile)");
-	}
-
-	public void clickCartMobile() {
-		clickOnElement(headerCartLinkMobile, "Cart (Mobile)");
-	}
-
-	public void clickSignInDesktop() {
-		clickOnElement(headerSignInLinkDesktop, "Sign In (Desktop)");
-	}
-
-	// ---------- User dropdown ----------
-
-	public void openUserDropdown() {
-		clickOnElement(headerUserDropdownButton, "User Dropdown");
-	}
-
-	public void clickUserDropdownOption(String optionText) {
-		openUserDropdown();
-		WebElement btn = findButtonByExactText(headerUserDropdownButtons, optionText);
-		if (btn == null) {
-			System.out.println("[HOMEPAGE] Dropdown option not found: " + optionText);
-			return;
-		}
-		clickOnElement(btn, "User Dropdown Option: " + optionText);
-	}
-
-	// ============================================================
-	// ✅ MOBILE MENU ACTIONS
-	// ============================================================
-
-	public void openMobileMenu() {
-		clickOnElement(headerOpenMobileMenuButton, "Open Mobile Menu");
-		waitUntilElementVisible(mobileMenuDialogPanel, 10, "Mobile Menu Dialog Panel");
-	}
-
-	public void closeMobileMenu() {
-		clickOnElement(mobileMenuCloseButton, "Close Mobile Menu");
-	}
-
-	public void searchInMobileMenu(String query) {
-		openMobileMenu();
-		typeInInputField(mobileMenuSearchInput, query, "Mobile Menu Search");
-		clickOnElement(mobileMenuSearchButton, "Mobile Menu Search Button");
-	}
-
-	public void clickMobileMenuShopAll() {
-		openMobileMenu();
-		clickOnElement(mobileMenuShopAllLink, "Mobile Menu SHOP ALL");
-	}
-
-	public void clickMobileMenuLogin() {
-		openMobileMenu();
-		clickOnElement(mobileMenuLoginLink, "Mobile Menu Login");
-	}
-
-	public void clickMobileMenuCartButton() {
-		openMobileMenu();
-		List<WebElement> buttons = driver
-				.findElements(By.cssSelector("header div[role='dialog'][aria-modal='true'] button"));
-		WebElement cartBtn = findButtonByExactText(buttons, "Cart");
-		if (cartBtn != null)
-			clickOnElement(cartBtn, "Mobile Menu Cart");
-		else
-			System.out.println("[HOMEPAGE] Mobile Menu Cart button not found.");
-	}
-
-	public void clickMobileMenuWishlistButton() {
-		openMobileMenu();
-		List<WebElement> buttons = driver
-				.findElements(By.cssSelector("header div[role='dialog'][aria-modal='true'] button"));
-		WebElement wlBtn = findButtonByExactText(buttons, "Wishlist");
-		if (wlBtn != null)
-			clickOnElement(wlBtn, "Mobile Menu Wishlist");
-		else
-			System.out.println("[HOMEPAGE] Mobile Menu Wishlist button not found.");
-	}
-
-	// ============================================================
-	// ✅ MINI CART ACTIONS (MiniCart.jsx)
-	// ============================================================
-
-	public void openMiniCart() {
-		clickOnElement(miniCartOpenButton, "MiniCart Open Button");
-		waitUntilElementPresent(miniCartPopupBy, 10, "MiniCart Popup");
-	}
-
-	public void closeMiniCart() {
-		if (!isElementPresentInDOM(miniCartPopupBy)) {
-			System.out.println("[HOMEPAGE] MiniCart popup is not open. Nothing to close.");
-			return;
-		}
-		clickOnElement(miniCartCloseButtonBy, "MiniCart Close Button");
-		waitUntilElementInvisible(miniCartPopupBy, 10, "MiniCart Popup");
-	}
-
-	public boolean isMiniCartOpen() {
-		return isElementPresentInDOM(miniCartPopupBy);
-	}
-
-	public int getMiniCartBadgeCount() {
-		return getIntegerFromElementText(miniCartCountBadge, "MiniCart Badge Count");
-	}
-
-	public void clickMiniCartBrowseProductsWhenEmpty() {
-		openMiniCart();
-		if (!isElementPresentInDOM(miniCartBrowseProductsLinkBy)) {
-			System.out.println("[HOMEPAGE] Browse products link not visible (cart might not be empty).");
-			return;
-		}
-		clickOnElement(miniCartBrowseProductsLinkBy, "MiniCart Browse Products Link");
-	}
-
-	public int getMiniCartItemRowCount() {
-		openMiniCart();
-		return driver.findElements(miniCartItemRowsBy).size();
-	}
-
-	public List<String> getMiniCartItemNames() {
-		openMiniCart();
-		List<String> names = new ArrayList<>();
-		List<WebElement> titles = driver.findElements(By.cssSelector(".mc-scope .mcCard .mcScroll h3"));
-		for (WebElement t : titles) {
-			String txt = t.getText();
-			if (txt != null && !txt.trim().isEmpty())
-				names.add(txt.trim());
-		}
-		return names;
-	}
-
-	public void removeMiniCartItemByIndex(int indexZeroBased) {
-		openMiniCart();
-
-		waitUntilElementPresent(miniCartItemsContainerBy, 10, "MiniCart Items Container");
-
-		List<WebElement> removeBtns = driver.findElements(miniCartRemoveButtonsBy);
-		if (removeBtns.isEmpty()) {
-			System.out.println("[HOMEPAGE] No remove buttons found (cart empty?).");
-			return;
-		}
-
-		if (indexZeroBased < 0 || indexZeroBased >= removeBtns.size()) {
-			System.out.println("[HOMEPAGE] Invalid remove index: " + indexZeroBased);
-			return;
-		}
-
-		clickOnElement(removeBtns.get(indexZeroBased), "MiniCart Remove Item #" + indexZeroBased);
-	}
-
-	public void clickMiniCartViewCart() {
-		openMiniCart();
-		clickOnElement(miniCartViewCartLinkBy, "MiniCart View Cart Link");
-	}
-
-	public void clickMiniCartCheckout() {
-		openMiniCart();
-		clickOnElement(miniCartCheckoutButtonBy, "MiniCart Checkout Button");
-	}
-
-	public String getMiniCartTotalText() {
-		openMiniCart();
-		List<WebElement> totals = driver.findElements(miniCartTotalValueBy);
-		if (totals.isEmpty())
+		} catch (Exception ex) {
+			captureFailure("FETCH SINGLE CATEGORY TEXT FAILED", ex);
 			return "";
-		String txt = totals.get(totals.size() - 1).getText();
-		return txt == null ? "" : txt.trim();
-	}
-
-	// ============================================================
-	// ✅ HOMEPAGE ACTIONS
-	// ============================================================
-
-	public boolean isHomePageRootDisplayed() {
-		return isElementDisplayed(pageRootContainer, "HomePage Root / Parent section.");
-	}
-
-	public boolean isHeroCarouselVisible() {
-		return isElementDisplayed(heroCarousel, "Hero Carousel");
-	}
-
-	public void clickHeroIndicator(int indexZeroBased) {
-		if (indexZeroBased < 0 || heroCarouselIndicators == null || indexZeroBased >= heroCarouselIndicators.size()) {
-			System.out.println("[HOMEPAGE] Invalid hero indicator index: " + indexZeroBased);
-			return;
 		}
-		clickOnElement(heroCarouselIndicators.get(indexZeroBased), "Hero Indicator " + indexZeroBased);
 	}
 
-	public void clickFirstIndicatorInHeroSection() {
-		clickOnElement(heroCarouselFirstlIndicator, "First Indicator In Hero Section.");
-	}
-
-	public void verifyTextOfFirstHeadingInHeroSection() {
-
-		verifyTextPresent(mainHeroHeadingFirstSlider, "Summer Collection 2025");
-	}
-
-	// ---------- Categories ----------
 	public void scrollCategoriesLeft() {
 		clickOnElement(categoryScrollLeftButton, "Category Scroll Left");
 	}
@@ -582,110 +285,208 @@ public class HomePage extends AllVerifications {
 		return categoryCardsByTitle == null ? 0 : categoryCardsByTitle.size();
 	}
 
-	public void clickCategoryByName(String categoryName) {
-		WebElement el = findElementByTitle(categoryCardsByTitle, categoryName);
-		if (el == null) {
-			System.out.println("[HOMEPAGE] Category not found by title: " + categoryName);
-			return;
+	public boolean clickCategoryByName(String categoryName) {
+		try {
+			if (categoryName == null || categoryName.trim().isEmpty()) {
+				throw new IllegalArgumentException("Category name is null or empty");
+			}
+
+			String expectedCategory = categoryName.trim();
+
+			for (WebElement category : categoryCardsByTitle) {
+				String actualTitle = category.getAttribute("title");
+
+				if (actualTitle != null && actualTitle.trim().equalsIgnoreCase(expectedCategory)) {
+					return clickOnElement(category, "Category Card: " + expectedCategory);
+				}
+			}
+
+			System.out.println("[CATEGORY CLICK FAILED] Category not found: " + expectedCategory);
+			captureFailure("CATEGORY CLICK FAILED -> Category not found: " + expectedCategory);
+			return false;
+
+		} catch (Exception ex) {
+			System.out.println("[CATEGORY CLICK FAILED] " + categoryName + " | " + ex.getMessage());
+			captureFailure("CATEGORY CLICK FAILED -> " + categoryName, ex);
+			return false;
 		}
-		clickOnElement(el, "Category Card: " + categoryName);
 	}
 
-	public List<String> getVisibleBrandProductNames() {
-		List<String> names = new ArrayList<>();
-		List<WebElement> titles = driver.findElements(By.cssSelector("section div.grid h4"));
-		for (WebElement t : titles) {
-			String txt = t.getText();
-			if (txt != null && !txt.trim().isEmpty())
-				names.add(txt.trim());
+	public boolean clickCategoryShopButtonByName(String categoryName, WebElement categoryAllShopButtons) {
+		try {
+			if (categoryName == null || categoryName.trim().isEmpty()) {
+				throw new IllegalArgumentException("Category name is null or empty");
+			}
+
+			String expectedCategory = categoryName.trim();
+
+			for (WebElement category : categoryCardsByTitle) {
+				String actualTitle = category.getAttribute("title");
+
+				if (actualTitle != null && actualTitle.trim().equalsIgnoreCase(expectedCategory)) {
+					return clickOnElement(categoryAllShopButtons, "Category Card: " + expectedCategory);
+				}
+			}
+
+			System.out.println("[CATEGORY CLICK FAILED] Category not found: " + expectedCategory);
+			captureFailure("CATEGORY CLICK FAILED -> Category not found: " + expectedCategory);
+			return false;
+
+		} catch (Exception ex) {
+			System.out.println("[CATEGORY CLICK FAILED] " + categoryName + " | " + ex.getMessage());
+			captureFailure("CATEGORY CLICK FAILED -> " + categoryName, ex);
+			return false;
 		}
-		return names;
+	}
+
+	public boolean clickAllCategoriesByName(String categoryName) {
+		try {
+			if (categoryName == null || categoryName.trim().isEmpty()) {
+				throw new IllegalArgumentException("Category name is null or empty");
+			}
+
+			String targetCategory = categoryName.trim();
+
+			// Try multiple times because categories are in a horizontal slider
+			for (int attempt = 1; attempt <= 10; attempt++) {
+
+				System.out.println("[CATEGORY SEARCH ATTEMPT " + attempt + "] " + targetCategory);
+
+				// Refresh page object references each attempt
+				PageFactory.initElements(driver, this);
+
+				// Try to find currently visible category card by title
+				for (WebElement category : categoryCardsByTitle) {
+					try {
+						String title = category.getAttribute("title");
+
+						if (title != null && title.trim().equalsIgnoreCase(targetCategory)) {
+							return clickOnElement(category, "Category: " + targetCategory);
+						}
+					} catch (Exception innerEx) {
+						System.out.println("[CATEGORY ITEM CHECK FAILED] " + targetCategory);
+					}
+				}
+
+				// If not found yet, move slider right and try again
+				clickOnElement(categoryScrollRightButton, "Category Scroll Right");
+			}
+
+			System.out.println("[CATEGORY CLICK FAILED] Category not found after slider attempts: " + targetCategory);
+			captureFailure("CATEGORY CLICK FAILED -> " + targetCategory);
+			return false;
+
+		} catch (Exception ex) {
+			System.out.println("[CATEGORY CLICK FAILED] " + categoryName);
+			captureFailure("CATEGORY CLICK FAILED -> " + categoryName, ex);
+			return false;
+		}
+	}
+
+	// HOMEPAGE - BRANDS SECTION ACTION METHODS
+
+	public boolean verifyBrandSectionMainHeading() {
+		return verifyText(brandSectionMainHeading, "Popular Brands", "Brand Section Main Heading", "equals", true);
+	}
+
+	public boolean verifyBrandSectionSubHeading() {
+		return verifyText(brandSectionSubHeading, "Smooth infinite marquee • drag / swipe anytime • tap to search",
+				"Brand Section Sub Heading", "equals", true);
+	}
+
+	public boolean verifyBrandSectionCountText() {
+		return verifyText(brandSectionCountText, "117 brands", "Brand Section Count Text", "contains", true);
+	}
+
+	public void printAllBrandNames() {
+		printTextOfAllElements(allBrandNames, "All Brand Names");
+	}
+
+	private String allBrandNamesUsingJavascript = "section.m-10 > div.rounded-2xl > div.relative > div.brandViewport > div.brandTrack > div button span:first-child";
+
+	public List<String> printAllBrandNamesUsingJavascript() {
+		return printTextOfAllElementsUsingJavascript(allBrandNamesUsingJavascript, "All Brand Names");
+	}
+
+	public int getTotalBrandCount() {
+		List<String> brandNames = printAllBrandNamesUsingJavascript();
+		int actualBrandCount = brandNames.size();
+		verifyTotalElementsCount(117, brandNames);
+		return actualBrandCount;
+	}
+
+	// CLICK BRAND BY NAME USING JAVASCRIPT
+	public void clickBrandByNameUsingJavascript(String brandName) {
+		try {
+			if (brandName == null || brandName.trim().isEmpty()) {
+				throw new IllegalArgumentException("Brand name is null or empty");
+			}
+
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+
+			js.executeScript("var brandName = arguments[0].trim().toUpperCase();"
+					+ "var elements = document.querySelectorAll(arguments[1]);"
+					+ "for (var i = 0; i < elements.length; i++) {"
+					+ "    var text = elements[i].textContent.trim().toUpperCase();" + "    if (text === brandName) {"
+					+ "        elements[i].click();" + "        return;" + "    }" + "}", brandName,
+					allBrandNamesUsingJavascript);
+
+		} catch (Exception ex) {
+			captureFailure("CLICK BRAND BY NAME USING JAVASCRIPT FAILED - " + brandName, ex);
+		}
+	}
+
+	private String allBrandNamesTextUsingJavascript = "section.m-10 > div.rounded-2xl > div.relative > div.brandViewport > div.brandTrack > div button span:first-child";
+
+	// clicking on all the brand names one by one.
+	public boolean moveSliderAndClickBrandByNameUsingJavascript(String brandName) {
+		try {
+			if (brandName == null || brandName.trim().isEmpty()) {
+				throw new IllegalArgumentException("Brand name is null or empty");
+			}
+
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			String targetBrand = brandName.trim().replaceAll("\\s+", "").toUpperCase();
+
+			for (int attempt = 1; attempt <= 40; attempt++) {
+
+				System.out.println(
+						"[SLIDER SEARCH ATTEMPT " + attempt + "] Clicking on the following element: " + brandName);
+
+				Boolean clicked = (Boolean) js.executeScript("var targetBrand = arguments[0];"
+						+ "var selector = arguments[1];" + "var elements = document.querySelectorAll(selector);" + ""
+						+ "for (var i = 0; i < elements.length; i++) {" + "    var el = elements[i];"
+						+ "    var text = (el.textContent || '').replace(/\\s+/g, '').trim().toUpperCase();"
+						+ "    if (text === targetBrand) {"
+						+ "        el.scrollIntoView({block:'center', inline:'center'});" + "        el.click();"
+						+ "        return true;" + "    }" + "}" + ""
+						+ "var viewport = document.querySelector('section.m-10 div.brandViewport');" + "if (viewport) {"
+						+ "    viewport.scrollLeft = viewport.scrollLeft + 250;" + "}" + "return false;", targetBrand,
+						allBrandNamesTextUsingJavascript);
+
+				if (clicked != null && clicked) {
+					return true;
+				}
+
+				Thread.sleep(500);
+			}
+
+			captureFailure("BRAND NOT FOUND / CLICKED IN MOVING SLIDER - " + brandName);
+			return false;
+
+		} catch (Exception ex) {
+			captureFailure("MOVE SLIDER AND CLICK BRAND FAILED - " + brandName, ex);
+			return false;
+		}
 	}
 
 	// ============================================================
-	// ✅ FOOTER + SUBSCRIPTIONFORM ACTIONS
+	// ✅ INIT
 	// ============================================================
 
-	public boolean isFooterVisible() {
-		return isElementDisplayed(footerRoot, "Footer Root");
-	}
-
-	public void clickFooterAboutUs() {
-		clickOnElement(footerAboutUsLink, "Footer About Us");
-	}
-
-	public void clickFooterContactUs() {
-		clickOnElement(footerContactUsLink, "Footer Contact Us");
-	}
-
-	public void clickFooterCareers() {
-		clickOnElement(footerCareersLink, "Footer Careers");
-	}
-
-	public void clickFooterBlogs() {
-		clickOnElement(footerBlogsLink, "Footer Blogs");
-	}
-
-	public void clickFooterHelpCenter() {
-		clickOnElement(footerHelpCenterLink, "Footer Help Center");
-	}
-
-	public void clickFooterPrivacyPolicy() {
-		clickOnElement(footerPrivacyPolicyLink, "Footer Privacy Policy");
-	}
-
-	public void clickFooterTermsOfService() {
-		clickOnElement(footerTermsOfServiceLink, "Footer Terms of Service");
-	}
-
-	public int getFooterSocialLinkCount() {
-		return footerSocialLinks == null ? 0 : footerSocialLinks.size();
-	}
-
-	public void clickFooterSocialLinkByIndex(int indexZeroBased) {
-		if (footerSocialLinks == null || footerSocialLinks.isEmpty()) {
-			System.out.println("[HOMEPAGE] No footer social links found.");
-			return;
-		}
-		if (indexZeroBased < 0 || indexZeroBased >= footerSocialLinks.size()) {
-			System.out.println("[HOMEPAGE] Invalid footer social index: " + indexZeroBased);
-			return;
-		}
-		clickOnElement(footerSocialLinks.get(indexZeroBased), "Footer Social Link #" + indexZeroBased);
-	}
-
-	// ✅ SubscriptionForm - enter email + submit
-	public void enterEmailInFooterSubscription(String email) {
-		typeInInputField(footerSubscribeEmailInput, email, "Footer Subscribe Email");
-	}
-
-	public void clickFooterSubscribeButton() {
-		clickOnElement(footerSubscribeButton, "Footer Subscribe Button");
-	}
-
-	public void subscribeFromFooter(String email) {
-		enterEmailInFooterSubscription(email);
-		clickFooterSubscribeButton();
-	}
-
-	public String getFooterSubscriptionError() {
-		if (!isElementPresentInDOM(footerSubscribeErrorBy))
-			return "";
-		List<WebElement> els = driver.findElements(footerSubscribeErrorBy);
-		if (els.isEmpty())
-			return "";
-		String t = els.get(0).getText();
-		return t == null ? "" : t.trim();
-	}
-
-	public String getFooterSubscriptionSuccessMessage() {
-		if (!isElementPresentInDOM(footerSubscribeOkMsgBy))
-			return "";
-		List<WebElement> els = driver.findElements(footerSubscribeOkMsgBy);
-		if (els.isEmpty())
-			return "";
-		String t = els.get(0).getText();
-		return t == null ? "" : t.trim();
+	public HomePage(WebDriver driver) {
+		super(driver);
+		PageFactory.initElements(driver, this);
 	}
 
 	// ============================================================
@@ -698,5 +499,23 @@ public class HomePage extends AllVerifications {
 
 	public void verifyHomepageUrl(String expectedUrl) {
 		verifyUrlOfWebpage(expectedUrl);
+	}
+
+	public void enterValueIntoHeaderSearchInputField(String valueToEnter, String expectedPlaceholder,
+			String elementName) {
+		handleInputField(headerSearchInputField, valueToEnter, expectedPlaceholder, elementName);
+	}
+
+	public void clickOnSearchButtonOfHeader() {
+		clickOnElement(searchButton, "Header Search Button");
+	}
+
+	public void enterValueIntoFooterEmailInputField(String valueToEnter, String expectedPlaceholder,
+			String elementName) {
+		handleInputField(footerEmailInputField, valueToEnter, expectedPlaceholder, elementName);
+	}
+
+	public void clickOnSubscribeButtonOfFooter() {
+		clickOnElement(subscribeButton, "Footer subscribe Button");
 	}
 }
