@@ -15,7 +15,7 @@ import generic.AllVerifications;
 public class Header extends AllVerifications {
 
 	// ============================================================
-	// ✅ HEADER - LEFT (Logo + Shop All)
+	// HEADER - LEFT (Logo + Shop All)
 	// ============================================================
 
 	public Header(WebDriver driver) {
@@ -33,7 +33,7 @@ public class Header extends AllVerifications {
 	private WebElement headerShopAllLinkDesktop;
 
 	// ============================================================
-	// ✅ HEADER - SEARCH
+	// HEADER - SEARCH
 	// ============================================================
 
 	@FindBy(css = "header nav form[role='search'] input[type='text']")
@@ -49,7 +49,7 @@ public class Header extends AllVerifications {
 	private WebElement headerSearchButtonMobileRow;
 
 	// ============================================================
-	// ✅ HEADER - RIGHT (Desktop Wishlist + MiniCart + Login/User)
+	// HEADER - RIGHT (Desktop Wishlist + MiniCart + Login/User)
 	// ============================================================
 
 	@FindBy(css = "header a[href='/wishlist'][aria-label='Wishlist']")
@@ -68,7 +68,7 @@ public class Header extends AllVerifications {
 	private List<WebElement> headerUserDropdownButtons;
 
 	// ============================================================
-	// ✅ HEADER - MOBILE RIGHT ICONS
+	// HEADER - MOBILE RIGHT ICONS
 	// ============================================================
 
 	@FindBy(css = "header a[href='/wishlist'][aria-label='Wishlist']")
@@ -81,7 +81,7 @@ public class Header extends AllVerifications {
 	private WebElement headerOpenMobileMenuButton;
 
 	// ============================================================
-	// ✅ MOBILE MENU (DialogPanel role=dialog)
+	// MOBILE MENU (DialogPanel role=dialog)
 	// ============================================================
 
 	@FindBy(css = "header div[role='dialog'][aria-modal='true']")
@@ -103,7 +103,7 @@ public class Header extends AllVerifications {
 	private WebElement mobileMenuLoginLink;
 
 	// ============================================================
-	// ✅ MINI CART (MiniCart.jsx) - scoped by .mc-scope
+	// MINI CART (MiniCart.jsx) - scoped by .mc-scope
 	// ============================================================
 
 	@FindBy(css = ".mc-scope button[aria-label='Open cart']")
@@ -123,7 +123,7 @@ public class Header extends AllVerifications {
 	private final By miniCartCheckoutButtonBy = By.cssSelector(".mc-scope .mcCard button.btnGhost");
 
 	// ============================================================
-	// ✅ HEADER ACTIONS
+	// HEADER ACTIONS
 	// ============================================================
 
 	public void clickHeaderLogoHome() {
@@ -220,7 +220,7 @@ public class Header extends AllVerifications {
 	}
 
 	// ============================================================
-	// ✅ MOBILE MENU ACTIONS
+	// MOBILE MENU ACTIONS
 	// ============================================================
 
 	public void openMobileMenu() {
@@ -281,7 +281,7 @@ public class Header extends AllVerifications {
 	}
 
 	// ============================================================
-	// ✅ MINI CART ACTIONS (MiniCart.jsx)
+	// MINI CART ACTIONS (MiniCart.jsx)
 	// ============================================================
 
 	public void openMiniCart() {
