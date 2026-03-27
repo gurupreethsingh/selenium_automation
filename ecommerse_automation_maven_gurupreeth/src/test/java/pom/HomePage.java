@@ -468,13 +468,174 @@ public class HomePage extends AllVerifications {
 		}
 	}
 
-	// ============================================================
-	// ✅ INIT
-	// ============================================================
-
+// initialize all the webelements using the pom class constructor. 
 	public HomePage(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
+	}
+
+	// products section elements.
+	@FindBy(css = "div.flex.flex-col.gap-3.mb-4>div:first-child>h2")
+	public WebElement productsSectionMainHeading;
+
+	@FindBy(css = "div.flex.flex-col.gap-3.mb-4>div:first-child>p")
+	public WebElement productsSectionSubHeading;
+
+	@FindBy(css = "div.flex.flex-col.gap-3.mb-4>div:last-child>span")
+	public WebElement productsSectionCountText;
+
+	@FindBy(css = "div.grid.grid-cols-2.gap-3")
+	public WebElement productsCardMainParentContiner;
+
+	@FindBy(css = "div.grid.grid-cols-2.gap-3>div:first-child")
+	public WebElement productsSingleCard;
+
+	@FindBy(css = "div.grid.grid-cols-2.gap-3>div.rounded-2xl.border.border-orange-100")
+	public List<WebElement> productsAllCards;
+
+	@FindBy(css = "div.grid.grid-cols-2.gap-3>div.rounded-2xl:first-child>div:last-child>h4")
+	public WebElement SingleProductName;
+
+	@FindBy(css = "div.grid.grid-cols-2.gap-3>div.rounded-2xl>div:last-child>h4")
+	public List<WebElement> AllproductNames;
+
+	@FindBy(css = "div.grid.grid-cols-2.gap-3>div.rounded-2xl:first-child>div:last-child>div.flex.items-center.justify-between.gap-2")
+	public WebElement SingleProductPrice;
+
+	@FindBy(css = "div.grid.grid-cols-2.gap-3>div.rounded-2xl>div:last-child>div.flex.items-center.justify-between.gap-2")
+	public List<WebElement> allProductPrices;
+
+	@FindBy(css = "div.grid.grid-cols-2.gap-3>div.rounded-2xl:first-child>div:last-child>div.flex.items-center.justify-between.gap-2>span")
+	public WebElement singleProductViewLink;
+
+	@FindBy(css = "div.grid.grid-cols-2.gap-3>div.rounded-2xl>div:last-child>div.flex.items-center.justify-between.gap-2>span")
+	public List<WebElement> allProductsViewLinks;
+
+	@FindBy(css = "div.grid.grid-cols-2.gap-3>div.rounded-2xl:first-child>div:last-child>div.mt-2")
+	public WebElement singleSubParagraphText;
+
+	@FindBy(css = "div.grid.grid-cols-2.gap-3>div.rounded-2xl>div:last-child>div.mt-2")
+	public List<WebElement> allSubParagraphText;
+
+	// ============================================================
+	// PRODUCTS SECTION - PRESENCE / VISIBILITY
+	// ============================================================
+
+	public boolean verifyProductsCardMainParentContinerPresent() {
+		return verifyElementPresentAndVisible(productsCardMainParentContiner, "Products Card Main Parent Container");
+	}
+
+	public boolean verifyFirstProductCardPresent() {
+		return verifyElementPresentAndVisible(productsSingleCard, "First Product Card");
+	}
+
+	public boolean verifyAllProductCardsPresent() {
+		return verifyElementPresentAndVisible(productsCardMainParentContiner, "Products Card Main Parent Container")
+				&& verifyTotalElementsCount(productsAllCards.size(), productsAllCards);
+	}
+
+	// ============================================================
+	// PRODUCTS SECTION - TEXT VERIFICATION
+	// ============================================================
+
+	public boolean verifyProductsSectionMainHeading(String expectedText) {
+		return verifyText(productsSectionMainHeading, expectedText, "Products Section Main Heading", "equals", true);
+	}
+
+	public boolean verifyProductsSectionSubHeading(String expectedText) {
+		return verifyText(productsSectionSubHeading, expectedText, "Products Section Sub Heading", "equals", true);
+	}
+
+	public boolean verifyProductsSectionCountText(String expectedText) {
+		return verifyText(productsSectionCountText, expectedText, "Products Section Count Text", "equals", true);
+	}
+
+	public boolean verifyTotalProductsCount(int expectedCount) {
+		return verifyTotalElementsCount(expectedCount, productsAllCards);
+	}
+
+	// ============================================================
+	// PRODUCTS SECTION - PRINT ALL TEXT
+	// ============================================================
+
+	public List<WebElement> printAllProductNames() {
+		return printTextOfAllElements(AllproductNames, "All Product Names");
+	}
+
+	public List<WebElement> printAllProductPrices() {
+		return printTextOfAllElements(allProductPrices, "All Product Prices");
+	}
+
+	public List<WebElement> printAllProductViewLinks() {
+		return printTextOfAllElements(allProductsViewLinks, "All Product View Links");
+	}
+
+	public List<WebElement> printAllSubParagraphTexts() {
+		return printTextOfAllElements(allSubParagraphText, "All Sub Paragraph Texts");
+	}
+
+	public boolean verifyEachProductCardDetails() {
+		try {
+			printAllProductNames();
+			printAllProductPrices();
+			printAllProductViewLinks();
+			printAllSubParagraphTexts();
+			return true;
+		} catch (Exception e) {
+			System.out.println("[VERIFY PRODUCT CARD DETAILS FAILED]");
+			return false;
+		}
+	}
+
+	// ============================================================
+	// PRODUCTS SECTION - GET TEXT
+	// ============================================================
+
+	public String getFirstProductName() {
+		return getTextFromElement(SingleProductName, "Single Product Name");
+	}
+
+	public String getFirstProductPriceText() {
+		return getTextFromElement(SingleProductPrice, "Single Product Price");
+	}
+
+	public String getFirstProductViewLinkText() {
+		return getTextFromElement(singleProductViewLink, "First Product View Link");
+	}
+
+	public String getFirstProductSubParagraphText() {
+		return getTextFromElement(singleSubParagraphText, "First Product Sub Paragraph Text");
+	}
+
+	// ============================================================
+	// PRODUCTS SECTION - CLICK ACTIONS
+	// ============================================================
+
+	public boolean clickOnFirstProductCard() {
+		return clickOnElement(productsSingleCard, "First Product Card");
+	}
+
+	public boolean clickOnProductCardByIndex(int index) {
+		if (index < 0 || index >= productsAllCards.size()) {
+			throw new IllegalArgumentException("Invalid index: " + index);
+		}
+		return clickOnElement(productsAllCards.get(index), "Product Card Index: " + index);
+	}
+
+	public boolean clickOnFirstProductName() {
+		return clickOnElement(SingleProductName, "Single Product Name");
+	}
+
+	public boolean clickOnFirstProductPrice() {
+		return clickOnElement(SingleProductPrice, "Single Product Price");
+	}
+
+	public boolean clickOnViewProductLink() {
+		return clickOnElement(singleProductViewLink, "Single Product View Link");
+	}
+
+	public boolean clickOnSubParagraphText() {
+		return clickOnElement(singleSubParagraphText, "Product Sub Paragraph Text");
 	}
 
 	// ============================================================

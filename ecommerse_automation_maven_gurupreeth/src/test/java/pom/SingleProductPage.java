@@ -12,10 +12,14 @@ public class SingleProductPage extends AllVerifications {
 		PageFactory.initElements(driver, this);
 	}
 
-	// ============================================================
-	// ✅ PAGE VERIFICATION
-	// ============================================================
+	public boolean verifyAndPrintTheTextOfProductsSectionMainHeading(String expectedMainHeadingText) {
+		return verifyText(productsSectionMainHeading, expectedMainHeadingText, "Products section main heading",
+				"equals", // or "contains"
+				true // ignore case
+		);
+	}
 
+	// PAGE VERIFICATION
 	public boolean verifySingleProductPageTitle(String expectedTitle) {
 		return verifyTitleOfWebpage(expectedTitle);
 	}

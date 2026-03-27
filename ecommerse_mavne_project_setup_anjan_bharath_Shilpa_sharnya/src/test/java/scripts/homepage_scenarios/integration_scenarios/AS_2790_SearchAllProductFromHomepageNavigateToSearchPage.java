@@ -17,10 +17,10 @@ public class AS_2790_SearchAllProductFromHomepageNavigateToSearchPage extends Op
 		for (int i = 5; i <= 9; i++) {
 			String eachProductNameTyped = (String) Excel.getData("SearchProductsPage", i, 0);
 			// enter some query or product name into the input field.
-			hp.enterValueIntoSearchField(eachProductNameTyped);
+			hp.enterValueIntoHeaderSearchInputField(eachProductNameTyped, eachProductNameTyped, eachProductNameTyped);
 			// find the seach button.
 			// click on the search button.
-			hp.clickSearchButtonDesktop();
+			hp.clickOnSearchButtonOfHeader();
 			// user will navigate to search products page.
 			SearchProductsPage spp = new SearchProductsPage(driver);
 			String expectedTitleOfSearchProductsPage = (String) Excel.getData("SearchProductPage", 1, 0);

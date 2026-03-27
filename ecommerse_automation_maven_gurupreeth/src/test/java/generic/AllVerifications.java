@@ -218,6 +218,154 @@ public class AllVerifications {
 		}
 	}
 
+	// page loading verification after some action has been performed.
+	public boolean verifyPageReloadAfterAction(Runnable action, String expectedTitle, String expectedUrl,
+			String pageName) {
+		try {
+			String displayName = normalizeName(pageName, "PAGE RELOAD VERIFICATION");
+
+			if (action == null) {
+				throw new IllegalArgumentException("Action is null");
+			}
+
+			final String finalExpectedTitle = safeTrim(expectedTitle);
+			final String finalExpectedUrl = safeTrim(expectedUrl);
+
+			System.out.println("============================================================");
+			System.out.println("[VERIFY PAGE RELOAD AFTER ACTION START]");
+			System.out.println("Page Name       : " + displayName);
+			System.out.println("Expected Title  : " + finalExpectedTitle);
+			System.out.println("Expected URL    : " + finalExpectedUrl);
+			System.out.println("============================================================");
+
+			waitForDocumentReady(displayName + " BEFORE ACTION");
+
+			String urlBefore = safeTrim(driver.getCurrentUrl());
+			String titleBefore = safeTrim(driver.getTitle());
+			String domSnapshotBefore = getDomStabilitySnapshot();
+
+			Object beforeNavigationEntry = ((JavascriptExecutor) driver)
+					.executeScript("var nav = performance.getEntriesByType('navigation');"
+							+ "return nav && nav.length ? (nav[nav.length - 1].startTime + '||' + nav[nav.length - 1].type + '||' + nav[nav.length - 1].duration) : '';");
+
+			String navigationBefore = beforeNavigationEntry == null ? "" : beforeNavigationEntry.toString();
+
+			System.out.println("[BEFORE ACTION]");
+			System.out.println("Title Before        : " + titleBefore);
+			System.out.println("URL Before          : " + urlBefore);
+			System.out.println("DOM Snapshot Before : " + domSnapshotBefore);
+			System.out.println("Navigation Before   : " + navigationBefore);
+
+			action.run();
+
+			boolean pageLoadStatus = waitForPageToLoad(finalExpectedTitle, finalExpectedUrl,
+					displayName + " AFTER ACTION");
+			if (!pageLoadStatus) {
+				System.out.println("[VERIFY PAGE RELOAD FAIL] Page did not load correctly after action.");
+				captureFailure("VERIFY PAGE RELOAD FAIL -> Page load failed after action for: " + displayName);
+				return false;
+			}
+
+			String urlAfter = safeTrim(driver.getCurrentUrl());
+			String titleAfter = safeTrim(driver.getTitle());
+			String domSnapshotAfter = getDomStabilitySnapshot();
+
+			Object afterNavigationEntry = ((JavascriptExecutor) driver)
+					.executeScript("var nav = performance.getEntriesByType('navigation');"
+							+ "return nav && nav.length ? (nav[nav.length - 1].startTime + '||' + nav[nav.length - 1].type + '||' + nav[nav.length - 1].duration) : '';");
+
+			String navigationAfter = afterNavigationEntry == null ? "" : afterNavigationEntry.toString();
+
+			System.out.println("[AFTER ACTION]");
+			System.out.println("Title After         : " + titleAfter);
+			System.out.println("URL After           : " + urlAfter);
+			System.out.println("DOM Snapshot After  : " + domSnapshotAfter);
+			System.out.println("Navigation After    : " + navigationAfter);
+
+			boolean expectedTitleOk = finalExpectedTitle.isEmpty()
+					|| matchesExpectedText(titleAfter, finalExpectedTitle);
+			boolean expectedUrlOk = finalExpectedUrl.isEmpty() || matchesExpectedUrl(urlAfter, finalExpectedUrl);
+
+			boolean navigationChanged = !navigationBefore.equals(navigationAfter);
+			boolean domChanged = !domSnapshotBefore.equals(domSnapshotAfter);
+
+			boolean reloadVerified = expectedTitleOk && expectedUrlOk && (navigationChanged || domChanged);
+
+			System.out.println("[RELOAD CHECK]");
+			System.out.println("Expected Title OK : " + expectedTitleOk);
+			System.out.println("Expected URL OK   : " + expectedUrlOk);
+			System.out.println("Navigation Changed: " + navigationChanged);
+			System.out.println("DOM Changed       : " + domChanged);
+			System.out.println("Reload Verified   : " + reloadVerified);
+
+			if (reloadVerified) {
+				System.out.println("[VERIFY PAGE RELOAD AFTER ACTION PASS] " + displayName);
+				return true;
+			}
+
+			System.out.println("[VERIFY PAGE RELOAD AFTER ACTION FAIL] " + displayName);
+			captureFailure("VERIFY PAGE RELOAD AFTER ACTION FAIL -> " + displayName + " | TitleBefore=" + titleBefore
+					+ " | TitleAfter=" + titleAfter + " | UrlBefore=" + urlBefore + " | UrlAfter=" + urlAfter
+					+ " | NavBefore=" + navigationBefore + " | NavAfter=" + navigationAfter);
+			return false;
+
+		} catch (Exception ex) {
+			System.out.println("[VERIFY PAGE RELOAD AFTER ACTION EXCEPTION] " + pageName + " | " + ex.getMessage());
+			captureFailure("VERIFY PAGE RELOAD AFTER ACTION EXCEPTION -> " + pageName, ex);
+			return false;
+		}
+	}
+
+	// function to reload the page. any time.
+	public boolean verifyPageReload(String expectedTitle, String expectedUrl, String pageName) {
+		try {
+			String displayName = normalizeName(pageName, "PAGE RELOAD VERIFICATION");
+			String finalExpectedTitle = safeTrim(expectedTitle);
+			String finalExpectedUrl = safeTrim(expectedUrl);
+
+			System.out.println("============================================================");
+			System.out.println("[VERIFY PAGE RELOAD START]");
+			System.out.println("Page Name      : " + displayName);
+			System.out.println("Expected Title : " + finalExpectedTitle);
+			System.out.println("Expected URL   : " + finalExpectedUrl);
+			System.out.println("============================================================");
+
+			boolean pageLoadStatus = waitForPageToLoad(finalExpectedTitle, finalExpectedUrl, displayName);
+
+			if (!pageLoadStatus) {
+				System.out.println("[VERIFY PAGE RELOAD FAIL] Page did not load correctly.");
+				captureFailure("VERIFY PAGE RELOAD FAIL -> " + displayName);
+				return false;
+			}
+
+			String actualTitle = safeTrim(driver.getTitle());
+			String actualUrl = safeTrim(driver.getCurrentUrl());
+
+			boolean titleMatch = finalExpectedTitle.isEmpty() || matchesExpectedText(actualTitle, finalExpectedTitle);
+			boolean urlMatch = finalExpectedUrl.isEmpty() || matchesExpectedUrl(actualUrl, finalExpectedUrl);
+
+			System.out.println("Actual Title : " + actualTitle);
+			System.out.println("Actual URL   : " + actualUrl);
+			System.out.println("Title Match  : " + titleMatch);
+			System.out.println("URL Match    : " + urlMatch);
+
+			if (titleMatch && urlMatch) {
+				System.out.println("[VERIFY PAGE RELOAD PASS] " + displayName);
+				return true;
+			}
+
+			System.out.println("[VERIFY PAGE RELOAD FAIL] " + displayName);
+			captureFailure("VERIFY PAGE RELOAD FAIL -> " + displayName + " | ActualTitle=" + actualTitle
+					+ " | ActualUrl=" + actualUrl);
+			return false;
+
+		} catch (Exception ex) {
+			System.out.println("[VERIFY PAGE RELOAD EXCEPTION] " + pageName + " | " + ex.getMessage());
+			captureFailure("VERIFY PAGE RELOAD EXCEPTION -> " + pageName, ex);
+			return false;
+		}
+	}
+
 	// ============================================================
 	// ✅ ELEMENT VISIBILITY
 	// ============================================================
@@ -496,7 +644,7 @@ public class AllVerifications {
 	// ✅ CLICK - WEBELEMENT
 	// ============================================================
 
-	public boolean clickOnElement(WebElement element, String elementName) {
+	public WebElement waitUntilElementClickable(WebElement element, int timeoutSeconds, String elementName) {
 		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT + 1; attempt++) {
 			try {
 				if (element == null) {
@@ -506,8 +654,6 @@ public class AllVerifications {
 				String displayName = normalizeName(elementName, getElementDisplayName(element));
 
 				waitForDocumentReady(displayName);
-
-				System.out.println("[CLICK ATTEMPT " + attempt + "] " + displayName);
 
 				try {
 					element.isDisplayed();
@@ -519,18 +665,69 @@ public class AllVerifications {
 
 				scrollElementToCenter(element);
 
-				WebElement visibleElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
-						.until(ExpectedConditions.visibilityOf(element));
+				WebElement visibleElement = createWait(timeoutSeconds).until(ExpectedConditions.visibilityOf(element));
 
 				scrollElementToCenter(visibleElement);
 
-				WebElement clickableElement = createWait(DEFAULT_WAITING_TIME_IN_SEC)
+				WebElement clickableElement = createWait(timeoutSeconds)
 						.until(ExpectedConditions.elementToBeClickable(visibleElement));
 
 				scrollElementToCenter(clickableElement);
 
 				if (!clickableElement.isEnabled()) {
 					throw new IllegalStateException("Element is disabled: " + displayName);
+				}
+
+				System.out.println("[WAIT CLICKABLE PASS] " + displayName);
+				return clickableElement;
+
+			} catch (StaleElementReferenceException sere) {
+				System.out.println("[WAIT CLICKABLE STALE] " + elementName + " | Retrying...");
+				if (attempt > DEFAULT_RETRY_COUNT) {
+					captureFailure("WAIT CLICKABLE STALE -> " + elementName, sere);
+				}
+				sleepSilently(150);
+
+			} catch (TimeoutException te) {
+				System.out.println("[WAIT CLICKABLE TIMEOUT] " + elementName + " | " + te.getMessage());
+				captureFailure("WAIT CLICKABLE TIMEOUT -> " + elementName, te);
+				return null;
+
+			} catch (Exception ex) {
+				System.out.println("[WAIT CLICKABLE FAILED] " + elementName + " | " + ex.getMessage());
+				captureFailure("WAIT CLICKABLE FAILED -> " + elementName, ex);
+				return null;
+			}
+		}
+
+		System.out.println("[WAIT CLICKABLE FAILED AFTER RETRIES] " + elementName);
+		captureFailure("WAIT CLICKABLE FAILED AFTER RETRIES -> " + elementName);
+		return null;
+	}
+
+	public boolean clickOnElement(WebElement element, String elementName) {
+		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT + 1; attempt++) {
+			try {
+				if (element == null) {
+					throw new IllegalArgumentException("Element is null");
+				}
+
+				String displayName = normalizeName(elementName, getElementDisplayName(element));
+
+				System.out.println("[CLICK ATTEMPT " + attempt + "] " + displayName);
+
+				try {
+					element.isDisplayed();
+				} catch (StaleElementReferenceException sere) {
+					throw sere;
+				} catch (Exception ex) {
+					throw new NoSuchElementException("Element is not present in DOM: " + displayName);
+				}
+
+				WebElement clickableElement = waitUntilElementClickable(element, DEFAULT_WAITING_TIME_IN_SEC,
+						displayName);
+				if (clickableElement == null) {
+					return false;
 				}
 
 				String clickedText = getCleanText(clickableElement);
@@ -585,30 +782,20 @@ public class AllVerifications {
 				WebElement element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
 						.until(ExpectedConditions.presenceOfElementLocated(locator));
 
-				scrollElementToCenter(element);
-
-				element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
-						.until(ExpectedConditions.visibilityOfElementLocated(locator));
-
-				scrollElementToCenter(element);
-
-				element = createWait(DEFAULT_WAITING_TIME_IN_SEC)
-						.until(ExpectedConditions.elementToBeClickable(locator));
-
-				scrollElementToCenter(element);
-
-				if (!element.isEnabled()) {
-					throw new IllegalStateException("Element is disabled: " + displayName);
+				WebElement clickableElement = waitUntilElementClickable(element, DEFAULT_WAITING_TIME_IN_SEC,
+						displayName);
+				if (clickableElement == null) {
+					return false;
 				}
 
-				String clickedText = getCleanText(element);
+				String clickedText = getCleanText(clickableElement);
 				if (clickedText.isEmpty()) {
 					clickedText = displayName;
 				}
 
 				System.out.println("[CLICKING ELEMENT] " + clickedText);
 
-				performRobustClick(element);
+				performRobustClick(clickableElement);
 
 				System.out.println("[CLICK SUCCESS] " + clickedText);
 				return true;
@@ -2142,6 +2329,267 @@ public class AllVerifications {
 
 		System.out.println("[UNIVERSAL INPUT FIELD HANDLER FAILED AFTER RETRIES] " + elementName);
 		captureFailure("UNIVERSAL INPUT FIELD HANDLER FAILED AFTER RETRIES -> " + elementName);
+		return false;
+	}
+
+	public boolean performActionsUsingActionsClass(String actionSequenceName, Object... steps) {
+
+		String displaySequenceName = normalizeName(actionSequenceName, "ACTIONS SEQUENCE");
+
+		System.out.println("======================================================================");
+		System.out.println("[ACTIONS CLASS SEQUENCE START]");
+		System.out.println("Action Sequence Name : " + displaySequenceName);
+		System.out.println("======================================================================");
+
+		if (steps == null || steps.length == 0) {
+			System.out.println("[ACTIONS CLASS ERROR] No action steps were provided.");
+			captureFailure("ACTIONS CLASS ERROR -> No action steps provided for: " + displaySequenceName);
+			return false;
+		}
+
+		if (steps.length % 2 != 0) {
+			System.out.println("[ACTIONS CLASS ERROR] Steps must be in action-value pairs.");
+			captureFailure("ACTIONS CLASS ERROR -> Invalid action-value pair structure for: " + displaySequenceName);
+			return false;
+		}
+
+		Exception lastException = null;
+
+		for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT + 1; attempt++) {
+			try {
+				waitForDocumentReady(displaySequenceName);
+
+				System.out.println("------------------------------------------------------------");
+				System.out.println("[ACTIONS CLASS ATTEMPT] " + attempt + " / " + (DEFAULT_RETRY_COUNT + 1));
+				System.out.println("------------------------------------------------------------");
+
+				Actions actions = new Actions(driver);
+				int stepNumber = 1;
+
+				for (int i = 0; i < steps.length; i += 2) {
+					if (!(steps[i] instanceof String)) {
+						throw new IllegalArgumentException(
+								"Invalid action type at position " + i + ". Action type must be String.");
+					}
+
+					String actionType = ((String) steps[i]).trim().toUpperCase();
+					Object value = steps[i + 1];
+
+					System.out.println("------------------------------------------------------------");
+					System.out.println("[ACTIONS CLASS STEP START]");
+					System.out.println("Step Number   : " + stepNumber);
+					System.out.println("Action Type   : " + actionType);
+					System.out.println("------------------------------------------------------------");
+
+					switch (actionType) {
+
+					case "MOVE":
+					case "MOVETOELEMENT":
+					case "HOVER": {
+						if (!(value instanceof WebElement)) {
+							throw new IllegalArgumentException("MOVE/HOVER requires a WebElement.");
+						}
+
+						WebElement visibleElement = waitUntilElementVisible((WebElement) value,
+								DEFAULT_WAITING_TIME_IN_SEC, "ACTION MOVE STEP " + stepNumber);
+
+						if (visibleElement == null) {
+							return false;
+						}
+
+						actions.moveToElement(visibleElement);
+						break;
+					}
+
+					case "CLICK": {
+						if (!(value instanceof WebElement)) {
+							throw new IllegalArgumentException("CLICK requires a WebElement.");
+						}
+
+						WebElement clickableElement = waitUntilElementClickable((WebElement) value,
+								DEFAULT_WAITING_TIME_IN_SEC, "ACTION CLICK STEP " + stepNumber);
+
+						if (clickableElement == null) {
+							return false;
+						}
+
+						actions.moveToElement(clickableElement).click();
+						break;
+					}
+
+					case "DOUBLECLICK": {
+						if (!(value instanceof WebElement)) {
+							throw new IllegalArgumentException("DOUBLECLICK requires a WebElement.");
+						}
+
+						WebElement clickableElement = waitUntilElementClickable((WebElement) value,
+								DEFAULT_WAITING_TIME_IN_SEC, "ACTION DOUBLECLICK STEP " + stepNumber);
+
+						if (clickableElement == null) {
+							return false;
+						}
+
+						actions.moveToElement(clickableElement).doubleClick();
+						break;
+					}
+
+					case "RIGHTCLICK":
+					case "CONTEXTCLICK": {
+						if (!(value instanceof WebElement)) {
+							throw new IllegalArgumentException("RIGHTCLICK requires a WebElement.");
+						}
+
+						WebElement visibleElement = waitUntilElementVisible((WebElement) value,
+								DEFAULT_WAITING_TIME_IN_SEC, "ACTION RIGHTCLICK STEP " + stepNumber);
+
+						if (visibleElement == null) {
+							return false;
+						}
+
+						actions.moveToElement(visibleElement).contextClick();
+						break;
+					}
+
+					case "CLICKANDHOLD": {
+						if (!(value instanceof WebElement)) {
+							throw new IllegalArgumentException("CLICKANDHOLD requires a WebElement.");
+						}
+
+						WebElement visibleElement = waitUntilElementVisible((WebElement) value,
+								DEFAULT_WAITING_TIME_IN_SEC, "ACTION CLICKANDHOLD STEP " + stepNumber);
+
+						if (visibleElement == null) {
+							return false;
+						}
+
+						actions.moveToElement(visibleElement).clickAndHold();
+						break;
+					}
+
+					case "RELEASE": {
+						if (value == null) {
+							actions.release();
+						} else if (value instanceof WebElement) {
+							WebElement visibleElement = waitUntilElementVisible((WebElement) value,
+									DEFAULT_WAITING_TIME_IN_SEC, "ACTION RELEASE STEP " + stepNumber);
+
+							if (visibleElement == null) {
+								return false;
+							}
+
+							actions.moveToElement(visibleElement).release();
+						} else {
+							throw new IllegalArgumentException("RELEASE requires null or WebElement.");
+						}
+						break;
+					}
+
+					case "SENDKEYS": {
+						if (!(value instanceof CharSequence)) {
+							throw new IllegalArgumentException("SENDKEYS requires text.");
+						}
+						actions.sendKeys((CharSequence) value);
+						break;
+					}
+
+					case "KEYDOWN": {
+						if (!(value instanceof Keys)) {
+							throw new IllegalArgumentException("KEYDOWN requires a Keys value.");
+						}
+						actions.keyDown((Keys) value);
+						break;
+					}
+
+					case "KEYUP": {
+						if (!(value instanceof Keys)) {
+							throw new IllegalArgumentException("KEYUP requires a Keys value.");
+						}
+						actions.keyUp((Keys) value);
+						break;
+					}
+
+					case "PAUSE": {
+						if (!(value instanceof Number)) {
+							throw new IllegalArgumentException("PAUSE requires milliseconds as number.");
+						}
+
+						long pauseMillis = ((Number) value).longValue();
+
+						if (pauseMillis < 0) {
+							throw new IllegalArgumentException("Pause duration cannot be negative.");
+						}
+
+						actions.pause(Duration.ofMillis(pauseMillis));
+						break;
+					}
+
+					case "MOVEBYOFFSET": {
+						if (!(value instanceof int[]) || ((int[]) value).length < 2) {
+							throw new IllegalArgumentException("MOVEBYOFFSET requires int[] {xOffset, yOffset}.");
+						}
+
+						int[] offsets = (int[]) value;
+						actions.moveByOffset(offsets[0], offsets[1]);
+						break;
+					}
+
+					case "DRAGANDDROP": {
+						if (!(value instanceof WebElement[]) || ((WebElement[]) value).length < 2) {
+							throw new IllegalArgumentException("DRAGANDDROP requires WebElement[] {source, target}.");
+						}
+
+						WebElement[] dragElements = (WebElement[]) value;
+
+						WebElement sourceElement = waitUntilElementVisible(dragElements[0], DEFAULT_WAITING_TIME_IN_SEC,
+								"ACTION DRAG SOURCE STEP " + stepNumber);
+						WebElement targetElement = waitUntilElementVisible(dragElements[1], DEFAULT_WAITING_TIME_IN_SEC,
+								"ACTION DRAG TARGET STEP " + stepNumber);
+
+						if (sourceElement == null || targetElement == null) {
+							return false;
+						}
+
+						actions.dragAndDrop(sourceElement, targetElement);
+						break;
+					}
+
+					default:
+						throw new UnsupportedOperationException("Unsupported action type: " + actionType);
+					}
+
+					System.out.println("[ACTIONS CLASS STEP SUCCESS] Step " + stepNumber + " -> " + actionType);
+					stepNumber++;
+				}
+
+				actions.build().perform();
+
+				System.out.println("======================================================================");
+				System.out.println("[ACTIONS CLASS SEQUENCE PASS]");
+				System.out.println("Action Sequence Name : " + displaySequenceName);
+				System.out.println("======================================================================");
+
+				return true;
+
+			} catch (StaleElementReferenceException sere) {
+				lastException = sere;
+				System.out.println("[ACTIONS CLASS STALE] " + displaySequenceName + " | Retrying...");
+				sleepSilently(150);
+
+			} catch (TimeoutException te) {
+				lastException = te;
+				System.out.println("[ACTIONS CLASS TIMEOUT] " + displaySequenceName + " | " + te.getMessage());
+				sleepSilently(150);
+
+			} catch (Exception ex) {
+				lastException = ex;
+				System.out.println("[ACTIONS CLASS FAILED] " + displaySequenceName + " | " + ex.getMessage());
+				sleepSilently(150);
+			}
+		}
+
+		System.out.println("[ACTIONS CLASS FAILED AFTER RETRIES] " + displaySequenceName);
+		captureFailure("ACTIONS CLASS FAILED AFTER RETRIES -> " + displaySequenceName,
+				lastException instanceof Exception ? (Exception) lastException : new Exception("Unknown exception"));
 		return false;
 	}
 }

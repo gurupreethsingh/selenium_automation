@@ -37,7 +37,7 @@ public class Header extends AllVerifications {
 	// ============================================================
 
 	@FindBy(css = "header nav form[role='search'] input[type='text']")
-	private WebElement headerSearchInputDesktop;
+	private WebElement headerSearchInputFieldDesktop;
 
 	@FindBy(css = "header nav form[role='search'] button[type='submit']")
 	private WebElement headerSearchButtonDesktop;
@@ -52,7 +52,7 @@ public class Header extends AllVerifications {
 	// ✅ HEADER - RIGHT (Desktop Wishlist + MiniCart + Login/User)
 	// ============================================================
 
-	@FindBy(css = "header a[href='/wishlist'][aria-label='Wishlist']")
+	@FindBy(css = "div.hidden.items-center.gap-4>a[aria-label='Wishlist']>div")
 	private WebElement headerWishlistLinkDesktop;
 
 	@FindBy(css = "header a[href='/login']>div")
@@ -126,8 +126,8 @@ public class Header extends AllVerifications {
 	// ✅ HEADER ACTIONS
 	// ============================================================
 
-	public void clickHeaderLogoHome() {
-		clickOnElement(headerHomeLogoLink, "Header Home Logo");
+	public boolean clickHeaderLogoHome() {
+		return clickOnElement(headerHomeLogoLink, "Header Home Logo");
 	}
 
 	public String clickHeaderLogoAppNameAndPrintText() {
@@ -135,67 +135,79 @@ public class Header extends AllVerifications {
 		return getTextFromElement(headerHomeLogoAppNameText, "Header App Name Text");
 	}
 
-	public void clickHeaderShopAllDesktop() {
-		clickOnElement(headerShopAllLinkDesktop, "Header SHOP ALL (Desktop)");
+	public boolean clickHeaderShopAllDesktop() {
+		return clickOnElement(headerShopAllLinkDesktop, "Header SHOP ALL (Desktop)");
 	}
 
 	// ---------- Search (Desktop / Mobile Row) ----------
 
-	public void enterValueIntoSearchField(String keys) {
-		typeInInputField(headerSearchInputDesktop, keys, "Header Search (Desktop)");
+	public WebElement getSearchInputField() {
+		return headerSearchInputFieldDesktop;
 	}
 
-	public void enterValueIntoSearchField(int keys) {
-		enterValueIntoSearchField(String.valueOf(keys));
+	public void enterValueIntoSearchInputField(String valueToEnter) {
+		typeInInputField(headerSearchInputFieldDesktop, valueToEnter, "Header Search (Desktop)");
 	}
 
-	public void enterValueIntoSearchField(long keys) {
-		enterValueIntoSearchField(String.valueOf(keys));
+	public void enterValueIntoSearchField(int valueToEnter) {
+		enterValueIntoSearchInputField(String.valueOf(valueToEnter));
 	}
 
-	public void enterValueIntoSearchField(double keys) {
-		enterValueIntoSearchField(String.valueOf(keys));
+	public void enterValueIntoSearchField(long valueToEnter) {
+		enterValueIntoSearchInputField(String.valueOf(valueToEnter));
 	}
 
-	public void clickSearchButtonDesktop() {
-		clickOnElement(headerSearchButtonDesktop, "Header Search Button (Desktop)");
+	public void enterValueIntoSearchField(double valueToEnter) {
+		enterValueIntoSearchInputField(String.valueOf(valueToEnter));
+	}
+
+	public boolean clickSearchButtonDesktop() {
+		return clickOnElement(headerSearchButtonDesktop, "Header Search Button (Desktop)");
 	}
 
 	public void searchDesktop(String query) {
-		enterValueIntoSearchField(query);
+		enterValueIntoSearchInputField(query);
 		clickSearchButtonDesktop();
 	}
 
-	public void searchDesktopAndPressEnter(String query) {
-		typeInInputField(headerSearchInputDesktop, query, "Header Search (Desktop)");
-		pressKeyInElement(headerSearchInputDesktop, Keys.ENTER, "Header Search Desktop ENTER");
+	public void enterValueInotSearchInputFieldDesktopAndPressEnter(String query) {
+		typeInInputField(headerSearchInputFieldDesktop, query, "Header Search (Desktop)");
+		pressKeyInElement(headerSearchInputFieldDesktop, Keys.ENTER, "Header Search Desktop ENTER");
 	}
 
-	public void searchMobileRow(String query) {
+	public void enterValueInotSearchInputFieldMobileRow(String query) {
 		typeInInputField(headerSearchInputMobileRow, query, "Header Search (Mobile Row)");
 		clickOnElement(headerSearchButtonMobileRow, "Header Search Button (Mobile Row)");
 	}
 
 	// ---------- Wishlist / Cart (Mobile / Desktop) ----------
 
-	public void clickWishlistDesktop() {
-		clickOnElement(headerWishlistLinkDesktop, "Wishlist (Desktop)");
+	public boolean clickWishlistIconDesktop() {
+		return clickOnElement(headerWishlistLinkDesktop, "Wishlist (Desktop)");
 	}
 
-	public void clickWishlistMobile() {
+	public void clickWishlistIconMobile() {
 		clickOnElement(headerWishlistLinkMobile, "Wishlist (Mobile)");
 	}
 
-	public void clickCartMobile() {
+	public boolean hoverOnWishlistIconDesktop() {
+		return performActionsUsingActionsClass("Hover On Wishlist Icon Desktop", "HOVER", headerWishlistLinkDesktop);
+	}
+
+	public WebElement fetchWishlistIcon() {
+		return headerWishlistLinkDesktop;
+	}
+
+	public void clickCartIconMobile() {
 		clickOnElement(headerCartLinkMobile, "Cart (Mobile)");
 	}
 
-	public void clickSignInAvatarDesktop() {
-		clickOnElement(headerSignInLinkAvatarDesktop, "Sign In Avatar (Desktop)");
+	public boolean clickSignInAvatarDesktop() {
+		return clickOnElement(headerSignInLinkAvatarDesktop, "Sign In Avatar (Desktop)");
 	}
 
-	public void clickSignInDesktop() {
-		clickOnElement(headerSignInLinkDesktop, "Sign In (Desktop)");
+	public boolean clickSignInTextDesktop() {
+		return clickOnElement(headerSignInLinkDesktop, "Sign In (Desktop)");
 	}
 
 	// ---------- User dropdown ----------

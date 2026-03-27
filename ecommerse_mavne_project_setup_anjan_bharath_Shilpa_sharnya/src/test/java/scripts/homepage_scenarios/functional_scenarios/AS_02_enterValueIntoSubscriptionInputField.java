@@ -13,7 +13,8 @@ public class AS_02_enterValueIntoSubscriptionInputField extends OpenClose {
 
 		HomePage hp = new HomePage(driver);
 
-		String valueToEnter = "info@ecoders.co.in";
+		String valueToEnter = "shilpa1@ecoders.co.in";
+		Thread.sleep(2000);
 		hp.enterValueIntoFooterEmailInputField(valueToEnter, "Enter your email", "Footer Email Field");
 
 		Thread.sleep(2000);
