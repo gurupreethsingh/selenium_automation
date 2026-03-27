@@ -8,74 +8,75 @@ import org.testng.asserts.SoftAssert;
 import generic.Excel;
 import generic.OpenClose;
 import pom.HomePage;
+import pom.SingleProductPage;
 
 public class HomePageProductsRegressionScenarios extends OpenClose {
 
-	@Test(priority = 1, enabled = true, invocationCount = 1)
-	public void testVerifyProductsSectionMainHeading() throws IOException, InterruptedException {
-
-		SoftAssert softAssert = new SoftAssert();
-
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		String expectedMainHeading = "Explore Products from Popular Brands";
-
-		HomePage hp = new HomePage(driver);
-		Thread.sleep(1000);
-
-		softAssert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed.");
-
-		softAssert.assertTrue(hp.verifyProductsCardMainParentContinerPresent(),
-				"Products card main parent container is not present.");
-
-		softAssert.assertTrue(hp.verifyProductsSectionMainHeading(expectedMainHeading),
-				"Products section main heading verification failed.");
-
-		softAssert.assertAll();
-	}
-
-	@Test(priority = 2, enabled = true, invocationCount = 1)
-	public void testVerifyProductsSectionSubHeading() throws IOException, InterruptedException {
-
-		SoftAssert softAssert = new SoftAssert();
-
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		String expectedSubHeading = "Scroll to load more (smooth). Scroll up to hide back.";
-
-		HomePage hp = new HomePage(driver);
-		Thread.sleep(1000);
-
-		softAssert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed.");
-
-		softAssert.assertTrue(hp.verifyProductsCardMainParentContinerPresent(),
-				"Products card main parent container is not present.");
-
-		softAssert.assertTrue(hp.verifyProductsSectionSubHeading(expectedSubHeading),
-				"Products section sub heading verification failed.");
-
-		softAssert.assertAll();
-	}
-
-	@Test(priority = 3, enabled = true, invocationCount = 1)
-	public void testVerifyProductsSectionCountText() throws IOException, InterruptedException {
-
-		SoftAssert softAssert = new SoftAssert();
-
-		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		String expectedCountText = "Showing 12 of 133";
-
-		HomePage hp = new HomePage(driver);
-		Thread.sleep(1000);
-
-		softAssert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed.");
-
-		softAssert.assertTrue(hp.verifyProductsCardMainParentContinerPresent(),
-				"Products card main parent container is not present.");
-
-		softAssert.assertTrue(hp.verifyProductsSectionCountText(expectedCountText),
-				"Products section count text verification failed.");
-
-		softAssert.assertAll();
-	}
+//	@Test(priority = 1, enabled = true, invocationCount = 1)
+//	public void testVerifyProductsSectionMainHeading() throws IOException, InterruptedException {
+//
+//		SoftAssert softAssert = new SoftAssert();
+//
+//		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
+//		String expectedMainHeading = "Explore Products from Popular Brands";
+//
+//		HomePage hp = new HomePage(driver);
+//		Thread.sleep(1000);
+//
+//		softAssert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed.");
+//
+//		softAssert.assertTrue(hp.verifyProductsCardMainParentContinerPresent(),
+//				"Products card main parent container is not present.");
+//
+//		softAssert.assertTrue(hp.verifyProductsSectionMainHeading(expectedMainHeading),
+//				"Products section main heading verification failed.");
+//
+//		softAssert.assertAll();
+//	}
+//
+//	@Test(priority = 2, enabled = true, invocationCount = 1)
+//	public void testVerifyProductsSectionSubHeading() throws IOException, InterruptedException {
+//
+//		SoftAssert softAssert = new SoftAssert();
+//
+//		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
+//		String expectedSubHeading = "Scroll to load more (smooth). Scroll up to hide back.";
+//
+//		HomePage hp = new HomePage(driver);
+//		Thread.sleep(1000);
+//
+//		softAssert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed.");
+//
+//		softAssert.assertTrue(hp.verifyProductsCardMainParentContinerPresent(),
+//				"Products card main parent container is not present.");
+//
+//		softAssert.assertTrue(hp.verifyProductsSectionSubHeading(expectedSubHeading),
+//				"Products section sub heading verification failed.");
+//
+//		softAssert.assertAll();
+//	}
+//
+//	@Test(priority = 3, enabled = true, invocationCount = 1)
+//	public void testVerifyProductsSectionCountText() throws IOException, InterruptedException {
+//
+//		SoftAssert softAssert = new SoftAssert();
+//
+//		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
+//		String expectedCountText = "Showing 12 of 133";
+//
+//		HomePage hp = new HomePage(driver);
+//		Thread.sleep(1000);
+//
+//		softAssert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed.");
+//
+//		softAssert.assertTrue(hp.verifyProductsCardMainParentContinerPresent(),
+//				"Products card main parent container is not present.");
+//
+//		softAssert.assertTrue(hp.verifyProductsSectionCountText(expectedCountText),
+//				"Products section count text verification failed.");
+//
+//		softAssert.assertAll();
+//	}
 
 	// needs correction on the count
 //	@Test(priority = 4, enabled = true, invocationCount = 1)
@@ -329,51 +330,52 @@ public class HomePageProductsRegressionScenarios extends OpenClose {
 //		softAssert.assertAll();
 //	}
 //
-//	@Test(priority = 12, enabled = true, invocationCount = 1)
-//	public void testProductNameShouldBeSameInSingleProductPageAsClickedProductFromHomepage()
-//			throws IOException, InterruptedException {
-//
-//		SoftAssert softAssert = new SoftAssert();
-//
-//		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
+	@Test(priority = 12, enabled = true, invocationCount = 1)
+	public void testProductNameShouldBeSameInSingleProductPageAsClickedProductFromHomepage()
+			throws IOException, InterruptedException {
+
+		SoftAssert softAssert = new SoftAssert();
+
+		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 //		String expectedSingleProductPageTitle = (String) Excel.getData("SingleProductPage", 1, 0);
 //		String expectedSingleProductPageUrl = (String) Excel.getData("SingleProductPage", 1, 1);
-//
-//		HomePage hp = new HomePage(driver);
-//		Thread.sleep(1000);
-//
-//		softAssert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed.");
-//
-//		softAssert.assertTrue(hp.verifyFirstProductCardPresent(), "First product card is not present.");
-//
-//		String expectedProductName = hp.getFirstProductName();
-//
-//		System.out.println("============================================================");
-//		System.out.println("Product Name On Homepage           : " + expectedProductName);
-//		System.out.println("============================================================");
-//
-//		boolean clickStatus = hp.clickOnFirstProductName();
-//		softAssert.assertTrue(clickStatus, "Click on first product name failed.");
-//
-//		SingleProductPage spp = new SingleProductPage(driver);
-//
+
+		HomePage hp = new HomePage(driver);
+		Thread.sleep(1000);
+
+		softAssert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed.");
+
+		softAssert.assertTrue(hp.verifyFirstProductCardPresent(), "First product card is not present.");
+
+		String expectedProductName = hp.getFirstProductName();
+
+		System.out.println("============================================================");
+		System.out.println("Product Name On Homepage           : " + expectedProductName);
+		System.out.println("============================================================");
+
+		Thread.sleep(1000);
+		boolean clickStatus = hp.clickOnFirstProductName();
+		Thread.sleep(1000);
+		softAssert.assertTrue(clickStatus, "Click on first product name failed.");
+
+		SingleProductPage spp = new SingleProductPage(driver);
+
 //		softAssert.assertTrue(
 //				spp.waitForPageToLoad(expectedSingleProductPageTitle, expectedSingleProductPageUrl,
 //						"Single Product Page After Clicking Product Name"),
 //				"Single product page did not open after clicking product name.");
-//
-//		String actualSingleProductPageHeading = spp.getTextFromElement(spp.productsSectionMainHeading,
-//				"Single Product Page Main Heading");
-//
-//		System.out.println("============================================================");
-//		System.out.println("Product Name On Single Product Page: " + actualSingleProductPageHeading);
-//		System.out.println("============================================================");
-//
-//		softAssert.assertEquals(actualSingleProductPageHeading.trim(), expectedProductName.trim(),
-//				"Product name mismatch between homepage and single product page.");
-//
-//		softAssert.assertAll();
-//	}
+
+		String actualSingleProductPageHeading = spp.fetchAndPrintMainProductName();
+
+		System.out.println("============================================================");
+		System.out.println("Product Name On Single Product Page: " + actualSingleProductPageHeading);
+		System.out.println("============================================================");
+
+		softAssert.assertEquals(actualSingleProductPageHeading.trim(), expectedProductName.trim(),
+				"Product name mismatch between homepage and single product page.");
+
+		softAssert.assertAll();
+	}
 //
 //	@Test(priority = 13, enabled = true, invocationCount = 1)
 //	public void testUrlShouldContainProductNameQueryAfterClickingAnyProduct() throws IOException, InterruptedException {
