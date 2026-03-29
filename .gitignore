@@ -19,7 +19,7 @@ test-output/
 surefire-reports/
 failsafe-reports/
 test-results/
-failed_screenshot/
+failed_screenshots/
 
 
 ########################################
