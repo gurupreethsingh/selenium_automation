@@ -7,10 +7,10 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
-public class AS_5820_EnterSubscribedEmailInFooterClickSubscribeShouldDisplayAlreadySubscribedMessage
-		extends OpenClose {
+public class AS_5820_EnterSubscribedEmailInFooterClickSubscribeShouldDisplayAlreadySubscribedMessage extends OpenClose {
 
 	@Test
 	public void testEnterAlreadySubscribedEmailInFooterOfHomepageAndClickSubscribeShouldDisplayAlreadySubscribedMessage()
@@ -18,13 +18,24 @@ public class AS_5820_EnterSubscribedEmailInFooterClickSubscribeShouldDisplayAlre
 
 		HomePage hp = new HomePage(driver);
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		String alreadySubscribedEmail = (String) Excel.getData("HomePageFooter", 3, 0);
-		hp.subscribeFromFooter(alreadySubscribedEmail);
-		Thread.sleep(2000);
+		Assert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed.");
 
-		String actualMessage = hp.getFooterSubscriptionError();
-		Assert.assertEquals(actualMessage, "Email is already subscribed.");
+		String alreadySubscribedEmail = "saranya@gmail.com";
+
+		Footer footer = new Footer(driver);
+		Assert.assertTrue(footer.enterValueIntoSubscritionFormInputField(alreadySubscribedEmail),
+				"Unable to enter already subscribed email into subscription input field.");
+
+		Thread.sleep(500);
+
+		Assert.assertTrue(footer.clickOnSubscriptionButton(), "Unable to click on subscription button.");
+
+		Thread.sleep(500);
+
+		Assert.assertTrue(footer.verifySubscriptionErrorMessageIsDisplayed(), "Error message not displayed.");
+
+		Assert.assertTrue(footer.verifySubscriptionErrorMessageText("Email is already subscribed."),
+				"Email error display message failed");
 	}
 }

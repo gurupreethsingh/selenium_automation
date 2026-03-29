@@ -16,11 +16,11 @@ public class AboutUsPage extends AllVerifications {
 	// ✅ PAGE VERIFICATION
 	// ============================================================
 
-	public void verifyAboutUsPageTitle(String expectedTitle) {
-		verifyTitleOfWebpage(expectedTitle);
+	public boolean verifyAboutUsPageTitle(String expectedTitle) {
+		return verifyTitleOfWebpage(expectedTitle);
 	}
 
-	public void verifyAboutUsPageUrl(String expectedUrl) {
-		verifyUrlOfWebpage(expectedUrl);
+	public boolean verifyAboutUsPageUrl(String expectedUrl) {
+		return verifyUrlOfWebpage(expectedUrl);
 	}
 }

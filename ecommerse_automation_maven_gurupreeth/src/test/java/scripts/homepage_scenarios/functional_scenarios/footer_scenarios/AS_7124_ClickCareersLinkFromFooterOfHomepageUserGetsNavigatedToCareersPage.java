@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
 public class AS_7124_ClickCareersLinkFromFooterOfHomepageUserGetsNavigatedToCareersPage extends OpenClose {
@@ -18,8 +19,9 @@ public class AS_7124_ClickCareersLinkFromFooterOfHomepageUserGetsNavigatedToCare
 		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle((String) Excel.getData("HomePage", 1, 0));
 
-		hp.clickFooterCareers();
-		Thread.sleep(1500);
+		Footer footer = new Footer(driver);
+		footer.clickOnFooterCareersLink();
+		Thread.sleep(500);
 
 		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("careers"),
 				"User is not navigated to Careers page.");

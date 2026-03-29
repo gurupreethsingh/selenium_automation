@@ -288,7 +288,7 @@ public class HomePageFooterRegressionScenarios extends OpenClose {
 		Footer footer = new Footer(driver);
 
 		softAssert.assertTrue(footer.clickOnFooterAboutUsLink(), "Failed to click About Us link");
-		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/about-us"),
+		softAssert.assertTrue(footer.verifyUrlOfWebpage("http://localhost:5173/about-us"),
 				"About Us page URL verification failed");
 
 		softAssert.assertAll();
@@ -304,7 +304,7 @@ public class HomePageFooterRegressionScenarios extends OpenClose {
 		Footer footer = new Footer(driver);
 
 		softAssert.assertTrue(footer.clickOnFooterContactUsLink(), "Failed to click Contact Us link");
-		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/contact-us"),
+		softAssert.assertTrue(footer.verifyUrlOfWebpage("http://localhost:5173/contact-us"),
 				"Contact Us page URL verification failed");
 
 		softAssert.assertAll();
@@ -320,7 +320,7 @@ public class HomePageFooterRegressionScenarios extends OpenClose {
 		Footer footer = new Footer(driver);
 
 		softAssert.assertTrue(footer.clickOnFooterCareersLink(), "Failed to click Careers link");
-		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/careers"),
+		softAssert.assertTrue(footer.verifyUrlOfWebpage("http://localhost:5173/careers"),
 				"Careers page URL verification failed");
 
 		softAssert.assertAll();
@@ -336,7 +336,7 @@ public class HomePageFooterRegressionScenarios extends OpenClose {
 		Footer footer = new Footer(driver);
 
 		softAssert.assertTrue(footer.clickOnFooterBlogsLink(), "Failed to click Blogs link");
-		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/all-blogs"),
+		softAssert.assertTrue(footer.verifyUrlOfWebpage("http://localhost:5173/all-blogs"),
 				"Blogs page URL verification failed");
 
 		softAssert.assertAll();
@@ -352,7 +352,7 @@ public class HomePageFooterRegressionScenarios extends OpenClose {
 		Footer footer = new Footer(driver);
 
 		softAssert.assertTrue(footer.clickOnFooterHelpCenterLink(), "Failed to click Help Center link");
-		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/help-center"),
+		softAssert.assertTrue(footer.verifyUrlOfWebpage("http://localhost:5173/help-center"),
 				"Help Center page URL verification failed");
 
 		softAssert.assertAll();
@@ -368,7 +368,7 @@ public class HomePageFooterRegressionScenarios extends OpenClose {
 		Footer footer = new Footer(driver);
 
 		softAssert.assertTrue(footer.clickOnFooterPrivacyPolicyLink(), "Failed to click Privacy Policy link");
-		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/privacy-policy"),
+		softAssert.assertTrue(footer.verifyUrlOfWebpage("http://localhost:5173/privacy-policy"),
 				"Privacy Policy page URL verification failed");
 
 		softAssert.assertAll();
@@ -384,7 +384,7 @@ public class HomePageFooterRegressionScenarios extends OpenClose {
 		Footer footer = new Footer(driver);
 
 		softAssert.assertTrue(footer.clickOnFooterTermsOfServiceLink(), "Failed to click Terms of Service link");
-		softAssert.assertTrue(footer.verifyFooterNavigatedPageUrl("http://localhost:5173/terms-of-service"),
+		softAssert.assertTrue(footer.verifyUrlOfWebpage("http://localhost:5173/terms-of-service"),
 				"Terms of Service page URL verification failed");
 
 		softAssert.assertAll();

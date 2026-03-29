@@ -2,10 +2,12 @@ package scripts.homepage_scenarios.regression_scenarios;
 
 import java.io.IOException;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Header;
 import pom.HomePage;
 import pom.SearchProductsPage;
 
@@ -23,7 +25,7 @@ public class HomePageFullRegressionScenarios extends OpenClose {
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the main parent container / root container of homepage is displayed
-		hp.isHomePageRootDisplayed();
+		Assert.assertTrue(hp.verifyHomepageRootContainerIsDisplayed(), "Homepage root container not displayed");
 	}
 
 	@Test(priority = 2, enabled = true, invocationCount = 1)
@@ -39,7 +41,7 @@ public class HomePageFullRegressionScenarios extends OpenClose {
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the main parent container / root container of homepage is displayed
-		hp.isHomePageRootDisplayed();
+		Assert.assertTrue(hp.verifyHomepageRootContainerIsDisplayed(), "Homepage root container not displayed");
 	}
 
 	@Test(priority = 3, enabled = true, invocationCount = 1)
@@ -55,7 +57,7 @@ public class HomePageFullRegressionScenarios extends OpenClose {
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		// verify the main parent container / root container of homepage is displayed
-		hp.isHomePageRootDisplayed();
+		Assert.assertTrue(hp.verifyHomepageRootContainerIsDisplayed(), "Homepage root container not displayed");
 	}
 
 	@Test(invocationCount = 4, enabled = false, priority = 1)
@@ -67,9 +69,11 @@ public class HomePageFullRegressionScenarios extends OpenClose {
 		// now we have to enter something in the search field from the header of the
 		// homepage.
 
+		Header header = new Header(driver);
+
 		String key = (String) Excel.getData("SearchProductsPage", 5, 0);
-		hp.enterValueIntoSearchField(key);
-		hp.clickSearchButtonDesktop();
+		header.enterValueIntoSearchInputField(key);
+		header.clickSearchButtonDesktop();
 
 		// user gets navigated to Search products page.
 		String expectedSearchProductsPageTitle = (String) Excel.getData("SearchProductsPage", 1, 0);

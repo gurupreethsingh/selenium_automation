@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
 public class AS_4597_EnterInvalidEmailInFooterOfHomepageAndClickSubscribeErrorMessageShouldBeDisplayed
@@ -20,12 +21,16 @@ public class AS_4597_EnterInvalidEmailInFooterOfHomepageAndClickSubscribeErrorMe
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		String invalidEmail = (String) Excel.getData("HomePageFooter", 2, 0);
-		hp.subscribeFromFooter(invalidEmail);
-		Thread.sleep(1500);
+		String invalidEmail = (String) Excel.getData("FooterElements", 5, 0);
+		Footer footer = new Footer(driver);
 
-		String errorMessage = hp.getFooterSubscriptionError();
-		Assert.assertFalse(errorMessage.isEmpty(),
+		footer.enterValueIntoSubscritionFormInputField(invalidEmail);
+		Thread.sleep(500);
+		footer.clickOnSubscriptionButton();
+		Thread.sleep(500);
+
+		boolean errorMessage = footer.verifySubscriptionErrorMessageIsDisplayed();
+		Assert.assertTrue(errorMessage,
 				"Error message is not displayed for invalid email entered in footer subscription field.");
 	}
 }

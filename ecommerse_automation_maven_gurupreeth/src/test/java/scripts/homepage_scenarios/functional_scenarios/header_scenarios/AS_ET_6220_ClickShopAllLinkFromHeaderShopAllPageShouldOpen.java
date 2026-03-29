@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Header;
 import pom.HomePage;
 import pom.ShopPage;
 
@@ -20,7 +21,8 @@ public class AS_ET_6220_ClickShopAllLinkFromHeaderShopAllPageShouldOpen extends 
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		hp.clickHeaderShopAllDesktop();
+		Header header = new Header(driver);
+		header.clickHeaderShopAllDesktop();
 		Thread.sleep(1000);
 
 		ShopPage sp = new ShopPage(driver);

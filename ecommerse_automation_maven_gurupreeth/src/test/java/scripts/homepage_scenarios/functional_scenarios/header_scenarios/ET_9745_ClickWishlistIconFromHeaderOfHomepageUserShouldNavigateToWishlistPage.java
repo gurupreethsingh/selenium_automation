@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Header;
 import pom.HomePage;
 import pom.WishlistPage;
 
@@ -20,7 +21,9 @@ public class ET_9745_ClickWishlistIconFromHeaderOfHomepageUserShouldNavigateToWi
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		hp.clickWishlistDesktop();
+		Header header = new Header(driver);
+		header.clickWishlistIconDesktop();
+
 		Thread.sleep(1000);
 
 		WishlistPage wp = new WishlistPage(driver);

@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Header;
 import pom.HomePage;
 import pom.LoginPage;
 
@@ -20,7 +21,8 @@ public class AS_ET_7933_ClickUserAvatarIconFromHeaderOfHompageUserShouldNavigate
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		hp.clickSignInAvatarDesktop();
+		Header header = new Header(driver);
+		header.clickSignInAvatarDesktop();
 
 		LoginPage lp = new LoginPage(driver);
 		String expectedLoginPageTitle = (String) Excel.getData("LoginPage", 1, 0);

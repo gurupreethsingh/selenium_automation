@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
 public class AS_2282_VerifyEmailSubscriptionInputFieldInFooterOfHomepageAcceptsAllValidEmailFormats extends OpenClose {
@@ -19,14 +20,14 @@ public class AS_2282_VerifyEmailSubscriptionInputFieldInFooterOfHomepageAcceptsA
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		String validEmail = (String) Excel.getData("HomePageFooter", 1, 0);
-		hp.subscribeFromFooter(validEmail);
-		Thread.sleep(2000);
-
-		String successMessage = hp.getFooterSubscriptionSuccessMessage();
-		String errorMessage = hp.getFooterSubscriptionError();
-
-		Assert.assertTrue(!successMessage.isEmpty() && errorMessage.isEmpty(),
-				"Valid email format was not accepted in footer subscription field.");
+		for (int i = 4; i <= 46; i++) {
+			String validEmail = (String) Excel.getData("FooterElements", i, 1);
+			Footer footer = new Footer(driver);
+			footer.enterValueIntoSubscritionFormInputField(validEmail);
+			Thread.sleep(500);
+			footer.clickOnSubscriptionButton();
+			Thread.sleep(500);
+			Assert.assertTrue(footer.verifySubscriptionSuccessMessageIsDisplayed(), "Error in subscription");
+		}
 	}
 }

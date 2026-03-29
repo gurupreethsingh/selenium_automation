@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
 public class AS_9774_ClickHelpCenterLinkFromFooterOfHomepageUserGetsNavigatedToHelpCenterPage extends OpenClose {
@@ -18,10 +19,12 @@ public class AS_9774_ClickHelpCenterLinkFromFooterOfHomepageUserGetsNavigatedToH
 		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle((String) Excel.getData("HomePage", 1, 0));
 
-		hp.clickFooterHelpCenter();
-		Thread.sleep(1500);
+		Footer footer = new Footer(driver);
+		footer.clickOnFooterHelpCenterLink();
+
+		Thread.sleep(500);
 
 		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("help"),
-				"User is not navigated to Help Center page.");
+				"User is not navigated to Help center page.");
 	}
 }

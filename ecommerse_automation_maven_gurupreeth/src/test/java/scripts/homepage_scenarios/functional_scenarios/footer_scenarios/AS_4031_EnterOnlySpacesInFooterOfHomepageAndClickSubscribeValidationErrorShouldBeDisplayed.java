@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
 public class AS_4031_EnterOnlySpacesInFooterOfHomepageAndClickSubscribeValidationErrorShouldBeDisplayed
@@ -20,11 +21,15 @@ public class AS_4031_EnterOnlySpacesInFooterOfHomepageAndClickSubscribeValidatio
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		hp.subscribeFromFooter("   ");
-		Thread.sleep(1500);
+		Footer footer = new Footer(driver);
+		footer.enterValueIntoSubscritionFormInputField("                ");
+		Thread.sleep(500);
+		footer.clickOnSubscriptionButton();
+		Thread.sleep(500);
+		footer.verifySubscriptionErrorMessageText("Please enter your email");
+		boolean errorMessage = footer.verifySubscriptionErrorMessageIsDisplayed();
 
-		String errorMessage = hp.getFooterSubscriptionError();
-		Assert.assertFalse(errorMessage.isEmpty(),
+		Assert.assertTrue(errorMessage,
 				"Validation error is not displayed when only spaces are entered in footer subscription field.");
 	}
 }

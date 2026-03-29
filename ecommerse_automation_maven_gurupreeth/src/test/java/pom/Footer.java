@@ -2,6 +2,7 @@ package pom;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -194,6 +195,8 @@ public class Footer extends AllVerifications {
 
 	@FindBy(css = "footer.hp-font div.flex.flex-wrap.gap-3 > a")
 	private List<WebElement> allSocialMediaLinks;
+
+	private By allSocialMediaLinksBy = By.cssSelector("footer.hp-font div.flex.flex-wrap.gap-3 > a");
 
 	@FindBy(css = "footer.hp-font a[href='https://www.facebook.com']")
 	private WebElement footerFacebookLink;
@@ -532,6 +535,78 @@ public class Footer extends AllVerifications {
 		return printTextOfAllElements(allSocialMediaLinks, "All Social Media Links");
 	}
 
+	// ============================================================
+	// ✅ SOCIAL MEDIA TAB HANDLING METHODS
+	// ============================================================
+
+	public int getTotalSocialMediaLinksCount() {
+		try {
+			waitForDocumentReady("Footer Social Media Links Count");
+
+			List<WebElement> socialLinks = driver.findElements(allSocialMediaLinksBy);
+			int count = socialLinks.size();
+
+			System.out.println("[SOCIAL LINKS COUNT] Total social media links: " + count);
+			return count;
+
+		} catch (Exception ex) {
+			System.out.println("[SOCIAL LINKS COUNT FAIL] " + ex.getMessage());
+			return 0;
+		}
+	}
+
+	public boolean clickFooterSocialLinkByIndex(int index) {
+		try {
+			waitForDocumentReady("Footer Social Media Link Click By Index");
+
+			List<WebElement> socialLinks = driver.findElements(allSocialMediaLinksBy);
+
+			if (socialLinks == null || socialLinks.isEmpty()) {
+				throw new IllegalStateException("No social media links found.");
+			}
+
+			if (index < 0 || index >= socialLinks.size()) {
+				throw new IllegalArgumentException("Invalid social media link index: " + index);
+			}
+
+			WebElement socialLink = socialLinks.get(index);
+			return clickOnElement(socialLink, "Footer Social Media Link Index " + index);
+
+		} catch (Exception ex) {
+			System.out.println("[CLICK SOCIAL LINK BY INDEX FAIL] Index: " + index + " | " + ex.getMessage());
+			return false;
+		}
+	}
+
+	public String getFooterSocialLinkHrefByIndex(int index) {
+		try {
+			waitForDocumentReady("Footer Social Media Link Href By Index");
+
+			List<WebElement> socialLinks = driver.findElements(allSocialMediaLinksBy);
+
+			if (socialLinks == null || socialLinks.isEmpty()) {
+				throw new IllegalStateException("No social media links found.");
+			}
+
+			if (index < 0 || index >= socialLinks.size()) {
+				throw new IllegalArgumentException("Invalid social media link index: " + index);
+			}
+
+			WebElement socialLink = socialLinks.get(index);
+			scrollElementToCenter(socialLink);
+
+			String href = socialLink.getAttribute("href");
+			href = href == null ? "" : href.trim();
+
+			System.out.println("[SOCIAL LINK HREF] Index: " + index + " | Href: " + href);
+			return href;
+
+		} catch (Exception ex) {
+			System.out.println("[GET SOCIAL LINK HREF FAIL] Index: " + index + " | " + ex.getMessage());
+			return "";
+		}
+	}
+
 	public boolean clickOnFooterFacebookLink() {
 		return clickOnElement(footerFacebookLink, "Footer Facebook Link");
 	}
@@ -604,6 +679,15 @@ public class Footer extends AllVerifications {
 		return verifyElementPresentAndVisible(subscriptionEmailTextField, "Subscription Email Text Field");
 	}
 
+	public boolean verifySubscriptionEmailInputFieldIsCleared() {
+		return verifyInputFieldValue(subscriptionEmailTextField, "", "Subscription Email Text Field");
+	}
+
+	public boolean enterValueIntoSubscritionFormInputField(String valueToEnter) {
+		return clearAndEnterValueIntoInputField(subscriptionEmailTextField, valueToEnter,
+				"Subscritpion form email input field.");
+	}
+
 	public boolean verifySubscriptionButtonIsDisplayed() {
 		return verifyElementPresentAndVisible(subscriptionButton, "Subscription Button");
 	}
@@ -669,15 +753,4 @@ public class Footer extends AllVerifications {
 				"All Social Links Using Javascript");
 	}
 
-	// ============================================================
-	// ✅ PAGE TITLE / URL VALIDATION METHODS
-	// ============================================================
-
-	public boolean verifyFooterNavigatedPageTitle(String expectedTitle) {
-		return verifyTitleOfWebpage(expectedTitle);
-	}
-
-	public boolean verifyFooterNavigatedPageUrl(String expectedUrl) {
-		return verifyUrlOfWebpage(expectedUrl);
-	}
 }

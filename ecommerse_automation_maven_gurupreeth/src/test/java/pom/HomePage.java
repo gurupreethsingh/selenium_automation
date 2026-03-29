@@ -116,6 +116,10 @@ public class HomePage extends AllVerifications {
 	@FindBy(css = "div.brandTrack")
 	private WebElement brandTrack;
 
+	public boolean verifyHomepageRootContainerIsDisplayed() {
+		return verifyElementPresentAndVisible(pageRootContainer, "Homepage Root container");
+	}
+
 	// HOMEPAGE - CATEGORY SECTION ACTION METHODS
 	public boolean verifyCategoryParentContainerIsDisplayed() {
 		return verifyElementPresentAndVisible(categoryParentContainer, "Category Parent Container");

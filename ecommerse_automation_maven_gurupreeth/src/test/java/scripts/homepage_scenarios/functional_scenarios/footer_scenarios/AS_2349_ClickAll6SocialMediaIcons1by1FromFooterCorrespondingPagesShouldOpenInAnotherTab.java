@@ -8,10 +8,10 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
-public class AS_2349_ClickAll6SocialMediaIcons1by1FromFooterCorrespondingPagesShouldOpenInAnotherTab
-		extends OpenClose {
+public class AS_2349_ClickAll6SocialMediaIcons1by1FromFooterCorrespondingPagesShouldOpenInAnotherTab extends OpenClose {
 
 	@Test
 	public void testClickAll6SocialMediaIconsOneByOneFromFooterOfHomepageCorrespondingPagesShouldOpenInAnotherTab()
@@ -19,31 +19,75 @@ public class AS_2349_ClickAll6SocialMediaIcons1by1FromFooterCorrespondingPagesSh
 
 		HomePage hp = new HomePage(driver);
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		int socialLinkCount = hp.getFooterSocialLinkCount();
-		Assert.assertEquals(socialLinkCount, 6, "Footer does not contain exactly 6 social media icons.");
+		Assert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed.");
+
+		Footer footer = new Footer(driver);
+
+		Assert.assertTrue(footer.verifyFollowAndSubscribeSectionIsDisplayed(),
+				"Follow and Subscribe section is not displayed.");
+
+		Assert.assertTrue(footer.verifySocialIconsContainerIsDisplayed(), "Social icons container is not displayed.");
+
+		Assert.assertTrue(footer.verifyTotalSocialLinksCount(6),
+				"Footer does not contain exactly 6 social media icons.");
+
+		int socialLinkCount = footer.getTotalSocialMediaLinksCount();
+		Assert.assertEquals(socialLinkCount, 6, "Footer social media links count mismatch.");
+
+		String parentWindow = driver.getWindowHandle();
 
 		for (int i = 0; i < socialLinkCount; i++) {
+
+			System.out.println("============================================================");
+			System.out.println("[SOCIAL LINK TEST START] Index: " + i);
+			System.out.println("============================================================");
+
+			driver.switchTo().window(parentWindow);
+
+			Assert.assertTrue(footer.verifySocialIconsContainerIsDisplayed(),
+					"Social icons container is not displayed before clicking index: " + i);
+
 			Set<String> oldWindows = driver.getWindowHandles();
-			hp.clickFooterSocialLinkByIndex(i);
-			Thread.sleep(1500);
+
+			String expectedHref = footer.getFooterSocialLinkHrefByIndex(i);
+			System.out.println("[EXPECTED HREF] " + expectedHref);
+
+			Assert.assertTrue(footer.clickFooterSocialLinkByIndex(i),
+					"Unable to click footer social media link at index: " + i);
+
+			Thread.sleep(2000);
 
 			Set<String> newWindows = driver.getWindowHandles();
+
 			Assert.assertTrue(newWindows.size() > oldWindows.size(),
-					"Corresponding social media page did not open in another tab for icon index: " + i);
+					"New tab did not open for social media link index: " + i);
+
+			String childWindow = null;
 
 			for (String win : newWindows) {
 				if (!oldWindows.contains(win)) {
-					driver.switchTo().window(win);
-					driver.close();
+					childWindow = win;
+					break;
 				}
 			}
 
-			for (String win : oldWindows) {
-				driver.switchTo().window(win);
-				break;
-			}
+			Assert.assertNotNull(childWindow, "Unable to find newly opened tab for social media link index: " + i);
+
+			driver.switchTo().window(childWindow);
+			Thread.sleep(2000);
+
+			String actualUrl = driver.getCurrentUrl();
+			System.out.println("[NEW TAB URL] " + actualUrl);
+
+			Assert.assertTrue(actualUrl != null && !actualUrl.trim().isEmpty(),
+					"Opened tab URL is blank for social media link index: " + i);
+
+			driver.close();
+			driver.switchTo().window(parentWindow);
+			Thread.sleep(1000);
+
+			System.out.println("[SOCIAL LINK TEST PASS] Index: " + i);
 		}
 	}
 }

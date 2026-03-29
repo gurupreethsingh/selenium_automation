@@ -7,10 +7,10 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
-public class AS_9256_EnterValidEmailInFooterClickSubscribeSuccessMessageShouldBeDisplayed
-		extends OpenClose {
+public class AS_9256_EnterValidEmailInFooterClickSubscribeSuccessMessageShouldBeDisplayed extends OpenClose {
 
 	@Test
 	public void testEnterValidEmailInFooterOfHomepageAndClickSubscribeSuccessMessageShouldBeDisplayed()
@@ -20,12 +20,19 @@ public class AS_9256_EnterValidEmailInFooterClickSubscribeSuccessMessageShouldBe
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		String validEmail = (String) Excel.getData("HomePageFooter", 1, 0);
-		hp.subscribeFromFooter(validEmail);
-		Thread.sleep(2000);
+		String validEmail = "ecoders" + System.currentTimeMillis() + "@gmail.com";
 
-		String successMessage = hp.getFooterSubscriptionSuccessMessage();
-		Assert.assertFalse(successMessage.isEmpty(),
+		Footer footer = new Footer(driver);
+		footer.enterValueIntoSubscritionFormInputField(validEmail);
+		Thread.sleep(500);
+		footer.clickOnSubscriptionButton();
+		Thread.sleep(500);
+
+		boolean successMessageDisplayed = footer.verifySubscriptionSuccessMessageIsDisplayed();
+
+		Assert.assertTrue(successMessageDisplayed, "Success message not displayed");
+
+		Assert.assertFalse(footer.verifySubscriptionSuccessMessageText("Subscription Successfull"),
 				"Success message is not displayed after entering valid email in footer subscription field.");
 	}
 }

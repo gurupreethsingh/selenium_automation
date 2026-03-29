@@ -6,11 +6,11 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Header;
 import pom.HomePage;
 import pom.SearchProductsPage;
 
-public class AS_7153_EnterProdNameInSearchFieldCheckAllRelatedProductsShownInSearchProductsPage
-		extends OpenClose {
+public class AS_7153_EnterProdNameInSearchFieldCheckAllRelatedProductsShownInSearchProductsPage extends OpenClose {
 
 	@Test
 	public void testEnterProductNameInSearchFieldCheckAllRelatedProductsAreShownInSearchProductsPage()
@@ -22,9 +22,10 @@ public class AS_7153_EnterProdNameInSearchFieldCheckAllRelatedProductsShownInSea
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		String productName = (String) Excel.getData("SearchProductsPage", 5, 0);
-		hp.enterValueIntoSearchField(productName);
+		Header header = new Header(driver);
+		header.enterValueIntoSearchInputField(productName);
 		Thread.sleep(1000);
-		hp.clickSearchButtonDesktop();
+		header.clickSearchButtonDesktop();
 
 		String expectedSearchProductsPageTitle = (String) Excel.getData("SearchProductsPage", 1, 0);
 		SearchProductsPage spp = new SearchProductsPage(driver);

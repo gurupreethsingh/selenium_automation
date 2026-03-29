@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Header;
 import pom.HomePage;
 
 public class ET_1256_EnterCategoryNameInSearchFieldAllProductsBelongingToThatCategoryShouldBeShown extends OpenClose {
@@ -21,9 +22,12 @@ public class ET_1256_EnterCategoryNameInSearchFieldAllProductsBelongingToThatCat
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		String categoryName = (String) Excel.getData("SearchProductsPage", 6, 0);
-		hp.enterValueIntoSearchField(categoryName);
+
+		Header header = new Header(driver);
+		header.enterValueIntoSearchInputField(categoryName);
+
 		Thread.sleep(1000);
-		hp.clickSearchButtonDesktop();
+		header.clickSearchButtonDesktop();
 		Thread.sleep(2000);
 
 		String currentUrl = driver.getCurrentUrl().toLowerCase();

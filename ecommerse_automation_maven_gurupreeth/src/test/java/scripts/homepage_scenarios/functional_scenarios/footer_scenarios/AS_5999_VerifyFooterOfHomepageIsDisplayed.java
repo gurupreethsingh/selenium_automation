@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
 public class AS_5999_VerifyFooterOfHomepageIsDisplayed extends OpenClose {
@@ -18,6 +19,8 @@ public class AS_5999_VerifyFooterOfHomepageIsDisplayed extends OpenClose {
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		Assert.assertTrue(hp.isFooterVisible(), "Footer of homepage is not displayed.");
+		Footer footer = new Footer(driver);
+
+		Assert.assertTrue(footer.verifyFooterRootIsDisplayed(), "Footer root container is not displayed");
 	}
 }

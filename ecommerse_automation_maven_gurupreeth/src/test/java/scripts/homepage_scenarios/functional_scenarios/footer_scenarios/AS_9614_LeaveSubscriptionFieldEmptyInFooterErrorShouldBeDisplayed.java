@@ -7,10 +7,10 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
-public class AS_9614_LeaveSubscriptionFieldEmptyInFooterErrorShouldBeDisplayed
-		extends OpenClose {
+public class AS_9614_LeaveSubscriptionFieldEmptyInFooterErrorShouldBeDisplayed extends OpenClose {
 
 	@Test
 	public void testLeaveSubscriptionFieldEmptyInFooterOfHomepageAndClickSubscribeValidationErrorShouldBeDisplayed()
@@ -20,11 +20,18 @@ public class AS_9614_LeaveSubscriptionFieldEmptyInFooterErrorShouldBeDisplayed
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		hp.clickFooterSubscribeButton();
-		Thread.sleep(1500);
+		Footer footer = new Footer(driver);
+		footer.enterValueIntoSubscritionFormInputField("");
+		Thread.sleep(500);
+		footer.clickOnSubscriptionButton();
+		Thread.sleep(500);
+		footer.verifySubscriptionErrorMessageText("Please enter your email");
+		boolean errorMessage = footer.verifySubscriptionErrorMessageIsDisplayed();
 
-		String errorMessage = hp.getFooterSubscriptionError();
-		Assert.assertFalse(errorMessage.isEmpty(),
-				"Validation error is not displayed when footer subscription field is left empty.");
+		Assert.assertTrue(errorMessage,
+				"Validation error is not displayed when only spaces are entered in footer subscription field.");
+
+		Assert.assertTrue(footer.verifySubscriptionErrorMessageText("Please Enter your email."),
+				"Error message is wrong");
 	}
 }

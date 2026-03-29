@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Header;
 import pom.HomePage;
 
 public class AS_ET_3955_ClickLogoFromHomepageHomepageShouldOpenReload extends OpenClose {
@@ -21,7 +22,8 @@ public class AS_ET_3955_ClickLogoFromHomepageHomepageShouldOpenReload extends Op
 
 		String urlBeforeClick = driver.getCurrentUrl();
 
-		hp.clickHeaderLogoHome();
+		Header header = new Header(driver);
+		header.clickHeaderLogoHome();
 		Thread.sleep(1000);
 
 		String urlAfterClick = driver.getCurrentUrl();

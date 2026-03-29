@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
 public class AS_6744_ClickBlogsLinkFromFooterOfHomepageUserGetsNavigatedToAllBlogsPage extends OpenClose {
@@ -18,8 +19,10 @@ public class AS_6744_ClickBlogsLinkFromFooterOfHomepageUserGetsNavigatedToAllBlo
 		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle((String) Excel.getData("HomePage", 1, 0));
 
-		hp.clickFooterBlogs();
-		Thread.sleep(1500);
+		Footer footer = new Footer(driver);
+		footer.clickOnFooterBlogsLink();
+
+		Thread.sleep(500);
 
 		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("blog"),
 				"User is not navigated to All Blogs page.");

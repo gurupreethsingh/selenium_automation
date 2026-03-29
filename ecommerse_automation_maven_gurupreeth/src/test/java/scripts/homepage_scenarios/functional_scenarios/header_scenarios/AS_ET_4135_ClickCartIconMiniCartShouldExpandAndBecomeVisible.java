@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Header;
 import pom.HomePage;
 
 public class AS_ET_4135_ClickCartIconMiniCartShouldExpandAndBecomeVisible extends OpenClose {
@@ -20,11 +21,12 @@ public class AS_ET_4135_ClickCartIconMiniCartShouldExpandAndBecomeVisible extend
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		hp.clickMiniCartBrowseProductsWhenEmpty();
+		Header header = new Header(driver);
+		header.clickMiniCartViewCart();
 		Thread.sleep(1000);
 
-		hp.openMiniCart();
+		header.openMiniCart();
 		Thread.sleep(2000);
-		Assert.assertTrue(hp.isMiniCartOpen(), "Mini cart is not expanded / visible after clicking cart icon.");
+		Assert.assertTrue(header.isMiniCartOpen(), "Mini cart is not expanded / visible after clicking cart icon.");
 	}
 }

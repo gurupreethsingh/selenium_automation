@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Header;
 import pom.HomePage;
 import pom.SearchProductsPage;
 
@@ -20,9 +21,11 @@ public class AS_3338_EnterProductFromSearchFieldOFHeaderNavigateToSEearchProduct
 		// homepage.
 
 		String key = (String) Excel.getData("SearchProductsPage", 5, 0);
-		hp.enterValueIntoSearchField(key);
+
+		Header header = new Header(driver);
+		header.enterValueIntoSearchInputField(key);
 		Thread.sleep(1000);
-		hp.clickSearchButtonDesktop();
+		header.clickSearchButtonDesktop();
 
 		// user gets navigated to Search products page.
 		String expectedSearchProductsPageTitle = (String) Excel.getData("SearchProductsPage", 1, 0);

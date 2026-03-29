@@ -8,10 +8,10 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
-public class AS_1238_ClickFirstSocialMediaIconFromFooterCorrespondingPageShouldOpenInDifferentTab
-		extends OpenClose {
+public class AS_1238_ClickFirstSocialMediaIconFromFooterCorrespondingPageShouldOpenInDifferentTab extends OpenClose {
 
 	@Test
 	public void testClickFirstSocialMediaIconFromFooterOfHomepageCorrespondingPageShouldOpenInDifferentTab()
@@ -22,7 +22,8 @@ public class AS_1238_ClickFirstSocialMediaIconFromFooterCorrespondingPageShouldO
 		hp.verifyHomepageTitle(expectedHomePageTitle);
 
 		Set<String> oldWindows = driver.getWindowHandles();
-		hp.clickFooterSocialLinkByIndex(0);
+		Footer footer = new Footer(driver);
+		footer.clickOnFooterFacebookLink();
 		Thread.sleep(1500);
 
 		Set<String> newWindows = driver.getWindowHandles();

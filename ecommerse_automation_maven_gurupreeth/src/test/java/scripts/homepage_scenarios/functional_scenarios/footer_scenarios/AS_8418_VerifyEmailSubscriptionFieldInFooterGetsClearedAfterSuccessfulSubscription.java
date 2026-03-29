@@ -2,16 +2,15 @@ package scripts.homepage_scenarios.functional_scenarios.footer_scenarios;
 
 import java.io.IOException;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
-public class AS_8418_VerifyEmailSubscriptionFieldInFooterGetsClearedAfterSuccessfulSubscription
-		extends OpenClose {
+public class AS_8418_VerifyEmailSubscriptionFieldInFooterGetsClearedAfterSuccessfulSubscription extends OpenClose {
 
 	@Test
 	public void testVerifyEmailSubscriptionFieldInFooterOfHomepageGetsClearedAfterSuccessfulSubscription()
@@ -19,17 +18,26 @@ public class AS_8418_VerifyEmailSubscriptionFieldInFooterGetsClearedAfterSuccess
 
 		HomePage hp = new HomePage(driver);
 		String expectedHomePageTitle = (String) Excel.getData("HomePage", 1, 0);
-		hp.verifyHomepageTitle(expectedHomePageTitle);
 
-		String validEmail = (String) Excel.getData("HomePageFooter", 1, 0);
-		hp.subscribeFromFooter(validEmail);
-		Thread.sleep(2000);
+		Assert.assertTrue(hp.verifyHomepageTitle(expectedHomePageTitle), "Homepage title verification failed.");
 
-		String actualValue = driver
-				.findElement(By.cssSelector("footer form.flex.flex-col.space-y-3 input[type='email']"))
-				.getAttribute("value");
+		Footer footer = new Footer(driver);
 
-		Assert.assertTrue(actualValue == null || actualValue.trim().isEmpty(),
-				"Email subscription field is not cleared after successful subscription.");
+		String validEmail = "ecoders" + System.currentTimeMillis() + "@gmail.com";
+
+		Assert.assertTrue(footer.enterValueIntoSubscritionFormInputField(validEmail),
+				"Unable to enter valid email into subscription input field.");
+
+		Thread.sleep(500);
+
+		Assert.assertTrue(footer.clickOnSubscriptionButton(), "Unable to click on subscription button.");
+
+		Thread.sleep(500);
+
+		Assert.assertTrue(footer.verifySubscriptionSuccessMessageIsDisplayed(),
+				"Subscription success message is not displayed.");
+
+		Assert.assertTrue(footer.verifySubscriptionEmailInputFieldIsCleared(),
+				"Email subscription input field is not cleared after successful subscription.");
 	}
 }

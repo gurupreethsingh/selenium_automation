@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Header;
 import pom.HomePage;
 
 public class ET_8881_WithoutEnteringAnythingClickSearchIconFromHomepageUserShouldStayInCurrentPage extends OpenClose {
@@ -22,7 +23,8 @@ public class ET_8881_WithoutEnteringAnythingClickSearchIconFromHomepageUserShoul
 
 		String urlBeforeClick = driver.getCurrentUrl();
 
-		hp.clickSearchButtonDesktop();
+		Header header = new Header(driver);
+		header.clickSearchButtonDesktop();
 		Thread.sleep(1000);
 
 		String urlAfterClick = driver.getCurrentUrl();

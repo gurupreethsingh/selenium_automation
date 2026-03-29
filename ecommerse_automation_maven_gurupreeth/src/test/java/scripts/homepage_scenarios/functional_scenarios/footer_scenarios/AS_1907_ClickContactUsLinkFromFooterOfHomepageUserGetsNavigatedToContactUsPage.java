@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import generic.Excel;
 import generic.OpenClose;
+import pom.Footer;
 import pom.HomePage;
 
 public class AS_1907_ClickContactUsLinkFromFooterOfHomepageUserGetsNavigatedToContactUsPage extends OpenClose {
@@ -18,7 +19,8 @@ public class AS_1907_ClickContactUsLinkFromFooterOfHomepageUserGetsNavigatedToCo
 		HomePage hp = new HomePage(driver);
 		hp.verifyHomepageTitle((String) Excel.getData("HomePage", 1, 0));
 
-		hp.clickFooterContactUs();
+		Footer footer = new Footer(driver);
+		footer.clickOnFooterContactUsLink();
 		Thread.sleep(1500);
 
 		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("contact"),
