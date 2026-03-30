@@ -19,9 +19,9 @@ public class AS_7887_VerifyEmailSubscriptionInputFieldInFooterDoesntAcceptAllInv
 
 		Footer footer = new Footer(driver);
 
-		for (int i = 4; i <= 166; i++) {
+		for (int i = 3; i <= 166; i++) {
 
-			String invalidEmail = (String) Excel.getData("FooterElements", i, 1);
+			String invalidEmail = (String) Excel.getData("FooterElements", i, 0);
 
 			System.out.println("===============================================");
 			System.out.println("[TESTING INVALID EMAIL] Row: " + i + " | Value: " + invalidEmail);
