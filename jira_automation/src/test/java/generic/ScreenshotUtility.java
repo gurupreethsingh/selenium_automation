@@ -37,26 +37,26 @@ import com.google.common.io.Files;
 
 public class ScreenshotUtility extends OpenClose {
 
-	private final WebDriver driver;
+	private final WebDriver driverRef;
 
 	public ScreenshotUtility(WebDriver driver) {
-		this.driver = driver;
+		this.driverRef = driver;
 	}
 
 	public void captureScreenshot() {
 		try {
-			if (driver == null) {
+			if (driverRef == null) {
 				System.out.println("Error in taking Screenshot : driver is NULL");
 				return;
 			}
 
-			if (!(driver instanceof TakesScreenshot)) {
+			if (!(driverRef instanceof TakesScreenshot)) {
 				System.out.println("Error in taking Screenshot : driver does not support TakesScreenshot");
 				return;
 			}
 
 			// ✅ create TS only at runtime (no null ts)
-			TakesScreenshot ts = (TakesScreenshot) driver;
+			TakesScreenshot ts = (TakesScreenshot) driverRef;
 
 			File ramLocation = ts.getScreenshotAs(OutputType.FILE);
 
