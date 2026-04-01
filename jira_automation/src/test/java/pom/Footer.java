@@ -1,8 +1,40 @@
+//package pom;
+//
+//import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.support.FindBy;
+//import org.openqa.selenium.support.PageFactory;
+//
+//import generic.AllVerifications;
+//
+//public class Footer extends AllVerifications {
+//	// find the elements of footer @FindBy() from testNG and declare them as private
+//	// elements.
+//
+//	@FindBy(css = "footer div.grid.grid-cols-1.gap-8>div:nth-of-type(2)>ul>li:nth-of-type(1)>a")
+//	private WebElement footerAboutUsLink;
+//
+//	// we have initialize the elements. which we have found using @FindBy, using the
+//	// constructor of the Footer class. and PageFactory.initElements()
+//
+//	public Footer(WebDriver driver) {
+//		super(driver);
+//		PageFactory.initElements(driver, this);
+//	}
+//
+//	// we have to create fucntions to perform actions on those elements.
+//	public boolean clickOnFooterAboutUsLink() {
+//		return clickOnElement(footerAboutUsLink, "Footers About Us link");
+//	}
+//
+//}
+
+//
+
 package pom;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,40 +45,24 @@ import generic.AllVerifications;
 public class Footer extends AllVerifications {
 
 	// ============================================================
-	// ✅ FOOTER ROOT
+	// FOOTER ROOT
 	// ============================================================
 
-	@FindBy(css = "footer")
+	@FindBy(css = "footer.mt-8")
 	private WebElement footerRoot;
 
 	// ============================================================
-	// ✅ BRAND (logo + description)
+	// BRAND SECTION
 	// ============================================================
 
 	@FindBy(css = "footer img[alt='Ecoders Logo']")
-	private WebElement footerBrandLogo;
+	private WebElement footerLogo;
 
 	@FindBy(css = "footer img[alt='Ecoders Logo'] + p")
-	private WebElement footerBrandDescription;
+	private WebElement footerDescriptionText;
 
 	// ============================================================
-	// ✅ SECTION HEADINGS
-	// ============================================================
-
-	@FindBy(xpath = "//footer//h3[normalize-space()='Company']")
-	private WebElement footerCompanyHeading;
-
-	@FindBy(xpath = "//footer//h3[normalize-space()='Services']")
-	private WebElement footerServicesHeading;
-
-	@FindBy(xpath = "//footer//h3[normalize-space()='Support']")
-	private WebElement footerSupportHeading;
-
-	@FindBy(xpath = "//footer//h3[normalize-space()='Address']")
-	private WebElement footerAddressHeading;
-
-	// ============================================================
-	// ✅ COMPANY LINKS
+	// COMPANY LINKS
 	// ============================================================
 
 	@FindBy(css = "footer a[href='/about-us']")
@@ -62,7 +78,7 @@ public class Footer extends AllVerifications {
 	private WebElement footerCareersLink;
 
 	// ============================================================
-	// ✅ SERVICES LINKS
+	// SERVICES LINKS
 	// ============================================================
 
 	@FindBy(css = "footer a[href='/explore-solutions']")
@@ -81,11 +97,11 @@ public class Footer extends AllVerifications {
 	private WebElement footerBlockchainLink;
 
 	// ============================================================
-	// ✅ SUPPORT LINKS
+	// SUPPORT LINKS
 	// ============================================================
 
 	@FindBy(css = "footer a[href='/contact']")
-	private WebElement footerContactUsLink;
+	private WebElement footerContactLink;
 
 	@FindBy(css = "footer a[href='/privacy-policy']")
 	private WebElement footerPrivacyPolicyLink;
@@ -97,88 +113,43 @@ public class Footer extends AllVerifications {
 	private WebElement footerRegisterLink;
 
 	// ============================================================
-	// ✅ ADDRESS BLOCK (text only)
+	// ADDRESS SECTION
 	// ============================================================
 
-	// Address block container (the div which contains the Address heading)
-	@FindBy(xpath = "//footer//h3[normalize-space()='Address']/parent::div")
-	private WebElement footerAddressBlock;
+	@FindBy(css = "footer div.text-gray-400.text-sm>h3")
+	private WebElement footerAddressHeadingText;
 
-	@FindBy(xpath = "//footer//h3[normalize-space()='Address']/following-sibling::p[1]")
+	@FindBy(css = "footer div.text-gray-400.text-sm>p")
+	private List<WebElement> footerAddressAllParagraphs;
+
+	@FindBy(css = "footer div.text-gray-400.text-sm>p:nth-of-type(1)")
 	private WebElement footerAddressText;
 
-	@FindBy(xpath = "//footer//h3[normalize-space()='Address']/following-sibling::p[2]")
+	@FindBy(css = "footer div.text-gray-400.text-sm>p:nth-of-type(2)")
 	private WebElement footerPhoneText;
 
-	@FindBy(xpath = "//footer//h3[normalize-space()='Address']/following-sibling::p[3]")
+	@FindBy(css = "footer div.text-gray-400.text-sm>p:nth-of-type(3)")
 	private WebElement footerEmailText;
 
-	@FindBy(xpath = "//footer//h3[normalize-space()='Address']/following-sibling::p[4]")
+	@FindBy(css = "footer div.text-gray-400.text-sm>p:nth-of-type(4)")
 	private WebElement footerWebsiteText;
 
 	// ============================================================
-	// ✅ SOCIAL PLACEHOLDERS (href="#")
+	// COPYRIGHT
 	// ============================================================
 
-	@FindBy(xpath = "//footer//span[@class='sr-only' and normalize-space()='Facebook']/parent::a")
-	private WebElement footerFacebookLink;
-
-	@FindBy(xpath = "//footer//span[@class='sr-only' and normalize-space()='Twitter']/parent::a")
-	private WebElement footerTwitterLink;
-
-	@FindBy(xpath = "//footer//span[@class='sr-only' and normalize-space()='Instagram']/parent::a")
-	private WebElement footerInstagramLink;
-
-	@FindBy(css = "footer .mt-4.flex.justify-center.space-x-6 a")
-	private List<WebElement> footerAllSocialLinks;
-
-	// ============================================================
-	// ✅ COPYRIGHT TEXT
-	// ============================================================
-
-	@FindBy(css = "footer div.mt-8.border-t.border-gray-700.pt-8.text-center.text-sm.text-gray-400 p")
+	@FindBy(css = "footer div.border-t p")
 	private WebElement footerCopyrightText;
 
 	// ============================================================
-	// ✅ NEWSLETTER SECTION (this is outside <footer> in App.jsx)
+	// BULK LINKS
 	// ============================================================
 
-	// Root wrapper (helps in scrolling / visibility checks)
-	@FindBy(css = "div.relative.isolate.overflow-hidden.bg-white")
-	private WebElement newsletterRoot;
-
-	// Left side heading + description
-	@FindBy(xpath = "//h2[normalize-space()='Subscribe to Our Newsletter']")
-	private WebElement newsletterHeading;
-
-	@FindBy(xpath = "//h2[normalize-space()='Subscribe to Our Newsletter']/following-sibling::p[1]")
-	private WebElement newsletterDescription;
-
-	// Form elements
-	@FindBy(css = "input#email-address")
-	private WebElement newsletterEmailInput;
-
-	@FindBy(css = "button[type='submit']")
-	private WebElement newsletterSubscribeButton;
-
-	// Success / error message (same element in your JSX: <p className="...">)
-	private final By newsletterMessageBy = By.cssSelector("p.mt-4.text-sm");
-
-	// RIGHT side “Monthly Updates” / “No Spam” blocks (text verifications)
-	@FindBy(xpath = "//dt[normalize-space()='Monthly Updates']")
-	private WebElement newsletterMonthlyUpdatesTitle;
-
-	@FindBy(xpath = "//dt[normalize-space()='Monthly Updates']/following-sibling::dd[1]")
-	private WebElement newsletterMonthlyUpdatesDesc;
-
-	@FindBy(xpath = "//dt[normalize-space()='No Spam']")
-	private WebElement newsletterNoSpamTitle;
-
-	@FindBy(xpath = "//dt[normalize-space()='No Spam']/following-sibling::dd[1]")
-	private WebElement newsletterNoSpamDesc;
+	@FindBy(css = "footer a")
+	private List<WebElement> footerAllLinks;
 
 	// ============================================================
-	// ✅ INIT
+	// CONSTRUCTOR
 	// ============================================================
 
 	public Footer(WebDriver driver) {
@@ -187,214 +158,242 @@ public class Footer extends AllVerifications {
 	}
 
 	// ============================================================
-	// ✅ FOOTER VISIBILITY / BASIC TEXT GETTERS
+	// FOOTER ROOT
 	// ============================================================
 
-	public boolean isFooterVisible() {
-		return isElementDisplayed(footerRoot, "Footer Root");
-	}
-
-	public void scrollToFooter() {
-		scrollToElement(footerRoot, "Footer Root");
-	}
-
-	public boolean isNewsletterVisible() {
-		return isElementDisplayed(newsletterRoot, "Newsletter Root");
-	}
-
-	public void scrollToNewsletter() {
-		scrollToElement(newsletterRoot, "Newsletter Root");
-	}
-
-	public String getFooterBrandDescriptionText() {
-		return getTextFromElement(footerBrandDescription, "Footer Brand Description");
-	}
-
-	public String getFooterAddressText() {
-		return getTextFromElement(footerAddressText, "Footer Address Text");
-	}
-
-	public String getFooterPhoneText() {
-		return getTextFromElement(footerPhoneText, "Footer Phone Text");
-	}
-
-	public String getFooterEmailText() {
-		return getTextFromElement(footerEmailText, "Footer Email Text");
-	}
-
-	public String getFooterWebsiteText() {
-		return getTextFromElement(footerWebsiteText, "Footer Website Text");
-	}
-
-	public String getFooterCopyrightText() {
-		return getTextFromElement(footerCopyrightText, "Footer Copyright Text");
+	public boolean verifyFooterIsVisible() {
+		return verifyElementPresentAndVisible(footerRoot, "Footer Root");
 	}
 
 	// ============================================================
-	// ✅ BRAND ACTIONS
+	// BRAND SECTION
 	// ============================================================
 
-	public void clickOnFooterLogo() {
-		clickOnElement(footerBrandLogo, "Footer Brand Logo");
+	public boolean getFooterLogoDisplayed() {
+		return verifyElementPresentAndVisible(footerLogo, "Footer Logo");
 	}
 
-	// ============================================================
-	// ✅ COMPANY LINK ACTIONS
-	// ============================================================
-
-	public void clickOnFooterAboutUs() {
-		clickOnElement(footerAboutUsLink, "Footer About Us Link");
+	public boolean getFooterLogoSource(String expectedSrc) {
+		return verifyElementAttribute(footerLogo, "src", expectedSrc, "Footer Logo Source");
 	}
 
-	public void clickOnFooterProjects() {
-		clickOnElement(footerProjectsLink, "Footer Projects Link");
-	}
-
-	public void clickOnFooterBlogs() {
-		clickOnElement(footerBlogsLink, "Footer Blogs Link");
-	}
-
-	public void clickOnFooterCareers() {
-		clickOnElement(footerCareersLink, "Footer Careers Link");
+	public boolean getFooterDescriptionText(String expectedText) {
+		return verifyText(footerDescriptionText, expectedText, "Footer Description Text", "contains", true);
 	}
 
 	// ============================================================
-	// ✅ SERVICES LINK ACTIONS
+	// COMPANY LINKS
 	// ============================================================
 
-	public void clickOnFooterExploreSolutions() {
-		clickOnElement(footerExploreSolutionsLink, "Footer Explore Solutions Link");
+	public boolean clickOnFooterAboutUsLink() {
+		return clickOnElement(footerAboutUsLink, "Footer About Us Link");
 	}
 
-	public void clickOnFooterWebApps() {
-		clickOnElement(footerWebAppsLink, "Footer Web & Mobile Apps Link");
+	public boolean getAboutUsLinkText(String expectedText) {
+		return verifyText(footerAboutUsLink, expectedText, "Footer About Us Link Text", "equals", true);
 	}
 
-	public void clickOnFooterQaAutomation() {
-		clickOnElement(footerQaAutomationLink, "Footer QA Automation Link");
+	public boolean getAboutUsLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerAboutUsLink, "href", expectedHref, "Footer About Us Link Href");
 	}
 
-	public void clickOnFooterAiSystems() {
-		clickOnElement(footerAiSystemsLink, "Footer AI Systems Link");
+	public boolean clickOnFooterProjectsLink() {
+		return clickOnElement(footerProjectsLink, "Footer Projects Link");
 	}
 
-	public void clickOnFooterBlockchain() {
-		clickOnElement(footerBlockchainLink, "Footer Blockchain Link");
+	public boolean getProjectsLinkText(String expectedText) {
+		return verifyText(footerProjectsLink, expectedText, "Footer Projects Link Text", "equals", true);
 	}
 
-	// ============================================================
-	// ✅ SUPPORT LINK ACTIONS
-	// ============================================================
-
-	public void clickOnFooterContactUs() {
-		clickOnElement(footerContactUsLink, "Footer Contact Us Link");
+	public boolean getProjectsLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerProjectsLink, "href", expectedHref, "Footer Projects Link Href");
 	}
 
-	public void clickOnFooterPrivacyPolicy() {
-		clickOnElement(footerPrivacyPolicyLink, "Footer Privacy Policy Link");
+	public boolean clickOnFooterBlogsLink() {
+		return clickOnElement(footerBlogsLink, "Footer Blogs Link");
 	}
 
-	public void clickOnFooterLogin() {
-		clickOnElement(footerLoginLink, "Footer Login Link");
+	public boolean getBlogsLinkText(String expectedText) {
+		return verifyText(footerBlogsLink, expectedText, "Footer Blogs Link Text", "equals", true);
 	}
 
-	public void clickOnFooterRegister() {
-		clickOnElement(footerRegisterLink, "Footer Register Link");
+	public boolean getBlogsLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerBlogsLink, "href", expectedHref, "Footer Blogs Link Href");
 	}
 
-	// ============================================================
-	// ✅ SOCIAL LINKS ACTIONS
-	// ============================================================
-
-	public void clickOnFooterFacebook() {
-		clickOnElement(footerFacebookLink, "Footer Facebook Link");
+	public boolean clickOnFooterCareersLink() {
+		return clickOnElement(footerCareersLink, "Footer Careers Link");
 	}
 
-	public void clickOnFooterTwitter() {
-		clickOnElement(footerTwitterLink, "Footer Twitter Link");
+	public boolean getCareersLinkText(String expectedText) {
+		return verifyText(footerCareersLink, expectedText, "Footer Careers Link Text", "equals", true);
 	}
 
-	public void clickOnFooterInstagram() {
-		clickOnElement(footerInstagramLink, "Footer Instagram Link");
-	}
-
-	public int getFooterSocialLinksCount() {
-		return footerAllSocialLinks == null ? 0 : footerAllSocialLinks.size();
-	}
-
-	public void clickOnFooterSocialLinkByIndex(int indexZeroBased) {
-		if (footerAllSocialLinks == null || footerAllSocialLinks.isEmpty()) {
-			System.out.println("[FOOTER] No social links found.");
-			return;
-		}
-		if (indexZeroBased < 0 || indexZeroBased >= footerAllSocialLinks.size()) {
-			System.out.println("[FOOTER] Invalid social index: " + indexZeroBased);
-			return;
-		}
-		clickOnElement(footerAllSocialLinks.get(indexZeroBased), "Footer Social Link #" + indexZeroBased);
+	public boolean getCareersLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerCareersLink, "href", expectedHref, "Footer Careers Link Href");
 	}
 
 	// ============================================================
-	// ✅ NEWSLETTER ACTIONS
+	// SERVICES LINKS
 	// ============================================================
 
-	public String getNewsletterHeadingText() {
-		return getTextFromElement(newsletterHeading, "Newsletter Heading");
+	public boolean clickOnFooterExploreSolutionsLink() {
+		return clickOnElement(footerExploreSolutionsLink, "Footer Explore Solutions Link");
 	}
 
-	public String getNewsletterDescriptionText() {
-		return getTextFromElement(newsletterDescription, "Newsletter Description");
+	public boolean getExploreSolutionsLinkText(String expectedText) {
+		return verifyText(footerExploreSolutionsLink, expectedText, "Footer Explore Solutions Link Text", "equals",
+				true);
 	}
 
-	public void enterEmailInNewsletter(String email) {
-		typeInInputField(newsletterEmailInput, email, "Newsletter Email Input");
+	public boolean getExploreSolutionsLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerExploreSolutionsLink, "href", expectedHref,
+				"Footer Explore Solutions Link Href");
 	}
 
-	public void clickOnNewsletterSubscribeButton() {
-		clickOnElement(newsletterSubscribeButton, "Newsletter Subscribe Button");
+	public boolean clickOnFooterWebAppsLink() {
+		return clickOnElement(footerWebAppsLink, "Footer Web Apps Link");
 	}
 
-	public void subscribeToNewsletter(String email) {
-		enterEmailInNewsletter(email);
-		clickOnNewsletterSubscribeButton();
+	public boolean getWebAppsLinkText(String expectedText) {
+		return verifyText(footerWebAppsLink, expectedText, "Footer Web Apps Link Text", "equals", true);
 	}
 
-	public String getNewsletterMessageText() {
-		if (!isElementPresentInDOM(newsletterMessageBy))
-			return "";
-		List<WebElement> els = driver.findElements(newsletterMessageBy);
-		if (els.isEmpty())
-			return "";
-		String t = els.get(0).getText();
-		return t == null ? "" : t.trim();
+	public boolean getWebAppsLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerWebAppsLink, "href", expectedHref, "Footer Web Apps Link Href");
 	}
 
-	// Right side info blocks (optional getters)
-	public String getNewsletterMonthlyUpdatesTitleText() {
-		return getTextFromElement(newsletterMonthlyUpdatesTitle, "Newsletter Monthly Updates Title");
+	public boolean clickOnFooterQaAutomationLink() {
+		return clickOnElement(footerQaAutomationLink, "Footer QA Automation Link");
 	}
 
-	public String getNewsletterMonthlyUpdatesDescText() {
-		return getTextFromElement(newsletterMonthlyUpdatesDesc, "Newsletter Monthly Updates Desc");
+	public boolean getQaAutomationLinkText(String expectedText) {
+		return verifyText(footerQaAutomationLink, expectedText, "Footer QA Automation Link Text", "equals", true);
 	}
 
-	public String getNewsletterNoSpamTitleText() {
-		return getTextFromElement(newsletterNoSpamTitle, "Newsletter No Spam Title");
+	public boolean getQaAutomationLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerQaAutomationLink, "href", expectedHref, "Footer QA Automation Link Href");
 	}
 
-	public String getNewsletterNoSpamDescText() {
-		return getTextFromElement(newsletterNoSpamDesc, "Newsletter No Spam Desc");
+	public boolean clickOnFooterAiSystemsLink() {
+		return clickOnElement(footerAiSystemsLink, "Footer AI Systems Link");
+	}
+
+	public boolean getAiSystemsLinkText(String expectedText) {
+		return verifyText(footerAiSystemsLink, expectedText, "Footer AI Systems Link Text", "equals", true);
+	}
+
+	public boolean getAiSystemsLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerAiSystemsLink, "href", expectedHref, "Footer AI Systems Link Href");
+	}
+
+	public boolean clickOnFooterBlockchainLink() {
+		return clickOnElement(footerBlockchainLink, "Footer Blockchain Link");
+	}
+
+	public boolean getBlockchainLinkText(String expectedText) {
+		return verifyText(footerBlockchainLink, expectedText, "Footer Blockchain Link Text", "equals", true);
+	}
+
+	public boolean getBlockchainLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerBlockchainLink, "href", expectedHref, "Footer Blockchain Link Href");
 	}
 
 	// ============================================================
-	// ✅ SIMPLE VERIFICATIONS (optional)
+	// SUPPORT LINKS
 	// ============================================================
 
-	public void verifyFooterVisible() {
-		isFooterVisible();
+	public boolean clickOnFooterContactLink() {
+		return clickOnElement(footerContactLink, "Footer Contact Link");
 	}
 
-	public void verifyNewsletterVisible() {
-		isNewsletterVisible();
+	public boolean getContactLinkText(String expectedText) {
+		return verifyText(footerContactLink, expectedText, "Footer Contact Link Text", "equals", true);
+	}
+
+	public boolean getContactLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerContactLink, "href", expectedHref, "Footer Contact Link Href");
+	}
+
+	public boolean clickOnFooterPrivacyPolicyLink() {
+		return clickOnElement(footerPrivacyPolicyLink, "Footer Privacy Policy Link");
+	}
+
+	public boolean getPrivacyPolicyLinkText(String expectedText) {
+		return verifyText(footerPrivacyPolicyLink, expectedText, "Footer Privacy Policy Link Text", "equals", true);
+	}
+
+	public boolean getPrivacyPolicyLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerPrivacyPolicyLink, "href", expectedHref, "Footer Privacy Policy Link Href");
+	}
+
+	public boolean clickOnFooterLoginLink() {
+		return clickOnElement(footerLoginLink, "Footer Login Link");
+	}
+
+	public boolean getLoginLinkText(String expectedText) {
+		return verifyText(footerLoginLink, expectedText, "Footer Login Link Text", "equals", true);
+	}
+
+	public boolean getLoginLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerLoginLink, "href", expectedHref, "Footer Login Link Href");
+	}
+
+	public boolean clickOnFooterRegisterLink() {
+		return clickOnElement(footerRegisterLink, "Footer Register Link");
+	}
+
+	public boolean getRegisterLinkText(String expectedText) {
+		return verifyText(footerRegisterLink, expectedText, "Footer Register Link Text", "equals", true);
+	}
+
+	public boolean getRegisterLinkHref(String expectedHref) {
+		return verifyElementAttribute(footerRegisterLink, "href", expectedHref, "Footer Register Link Href");
+	}
+
+	// ============================================================
+	// ADDRESS / DETAILS
+	// ============================================================
+
+	public boolean getAllAddressSectionsDetails() {
+		printTextOfAllElements(footerAddressAllParagraphs, "Footer Address Section all links");
+		return verifyListHasElements(footerAddressAllParagraphs, "Footer Address  All Paragraphs Details");
+	}
+
+	public boolean verifyFooterAddressHeaderText(String expectedText) {
+		return verifyText(footerAddressHeadingText, expectedText, "Footer Address header Text", "equals", true);
+	}
+
+	public boolean verifyFooterAddressText(String expectedText) {
+		return verifyText(footerAddressText, expectedText, "Footer Address Text", "equals", true);
+	}
+
+	public boolean verifyFooterPhoneText(String expectedText) {
+		return verifyText(footerPhoneText, expectedText, "Footer Phone Text", "equals", true);
+	}
+
+	public boolean verifyFooterEmailText(String expectedText) {
+		return verifyText(footerEmailText, expectedText, "Footer Email Text", "equals", true);
+	}
+
+	public boolean verifyFooterWebsiteText(String expectedText) {
+		return verifyText(footerWebsiteText, expectedText, "Footer Website Text", "equals", true);
+	}
+
+	// ============================================================
+	// COPYRIGHT
+	// ============================================================
+
+	public boolean getFooterCopyrightText(String expectedText) {
+		return verifyText(footerCopyrightText, expectedText, "Footer Copyright Text", "contains", true);
+	}
+
+	// ============================================================
+	// BULK
+	// ============================================================
+
+	public boolean getAllFooterLinks() {
+		printTextOfAllElements(footerAllLinks, "All Footer links");
+		return verifyListHasElements(footerAllLinks, "Footer All Links");
 	}
 }

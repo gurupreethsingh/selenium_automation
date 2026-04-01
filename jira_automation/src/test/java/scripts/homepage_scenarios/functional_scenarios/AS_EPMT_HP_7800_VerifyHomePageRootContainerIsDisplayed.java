@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import generic.OpenClose;
 import pom.HomePage;
 
-public class AS_6617_VerifyHomePageRootIsDisplayed extends OpenClose {
+public class AS_EPMT_HP_7800_VerifyHomePageRootContainerIsDisplayed extends OpenClose {
 	@Test
 	public void testVerifyHomePageRootIsDisplayed() {
 		driver.get(URL_HOME_ALT_1);
