@@ -17,5 +17,4 @@ public class AS_EPMT_HP_7800_VerifyHomePageRootContainerIsDisplayed extends Open
 
 		Assert.assertTrue(isRootDisplayed, "HomePage root is NOT displayed. Page did not load correctly.");
 	}
-
 }

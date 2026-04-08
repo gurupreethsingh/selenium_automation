@@ -1,0 +1,146 @@
+src
+ └── test
+     ├── java
+     │   ├── base
+     │   ├── clients
+     │   ├── endpoints
+     │   ├── models
+     │   ├── utils
+     │   ├── listeners
+     │   ├── testdata
+     │   └── tests
+     └── resources
+         ├── config
+         │   ├── dev.properties
+         │   ├── qa.properties
+         │   ├── uat.properties
+         │   └── prod.properties
+         ├── schemas
+         ├── testdata
+         ├── log4j2.xml
+         └── testng.xml
+
+
+
+
+
+
+enterprise level project structure. 
+
+
+project-root
+│── pom.xml
+│── testng.xml
+│── README.md
+│── .gitignore
+│── Jenkinsfile
+│── allure.properties
+│
+├── src
+│   ├── test
+│   │   ├── java
+│   │   │   ├── base
+│   │   │   │   ├── BaseTest.java
+│   │   │   │   ├── BaseAPI.java
+│   │   │   │   └── BaseHooks.java
+│   │   │   │
+│   │   │   ├── clients
+│   │   │   │   ├── AuthClient.java
+│   │   │   │   ├── ProductClient.java
+│   │   │   │   └── UserClient.java
+│   │   │   │
+│   │   │   ├── endpoints
+│   │   │   │   ├── Routes.java
+│   │   │   │   └── EndpointBuilder.java
+│   │   │   │
+│   │   │   ├── models
+│   │   │   │   ├── request
+│   │   │   │   └── response
+│   │   │   │
+│   │   │   ├── utils
+│   │   │   │   ├── ConfigManager.java
+│   │   │   │   ├── ExcelUtils.java
+│   │   │   │   ├── JsonUtils.java
+│   │   │   │   ├── FileUtils.java
+│   │   │   │   ├── RandomDataUtils.java
+│   │   │   │   ├── DateUtils.java
+│   │   │   │   ├── TokenManager.java
+│   │   │   │   ├── RequestSpecFactory.java
+│   │   │   │   ├── ResponseSpecFactory.java
+│   │   │   │   ├── SchemaValidator.java
+│   │   │   │   ├── RetryUtils.java
+│   │   │   │   └── LoggerUtils.java
+│   │   │   │
+│   │   │   ├── listeners
+│   │   │   │   ├── TestListener.java
+│   │   │   │   ├── RetryAnalyzer.java
+│   │   │   │   └── AnnotationTransformer.java
+│   │   │   │
+│   │   │   ├── assertions
+│   │   │   │   ├── APIAssertions.java
+│   │   │   │   └── ResponseAssertions.java
+│   │   │   │
+│   │   │   ├── dataproviders
+│   │   │   │   ├── ExcelDataProvider.java
+│   │   │   │   └── JsonDataProvider.java
+│   │   │   │
+│   │   │   ├── constants
+│   │   │   │   ├── FrameworkConstants.java
+│   │   │   │   ├── HeaderConstants.java
+│   │   │   │   └── StatusCodeConstants.java
+│   │   │   │
+│   │   │   ├── payloads
+│   │   │   │   ├── RequestBodyBuilder.java
+│   │   │   │   └── PayloadTemplates.java
+│   │   │   │
+│   │   │   ├── auth
+│   │   │   │   ├── AuthManager.java
+│   │   │   │   └── CredentialManager.java
+│   │   │   │
+│   │   │   ├── validations
+│   │   │   │   ├── CommonValidations.java
+│   │   │   │   └── SchemaValidations.java
+│   │   │   │
+│   │   │   └── tests
+│   │   │       ├── smoke
+│   │   │       ├── regression
+│   │   │       ├── integration
+│   │   │       └── e2e
+│   │   │
+│   │   └── resources
+│   │       ├── config
+│   │       │   ├── dev.properties
+│   │       │   ├── qa.properties
+│   │       │   ├── uat.properties
+│   │       │   └── prod.properties
+│   │       │
+│   │       ├── testdata
+│   │       │   ├── excel
+│   │       │   ├── json
+│   │       │   └── csv
+│   │       │
+│   │       ├── schemas
+│   │       │   ├── auth
+│   │       │   ├── product
+│   │       │   └── user
+│   │       │
+│   │       ├── payloads
+│   │       │   ├── requestTemplates
+│   │       │   └── expectedResponses
+│   │       │
+│   │       ├── certificates
+│   │       ├── log4j2.xml
+│   │       ├── allure.properties
+│   │       └── testng.xml
+│
+├── target
+├── logs
+├── test-output
+└── allure-results
+
+
+
+
+
+
+
