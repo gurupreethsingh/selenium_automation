@@ -13,7 +13,7 @@ public class O1_ConnectToMySql {
 		// username root, and password of mysql root
 		String mysqlPath = "jdbc:mysql://localhost:3306";
 		String mysqlUsername = "root";
-		String mysqlPassword = "";
+		String mysqlPassword = "roo";
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");

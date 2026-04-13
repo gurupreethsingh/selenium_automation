@@ -1,0 +1,53 @@
+package mysql_util;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class O9_deleteRow {
+
+	public static void deleteRow() {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		Scanner sc = new Scanner(System.in);
+
+		try {
+			conn = ConnectToMysqlDatabase.connectToMySql();
+
+			if (conn != null) {
+
+				System.out.print("Enter ID to delete: ");
+				int id = sc.nextInt();
+
+				String sqlQuery = "DELETE FROM students WHERE id = ?";
+				ps = conn.prepareStatement(sqlQuery);
+				ps.setInt(1, id);
+
+				int rows = ps.executeUpdate();
+
+				if (rows > 0) {
+					System.out.println("Record deleted successfully.");
+				} else {
+					System.out.println("No record found with given ID.");
+				}
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("Unable to delete record.");
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			ConnectToMysqlDatabase.closeConnection(conn);
+		}
+	}
+
+	public static void main(String[] args) {
+		deleteRow();
+	}
+}

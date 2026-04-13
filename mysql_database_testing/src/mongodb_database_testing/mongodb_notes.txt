@@ -1,0 +1,409 @@
+https://repo1.maven.org/maven2/org/mongodb/mongodb-jdbc/3.0.5/
+
+this is the location from where we can download the latest jar file , for mongodb connection (jar)
+
+
+
+1) Show all databases
+
+
+package mongodb_db_test;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoIterable;
+
+public class O2_ShowAllDatabases {
+
+	public static void main(String[] args) {
+
+		try (MongoClient conn = MongoClients.create("mongodb://localhost:27017")) {
+
+			MongoIterable<String> databaseNames = conn.listDatabaseNames();
+
+			System.out.println("Displaying all database names:");
+			System.out.println("*****************************");
+
+			for (String dbName : databaseNames) {
+				System.out.println(dbName);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Failed to fetch database names.");
+		}
+	}
+}
+
+
+2) Select a database
+
+
+package mongodb_db_test;
+
+import java.util.Scanner;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
+
+public class O3_SelectDatabase {
+
+	public static void main(String[] args) {
+
+		try (MongoClient conn = MongoClients.create("mongodb://localhost:27017");
+				Scanner sc = new Scanner(System.in)) {
+
+			System.out.println("Enter the database name:");
+			String dbName = sc.nextLine();
+
+			MongoDatabase database = conn.getDatabase(dbName);
+
+			System.out.println("Selected database: " + database.getName());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Failed to select database.");
+		}
+	}
+}
+
+
+3) See all collections in a selected database
+
+package mongodb_db_test;
+
+import java.util.Scanner;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoIterable;
+
+public class O4_ShowAllCollections {
+
+	public static void main(String[] args) {
+
+		try (MongoClient conn = MongoClients.create("mongodb://localhost:27017");
+				Scanner sc = new Scanner(System.in)) {
+
+			System.out.println("Enter the database name:");
+			String dbName = sc.nextLine();
+
+			MongoDatabase database = conn.getDatabase(dbName);
+
+			MongoIterable<String> collectionNames = database.listCollectionNames();
+
+			System.out.println("Collections in database: " + database.getName());
+			System.out.println("************************************");
+
+			for (String collectionName : collectionNames) {
+				System.out.println(collectionName);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Failed to fetch collections.");
+		}
+	}
+}
+
+
+4) Create a new collection
+
+
+package mongodb_db_test;
+
+import java.util.Scanner;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
+
+public class O5_CreateNewCollection {
+
+	public static void main(String[] args) {
+
+		try (MongoClient conn = MongoClients.create("mongodb://localhost:27017");
+				Scanner sc = new Scanner(System.in)) {
+
+			System.out.println("Enter the database name:");
+			String dbName = sc.nextLine();
+
+			System.out.println("Enter the new collection name:");
+			String collectionName = sc.nextLine();
+
+			MongoDatabase database = conn.getDatabase(dbName);
+			database.createCollection(collectionName);
+
+			System.out.println("Collection created successfully: " + collectionName);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Failed to create collection.");
+		}
+	}
+}
+
+
+5) Insert values into collection
+
+
+package mongodb_db_test;
+
+import java.util.Scanner;
+import org.bson.Document;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class O6_InsertValuesIntoCollection {
+
+	public static void main(String[] args) {
+
+		try (MongoClient conn = MongoClients.create("mongodb://localhost:27017");
+				Scanner sc = new Scanner(System.in)) {
+
+			System.out.println("Enter the database name:");
+			String dbName = sc.nextLine();
+
+			System.out.println("Enter the collection name:");
+			String collectionName = sc.nextLine();
+
+			System.out.println("Enter student name:");
+			String name = sc.nextLine();
+
+			System.out.println("Enter student age:");
+			int age = Integer.parseInt(sc.nextLine());
+
+			System.out.println("Enter student city:");
+			String city = sc.nextLine();
+
+			MongoDatabase database = conn.getDatabase(dbName);
+			MongoCollection<Document> collection = database.getCollection(collectionName);
+
+			Document doc = new Document("name", name)
+					.append("age", age)
+					.append("city", city);
+
+			collection.insertOne(doc);
+
+			System.out.println("Document inserted successfully.");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Failed to insert document.");
+		}
+	}
+}
+
+
+6) View everything from a collection
+
+
+package mongodb_db_test;
+
+import java.util.Scanner;
+import org.bson.Document;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class O7_ViewAllDocumentsFromCollection {
+
+	public static void main(String[] args) {
+
+		try (MongoClient conn = MongoClients.create("mongodb://localhost:27017");
+				Scanner sc = new Scanner(System.in)) {
+
+			System.out.println("Enter the database name:");
+			String dbName = sc.nextLine();
+
+			System.out.println("Enter the collection name:");
+			String collectionName = sc.nextLine();
+
+			MongoDatabase database = conn.getDatabase(dbName);
+			MongoCollection<Document> collection = database.getCollection(collectionName);
+
+			FindIterable<Document> documents = collection.find();
+
+			System.out.println("Displaying all documents:");
+			System.out.println("************************");
+
+			for (Document doc : documents) {
+				System.out.println(doc.toJson());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Failed to fetch documents.");
+		}
+	}
+}
+
+
+
+# 7) Update values in a collection
+
+This example updates the `city` using the `name`.
+
+package mongodb_db_test;
+
+import java.util.Scanner;
+import org.bson.Document;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class O8_UpdateValuesInCollection {
+
+	public static void main(String[] args) {
+
+		try (MongoClient conn = MongoClients.create("mongodb://localhost:27017");
+				Scanner sc = new Scanner(System.in)) {
+
+			System.out.println("Enter the database name:");
+			String dbName = sc.nextLine();
+
+			System.out.println("Enter the collection name:");
+			String collectionName = sc.nextLine();
+
+			System.out.println("Enter the student name to update:");
+			String name = sc.nextLine();
+
+			System.out.println("Enter the new city:");
+			String newCity = sc.nextLine();
+
+			MongoDatabase database = conn.getDatabase(dbName);
+			MongoCollection<Document> collection = database.getCollection(collectionName);
+
+			Document filter = new Document("name", name);
+			Document newValue = new Document("$set", new Document("city", newCity));
+
+			collection.updateOne(filter, newValue);
+
+			System.out.println("Document updated successfully.");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Failed to update document.");
+		}
+	}
+}
+
+
+
+8) Delete values from a collection
+
+This example deletes one document using the `name`.
+
+package mongodb_db_test;
+
+import java.util.Scanner;
+import org.bson.Document;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class O9_DeleteValuesFromCollection {
+
+	public static void main(String[] args) {
+
+		try (MongoClient conn = MongoClients.create("mongodb://localhost:27017");
+				Scanner sc = new Scanner(System.in)) {
+
+			System.out.println("Enter the database name:");
+			String dbName = sc.nextLine();
+
+			System.out.println("Enter the collection name:");
+			String collectionName = sc.nextLine();
+
+			System.out.println("Enter the student name to delete:");
+			String name = sc.nextLine();
+
+			MongoDatabase database = conn.getDatabase(dbName);
+			MongoCollection<Document> collection = database.getCollection(collectionName);
+
+			Document filter = new Document("name", name);
+
+			collection.deleteOne(filter);
+
+			System.out.println("Document deleted successfully.");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Failed to delete document.");
+		}
+	}
+}
+
+
+
+List of functions used and their purpose
+
+1. MongoClients.create("mongodb://localhost:27017")  :  Used to create a connection to MongoDB server.
+
+2. conn.getDatabase("database_name")  :    Used to select or access a database.
+
+3. database.getName()  :          Used to get the name of the selected database.
+
+4. conn.listDatabaseNames() :     Used to show all database names present in MongoDB.
+
+5. database.listCollectionNames() : Used to show all collection names inside a selected database.
+
+6. database.createCollection("collection_name") : Used to create a new collection.
+
+7. database.getCollection("collection_name") : Used to select or access a collection.
+
+8. new Document("key", value) : Used to create a MongoDB document.
+
+Example:     
+new Document("name", "Rahul")
+9. .append("key", value)   :   Used to add more fields to a document.
+
+Example syntax:   new Document("name", "Rahul").append("age", 22)
+
+10. collection.insertOne(document)   :  Used to insert one document into a collection.
+
+11. collection.find()  :  Used to fetch all documents from a collection.
+
+12. doc.toJson() : Used to print a document in JSON format.
+
+13. collection.updateOne(filter, newValue) : Used to update one matching document.
+
+14. new Document("$set", new Document("field", value)) : Used inside update query to change a field value.
+
+Example:  syntax to update the values using $set operator
+new Document("$set", new Document("city", "Bangalore"))
+
+15. collection.deleteOne(filter) : Used to delete one matching document.
+
+16. Integer.parseInt(sc.nextLine()) : Used to convert input text into integer.
+
+17. Scanner -  class  :  Used to take input from user.
+
+18. try (...) { }  
+
+
+# Very important note : In MongoDB:
+
+1. database is created when data is actually stored in it
+2. collection can be created explicitly using `createCollection()`    /   like tables in mysql
+3. documents are like rows
+4. fields are like columns
+
+
+Run in this order:
+
+O1_ConnectToMongodbDatabase
+O2_ShowAllDatabases
+O3_SelectDatabase
+O5_CreateNewCollection
+O6_InsertValuesIntoCollection
+O7_ViewAllDocumentsFromCollection
+O8_UpdateValuesInCollection
+O9_DeleteValuesFromCollection
+
+
