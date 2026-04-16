@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 public class Category {
-
 	private String id; // MongoDB _id equivalent
 	private String categoryName;
 	private String categoryImage;
@@ -12,8 +11,8 @@ public class Category {
 	private Date createdAt;
 	private Date updatedAt;
 
-	// Default Constructor
 	public Category() {
+		// Default Constructor
 	}
 
 	// Parameterized Constructor

@@ -1,6 +1,13 @@
 
 //1 main class → Product
-//6 helper classes → WarehouseStock, Dimensions, PricingRule, Campaign, Question, Bundle, BundleItem
+//7 helper classes → 
+//WarehouseStock, 
+//Dimensions, 
+//PricingRule, 
+//Campaign, 
+//Question, 
+//Bundle, 
+//BundleItem
 //
 //The Product class is the main object.
 
@@ -12,93 +19,65 @@ import java.util.List;
 public class Product {
 
 	private String id;
-
 	private String productName;
 	private String slug;
 	private String productImage;
 	private List<String> allProductImages;
 	private String description;
 	private String sku;
-
 	private Double displayPrice;
 	private Double sellingPrice;
 
 	private String category; // ObjectId → String
 	private String subcategory; // ObjectId → String
+	private String outlet; // ObjectId → String
+	private String vendor; // ObjectId → String
 
 	private String brand;
 	private String barcode;
-
 	private Integer stock;
-
-	private List<WarehouseStock> warehouseStock;
-
 	private Integer totalProductsSold;
-
-	private String outlet;
-
-	private Dimensions dimensions;
-
 	private String color;
 	private String material;
-
 	private Double ratings;
 	private Double avgRating;
 	private Integer totalReviews;
-
 	private List<String> tags;
-
 	private List<String> sectionToAppear;
-
 	private Boolean featured;
 	private Boolean isNewArrival;
 	private Boolean isTrending;
 	private Boolean availabilityStatus;
-
 	private Double discount;
-
 	private Integer minPurchaseQty;
 	private Integer maxPurchaseQty;
-
 	private String deliveryTimeEstimate;
 	private String replacementPolicy;
 	private String originCountry;
-
-	private List<PricingRule> pricingRules;
-
 	private Campaign campaign;
-
-	private String vendor;
-
 	private List<String> reviews;
 	private List<String> orders;
 	private List<String> purchases;
 	private List<String> returns;
 	private List<String> wishlistUsers;
-
-	private List<Question> questions;
-
-	private List<String> relatedProducts;
-
-	private List<Bundle> bundles;
-
-	private List<Double> vectorEmbedding;
-
-	private Double popularityScore;
-
-	private String metaTitle;
 	private String metaDescription;
-
 	private String createdBy;
 	private String updatedBy;
-
 	private Boolean isDeleted;
 	private Integer version;
-
 	private String adminNotes;
-
 	private Date createdAt;
 	private Date updatedAt;
+	private Double popularityScore;
+	private String metaTitle;
+	private List<String> relatedProducts;
+
+	private Dimensions dimensions;
+	private List<WarehouseStock> warehouseStock;
+	private List<PricingRule> pricingRules;
+	private List<Question> questions;
+	private List<Bundle> bundles;
+	private List<Double> vectorEmbedding;
 
 	// ===========================
 	// Default Constructor

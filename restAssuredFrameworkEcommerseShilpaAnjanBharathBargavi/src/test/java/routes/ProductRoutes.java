@@ -3,17 +3,17 @@ package routes;
 public class ProductRoutes {
 
 	// Base URL
-	public static final String BASE_URL = "http://localhost:3010";
+	public static final String BASE_URL = "http://localhost:3010/api";
 
 	// =========================================================
 	// CREATE
 	// =========================================================
 
 	// POST - Add Product
-	// Login Required? -> No (public in current routes file)
-	// Token Required? -> No
-	// Role Required? -> No
-	// Note: multipart/form-data route
+	// Login Required? -> yes
+	// Token Required? -> yes
+	// Role Required? -> yes (superadmin)
+	// Note: multipart/form-data route // image upload
 	// Files supported:
 	// 1. product_image -> max 1
 	// 2. all_product_images -> max 5
