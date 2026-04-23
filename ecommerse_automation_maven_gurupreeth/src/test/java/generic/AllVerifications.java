@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -2591,5 +2592,133 @@ public class AllVerifications {
 		captureFailure("ACTIONS CLASS FAILED AFTER RETRIES -> " + displaySequenceName,
 				lastException instanceof Exception ? (Exception) lastException : new Exception("Unknown exception"));
 		return false;
+	}
+
+	// alert functions.
+
+	public boolean acceptAlert() {
+		try {
+			System.out.println("============================================================");
+			System.out.println("[ALERT ACCEPT START]");
+			System.out.println("Waiting for alert to be present...");
+			System.out.println("============================================================");
+
+			Alert alert = createWait(DEFAULT_WAITING_TIME_IN_SEC).until(ExpectedConditions.alertIsPresent());
+
+			System.out.println("[ALERT PRESENT] Alert is present.");
+			System.out.println("[ALERT SWITCHED] Driver switched to alert successfully.");
+
+			String alertText = "";
+			try {
+				alertText = alert.getText();
+				System.out.println("[ALERT TEXT CAPTURED] " + alertText);
+			} catch (Exception textEx) {
+				System.out.println("[ALERT TEXT CAPTURE FAILED] " + textEx.getMessage());
+			}
+
+			alert.accept();
+			System.out.println("[ALERT ACTION] Accept performed successfully.");
+
+			try {
+				createWait(2).until(ExpectedConditions.not(ExpectedConditions.alertIsPresent()));
+				System.out.println("[ALERT CLOSED] Alert closed after accept.");
+			} catch (Exception closeEx) {
+				System.out.println("[ALERT CLOSE VERIFY WARNING] Could not confirm alert closure after accept.");
+			}
+
+			System.out.println("[ALERT ACCEPT PASS]");
+			return true;
+
+		} catch (Exception ex) {
+			System.out.println("[ALERT ACCEPT FAILED] " + ex.getMessage());
+			captureFailure("ALERT ACCEPT FAILED", ex);
+			return false;
+		}
+	}
+
+	public boolean dismissAlert() {
+		try {
+			System.out.println("============================================================");
+			System.out.println("[ALERT DISMISS START]");
+			System.out.println("Waiting for alert to be present...");
+			System.out.println("============================================================");
+
+			Alert alert = createWait(DEFAULT_WAITING_TIME_IN_SEC).until(ExpectedConditions.alertIsPresent());
+
+			System.out.println("[ALERT PRESENT] Alert is present.");
+			System.out.println("[ALERT SWITCHED] Driver switched to alert successfully.");
+
+			String alertText = "";
+			try {
+				alertText = alert.getText();
+				System.out.println("[ALERT TEXT CAPTURED] " + alertText);
+			} catch (Exception textEx) {
+				System.out.println("[ALERT TEXT CAPTURE FAILED] " + textEx.getMessage());
+			}
+
+			alert.dismiss();
+			System.out.println("[ALERT ACTION] Dismiss performed successfully.");
+
+			try {
+				createWait(2).until(ExpectedConditions.not(ExpectedConditions.alertIsPresent()));
+				System.out.println("[ALERT CLOSED] Alert closed after dismiss.");
+			} catch (Exception closeEx) {
+				System.out.println("[ALERT CLOSE VERIFY WARNING] Could not confirm alert closure after dismiss.");
+			}
+
+			System.out.println("[ALERT DISMISS PASS]");
+			return true;
+
+		} catch (Exception ex) {
+			System.out.println("[ALERT DISMISS FAILED] " + ex.getMessage());
+			captureFailure("ALERT DISMISS FAILED", ex);
+			return false;
+		}
+	}
+
+	public boolean enterTextIntoPromptAndAccept(String textToEnter) {
+		try {
+			String finalText = textToEnter == null ? "" : textToEnter;
+
+			System.out.println("============================================================");
+			System.out.println("[PROMPT ALERT HANDLE START]");
+			System.out.println("Waiting for prompt alert to be present...");
+			System.out.println("Text to enter : " + finalText);
+			System.out.println("============================================================");
+
+			Alert alert = createWait(DEFAULT_WAITING_TIME_IN_SEC).until(ExpectedConditions.alertIsPresent());
+
+			System.out.println("[ALERT PRESENT] Prompt alert is present.");
+			System.out.println("[ALERT SWITCHED] Driver switched to prompt alert successfully.");
+
+			String alertText = "";
+			try {
+				alertText = alert.getText();
+				System.out.println("[ALERT TEXT CAPTURED] " + alertText);
+			} catch (Exception textEx) {
+				System.out.println("[ALERT TEXT CAPTURE FAILED] " + textEx.getMessage());
+			}
+
+			alert.sendKeys(finalText);
+			System.out.println("[PROMPT INPUT ENTERED] " + finalText);
+
+			alert.accept();
+			System.out.println("[PROMPT ACCEPTED] Prompt accepted successfully.");
+
+			try {
+				createWait(2).until(ExpectedConditions.not(ExpectedConditions.alertIsPresent()));
+				System.out.println("[ALERT CLOSED] Prompt alert closed after accept.");
+			} catch (Exception closeEx) {
+				System.out.println("[ALERT CLOSE VERIFY WARNING] Could not confirm prompt closure after accept.");
+			}
+
+			System.out.println("[PROMPT ALERT HANDLE PASS]");
+			return true;
+
+		} catch (Exception ex) {
+			System.out.println("[PROMPT ALERT HANDLE FAILED] " + ex.getMessage());
+			captureFailure("PROMPT ALERT HANDLE FAILED", ex);
+			return false;
+		}
 	}
 }

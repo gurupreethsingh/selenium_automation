@@ -40,6 +40,8 @@ public interface AutomationConstants {
 
 	String URL_SHOP = BASE_URL + "/shop";
 
+	String URL_WISHLIST = BASE_URL + "/wishlist";
+
 	// ============================================================
 	// ✅ ADMIN / SUPERADMIN / DASHBOARDS (STATIC)
 	// ============================================================

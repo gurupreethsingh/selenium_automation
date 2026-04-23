@@ -1,11 +1,16 @@
 package pom;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import generic.AllVerifications;
 
 public class DashboardPage extends AllVerifications {
+	
+	@FindBy(css="a[href='/shop']")
+	private WebElement shopAllLink;
 
 	public DashboardPage(WebDriver driver) {
 		super(driver);
@@ -22,5 +27,10 @@ public class DashboardPage extends AllVerifications {
 
 	public void verifyDashboardPageUrl(String expectedUrl) {
 		verifyUrlOfWebpage(expectedUrl);
+
+	}
+	
+	public boolean clickOnshopAllLink() {
+		return clickOnElement(shopAllLink, "shopAll   Link");
 	}
 }
