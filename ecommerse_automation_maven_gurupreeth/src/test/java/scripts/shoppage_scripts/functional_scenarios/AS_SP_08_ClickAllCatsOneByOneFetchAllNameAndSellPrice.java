@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import generic.OpenClose;
 import pom.ShopPage;
 
-public class AS_SP_08_ClickAllCategoresOneByOneFetchAllProInEchCat extends OpenClose {
+public class AS_SP_08_ClickAllCatsOneByOneFetchAllNameAndSellPrice extends OpenClose {
 
 	// add a test function to do the automation.
 
@@ -51,15 +51,24 @@ public class AS_SP_08_ClickAllCategoresOneByOneFetchAllProInEchCat extends OpenC
 			List<WebElement> allProducts = driver
 					.findElements(By.cssSelector("main.w-full.flex-1 div.group div.mt-3>p.leading-snug"));
 			int eachCategoryTotalProductsCount = allProducts.size();
+
+			List<WebElement> allProductsSellingPrice = driver.findElements(By.cssSelector(
+					"main.w-full.flex-1 div.group div.mt-3 div.mt-2.flex.items-baseline.gap-2>span:first-child"));
+			int allProductsSellingPriceCount = allProductsSellingPrice.size();
+
 			System.out.println(
 					"The total products in " + categoryName + " category is " + eachCategoryTotalProductsCount);
+
+			System.out.println("The total selling prices of all products in " + categoryName + " category is "
+					+ allProductsSellingPriceCount);
 
 			System.out.println("*************************************************************");
 			System.out.println("Products under " + categoryName + " are\n");
 			// loog though the count to print the names of all the products.
 			for (int i = 0; i < eachCategoryTotalProductsCount; i++) {
 				String eachProductName = allProducts.get(i).getText();
-				System.out.println(i + 1 + " - " + eachProductName);
+				String eachProductSellingPrice = allProductsSellingPrice.get(i).getText();
+				System.out.println(i + 1 + " - " + eachProductName + " selling price " + eachProductSellingPrice);
 				Thread.sleep(200);
 				System.out.println("____________________________________________________");
 			}
