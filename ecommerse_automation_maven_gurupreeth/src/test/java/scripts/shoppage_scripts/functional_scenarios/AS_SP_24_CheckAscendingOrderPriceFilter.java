@@ -14,15 +14,12 @@ import pom.ShopPage;
 public class AS_SP_24_CheckAscendingOrderPriceFilter extends OpenClose {
 
 	String containerButtonParent = "div.w-full.rounded-xl.space-y-6>div:nth-of-type(5)";
-
-	String defaultButton = "div.w-full.rounded-xl.space-y-6>div:nth-of-type(5)>div:last-child>button:nth-of-type(1)";
-
+	String defaultButton = "div.w-full.rounded-xl.space-y-6>div:nth-of-type(5)>div:last-child>button:nth-of-type(1) ";
 	String ascendingOrderButton = "div.w-full.rounded-xl.space-y-6>div:nth-of-type(5)>div:last-child>button:nth-of-type(2)";
 	String descendingOrderButton = "div.w-full.rounded-xl.space-y-6>div:nth-of-type(5)>div:last-child>button:nth-of-type(3)";
 	String newestOrderButton = "div.w-full.rounded-xl.space-y-6>div:nth-of-type(5)>div:last-child>button:nth-of-type(4)";
 	String oldestOrderButton = "div.w-full.rounded-xl.space-y-6>div:nth-of-type(5)>div:last-child>button:nth-of-type(5)";
 	String popularOrderButton = "div.w-full.rounded-xl.space-y-6>div:nth-of-type(5)>div:last-child>button:nth-of-type(6)";
-
 	String productPriceCss = "main.w-full.flex-1 div.group div.mt-3>div.mt-2.flex.items-baseline.gap-2>span:first-child";
 
 	@Test
@@ -61,7 +58,7 @@ public class AS_SP_24_CheckAscendingOrderPriceFilter extends OpenClose {
 
 		// verification.
 
-		int previousPrice = -1;
+		int previousPrice = -1; // 1 (40) , 0(40), -1(null)
 
 		System.out.println("--------------------------------------------------");
 		System.out.println("Verifying Ascending Order...");
@@ -73,7 +70,7 @@ public class AS_SP_24_CheckAscendingOrderPriceFilter extends OpenClose {
 			String cleanPrice = priceText.replaceAll("[^0-9]", "");
 			int currentPrice = Integer.parseInt(cleanPrice);
 
-			System.out.println("Current Price: " + currentPrice);
+			System.out.println("Current Price: " + currentPrice); // 40
 
 			if (previousPrice != -1 && currentPrice < previousPrice) {
 				System.out.println("❌ NOT in ascending order");

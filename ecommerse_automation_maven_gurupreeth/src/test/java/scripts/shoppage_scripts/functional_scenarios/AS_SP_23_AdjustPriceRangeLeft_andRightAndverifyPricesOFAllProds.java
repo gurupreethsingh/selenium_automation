@@ -127,7 +127,7 @@ public class AS_SP_23_AdjustPriceRangeLeft_andRightAndverifyPricesOFAllProds ext
 
 		for (WebElement eachPriceValue : allProductsPrices) {
 
-			String priceText = eachPriceValue.getText(); // ₹4,999
+			String priceText = eachPriceValue.getText(); // ₹4,999. 4999
 
 			// CLEAN THE FETCHED PRICE, replace the rupees symbol with null or empty
 			// string(dont give space in doulbe quotes")
