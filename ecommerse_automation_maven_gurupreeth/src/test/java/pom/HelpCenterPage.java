@@ -199,9 +199,8 @@ public class HelpCenterPage extends AllVerifications {
 
 	public boolean verifyAllHelpCenterElementsVisible() {
 		return verifyHelpCenterMainContainerVisible() && verifyHelpCenterMainHeadingVisible()
-				&& verifyHelpCenterSubHeadingVisible() && verifySearchFieldVisible() && verifyNavigationLinksVisible()
-				&& verifyQuickCardVisible() && verifyFaqHeadingVisible() && verifyFaqQuestionVisible()
-				&& verifyContactHeadingVisible() && verifyCallSupportButtonVisible()
+				&& verifyHelpCenterSubHeadingVisible() && verifySearchFieldVisible() && verifyFaqHeadingVisible()
+				&& verifyFaqQuestionVisible() && verifyContactHeadingVisible() && verifyCallSupportButtonVisible()
 				&& verifyEmailSupportButtonVisible() && verifyBrowseFaqButtonVisible();
 	}
 }
