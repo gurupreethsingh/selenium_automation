@@ -349,8 +349,16 @@ public class SingleProductPage extends AllVerifications {
 		return verifyText(sellingPrice, expectedText, "Selling Price", "contains", true);
 	}
 
+	public int verifySellingPriceNumber(int expectedSellingPrice) {
+		return getIntegerFromElementText(sellingPrice, "Selling price");
+	}
+
 	public boolean verifyDisplayPriceText(String expectedText) {
 		return verifyText(displayPrice, expectedText, "Display Price", "contains", true);
+	}
+
+	public int verifyDisplayPriceNumber(int expectedSellingPrice) {
+		return getIntegerFromElementText(displayPrice, "Display price");
 	}
 
 	public boolean verifyInclusiveTaxText(String expectedText) {
