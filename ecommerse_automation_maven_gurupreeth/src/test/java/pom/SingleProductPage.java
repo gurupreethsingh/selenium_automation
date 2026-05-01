@@ -138,8 +138,16 @@ public class SingleProductPage extends AllVerifications {
 	@FindBy(css = "div.space-y-5>div:nth-of-type(6)>button:first-child")
 	private WebElement addToCartButton;
 
+	public boolean clickOnAddToCartButton() {
+		return clickOnElement(addToCartButton, "Add To Cart Button");
+	}
+
 	@FindBy(css = "div.space-y-5>div:nth-of-type(6)>button:last-child")
 	private WebElement buyNowButton;
+
+	public boolean clickOnBuyNowButton() {
+		return clickOnElement(buyNowButton, "Buy Now Button");
+	}
 
 	// ============================================================
 	// ✅ DELIVERY / RETURNS SMALL CARDS
