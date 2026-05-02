@@ -23,6 +23,7 @@ public interface AutomationConstants {
 	String URL_BLOCKCHAIN = BASE_URL + "/blockchain";
 	String URL_WEB_APPS = BASE_URL + "/web-apps";
 	String URL_QA_AUTOMATION = BASE_URL + "/qa-automation";
+	String URL_CART = BASE_URL + "/cart";
 
 	String URL_LOGIN = BASE_URL + "/login";
 	String URL_REGISTER = BASE_URL + "/register";
