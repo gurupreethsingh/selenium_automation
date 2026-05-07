@@ -26,6 +26,161 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AllVerifications {
 
+	// ============================================================
+	// ✅ ALL FUNCTION SIGNATURES (RETURN TYPES ON RIGHT SIDE)
+	// ============================================================
+
+	// Constructor
+	// AllVerifications(WebDriver driver)
+
+	// Wait / Screenshot
+	// createWait(int seconds) : WebDriverWait
+	// captureFailure(String tag) : void
+	// captureFailure(String tag, Exception ex) : void
+
+	// Page / SPA Waits
+	// waitForDocumentReady(String pageName) : boolean
+	// getDomStabilitySnapshot() : String
+	// waitForSpaDomToSettle(String pageName) : boolean
+	// waitForPageToLoad(String expectedTitle, String expectedUrl, String pageName)
+	// : boolean
+	// verifyPageReloadAfterAction(Runnable action, String expectedTitle, String
+	// expectedUrl, String pageName) : boolean
+	// verifyPageReload(String expectedTitle, String expectedUrl, String pageName) :
+	// boolean
+
+	// Element Visibility
+	// verifyElementPresentAndVisible(WebElement element, String elementName) :
+	// boolean
+	// verifyElementPresentAndVisible(By locator, String elementName) : boolean
+	// verifyElementPresentVisibleAndEnabled(WebElement element, String elementName)
+	// : boolean
+
+	// Generic Waits
+	// waitUntilElementVisible(WebElement element, int timeoutSeconds, String
+	// elementName) : WebElement
+	// waitUntilElementVisible(By locator, int timeoutSeconds, String elementName) :
+	// WebElement
+	// waitUntilElementPresent(By locator, int timeoutSeconds, String elementName) :
+	// WebElement
+	// waitUntilElementInvisible(By locator, int timeoutSeconds, String elementName)
+	// : boolean
+	// isElementPresentInDOM(By locator) : boolean
+
+	// Click
+	// waitUntilElementClickable(WebElement element, int timeoutSeconds, String
+	// elementName) : WebElement
+	// clickOnElement(WebElement element, String elementName) : boolean
+	// clickOnElement(By locator, String elementName) : boolean
+
+	// Text
+	// getTextFromElement(WebElement element, String elementName) : String
+	// verifyText(WebElement element, String expectedText, String name, String
+	// matchType, boolean ignoreCase) : boolean
+
+	// Title & URL
+	// verifyTitleOfWebpage(String expectedTitle) : boolean
+	// verifyUrlOfWebpage(String expectedUrl) : boolean
+
+	// Scroll Helpers
+	// scrollElementToCenter(WebElement element) : void
+	// scrollToTopOfPage() : void
+	// scrollToBottomOfPage() : void
+	// scrollByPixels(int x, int y) : void
+	// scrollIntoViewStart(WebElement element) : void
+	// scrollIntoViewEnd(WebElement element) : void
+
+	// Element Helpers
+	// getCleanText(WebElement element) : String
+	// getElementDisplayName(WebElement element) : String
+
+	// Internal Utils
+	// normalizeVerificationText(String value) : String
+	// isValidRegex(String value) : boolean
+	// normalizeName(String preferredName, String fallbackName) : String
+	// safeTrim(String value) : String
+	// safeTitle() : String
+	// safeUrl() : String
+	// matchesExpectedText(String actualText, String expectedText) : boolean
+	// matchesExpectedUrl(String actualUrl, String expectedUrl) : boolean
+	// sleepSilently(long millis) : void
+	// readTextSafely(WebElement element) : String
+	// performRobustClick(WebElement element) : void
+	// isMacPlatform() : boolean
+	// getSelectAllModifierKey() : Keys
+
+	// Count Helpers
+	// waitForCountMatch(By locator, int expectedCount) : boolean
+	// waitForCountMatch(List<?> elements, int expectedCount) : boolean
+
+	// Print Helpers
+	// printTextOfAllElements(List<WebElement> elements, String elementName) :
+	// List<WebElement>
+	// printTextOfAllElementsUsingJavascript(String cssSelector, String elementName)
+	// : List<String>
+
+	// Count Verification
+	// verifyTotalElementsCount(int expectedCount, By locator) : boolean
+	// verifyTotalElementsCount(int expectedCount, List<?> elements) : boolean
+
+	// Dropdown
+	// verifyDropdownPresentAndVisible(WebElement dropdownContainer, String
+	// dropdownName) : boolean
+	// verifyDropdownHasOptions(List<WebElement> dropdownOptions, String
+	// dropdownName) : boolean
+	// fetchAndPrintAllDropdownOptions(WebElement dropdownContainer,
+	// List<WebElement> dropdownOptions, String dropdownName) : List<WebElement>
+	// verifyOptionExistsInDropdown(WebElement dropdownContainer, List<WebElement>
+	// dropdownOptions, String expectedOptionText, String dropdownName) : boolean
+	// fetchMatchingDropdownOption(WebElement dropdownContainer, List<WebElement>
+	// dropdownOptions, String expectedOptionText, String dropdownName) : WebElement
+	// fetchAndPrintDropdownOptionsWithClasses(WebElement dropdownContainer,
+	// List<WebElement> dropdownOptions, String dropdownName) : int
+	// handleAndPrintDropdownOptions(WebElement dropdownContainer, List<WebElement>
+	// dropdownOptions, String dropdownName, String expectedOptionText) : boolean
+
+	// List Search
+	// fetchMatchingElementByExactText(List<WebElement> elements, String
+	// expectedText, String elementName) : WebElement
+
+	// Element State
+	// verifyElementIsEnabled(WebElement element, String elementName) : boolean
+
+	// Input Field Functions
+	// verifyInputFieldPlaceholder(WebElement inputField, String
+	// expectedPlaceholder, String elementName) : boolean
+	// clearInputField(WebElement inputField, String elementName) : boolean
+	// enterValueIntoInputField(WebElement inputField, String valueToEnter, String
+	// elementName) : boolean
+	// typeInInputField(WebElement inputField, String valueToEnter, String
+	// elementName) : boolean
+	// clearAndEnterValueIntoInputField(WebElement inputField, String valueToEnter,
+	// String elementName) : boolean
+	// verifyInputFieldValue(WebElement inputField, String expectedValue, String
+	// elementName) : boolean
+
+	// Keyboard
+	// pressKeyInElement(WebElement element, Keys key, String elementName) : boolean
+
+	// Numeric Helpers
+	// getIntegerFromElementText(WebElement element, String elementName) : int
+	// getDoubleFromElementText(WebElement element, String elementName) : double
+
+	// Universal Input Handler
+	// handleInputField(WebElement inputField, String valueToEnter, String
+	// expectedPlaceholder, String elementName) : boolean
+
+	// Actions Class
+	// performActionsUsingActionsClass(String actionSequenceName, Object... steps) :
+	// boolean
+
+	// Alerts
+	// acceptAlert() : boolean
+	// dismissAlert() : boolean
+	// enterTextIntoPromptAndAccept(String textToEnter) : boolean
+
+	// ============================================================
+
 	protected final WebDriver driver;
 	protected final ScreenshotUtility su;
 
@@ -482,6 +637,50 @@ public class AllVerifications {
 		System.out.println("[ELEMENT VERIFY FAILED AFTER RETRIES] " + elementName);
 		captureFailure("ELEMENT VERIFY FAILED AFTER RETRIES -> " + elementName);
 		return false;
+	}
+
+	// ============================================================
+	// ✅ VERIFY ELEMENT PRESENT + VISIBLE + ENABLED
+	// ============================================================
+
+	public boolean verifyElementPresentVisibleAndEnabled(WebElement element, String elementName) {
+		try {
+			if (element == null) {
+				throw new IllegalArgumentException("Element is null");
+			}
+
+			String displayName = normalizeName(elementName, getElementDisplayName(element));
+
+			waitForDocumentReady(displayName);
+			scrollElementToCenter(element);
+
+			boolean visibleStatus = verifyElementPresentAndVisible(element, displayName);
+
+			if (!visibleStatus) {
+				System.out.println(
+						"[ELEMENT PRESENT VISIBLE ENABLED FAIL] Element is not present/visible: " + displayName);
+				captureFailure("ELEMENT PRESENT VISIBLE ENABLED FAIL -> NOT VISIBLE -> " + displayName);
+				return false;
+			}
+
+			scrollElementToCenter(element);
+
+			boolean enabledStatus = verifyElementIsEnabled(element, displayName);
+
+			if (!enabledStatus) {
+				System.out.println("[ELEMENT PRESENT VISIBLE ENABLED FAIL] Element is not enabled: " + displayName);
+				captureFailure("ELEMENT PRESENT VISIBLE ENABLED FAIL -> NOT ENABLED -> " + displayName);
+				return false;
+			}
+
+			System.out.println("[ELEMENT PRESENT VISIBLE ENABLED PASS] " + displayName);
+			return true;
+
+		} catch (Exception ex) {
+			System.out.println("[ELEMENT PRESENT VISIBLE ENABLED EXCEPTION] " + elementName + " | " + ex.getMessage());
+			captureFailure("ELEMENT PRESENT VISIBLE ENABLED EXCEPTION -> " + elementName, ex);
+			return false;
+		}
 	}
 
 	// ============================================================
@@ -2223,6 +2422,29 @@ public class AllVerifications {
 		} catch (Exception ex) {
 			System.out.println("[GET INTEGER FROM TEXT FAILED] " + elementName + " | " + ex.getMessage());
 			captureFailure("GET INTEGER FROM TEXT FAILED -> " + elementName, ex);
+			return 0;
+		}
+	}
+
+	public double getDoubleFromElementText(WebElement element, String elementName) {
+		try {
+			String actualText = getTextFromElement(element, elementName);
+			String numericValue = actualText.replaceAll("[^0-9.]", "").trim();
+
+			System.out.println("[GET INTEGER FROM TEXT]");
+			System.out.println("Element Name  : " + normalizeName(elementName, "ELEMENT"));
+			System.out.println("Actual Text   : " + actualText);
+			System.out.println("Numeric Text  : " + numericValue);
+
+			if (numericValue.isEmpty()) {
+				return 0;
+			}
+
+			return Double.parseDouble(numericValue);
+
+		} catch (Exception ex) {
+			System.out.println("[GET DOUBLE FROM TEXT FAILED] " + elementName + " | " + ex.getMessage());
+			captureFailure("GET DOUBLE FROM TEXT FAILED -> " + elementName, ex);
 			return 0;
 		}
 	}

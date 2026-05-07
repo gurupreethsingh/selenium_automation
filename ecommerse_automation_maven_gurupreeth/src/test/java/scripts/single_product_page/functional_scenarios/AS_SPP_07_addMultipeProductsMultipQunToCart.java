@@ -33,11 +33,11 @@ public class AS_SPP_07_addMultipeProductsMultipQunToCart extends OpenClose {
 		Random random = new Random();
 		int expectedTotalProductsCount = random.nextInt(5) + 1;
 
-		System.out.println("total products to be added to cart : " + expectedTotalProductsCount);
+		System.out.println("total products to be added to cart : " + expectedTotalProductsCount); // 1
 
 		double expectedGrandTotal = 0.0;
 
-		for (int x = 1; x <= expectedTotalProductsCount; x = x++) {
+		for (int x = 1; x <= expectedTotalProductsCount; x++) {
 			// find the product which you want to click
 
 			int i = random.nextInt(11) + 1;

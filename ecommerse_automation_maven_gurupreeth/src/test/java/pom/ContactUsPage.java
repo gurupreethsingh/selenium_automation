@@ -14,8 +14,6 @@ public class ContactUsPage extends AllVerifications {
 		PageFactory.initElements(driver, this);
 	}
 
-	// contact us parent container.
-
 	@FindBy(css = "div#root main div.flex.flex-col.gap-10")
 	private WebElement contactUsParentContainer;
 
@@ -43,7 +41,7 @@ public class ContactUsPage extends AllVerifications {
 	@FindBy(css = "div#root main div.flex.flex-col.gap-10 form input#phone")
 	private WebElement phoneField;
 
-	@FindBy(css = "div#root main div.flex.flex-col.gap-10 form input#message_text")
+	@FindBy(css = "div#root main div.flex.flex-col.gap-10 form textarea#message_text")
 	private WebElement messageField;
 
 	@FindBy(css = "div#root main div.flex.flex-col.gap-10 form input[type='checkbox']")
@@ -136,11 +134,15 @@ public class ContactUsPage extends AllVerifications {
 	}
 
 	public boolean verifyFirstNameFieldVisible() {
-		return verifyElementPresentAndVisible(firstNameField, "First Name Field");
+		return verifyElementPresentVisibleAndEnabled(firstNameField, "First Name Field");
 	}
 
 	public boolean verifyFirstNameFieldEnabled() {
 		return verifyElementIsEnabled(firstNameField, "First Name Field");
+	}
+
+	public boolean verifyFirstNameFieldVisibleAndEnabled() {
+		return verifyElementPresentVisibleAndEnabled(firstNameField, "First Name Field");
 	}
 
 	public boolean verifyFirstNameFieldPlaceholder(String expectedPlaceholder) {
@@ -148,47 +150,59 @@ public class ContactUsPage extends AllVerifications {
 	}
 
 	public boolean enterFirstName(String firstName) {
-		return clearAndEnterValueIntoInputField(firstNameField, firstName, "First Name Field");
+		return handleInputField(firstNameField, firstName, "First name", "First Name");
 	}
 
 	public boolean verifyLastNameFieldVisible() {
-		return verifyElementPresentAndVisible(lastNameField, "Last Name Field");
+		return verifyElementPresentVisibleAndEnabled(lastNameField, "Last Name");
 	}
 
 	public boolean verifyLastNameFieldEnabled() {
-		return verifyElementIsEnabled(lastNameField, "Last Name Field");
+		return verifyElementIsEnabled(lastNameField, "Last Name");
+	}
+
+	public boolean verifyLastNameFieldVisibleAndEnabled() {
+		return verifyElementPresentVisibleAndEnabled(lastNameField, "Last Name");
 	}
 
 	public boolean verifyLastNameFieldPlaceholder(String expectedPlaceholder) {
-		return verifyInputFieldPlaceholder(lastNameField, expectedPlaceholder, "Last Name Field");
+		return verifyInputFieldPlaceholder(lastNameField, expectedPlaceholder, "Last Name");
 	}
 
 	public boolean enterLastName(String lastName) {
-		return clearAndEnterValueIntoInputField(lastNameField, lastName, "Last Name Field");
+		return handleInputField(lastNameField, lastName, "Last name (optional)", "Last Name");
 	}
 
 	public boolean verifyEmailFieldVisible() {
-		return verifyElementPresentAndVisible(emailField, "Email Field");
+		return verifyElementPresentVisibleAndEnabled(emailField, "Email");
 	}
 
 	public boolean verifyEmailFieldEnabled() {
-		return verifyElementIsEnabled(emailField, "Email Field");
+		return verifyElementIsEnabled(emailField, "Email");
+	}
+
+	public boolean verifyEmailFieldVisibleAndEnabled() {
+		return verifyElementPresentVisibleAndEnabled(emailField, "Email");
 	}
 
 	public boolean verifyEmailFieldPlaceholder(String expectedPlaceholder) {
-		return verifyInputFieldPlaceholder(emailField, expectedPlaceholder, "Email Field");
+		return verifyInputFieldPlaceholder(emailField, expectedPlaceholder, "Email");
 	}
 
 	public boolean enterEmail(String email) {
-		return clearAndEnterValueIntoInputField(emailField, email, "Email Field");
+		return handleInputField(emailField, email, "you@example.com", "Email Field");
 	}
 
 	public boolean verifyPhoneFieldVisible() {
-		return verifyElementPresentAndVisible(phoneField, "Phone Field");
+		return verifyElementPresentVisibleAndEnabled(phoneField, "Phone Field");
 	}
 
 	public boolean verifyPhoneFieldEnabled() {
 		return verifyElementIsEnabled(phoneField, "Phone Field");
+	}
+
+	public boolean verifyPhoneFieldVisibleAndEnabled() {
+		return verifyElementPresentVisibleAndEnabled(phoneField, "Phone Field");
 	}
 
 	public boolean verifyPhoneFieldPlaceholder(String expectedPlaceholder) {
@@ -196,15 +210,19 @@ public class ContactUsPage extends AllVerifications {
 	}
 
 	public boolean enterPhoneNumber(String phoneNumber) {
-		return clearAndEnterValueIntoInputField(phoneField, phoneNumber, "Phone Field");
+		return handleInputField(phoneField, phoneNumber, "Your phone (optional)", "Phone Field");
 	}
 
 	public boolean verifyMessageFieldVisible() {
-		return verifyElementPresentAndVisible(messageField, "Message Field");
+		return verifyElementPresentVisibleAndEnabled(messageField, "Message Field");
 	}
 
 	public boolean verifyMessageFieldEnabled() {
 		return verifyElementIsEnabled(messageField, "Message Field");
+	}
+
+	public boolean verifyMessageFieldVisibleAndEnabled() {
+		return verifyElementPresentVisibleAndEnabled(messageField, "Message Field");
 	}
 
 	public boolean verifyMessageFieldPlaceholder(String expectedPlaceholder) {
@@ -212,19 +230,23 @@ public class ContactUsPage extends AllVerifications {
 	}
 
 	public boolean enterMessage(String message) {
-		return clearAndEnterValueIntoInputField(messageField, message, "Message Field");
+		return handleInputField(messageField, message, "How can we help?", "Message Field");
 	}
 
 	public boolean verifyAgreementCheckboxVisible() {
-		return verifyElementPresentAndVisible(checkbox, "Agreement Checkbox");
+		return verifyElementPresentVisibleAndEnabled(checkbox, "Agreement Checkbox");
 	}
 
 	public boolean verifyAgreementCheckboxEnabled() {
 		return verifyElementIsEnabled(checkbox, "Agreement Checkbox");
 	}
 
+	public boolean verifyAgreementCheckboxVisibleAndEnabled() {
+		return verifyElementPresentVisibleAndEnabled(checkbox, "Agreement Checkbox");
+	}
+
 	public boolean clickAgreementCheckbox() {
-		return clickOnElement(checkbox, "Agreement Checkbox");
+		return verifyAgreementCheckboxVisibleAndEnabled() && clickOnElement(checkbox, "Agreement Checkbox");
 	}
 
 	public boolean verifyAgreementTextVisible() {
@@ -236,11 +258,15 @@ public class ContactUsPage extends AllVerifications {
 	}
 
 	public boolean verifySubmitFormButtonVisible() {
-		return verifyElementPresentAndVisible(submitFormButton, "Submit Form Button");
+		return verifyElementPresentVisibleAndEnabled(submitFormButton, "Submit Form Button");
 	}
 
 	public boolean verifySubmitFormButtonEnabled() {
 		return verifyElementIsEnabled(submitFormButton, "Submit Form Button");
+	}
+
+	public boolean verifySubmitFormButtonVisibleAndEnabled() {
+		return verifyElementPresentVisibleAndEnabled(submitFormButton, "Submit Form Button");
 	}
 
 	public boolean verifySubmitFormButtonText(String expectedText) {
@@ -248,7 +274,7 @@ public class ContactUsPage extends AllVerifications {
 	}
 
 	public boolean clickSubmitFormButton() {
-		return clickOnElement(submitFormButton, "Submit Form Button");
+		return verifySubmitFormButtonVisibleAndEnabled() && clickOnElement(submitFormButton, "Submit Form Button");
 	}
 
 	public boolean fillContactUsForm(String firstName, String lastName, String email, String phoneNumber,
@@ -346,8 +372,27 @@ public class ContactUsPage extends AllVerifications {
 		return verifyElementPresentAndVisible(contactUsRightContainerMapFrame, "Contact Us Right Container Map Frame");
 	}
 
+	// verify all the text values in the contact us page.
+
+	public boolean verifyAllContactUsPageTextValues(String expectedMainHeading, String expectedSubHeading,
+			String expectedAgreementText, String expectedSubmitButtonText, String expectedEmailHeading,
+			String expectedEmailText, String expectedPhoneHeading, String expectedPhoneText,
+			String expectedAddressHeading, String expectedAddressText, String expectedRightContainerHeading) {
+
+		return verifyLeftContainerMainHeadingText(expectedMainHeading)
+				&& verifyLeftContainerSubHeadingText(expectedSubHeading) && verifyAgreementText(expectedAgreementText)
+				&& verifySubmitFormButtonText(expectedSubmitButtonText)
+				&& verifyContactInformationEmailHeadingText(expectedEmailHeading)
+				&& verifyContactInformationEmailText(expectedEmailText)
+				&& verifyContactInformationPhoneHeadingText(expectedPhoneHeading)
+				&& verifyContactInformationPhoneText(expectedPhoneText)
+				&& verifyContactInformationAddressHeadingText(expectedAddressHeading)
+				&& verifyContactInformationAddressText(expectedAddressText)
+				&& verifyContactUsRightContainerHeadingText(expectedRightContainerHeading);
+	}
+
 	// ============================================================
-	// ✅ FULL PAGE COMMON VERIFICATIONS
+	// ✅ FULL PAge elements are visible.
 	// ============================================================
 
 	public boolean verifyAllContactUsPageMainElementsVisible() {
@@ -363,9 +408,17 @@ public class ContactUsPage extends AllVerifications {
 				&& verifyContactUsRightContainerHeadingVisible() && verifyContactUsRightContainerMapFrameVisible();
 	}
 
+	// verify all the form elements are visible and enabled.
 	public boolean verifyAllContactUsFormFieldsEnabled() {
 		return verifyFirstNameFieldEnabled() && verifyLastNameFieldEnabled() && verifyEmailFieldEnabled()
 				&& verifyPhoneFieldEnabled() && verifyMessageFieldEnabled() && verifyAgreementCheckboxEnabled()
 				&& verifySubmitFormButtonEnabled();
+	}
+
+	public boolean verifyAllContactUsFormFieldsVisibleAndEnabled() {
+		return verifyFirstNameFieldVisibleAndEnabled() && verifyLastNameFieldVisibleAndEnabled()
+				&& verifyEmailFieldVisibleAndEnabled() && verifyPhoneFieldVisibleAndEnabled()
+				&& verifyMessageFieldVisibleAndEnabled() && verifyAgreementCheckboxVisibleAndEnabled()
+				&& verifySubmitFormButtonVisibleAndEnabled();
 	}
 }
