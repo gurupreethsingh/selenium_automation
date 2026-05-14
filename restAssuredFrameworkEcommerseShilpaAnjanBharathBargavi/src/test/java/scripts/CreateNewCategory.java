@@ -28,6 +28,10 @@ public class CreateNewCategory {
 		System.out.println("Super admin toaken : " + token);
 	}
 
+	// Verify user registration succeeds with valid details and returns 201 Created
+	// enter value category details and returns 201 created as response
+	// when the user enters correct category details the response expected from the
+	// api is 201 created.
 	@Test
 	public void testAddNewCategory() {
 		File categoryImage = new File(categoryImagePath);
